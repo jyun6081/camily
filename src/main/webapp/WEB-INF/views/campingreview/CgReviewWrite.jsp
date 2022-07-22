@@ -165,7 +165,7 @@ $(document).ready(function() {
 					
 					<div style="width: 100%; margin: auto;">
 							
-							<input type="text" name="cgrvtitle" style="width: 40%;" placeholder="제목" /> <br>
+							<input type="text" name="cgrvtitle" style="width: 40%; border-bottom: 1px solid; border-color: #ddd;" placeholder="제목" /> <br>
 							<textarea id="summernote" name="cgrvcontents"></textarea>
 							<br>
 							<input id="subBtn" type="button" class="btn btn-default pull-right" value="글 작성"

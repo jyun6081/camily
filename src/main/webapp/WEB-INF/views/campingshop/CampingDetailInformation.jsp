@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -122,7 +122,12 @@
 									 		<input type="hidden" value="${information.diname }"       name="diname">
 									 		<input type="hidden" value="${information.diimage }"      name="diimage">
 											</th>
-									     </tr>                                                                 
+									     </tr>  
+									     <c:if test="${fn:length(detailinformation) == 0}">
+									<tr class="table_row">
+										<th colspan="5" style="text-align: center;"> 예약내역이 존재하지 않습니다.</th>
+									</tr>
+								</c:if>                                                                
                                     </tbody>
                                 </table>
                             </div>
@@ -130,6 +135,7 @@
                         
                     </div>
                     </c:forEach>
+                       
 			          <%-- <c:forEach items="${detailinformation }" var="information">
 							<table class="table-shopping-cart">
 								<tr class="table_head">

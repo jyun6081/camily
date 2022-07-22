@@ -207,13 +207,14 @@
 					<div style="width: 100%; margin: auto;">
 						<form method="post" action="cgWrite2" id="myform">
 
-							<input type="text" name="gorvtitle" style="width: 40%;"
+							<input type="text" name="gorvtitle" style="width: 40%; border-bottom: 1px solid; border-color: #ddd;"
 								placeholder="제목" /> <br>
 							<textarea id="summernote" name="gorvcontents"></textarea>
 							<br> <input id="subBtn" type="button"
 								class="btn btn-default pull-right" value="글 작성"
 								style="float: right;" onclick="goWrite(this.form)" /> 
 								
+<<<<<<< HEAD
 									<span class="text-bold">별점을 선택해주세요</span> <br>
 								<fieldset>
 									<input type="radio" name="gorvstarating" value="5" id="rate1"><label
@@ -227,6 +228,9 @@
 									<input type="radio" name="gorvstarating" value="1" id="rate5"><label
 										for="rate5">★</label>
 								</fieldset>
+=======
+								 
+>>>>>>> main
 						</form>
 					</div>
 
