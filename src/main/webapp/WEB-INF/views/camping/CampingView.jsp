@@ -259,53 +259,53 @@
 										<div>
 											<!-- 캠핑장 문의 -->
 											<c:forEach items="${campingQuestionList}" var="campingQustionInfo">
-											</c:forEach>
-											<div class="p-b-68" id="campingQustionInfo">
-												<!-- 캠핑장 문의글 -->
-												<div>
-													<div class="flex-w flex-sb-m p-b-17">
-														<span class="mtext-107 cl2 p-r-20" id="questionId">
-															작성자
-														</span>
-														<span>
-															<button class="btn btn-success" onclick="modifyQuestion()">수정</button>
-															<button class="btn btn-danger">삭제</button>
-														</span>
+												<div class="p-b-68" id="${campingQustionInfo.cqcode}">
+													<!-- 캠핑장 문의글 -->
+													<div>
+														<form action="questionWrite" method="post" id="${campingQustionInfo.cqcode}_questionModify">
+															<div class="flex-w flex-sb-m">
+																<span class="mtext-107 cl2 p-r-20" id="questionId">
+																	${campingQustionInfo.cqmid}
+																</span>
+																<span id="${campingQustionInfo.cqcode}_qustionBtn">
+																	<button class="btn btn-success m-r-10" onclick="modifyQuestionForm('${campingQustionInfo.cqcode}')">수정</button><button class="btn btn-danger" onclick="deleteQuestion('${campingQustionInfo.cqcode}')">삭제</button>
+																</span>
+															</div>
+															<div class="p-b-17" style="font-size: 12px;">${campingQustionInfo.cqdate}</div>
+															<textarea class="stext-102 cl6" id="${campingQustionInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQustionInfo.cqcontents}</textarea>
+														</form>
 													</div>
-	
-													<textarea class="stext-102 cl6" id="questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">문의글 작성</textarea>
-												</div>
-												<!-- 답글 -->
-												<div class="flex-w flex-t">
-													<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-														<img src="${pageContext.request.contextPath}/resources/images/icons/logo-01.png" alt="Camily">
-													</div>
-		
-													<div class="size-207">
-														<div class="flex-w flex-sb-m p-b-17">
-															<span class="mtext-107 cl2 p-r-20">
-																Camily
-															</span>
+													<!-- 답글 -->
+													<div class="flex-w flex-t">
+														<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
+															<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
 														</div>
-		
-														<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;">문의하신 내용에 답변 드립니다.</textarea>
+														<div class="size-207">
+															<div class="flex-w flex-sb-m p-b-17">
+																<span class="mtext-107 cl2 p-r-20">
+																	Camily
+																</span>
+															</div>
+															<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;">문의하신 내용에 답변 드립니다.</textarea>
+														</div>
 													</div>
 												</div>
-											</div>
+											</c:forEach>
 										</div>
 										
 
 
 										<!-- 문의글 작성하기 -->
-										<form class="questionWrite">
-											<input type="hidden" value="${sessionScope.loginId}">
+										<form action="questionWrite" id="cqform">
+											<input type="hidden" id="cqmid" name="cqmid" value="${sessionScope.loginId}">
+											<input type="hidden" name="cqcacode" value="${campingInfo.cacode}">
 											<div class="row p-b-25">
 												<div class="col-12 p-b-5">
 													<label class="stext-102 cl3" for="review">문의글 작성</label>
 													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>
 												</div>
 											</div>
-											<button type="submit" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+											<button type="button" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="cqsubmit();">
 												작성
 											</button>
 										</form>
@@ -628,6 +628,49 @@
 	}
 </script>
 <script type="text/javascript">
-	
+	function cqsubmit(){
+		if($("#cqmid").val().length > 0){
+			$("#cqform").submit();
+		}else{
+			alert("로그인후 이용 바랍니다.");
+			memberLogin();
+		}
+	}
+
+	function modifyQuestionForm(cqcode){
+		console.log("수정 하기");
+		$("#"+cqcode+"_questionContents").removeAttr("readonly");
+		$("#"+cqcode+"_questionContents").addClass("size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10");
+		var output = "";
+		output += '<button class="btn btn-success m-r-10" onclick="modifyQuestion(\'' + cqcode + '\')">수정</button>';
+		output += '<button class="btn btn-danger" onclick="cancelQuestion(\'' + cqcode + '\')">취소</button>'
+		$("#"+cqcode+"_qustionBtn").html(output);
+		
+	}
+
+	function cancelQuestion(cqcode){
+		console.log("수정 취소");
+		$("#"+cqcode+"_questionContents").attr("readonly", "readonly");
+		$("#"+cqcode+"_questionContents").removeClass("size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10");
+		var output = "";
+		output += '<button class="btn btn-success m-r-10" onclick="modifyQuestionForm(\'' + cqcode + '\')">확인</button>';
+		output += '<button class="btn btn-danger" onclick="deleteQuestion(\'' + cqcode + '\')">삭제</button>';
+		$("#"+cqcode+"_qustionBtn").html(output);
+	}
+
+	function modifyQuestionForm(){
+		$("#"+cqcode+"_questionModify").submit();
+	}
+
+	function deleteQuestion(cqcode){
+
+	}
+</script>
+<script type="text/javascript">
+	var checkMsg = '${msg}';
+	console.log(checkMsg.length);
+	if (checkMsg.length > 0) {
+		alert(checkMsg);
+	}
 </script>
 </html>

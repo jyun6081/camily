@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.camily.dao.CampingDao;
 import com.camily.dto.CampingDto;
+import com.camily.dto.CampingQuestionDto;
 import com.camily.dto.CampingRoomDto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
@@ -105,10 +107,12 @@ public class CampingService {
 		System.out.println(campingInfo);
 		ArrayList<CampingRoomDto> campingRoomTypeList = cdao.campingRoomTypeList(cacode);
 		ArrayList<CampingRoomDto> campingRoomList = cdao.campingRoomList(cacode);
+		ArrayList<CampingQuestionDto> campingQuestionList = cdao.campingQuestionList(cacode);
 		System.out.println(campingRoomList);
 		mav.addObject("campingInfo", campingInfo);
 		mav.addObject("campingRoomList", campingRoomList);
 		mav.addObject("campingRoomTypeList", campingRoomTypeList);
+		mav.addObject("campingQuestionList", campingQuestionList);
 		mav.setViewName("camping/CampingView");
 		return mav;
 	}
@@ -312,6 +316,55 @@ public class CampingService {
 		String result = totalPrice+"";
 		System.out.println(result);
 		return result;
+	}
+
+	public ModelAndView questionWrite(String cqmid, String cqcacode, String cqcontents, RedirectAttributes ra) {
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("CampingService.questionWrite() 호출");
+		System.out.println("cqmid : " + cqmid);
+		System.out.println("cqcacode : " + cqcacode);
+		System.out.println("cqcontents : " + cqcontents);
+		/*
+		cqcontents.replace("\r\n", "<br>");
+		cqcontents.replace(" ", "&nbps;");
+		*/
+		
+		CampingQuestionDto CampingQustionInfo = new CampingQuestionDto();
+		
+		String maxCqcode = cdao.getMaxCqcode();
+		String cqCode = "";
+		if(maxCqcode == null) {
+			cqCode = "CQ0001";
+		}else {
+			int intMaxCqcode = Integer.parseInt(maxCqcode.substring(2)) + 1;
+			if(intMaxCqcode < 10) {
+				cqCode = "CQ000" + intMaxCqcode;
+			}else if(intMaxCqcode < 100){
+				cqCode = "CQ00" + intMaxCqcode;
+			}else if(intMaxCqcode <1000) {
+				cqCode = "CQ0" + intMaxCqcode;
+			}else if(intMaxCqcode < 10000){
+				cqCode = "CQ" + intMaxCqcode;
+			}else {
+				System.out.println("범위 초과");
+			}
+		}
+		CampingQustionInfo.setCqcode(cqCode);
+		CampingQustionInfo.setCqcacode(cqcacode);
+		CampingQustionInfo.setCqmid(cqmid);
+		CampingQustionInfo.setCqcontents(cqcontents);
+		
+		
+		int insertResult = cdao.questionWrite(CampingQustionInfo);
+		if(insertResult > 0) {
+			ra.addFlashAttribute("msg", "문의글이 등록되었습니다.");
+		}else {
+			ra.addFlashAttribute("msg", "문의글 등록에 실패하였습니다.");
+		}
+		mav.setViewName("redirect:/campingView?cacode="+cqcacode);
+		
+		return mav;
 	}
 
 	
