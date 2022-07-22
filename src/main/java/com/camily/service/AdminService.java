@@ -36,8 +36,8 @@ public class AdminService {
 	@Autowired
 	HttpServletRequest request;
 	
-	private String savePath = "C:\\Users\\doosu\\OneDrive\\바탕 화면\\camily2\\src\\main\\webapp\\resources\\caimageUpload";
-	private String bannerSavePath = "C:\\Users\\user\\Documents\\GitHub\\camping\\camily\\src\\main\\webapp\\resources\\bannerUpload";
+	private String savePath = "C:\\Users\\user\\Desktop\\git\\camily\\src\\main\\webapp\\resources\\caimageUpload";
+	private String bannerSavePath = "C:\\Users\\user\\Desktop\\git\\camily\\src\\main\\webapp\\resources\\bannerUpload";
 	
 	public ModelAndView adminMemberList(String page) {
 		System.out.println("AdminService.adminMemberList() 호출");

@@ -173,14 +173,14 @@
 								<!-- 가격 표시 -->
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
-										예약 가격
+										예약 가격!
 									</div>
 									<div class="size-204 respon6-next" id="totalPrice" style="font-size: 20px; font-weight: bold; text-align: end">0원</div>
 								</div>
 								<!-- 예약하기 버튼 -->
 								<div class="flex-w flex-r-m p-b-10" style="justify-content: center;">
 									<div class="size-204 flex-w flex-m respon6-next" style="justify-content: center;">
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" style="width: -webkit-fill-available;">예약하기</button>
+										<button class="flex-c-m stext-101 cl0 size-101 bg1 hov-btn1 p-lr-15 trans-04" style="border-radius: 10px;">예약하기</button>
 									</div>
 								</div>
 							</div>
