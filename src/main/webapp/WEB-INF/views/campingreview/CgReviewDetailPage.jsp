@@ -42,6 +42,9 @@
 #bobtn {
 	text-align: right;
 }
+.fa-star{
+    color:#f9ba48
+}
 </style>
 </head>
 <body class="animsition">
@@ -84,6 +87,32 @@
 							<p class="stext-116 cl4">
 								제품명 : ${CampingReview.recrname}
 							</p>
+							
+							<p class="mt-1"> 별점 : 
+								   <c:if test="${CampingReview.cgstarating == 1 }">
+								   <i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${CampingReview.cgstarating == 2 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${CampingReview.cgstarating == 3 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${CampingReview.cgstarating == 4 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${CampingReview.cgstarating == 5 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								</p>
+							
+							
+							
+							
+							
+							
+							
+							
 							<div>					
 							<p class="stext-115 p-b-26" style="color: black;">
 								${CampingReview.cgrvcontents }
