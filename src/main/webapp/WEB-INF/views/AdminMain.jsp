@@ -43,14 +43,14 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
-<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
 
 
 
 	<!-- TopBar-->
 	<%@ include file="/WEB-INF/views/includes/AdminTopBar.jsp"%>
 	<!-- End TopBar-->
-
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">
