@@ -81,6 +81,8 @@
 								<li><a href="adminCampingShop">캠핑용품관리</a></li>
 								<li><a href="AdminProductInsert">캠핑용품등록</a></li>
 								<li><a href="AdminCampingSendProduckt">캠핑용품배송관리</a></li>
+								<li><a href="AdminCampingCancel">캠핑용품취소관리</a></li>
+								<li><a href="AdminCampingCancelList">캠핑용품취소목록</a></li>
 							</ul>
 						</li>						
 						<li><a href="#">캠핑장 관리</a>

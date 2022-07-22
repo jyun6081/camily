@@ -82,7 +82,7 @@
 	<!-- EndmemberModal -->
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-35 p-b-85" action="totalpurchase" method="post">
+	<form class="bg0 p-t-35 p-b-85" action="totalpurchase" method="post" id="goobsform">
 			          <div class="section-reply-title">
 								<h5>장바구니🛒</h5><h6>구매하고싶은 상품 여러개를 장바구니에 넣어보세요!</h6>
 						</div>
@@ -118,8 +118,8 @@
 									 		<input type="hidden" value="${information.diaddr }" id="${information.dicode}2" name="diaddr">
 									 		<input type="hidden" value="${information.dicode }"       name="dicode">
 									 		<input type="hidden" value="${information.diamount }"     name="diamount">
-									 		<input type="hidden" value="${information.ditotalprice }" name="ditotalprice">
-									 		<input type="hidden" value="${information.diname }"       name="diname">
+									 		<input type="hidden" value="${information.ditotalprice }" name="ditotalprice" id="ditotal">
+									 		<input type="hidden" value="${information.diname }"       name="diname" id="diname">
 									 		<input type="hidden" value="${information.diimage }"      name="diimage">
 											</th>
 									     </tr>  
@@ -132,12 +132,22 @@
 							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" type="submit">주문하기</button>
 						</div>
                     </div>
+<<<<<<< HEAD
+                    </c:forEach>			        
+		                 
+    <!-- Load more --> 
+	<div class="flex-c-m flex-w w-full p-t-45" >
+		<button class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04" type="button" 
+		onclick="requestPay()">주문하기</button>
+	</div>	
+=======
                     </c:forEach>                    			       		          
 	                 <c:if test="${fn:length(detailinformation) == 0}">
 									<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
 								</c:if>     
 	<!-- Load more -->
 		
+>>>>>>> main
 	</form>
 	
     <!-- 주소확인 모달 시작 -->
@@ -417,9 +427,39 @@
 		 $("#addCheck").modal("hide");
 		 
 		
-	 }
+	 }	
+</script>
 	
-	</script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
+<!-- 이니시스 결제창 -->
+<script type="text/javascript">
+var IMP = window.IMP;
+IMP.init("imp10142481"); 
+function requestPay() {
+	var ditotal = $("#ditotal").val();
+	var diname = $("#diname").val();
+	
+	console.log("ditotal :"+ ditotal);
+	console.log("diname :"+ diname);
+	
+    // IMP.request_pay(param, callback) 결제창 호출
+    IMP.request_pay({ // param
+        pg: "html5_inicis",
+        pay_method: "card",
+        name: diname,
+        amount: ditotal
+    }, function (rsp) { // callback
+        if (rsp.success) {
+            alert("결제성공입니다.");
+            //$("#goobsform").submit();
+        } else {
+        	alert("결제실패입니다.");
+        	//$("#goobsform").submit();
+        }
+    });	
+}
+</script>
 	
 </html>
