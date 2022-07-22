@@ -99,6 +99,12 @@ public interface CampingShopDao {
     
 	// 구매확정 (UPDATE)
 	int phDecide(String gocode);
+    
+	// 주문 취소 (DELETE)
+	int PurchaseDelete(String gocode);
+    
+	// 취소요청 하기 STATE 6 관리자 기달리기 (UPDATE)
+	int cancelreasonput(@Param("gocode") String gocode, @Param("gocancel") String gocancel);
    
 
     

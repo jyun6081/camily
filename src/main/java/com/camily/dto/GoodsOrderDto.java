@@ -17,7 +17,7 @@ public class GoodsOrderDto {
 	private String gostate;   // 상품 상태
     private String godate;    // 주문 일자 o  
 	    
-    
+    private String gocancel;
     
 	public String getGodate() {
 		return godate;

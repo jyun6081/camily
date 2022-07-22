@@ -196,11 +196,11 @@ public class CampingShopController {
 	
 	// 주문취소 
 	@RequestMapping(value="/PurchaseDelete")
-	public ModelAndView PurchaseDelete(String gocode) {
+	public ModelAndView PurchaseDelete(RedirectAttributes ra, String gocode) {
 		System.out.println("gocode :"+ gocode);
 			
 		// 주문취소 서비스 이동
-		ModelAndView mav = csvc.PurchaseDelete(gocode);
+		ModelAndView mav = csvc.PurchaseDelete(ra,gocode);
 					
 		return mav;
 		}
@@ -209,11 +209,26 @@ public class CampingShopController {
 	@RequestMapping(value="/phDecide")
     public ModelAndView phDecide(RedirectAttributes ra, String gocode) {
 		System.out.println("gocode :"+ gocode);
+		
 		// 구매확정 STATE = 5 서비스이동
 	    ModelAndView mav = csvc.phDecide(ra,gocode);
 							
 	    return mav;
 		}
+     
+	// 취소요청
+	@RequestMapping(value="/cancelreasonput")
+	public ModelAndView cancelreasonput(RedirectAttributes ra, String gocode, String gocancel) {
+		System.out.println("gocode :"+ gocode);
+		System.out.println("gocancel :"+ gocancel);
 		
+		// 취소요청 하기 STATE 6 관리자 기달리기
+	    ModelAndView mav = csvc.cancelreasonput(ra,gocode,gocancel);
+		
+		return mav; 
 	}
+	
+	}
+
+  
 

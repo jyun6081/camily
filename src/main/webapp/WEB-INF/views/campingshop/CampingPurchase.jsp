@@ -68,7 +68,7 @@
 	<!-- breadcrumb 끝-->
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85" action="goodsPurchase" method="post">
+	<form class="bg0 p-t-75 p-b-85" action="goodsPurchase" method="post" id="goodsform">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -212,11 +212,10 @@
 									<td class="column-1">${sessionScope.loginId }</td>
 									<td class="column-2"><input value="${addselect.maddr }" readonly="readonly" id="newadd" class="size-209 p-r-18 p-r-0-sm w-full-ssm"></td>
 									<td class="column-3">
-									<button type="submit" class="cl0 size-100 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">결제하기</button>
 									<button type="button"
 									 onclick="requestPay('${campingpurchase.gcode}','${campingpurchase.gname }',${totalPrice},
 									'${addselect.memail }','${addselect.mname }','${addselect.mtel }','${addselect.maddr }')"
-									class="cl0 size-100 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">결제하기(API)</button>
+									class="cl0 size-100 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">결제하기</button>
 									<input type="hidden" name="loginId" value="${sessionScope.loginId }">
 									<input type="hidden" name="addr" id="newdd" value="${addselect.maddr }">
 									<input type="hidden" name="gogcode" value="${campingpurchase.gcode }">
@@ -486,8 +485,10 @@ function requestPay(gcode,gname,total,memail,mname,mtel,maddr) {
     }, function (rsp) { // callback
         if (rsp.success) {
             alert("결제성공입니다.!!")
+            //$("#goodsform").submit();
         } else {
         	alert("결제실패입니다.!!")
+        	$("#goodsform").submit();
         }
     });/* function (rsp) { // callback
         if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우

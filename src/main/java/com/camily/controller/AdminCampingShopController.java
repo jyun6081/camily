@@ -111,4 +111,46 @@ public class AdminCampingShopController {
 		
 		return sendtake;
 	}
+	
+	// 관리자 캠핑 용품 취소관리 페이지 이동요청
+	@RequestMapping(value="AdminCampingCancel")
+	public ModelAndView AdminCampingCancel() {
+		
+		// 관리자 캠핑 용품 취소관리 페이지 
+		ModelAndView mav = acsvc.AdminCampingCancel();
+		
+		return mav;
+	}
+	
+	// 관리자 취소승인 ajax
+	@RequestMapping(value="/cancelOk")
+	public @ResponseBody String cancelOk(String gocode) {
+	    System.out.println("gocode :"+ gocode);
+		
+		// 관리자 캠핑 용품 취소승인 서비스 이동
+		String cancelOk = acsvc.cancelOk(gocode);
+		
+		return cancelOk;
+	}
+	
+	// 관리자 취소거절 ajax
+	@RequestMapping(value="/cancelNo")
+	public @ResponseBody String cancelNo(String gocode) {
+	    System.out.println("gocode :"+ gocode);
+		
+		// 관리자 캠핑 용품 취소거절 서비스 이동
+		String cancelNo = acsvc.cancelNo(gocode);
+		
+		return cancelNo;
+	}
+	
+	// 관리자 취소목록 
+	@RequestMapping(value="/AdminCampingCancelList")
+	public ModelAndView AdminCampingCancelList() {
+		
+		// 관리자 취소목록
+		ModelAndView mav = acsvc.AdminCampingCancelList();
+				
+		return mav;
+	}
 }
