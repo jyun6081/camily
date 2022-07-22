@@ -150,7 +150,9 @@ $(document).ready(function() {
 					<div style="width: 100%; margin: auto;">
 						<form method="post" action="write2">
 							
-							<input type="text" name="botitle" style="width: 40%; boarder:1px solid black;" placeholder="제목" /> <br>
+							<input type="text" name="botitle" style="width: 40%;
+    border-bottom: 1px solid;
+    border-color: #ddd;" placeholder="제목" /> <br>
 							
 							<textarea id="summernote" name="bocontents"></textarea>
 							<br>
@@ -160,10 +162,10 @@ $(document).ready(function() {
 					</div>
 
 
-					<div class="p-r-45 p-r-0-lg">
-						<!-- item blog -->
+					<!-- <div class="p-r-45 p-r-0-lg">
+						item blog
 						<div class="p-b-63"></div>
-					</div>
+					</div> -->
 				</div>
 
 			</div>
