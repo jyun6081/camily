@@ -6,7 +6,8 @@
 <mapper namespace="com.camily.dao.AdminDao">
 
 	<select id="getMemberList" resultType="com.camily.dto.MemberDto">
-		SELECT * 
+		SELECT MID, MPW, MNAME, MTEL, MEMAIL, TO_CHAR(MBIRTH,'YYYY-MM-DD') AS MBIRTH,
+			   MADDR, MSTATE
 		FROM (SELECT ROWNUM RN, MEMBERS.* FROM MEMBERS ORDER BY MNAME) 
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>

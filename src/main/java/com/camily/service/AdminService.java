@@ -48,7 +48,7 @@ public class AdminService {
         
 		int memberTotalCount = addao.getMemberTotalCount();
 		
-		int pageCount = 5;
+		int pageCount = 10;
 		int pageNumCount = 5;
 		int startRow = 1 + (selPage - 1) * pageCount;
 		int endRow = selPage * pageCount;
