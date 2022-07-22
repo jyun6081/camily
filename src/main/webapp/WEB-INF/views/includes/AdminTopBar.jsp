@@ -74,7 +74,7 @@
 				<div class="menu-desktop">
 					<ul class="main-menu">
 						<li><a href="adminMemberList">회원관리</a></li>
-						<li><a href="#">게시판 관리</a></li>
+						<li><a href="adminboardList">게시판 관리</a></li>
 						<li>
 						<a href="#">캠핑용품관리</a>
 						    <ul class="sub-menu" style="z-index: 1100">

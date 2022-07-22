@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.camily.dao.AdminDao;
 import com.camily.dao.MemberDao;
 import com.camily.dto.BannerDto;
+import com.camily.dto.BoardDto;
 import com.camily.dto.CampingDto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
@@ -352,6 +353,51 @@ public class AdminService {
 			ra.addFlashAttribute("msg", "배너 삭제에 실패하였습니다.");
 		}
 		mav.setViewName("redirect:/admin");
+		return mav;
+	}
+	
+	// 관리자 게시판 리스트
+	public ModelAndView adminboardList(String page) {
+		System.out.println("AdminService.adminboardList");
+		
+		int selPage = 1;
+		if(page != null) {
+			selPage = Integer.parseInt(page);
+		}
+        
+		int boardTotalCount = addao.getBoardTotalCount();
+		
+		int pageCount = 10;
+		int pageNumCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > boardTotalCount) {
+			endRow = boardTotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		ArrayList<BoardDto> adminboardList = addao.getAdminBoardList(startRow, endRow);
+		int maxPage = (int)( Math.ceil(  (double)boardTotalCount/pageCount  ) );
+		
+		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
+		
+		int endPage = startPage + pageNumCount - 1;
+		
+		if( endPage > maxPage ) {
+			endPage = maxPage;
+		}
+		PageDto pageDto = new PageDto();
+		pageDto.setPage(selPage);
+		pageDto.setMaxPage(maxPage);
+		pageDto.setStartPage(startPage);
+		pageDto.setEndPage(endPage);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("adminboardList", adminboardList);
+		mav.addObject("pageDto", pageDto);
+		mav.setViewName("admin/AdminBoardList");
+		
 		return mav;
 	}
 
