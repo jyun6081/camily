@@ -173,7 +173,7 @@
 								<!-- 가격 표시 -->
 								<div class="flex-w flex-r-m p-b-10">
 									<div class="size-203 flex-c-m respon6">
-										예약 가격
+										예약 가격!
 									</div>
 									<div class="size-204 respon6-next" id="totalPrice" style="font-size: 20px; font-weight: bold; text-align: end">0원</div>
 								</div>
