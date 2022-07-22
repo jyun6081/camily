@@ -123,69 +123,21 @@
 									 		<input type="hidden" value="${information.diimage }"      name="diimage">
 											</th>
 									     </tr>  
-									     <c:if test="${fn:length(detailinformation) == 0}">
-									<tr class="table_row">
-										<th colspan="5" style="text-align: center;"> 예약내역이 존재하지 않습니다.</th>
-									</tr>
-								</c:if>                                                                
+									                                                                
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        
+                        <div class="flex-c-m flex-w w-full p-t-45" >
+							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" type="submit">주문하기</button>
+						</div>
                     </div>
-                    </c:forEach>
-                       
-			          <%-- <c:forEach items="${detailinformation }" var="information">
-							<table class="table-shopping-cart">
-								<tr class="table_head">
-									<th class="column-1">상품정보</th>
-									<th class="column-2"></th>
-									<th class="column-3">상품가격</th>
-									<th class="column-4">상품수량</th>
-									<th class="column-5">총금액</th>
-									<th class="column-6">주문주소 
-									<button type="button" class="cl0 size-60 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" 
-									onclick="addCheck('${information.dicode}')">주소변경</button>
-									</th>
-									<th class="column-7"></th>
-								</tr>
-								<tr class="table_row">								
-									<td class="column-1">
-										<div class="how-itemcart1">
-											<img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${information.diimage }" alt="IMG">
-										</div>
-									</td>
-									<td class="column-2">${information.diname }</td>
-									<td class="column-3" >${information.diprice }</td>
-									<td class="column-4" >${information.diamount }</td>
-									<td class="column-5" >${information.ditotalprice }</td>
-									<td class="column-6">		
-										<div style="white-space: nowrap" class="size-209 p-r-18 p-r-0-sm w-full-ssm" id="${information.dicode}1">${information.diaddr }</div>
-									</td>
-									<th class="column-7">
-									<a href="deletepoket?dicode=${information.dicode }" class="flex-c-m stext-20 cl5 size-20 bg2 bor1 hov-btn1 p-lr-15 trans-04">삭제하기</a>
-									</th>								
-									<th>
-									 <input type="hidden" value="${sessionScope.loginId }"     name="dimid">
-									 <input type="hidden" value="${information.diaddr }" id="${information.dicode}2" name="diaddr">
-									 <input type="hidden" value="${information.dicode }"       name="dicode">
-									 <input type="hidden" value="${information.diamount }"     name="diamount">
-									 <input type="hidden" value="${information.ditotalprice }" name="ditotalprice">
-									 <input type="hidden" value="${information.diname }"       name="diname">
-									 <input type="hidden" value="${information.diimage }"      name="diimage">
-									</th>
-								 </tr>
-							</table>
-						   </c:forEach> --%>
-			          
-		                
-		                 
-		                 
+                    </c:forEach>                    			       		          
+	                 <c:if test="${fn:length(detailinformation) == 0}">
+									<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
+								</c:if>     
 	<!-- Load more -->
-	<div class="flex-c-m flex-w w-full p-t-45" >
-		<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" type="submit">주문하기</button>
-	</div>	
+		
 	</form>
 	
     <!-- 주소확인 모달 시작 -->

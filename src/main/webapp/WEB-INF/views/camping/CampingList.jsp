@@ -7,7 +7,7 @@
 <html lang="en">
 
 <head>
-	<title>Home</title>
+	<title>캠핑장</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
@@ -63,7 +63,7 @@
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" onclick="campingList(null)">
-						All Products
+						모든 캠핑장
 					</button>
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" onclick="campingList('glamping')">
