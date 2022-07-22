@@ -137,14 +137,14 @@
 								    
 								    <c:if test="${Purchase.gostate == 4 }">
 									  <p>배송완료</p>
-									 	<button style="margin-top: 100px" type="button" onclick="phDecide('${Purchase.gocode}')"
+									 	<button type="button" onclick="phDecide('${Purchase.gocode}')"
 									    class="btn btn-dark">구매확정</button>															  															    
 								    </c:if>
 								     
 								    <c:if test="${Purchase.gostate == 5 }">
 									  <p>구매완료</p>								    
 									     <a href="cgWrite?image=${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }&gogcode=${Purchase.gogcode}&gocode=${Purchase.gocode }"
-									     class="btn btn-dark">후기</a>	
+									     class="btn btn-dark">후기작성</a>	
 								    </c:if>
 								     
 								    <c:if test="${Purchase.gostate == 6 }">
@@ -177,10 +177,10 @@
 				<div class="flex-c-m flex-w w-full p-t-45" style="margin-top: auto; margin-right: auto;">
 					<c:choose>
 						<c:when test="${pageDto.page <= 1}">
-							<span>[이전]</span>
+							<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span>
 						</c:when>
 						<c:otherwise>
-							<span><a href="CampingPurchaseListPage?page=${pageDto.page - 1}">[이전]</a></span>
+							<span><a href="CampingPurchaseListPage?page=${pageDto.page - 1}"><span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span></a></span>
 						</c:otherwise>
 					</c:choose>
 					<c:forEach begin="${pageDto.startPage }" end="${pageDto.endPage }" var="num" step="1">
@@ -195,10 +195,10 @@
 					</c:forEach>
 					<c:choose>
 						<c:when test="${pageDto.page > pageDto.endPage || pageDto.page == pageDto.maxPage}">
-							<span>[다음]</span>
+							<span><a class="flex-c-m how-pagination1 trans-04 m-all-7" style="cursor: pointer;" href="CampingPurchaseListPage?page=${pageDto.page + 1}"><i class="fa-solid fa-angle-right"></i></a></span>
 						</c:when>
 						<c:otherwise>
-							<span><a href="CampingPurchaseListPage?page=${pageDto.page + 1}">[다음]</a></span>
+							<span><a class="flex-c-m how-pagination1 trans-04 m-all-7" style="cursor: pointer;" href="CampingPurchaseListPage?page=${pageDto.page + 1}"><i class="fa-solid fa-angle-right"></i></a></span>
 						</c:otherwise>
 					</c:choose>
 				</div>
