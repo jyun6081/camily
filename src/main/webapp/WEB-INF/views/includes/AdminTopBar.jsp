@@ -74,7 +74,7 @@
 				<div class="menu-desktop">
 					<ul class="main-menu">
 						<li><a href="adminMemberList">회원관리</a></li>
-						<li><a href="#">게시판 관리</a></li>
+						<li><a href="adminboardList">게시판 관리</a></li>
 						<li>
 						<a href="#">캠핑용품관리</a>
 						    <ul class="sub-menu" style="z-index: 1100">
@@ -86,7 +86,7 @@
 							</ul>
 						</li>						
 						<li><a href="#">캠핑장 관리</a>
-						     <ul class="sub-menu">
+						     <ul class="sub-menu" style="z-index: 1100">
 								<li><a href="adminCamping">캠핑장 목록</a></li>
 								<li><a href="adminCampingInsertPage">캠핑장 등록</a></li>
 							</ul>

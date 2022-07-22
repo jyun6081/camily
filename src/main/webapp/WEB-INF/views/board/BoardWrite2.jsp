@@ -154,6 +154,31 @@
 	background: #6E6E6E;
 	content: "";
 }
+#myform fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+}
+#myform fieldset legend{
+    text-align: right;
+}
+#myform input[type=radio]{
+    display: none;
+}
+#myform label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+#myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
 </style>
 
 </head>
@@ -180,24 +205,29 @@
 								<h5>후기 작성</h5><h6>캠핑&용품 후기작성 페이지입니다.</h6>
 						</div> 
 					<div style="width: 100%; margin: auto;">
-						<form method="post" action="cgWrite2">
+						<form method="post" action="cgWrite2" id="myform">
 
-							<input type="text" name="gorvtitle" style="width: 40%;"
+							<input type="text" name="gorvtitle" style="width: 40%; border-bottom: 1px solid; border-color: #ddd;"
 								placeholder="제목" /> <br>
 							<textarea id="summernote" name="gorvcontents"></textarea>
 							<br> <input id="subBtn" type="button"
 								class="btn btn-default pull-right" value="글 작성"
 								style="float: right;" onclick="goWrite(this.form)" /> 
 								
-								별점 : <span
-								class="wrap-rating fs-18 cl11 pointer"> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <input
-								class="dis-none" type="number" name="rating">
-							</span>
+									<span class="text-bold">별점을 선택해주세요</span> <br>
+								<fieldset>
+									<input type="radio" name="gorvstarating" value="5" id="rate1"><label
+										for="rate1">★</label>
+									<input type="radio" name="gorvstarating" value="4" id="rate2"><label
+										for="rate2">★</label>
+									<input type="radio" name="gorvstarating" value="3" id="rate3"><label
+										for="rate3">★</label>
+									<input type="radio" name="gorvstarating" value="2" id="rate4"><label
+										for="rate4">★</label>
+									<input type="radio" name="gorvstarating" value="1" id="rate5"><label
+										for="rate5">★</label>
+								</fieldset>
+
 						</form>
 					</div>
 

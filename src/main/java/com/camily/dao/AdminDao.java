@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.camily.dto.BannerDto;
+import com.camily.dto.BoardDto;
 import com.camily.dto.CampingDto;
 import com.camily.dto.MemberDto;
 
@@ -51,6 +52,12 @@ public interface AdminDao {
 	
 	@Delete("DELETE FROM BANNER WHERE BNCODE = #{bncode}")
 	int bannerDelete(BannerDto bannerInfo);
+
+	ArrayList<BoardDto> getAdminBoardList(@Param("startRow") int startRow, @Param("endRow") int endRow);
+	
+	int getBoardTotalCount();
+
+
 	
 
 }

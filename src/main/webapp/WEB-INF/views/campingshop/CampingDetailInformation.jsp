@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -122,13 +122,17 @@
 									 		<input type="hidden" value="${information.diname }"       name="diname" id="diname">
 									 		<input type="hidden" value="${information.diimage }"      name="diimage">
 											</th>
-									     </tr>                                                                 
+									     </tr>  
+									                                                                
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        
+                        <div class="flex-c-m flex-w w-full p-t-45" >
+							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" type="submit">주문하기</button>
+						</div>
                     </div>
+<<<<<<< HEAD
                     </c:forEach>			        
 		                 
     <!-- Load more --> 
@@ -136,6 +140,14 @@
 		<button class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04" type="button" 
 		onclick="requestPay()">주문하기</button>
 	</div>	
+=======
+                    </c:forEach>                    			       		          
+	                 <c:if test="${fn:length(detailinformation) == 0}">
+									<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
+								</c:if>     
+	<!-- Load more -->
+		
+>>>>>>> main
 	</form>
 	
     <!-- 주소확인 모달 시작 -->

@@ -155,6 +155,12 @@
 								</div>
 									</div>
                                  <div class="row"> 
+                                 	<div class="col-6">
+									<button style="border-radius: 10px;" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								        구매하기
+									</button>
+                                    </div>
+                                 
                                     <div class="col-6">
                                     <button type="button"  style="border-radius: 10px;" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" 
                                             onclick="shoppingbasket('${campingDetail.gcode }','${campingDetail.gname }','${campingDetail.gimage }',
@@ -162,11 +168,7 @@
 								        장바구니
 								    </button>									
                                     </div>
-                                    <div class="col-6">
-									<button style="border-radius: 10px;" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-								        구매하기
-									</button>
-                                    </div>
+                                    
 								</div>	
 						</div>
 					 </form>
@@ -175,7 +177,7 @@
 			</div>
 
 
-			<div class="bor10 m-t-50 p-t-43 p-b-40">
+			<div class="bor10 m-t-50 p-t-43 p-b-40 text-center">
 			<img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${campingDetail.gdetailimage }" alt="" >
 			</div>
 
@@ -185,9 +187,9 @@
 	
 	
 			<!-- Load more -->
-			<div class="flex-c-m flex-w w-full p-t-45">
-				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-					위로가기(◦'⌣'◦)
+			<div class="flex-c-m flex-w w-full p-t-45 p-b-30">
+				<a href="campingShopPage" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04 ">
+					목록으로
 				</a>
 			</div>
 

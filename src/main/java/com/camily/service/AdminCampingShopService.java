@@ -61,7 +61,7 @@ public class AdminCampingShopService {
 	}
 	
 	//2. 저장경로 설정
-	private String savePath ="D:\\camily\\src\\main\\webapp\\resources\\campingShopfileUpLoad";		
+	private String savePath ="C:\\Users\\user\\Desktop\\git\\camily\\src\\main\\webapp\\resources\\campingShopfileUpLoad";		
 	
 	// 관리자 캠핑 용품 수정
 	public ModelAndView modifyUpdate(RedirectAttributes ra, GoodsDto goods) throws IllegalStateException, IOException {
