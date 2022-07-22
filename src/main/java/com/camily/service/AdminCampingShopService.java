@@ -272,9 +272,70 @@ public class AdminCampingShopService {
 		String sendNum = "";
 		if(sendtake > 0) {
 			sendNum = gocode;
-		}
+		}	
 		return sendNum;
 	}
+    
+	// 관리자 캠핑 용품 취소관리 페이지 
+	public ModelAndView AdminCampingCancel() {
+		System.out.println("AdminCampingShopService.AdminCampingCancel()호출");
+	    ModelAndView mav = new ModelAndView();
+	    
+	    // 관리자 캠핑 용품 취소관리 페이지 
+	    ArrayList<GoodsOrderDto> AdminCampingCancel = acdao.AdminCampingCancel();
+	    System.out.println("AdminCampingCancel :"+ AdminCampingCancel);
+	    
+	    mav.addObject("AdminCampingCancel", AdminCampingCancel);
+		mav.setViewName("admin/AdminCampingCancel");
+	    
+		return mav;
+	}
+    
+	// 관리자 취소승인 ajax
+	public String cancelOk(String gocode) {
+		System.out.println("AdminCampingShopService.cancelOk()호출");
+		
+		    // 관리자 취소승인으로 변경 dao 호출
+			int cancelOk = acdao.cancelOk(gocode);
+			System.out.println("cancelOk :"+ cancelOk);
+				
+			String cancelOkNum = "";
+			if(cancelOk > 0) {
+			  cancelOkNum = gocode;
+			}	
+		return cancelOkNum;
+	}
+
+	// 관리자 취소거절 ajax
+	public String cancelNo(String gocode) {
+		System.out.println("AdminCampingShopService.cancelNo()호출");
+		
+		    // 관리자 취소승인으로 변경 dao 호출
+			int cancelNo = acdao.cancelNo(gocode);
+			System.out.println("cancelNo :"+ cancelNo);
+				
+			String cancelNoNum = "";
+			if(cancelNo > 0) {
+				cancelNoNum = gocode;
+			}	
+		return cancelNoNum;
+	}
+    
+	// 관리자 취소목록 
+	public ModelAndView AdminCampingCancelList() {
+		System.out.println("AdminCampingShopService.AdminCampingCancel()호출");
+	    ModelAndView mav = new ModelAndView();
+	    
+	    // 관리자 취소목록 페이지 
+	    ArrayList<GoodsOrderDto> AdminCampingCancelList = acdao.AdminCampingCancelList();
+	    System.out.println("AdminCampingCancelList :"+ AdminCampingCancelList);
+	    
+	    mav.addObject("AdminCampingCancelList", AdminCampingCancelList);
+		mav.setViewName("admin/AdminCampingCancelList");
+	    
+		return mav;
+	}
+
 
 	
 	

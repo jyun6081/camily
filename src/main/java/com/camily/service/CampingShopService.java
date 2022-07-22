@@ -202,7 +202,7 @@ public class CampingShopService {
 			int campTotalCount = cdao.getCampTotalCount2();
 			
 			int pageCount = 3; // 보여줄 개수
-			int pageNumCount = 5; // 밑에 페이지 개수
+			int pageNumCount = 3; // 밑에 페이지 개수
 			int startRow = 1 + (selPage - 1) * pageCount;
 			int endRow = selPage * pageCount;
 			if (endRow > campTotalCount) {
@@ -411,7 +411,7 @@ public class CampingShopService {
 			}
 		}
 		ra.addFlashAttribute("msg", count + "건 결제가 완료 되었습니다.");
-		mav.setViewName("redirect:/campingShopPage");
+		mav.setViewName("redirect:/CampingPurchaseListPage");
 		
 		return mav;
 	}
@@ -438,20 +438,31 @@ public class CampingShopService {
 		
 		// 구매목록 삭제하기 dao 호출  
 		int deleteph = cdao.deleteph(gocode,gostate);
-		
-		ra.addFlashAttribute("msg", "목록을 삭제했습니다.");
-		mav.setViewName("redirect:/CampingPurchaseListPage");
+		if(deleteph != 0) {
+			ra.addFlashAttribute("msg", "목록을 삭제했습니다.");
+			mav.setViewName("redirect:/CampingPurchaseListPage");			
+		} else {
+			ra.addFlashAttribute("msg", "삭제실패");
+			mav.setViewName("redirect:/CampingPurchaseListPage");
+		}
 		
 		return mav;
 	}
 
 	 // 주문취소 
-	public ModelAndView PurchaseDelete(String gocode) {
+	public ModelAndView PurchaseDelete(RedirectAttributes ra, String gocode) {
 		System.out.println("CampingShopService.PurchaseDelete() 호출");
 		ModelAndView mav = new ModelAndView();
 			
 		// 주문취소 dao 호출
-	    	  		
+	    int PurchaseDelete = cdao.PurchaseDelete(gocode);	
+		if(PurchaseDelete != 0) {
+			ra.addFlashAttribute("msg", "주문을 취소하였습니다.");
+			mav.setViewName("redirect:/CampingPurchaseListPage");
+		} else {
+			ra.addFlashAttribute("msg", "주문을 취소 실패");
+			mav.setViewName("redirect:/CampingPurchaseListPage");
+		}    
 		return mav;
 	}
     
@@ -467,6 +478,21 @@ public class CampingShopService {
 	    ra.addFlashAttribute("msg", "구매확정하였습니다.");
 		mav.setViewName("redirect:/CampingPurchaseListPage");
 	    
+		return mav;
+	}
+	
+	// 취소요청
+	public ModelAndView cancelreasonput(RedirectAttributes ra, String gocode, String gocancel) {
+		System.out.println("CampingShopService.phDecide() 호출");
+		ModelAndView mav = new ModelAndView();
+		
+		// 취소요청 하기 STATE 6 관리자 기달리기
+	    int cancelreasonput = cdao.cancelreasonput(gocode, gocancel);
+		System.out.println("cancelreasonput :"+ cancelreasonput);
+		
+		ra.addFlashAttribute("msg", "취소요청을 보냈습니다.");
+		mav.setViewName("redirect:/CampingPurchaseListPage");
+		
 		return mav;
 	}
 
