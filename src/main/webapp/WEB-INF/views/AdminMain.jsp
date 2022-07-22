@@ -299,6 +299,15 @@
 	});
 </script>
 
+<!-- 경고창 표시 -->
+<script type="text/javascript">
+	var checkMsg = '${msg}';
+	console.log(checkMsg.length);
+	if (checkMsg.length > 0) {
+		alert(checkMsg);
+	}
+</script>
+
 
 <script type="text/javascript">
 function bannerModDelForm(bncode, bnimage, bntitle, bncontents, bnlink) {
