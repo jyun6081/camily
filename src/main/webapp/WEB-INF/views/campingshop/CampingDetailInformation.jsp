@@ -93,26 +93,26 @@
                                 <table class="table">
                                     <thead>
                                         <tr >
-                                            <th scope="col" style="border-top : none;">상품정보</th>
-                                            <th scope="col" style="border-top : none;">구매상품명</th>
-                                            <th scope="col" style="border-top : none;">상품가격</th>
-                                            <th scope="col" style="border-top : none;">상품수량</th>
-                                            <th scope="col" style="border-top : none;">총금액</th>
-                                            <th scope="col" style="border-top : none;">주문주소
+                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">상품정보</th>
+                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">구매상품명</th>
+                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">상품가격</th>
+                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">상품수량</th>
+                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">총금액</th>
+                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">주문주소
                                             <button type="button" class="cl0 size-60 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" onclick="addCheck('${information.dicode}')">주소변경</button>
                                             </th>
-                                            <th scope="col" style="border-top : none;"></th> 
+                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;"></th> 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${information.diimage }" alt="IMG" style="width: 60px;"></th>
-                                            <td>${information.diname }</td>
-                                            <td>${information.diprice }원</td>
-                                            <td>${information.diamount }개</td>
-                                            <td>${information.ditotalprice }원</td>
-                                            <td id="${information.dicode}1">${information.diaddr }</td>
-                                           	<td><a href="deletepoket?dicode=${information.dicode }" class="btn btn-dark">삭제하기</a></td>
+                                            <th class="align-middle text-center font-weight-bold"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${information.diimage }" alt="IMG" style="width: 60px;"></th>
+                                            <td class="align-middle text-center font-weight-bold" style = "word-break: break-all">${information.diname }</td>
+                                            <td class="align-middle text-center font-weight-bold">${information.diprice }원</td>
+                                            <td class="align-middle text-center font-weight-bold">${information.diamount }개</td>
+                                            <td class="align-middle text-center font-weight-bold">${information.ditotalprice }원</td>
+                                            <td id="${information.dicode}1" class="align-middle text-center font-weight-bold">${information.diaddr }</td>
+                                           	<td class="align-middle text-center font-weight-bold"><a href="deletepoket?dicode=${information.dicode }" class="btn btn-dark">삭제</a></td>
                                            	<th>
 										 	<input type="hidden" value="${sessionScope.loginId }"     name="dimid">
 									 		<input type="hidden" value="${information.diaddr }" id="${information.dicode}2" name="diaddr">
@@ -128,9 +128,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="flex-c-m flex-w w-full p-t-45" >
-							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" type="submit">주문하기</button>
-						</div>
+                        
                     </div>
 
                     </c:forEach>			        

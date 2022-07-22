@@ -103,25 +103,25 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">상품정보</th>
-                                            <th scope="col">구매상품명</th>
-                                            <th scope="col">상품가격</th>
-                                            <th scope="col">상품수량</th>
-                                            <th scope="col">총금액</th>
-                                            <th scope="col">주문주소</th>
-                                            <th scope="col">상품상태</th>
-                                            <th scope="col"></th>                                         									 								
+                                            <th class="align-middle text-center font-weight-bold">상품정보</th>
+                                            <th class="align-middle text-center font-weight-bold">구매상품명</th>
+                                            <th class="align-middle text-center font-weight-bold">상품가격</th>
+                                            <th class="align-middle text-center font-weight-bold">상품수량</th>
+                                            <th class="align-middle text-center font-weight-bold">총금액</th>
+                                            <th class="align-middle text-center font-weight-bold">주문주소</th>
+                                            <th class="align-middle text-center font-weight-bold">상품상태</th>
+                                            <th class="align-middle text-center font-weight-bold"></th>                                         									 								
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }" alt="IMG" style="width: 60px;"></th>
-                                            <td>${Purchase.goname }</td>
-                                            <td>${Purchase.goprice }원</td>
-                                            <td>${Purchase.goamount }개</td>
-                                            <td>${Purchase.goprice}원</td>
-                                            <td>${Purchase.gomaddr }</td>
-                                            <td id="aaa">
+                                            <th class="align-middle text-center font-weight-bold"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }" alt="IMG" style="width: 60px;"></th>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goname }</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goprice }원</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goamount }개</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goprice}원</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.gomaddr }</td>
+                                            <td id="aaa" class="align-middle text-center font-weight-bold">
                                       <c:if test="${Purchase.gostate == 2 }">
 									  <p>배송준비중</p>								    
 								      <button type="button" class="btn btn-dark" onclick="PurchaseDelete('${Purchase.gocode }')">주문취소</button>
@@ -160,7 +160,7 @@
 									</td>
 									<td>				 
 								     <button type="button"
-									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">구매목록삭제</button></td>
+									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">내역삭제</button></td>
                                         </tr>                                                                       
                                     </tbody>
                                 </table>

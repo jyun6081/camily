@@ -99,13 +99,13 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col" style="border-top : none;">예약번호</th>
-                                            <th scope="col" style="border-top : none;">캠핑장 이름</th>
-                                            <th scope="col" style="border-top : none;">예약타입</th>
-                                            <th scope="col" style="border-top : none;">에약일자</th>
-                                            <th scope="col" style="border-top : none;">결제금액</th>
+                                            <th class="align-middle font-weight-bold" style="border-top : none;">예약번호</th>
+                                            <th class="align-middle  font-weight-bold" style="border-top : none;">캠핑장 이름</th>
+                                            <th class="align-middle  font-weight-bold" style="border-top : none;">예약타입</th>
+                                            <th class="align-middle  font-weight-bold" style="border-top : none;">에약일자</th>
+                                            <th class="align-middle  font-weight-bold" style="border-top : none;">결제금액</th>
                                             
-                                            <th scope="col" style="border-top : none;"></th>
+                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;"></th>
                                            
 									 
 								
@@ -113,25 +113,21 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td>
+                                        	<td class="align-middle font-weight-bold">
                                             <a href="myReservation?recode=${myReservationInfo.recode}">
 												${myReservationInfo.recode}
 											</a>
 											</td>
-                                            <td>${myReservationInfo.caname}</td>
-                                            <td>${myReservationInfo.recrname} ${myReservationInfo.recrnum}</td>
-                                            <td>${myReservationInfo.startday} ~ ${myReservationInfo.endday}</td>
-                                            <td>${myReservationInfo.totalprice}원</td>
-                                            <td><a href="cpWrite?recacode=${myReservationInfo.recacode }&recode=${myReservationInfo.recode}"
+                                            <td class="align-middle  font-weight-bold">${myReservationInfo.caname}</td>
+                                            <td class="align-middle  font-weight-bold">${myReservationInfo.recrname} ${myReservationInfo.recrnum}</td>
+                                            <td class="align-middle  font-weight-bold">${myReservationInfo.startday} ~ ${myReservationInfo.endday}</td>
+                                            <td class="align-middle  font-weight-bold">${myReservationInfo.totalprice}원</td>
+                                            <td class="align-middle  font-weight-bold"><a href="cpWrite?recacode=${myReservationInfo.recacode }&recode=${myReservationInfo.recode}"
 									 class="flex-c-m stext-101 cl0 size-80 bg1 bor1 hov-btn1 trans-04">후기작성</a></td>
                                             				
                                         </tr> 
-                                        <c:if test="${fn:length(myReservationList) == 0}">
-									<tr class="table_row">
-										<th colspan="5" style="text-align: center;"> 예약내역이 존재하지 않습니다.</th>
-									</tr>
-								</c:if>                                                                      
                                     </tbody>
+                                                                                                         
                                 </table>
                             </div>
                         </div>
@@ -141,48 +137,12 @@
                 
                     </c:forEach>
 		
-		
-		<%-- <div class="container">
-			<div class="m-lr-auto m-b-50">
-				<div class="m-l-25 m-r--38 m-lr-0-xl">
-					<div class="wrap-table-shopping-cart">
-						<table class="table-shopping-cart">
-							<tbody>
-								<tr class="table_head">
-									<th class="column-1">예약번호</th>
-									<th class="column-2">캠핑장 이름</th>
-									<th class="column-3">예약타입</th>
-									<th class="column-4">에약일자</th>
-									<th class="column-5">결제금액</th>
-								</tr>
-								<c:if test="${fn:length(myReservationList) == 0}">
+					 <c:if test="${fn:length(myReservationList) == 0}">
 									<tr class="table_row">
 										<th colspan="5" style="text-align: center;"> 예약내역이 존재하지 않습니다.</th>
 									</tr>
-								</c:if>
-								<c:forEach items="${myReservationList}" var="myReservationInfo">
-									<tr class="table_row" style="height: 50px;" id="">
-										<td class="column-1" style="padding-bottom: 0px;">
-											<a href="myReservation?recode=${myReservationInfo.recode}">
-												${myReservationInfo.recode}
-											</a>
-										</td>
-										<td class="column-2" style="padding-bottom: 0px;">${myReservationInfo.caname}</td>
-										<td class="column-3" style="padding-bottom: 0px;">${myReservationInfo.recrname} ${myReservationInfo.recrnum}</td>
-										<td class="column-4" style="padding-bottom: 0px;">
-											${myReservationInfo.startday} ~ ${myReservationInfo.endday}
-										</td>
-										<td class="column-5" style="padding-bottom: 0px;">${myReservationInfo.totalprice}원</td>
-									</tr>
-									<a href="cpWrite?recacode=${myReservationInfo.recacode }&recode=${myReservationInfo.recode}" style="margin-top: 100px"
-									 class="flex-c-m stext-101 cl5 size-80 bg2 bor1 hov-btn1 p-lr-15 trans-04">후기</a>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div> --%>
+								</c:if>    
+		
 	</form>
 
 	<!-- Footer -->
