@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.camily.dao.BoardDao">
+
+	<select id="selectBoardList"
+		resultType="com.camily.dto.BoardDto">
+		SELECT BOCODE, BOMID, BOTYPE, BOTITLE, BOCONTENTS,
+		TO_CHAR(BODATE,
+		'YYYY-MM-DD')AS BODATE, BOSTATE, BOHITS
+		FROM BOARDS
+		WHERE BOSTATE
+		= 1
+		ORDER BY BOCODE
+	</select>
+
+	<select id="selectBoardView"
+		resultType="com.camily.dto.BoardDto">
+		SELECT BOCODE, BOMID, BOTYPE, BOTITLE, BOCONTENTS,
+		TO_CHAR(BODATE,
+		'YYYY-MM-DD')AS BODATE, BOSTATE, BOHITS
+		FROM BOARDS
+		WHERE BOCODE
+		= #{bocode}
+	</select>
+
+	<insert id="insertBoard">
+		INSERT INTO BOARDS (BOCODE, BOMID, BOTITLE,
+		BOCONTENTS,BOTYPE,BODATE,BOSTATE, BOHITS)
+		VALUES (#{bocode}, #{bomid},
+		#{botitle}, #{bocontents},1,SYSDATE,1,1)
+	</insert>
+
+	<select id="getMaxBocode" resultType="int">
+		SELECT NVL(MAX(BOCODE),0)
+		FROM BOARDS
+	</select>
+
+	<update id="deleteBoard">
+		UPDATE BOARDS SET BOSTATE = 0 
+		WHERE BOCODE = #{bocode}
+	</update>
+
+	<select id="selectBoard" resultType="com.camily.dto.BoardDto">
+		SELECT * FROM BOARDS WHERE
+		BOCODE = #{bocode}
+	</select>
+
+	<update id="updateBoard">
+		UPDATE BOARDS
+		SET BOTITLE = #{botitle}, BOCONTENTS =
+		#{bocontents}
+		WHERE BOCODE = #{bocode}
+	</update>
+
+	<select id="selectFAQList" resultType="com.camily.dto.FAQDto">
+		SELECT FAQCODE, FAQMID,
+		FAQTYPE, FAQTITLE, FAQCONTENTS,
+		TO_CHAR(FAQDATE,'YYYY-MM-DD')AS
+		FAQDATE, FAQSTATE, FAQHITS
+		FROM FAQ
+		WHERE FAQSTATE = 1
+		ORDER BY FAQCODE
+	</select>
+
+	<select id="getFAQMaxBocode" resultType="int">
+		SELECT
+		NVL(MAX(FAQCODE),0)
+		FROM FAQ
+	</select>
+
+	<insert id="insertFAQ">
+		INSERT INTO FAQ (FAQCODE, FAQMID, FAQTITLE,
+		FAQCONTENTS,FAQTYPE,FAQDATE,FAQSTATE,FAQHITS)
+		VALUES (#{faqcode},
+		#{faqmid},
+		#{faqtitle}, #{faqcontents},1,SYSDATE,1,1)
+	</insert>
+
+
+	<select id="selectFAQView" resultType="com.camily.dto.FAQDto">
+		SELECT FAQCODE, FAQMID,
+		FAQTYPE, FAQTITLE, FAQCONTENTS,
+		TO_CHAR(FAQDATE,
+		'YYYY-MM-DD')AS
+		FAQDATE, FAQSTATE, FAQHITS
+		FROM FAQ
+		WHERE FAQCODE
+		= #{faqcode}
+	</select>
+	
+	<select id="selectFAQ" resultType="com.camily.dto.FAQDto">
+		SELECT * FROM FAQ WHERE FAQCODE = #{faqcode}
+	</select>
+	
+	
+	<update id="updateFAQ">
+		UPDATE FAQ
+		SET FAQTITLE = #{faqtitle}, FAQCONTENTS =
+		#{faqcontents}
+		WHERE FAQCODE = #{faqcode}
+	</update>
+	
+	
+	<update id="deleteFAQ">
+		UPDATE FAQ
+		SET FAQSTATE = 0
+		WHERE FAQCODE = #{faqcode}
+	</update>
+	
+	<update id="updateHits">
+		UPDATE BOARDS SET BOHITS = BOHITS+1 WHERE BOCODE = #{bocode}
+	</update>
+	
+	<update id="updateFAQHits">
+		UPDATE FAQ SET FAQHITS = FAQHITS+1 WHERE FAQCODE = #{faqcode}
+	</update>
+	
+	
+</mapper>
