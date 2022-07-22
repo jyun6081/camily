@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>켐핑장 후기</title>
+	<title>캠핑장 후기</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -73,6 +73,9 @@
 	background: #6E6E6E;
 	content: "";
 }
+.fa-star{
+    color:#f9ba48
+}
 </style>
 
 
@@ -99,7 +102,7 @@
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-45 p-r-0-lg">
 						<div class="section-reply-title">
-								<h5>캠핑장 REVIEW</h5><h6>캠핑장에서의 좋은 경험을 남겨보세요.</h6>
+								<h5>캠핑장 REVIEW</h5><h6 class="mt-2">캠핑장에서의 좋은 경험을 남겨보세요.</h6>
 						</div>
 						
 						<c:forEach items="${campingreviewList }" var="cgrvList"> 
@@ -118,12 +121,29 @@
 									</a>
 								</h4> -->
 
-								<p class="stext-117" style="color: black;">
+								<p class="stext-117 mt-2" style="color: black;">
 									제목 : ${cgrvList.cgrvtitle }
 								</p>
 								
 								<p class="stext-116">
 									캠핑장 이름 : 🌈${cgrvList.recrname }🌈 									
+								</p>
+								<p class="mt-1"> 별점 : 
+								   <c:if test="${cgrvList.cgstarating == 1 }">
+								   <i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${cgrvList.cgstarating == 2 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${cgrvList.cgstarating == 3 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${cgrvList.cgstarating == 4 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${cgrvList.cgstarating == 5 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
 								</p>
 
 								<div class="flex-w flex-sb-m p-t-18">

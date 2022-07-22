@@ -15,5 +15,6 @@ public class GoodsReviewDto {
 	private String gorvgocode;
 	private String goname;
 	private int gorvhits;
+	private int gorvstarating;      // 캠핑용품 별점
 	
 }
