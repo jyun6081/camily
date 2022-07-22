@@ -241,15 +241,15 @@ function calldibs(thisval,gocode){
 </script>
 <!-- Channel Plugin Scripts -->
 <script type="text/javascript">
-$(document).ready(function(){
+var uid = '${sessionScope.loginId}';
+if( uid.length > 0){
+	
+
+
+/* $(document).ready(function(){
 	console.log("loginId : " + '${sessionScope.loginId}');
-	console.log('${sessionScope.loginId}'.length);
-var uid = "";<%-- '<%=(String)session.getAttribute("loginId")%>'; --%>
-if(  '${sessionScope.loginId}'.length > 0){
-	uid = '${sessionScope.loginId}';
-} else {
-	uid = "비회원";
-}
+	console.log('${sessionScope.loginId}'.length); */
+
 console.log(uid);
   (function() {
     var w = window;
@@ -296,7 +296,9 @@ console.log(uid);
       "CUSTOM_VALUE_2": "VALUE_2"    */
     } 
   });
-})
+/* })
+ */
+}
 </script>
 
 <!-- Cart -->
