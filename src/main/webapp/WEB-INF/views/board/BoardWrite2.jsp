@@ -182,22 +182,14 @@
 					<div style="width: 100%; margin: auto;">
 						<form method="post" action="cgWrite2">
 
-							<input type="text" name="gorvtitle" style="width: 40%;"
+							<input type="text" name="gorvtitle" style="width: 40%; border-bottom: 1px solid; border-color: #ddd;"
 								placeholder="제목" /> <br>
 							<textarea id="summernote" name="gorvcontents"></textarea>
 							<br> <input id="subBtn" type="button"
 								class="btn btn-default pull-right" value="글 작성"
 								style="float: right;" onclick="goWrite(this.form)" /> 
 								
-								별점 : <span
-								class="wrap-rating fs-18 cl11 pointer"> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-								class="item-rating pointer zmdi zmdi-star-outline"></i> <input
-								class="dis-none" type="number" name="rating">
-							</span>
+								 
 						</form>
 					</div>
 
