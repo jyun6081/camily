@@ -83,4 +83,34 @@ UPDATE GOODSORDER SET GOSTATE = 4
 WHERE GOCODE = #{gocode}
 </update>
 
+<!-- 관리자 캠핑 용품 취소관리 페이지 이동요청 (SLELCT) -->
+<select id="AdminCampingCancel" resultType="com.camily.dto.GoodsOrderDto">
+ SELECT*
+ FROM GOODSORDER
+ WHERE GOSTATE BETWEEN 6 AND 7 <!-- 6 = 취소 대기중 -->
+ OR GOSTATE = 9
+ ORDER BY GOCODE DESC
+</select>
+
+<!-- 관리자 취소승인으로 변경 dao 호출 ajax (UPDATE) -->
+<update id="cancelOk">
+UPDATE GOODSORDER SET GOSTATE = 7 <!-- 취소승인 -->
+WHERE GOCODE = #{gocode}
+</update>
+
+<!-- 관리자 취소거절로 변경 dao 호출 ajax (UPDATE) -->
+<update id="cancelNo">
+UPDATE GOODSORDER SET GOSTATE = 9 <!-- 취소거절 -->
+WHERE GOCODE = #{gocode}
+</update>
+
+<!-- 관리자 취소목록 페이지 -->
+<select id="AdminCampingCancelList" resultType="com.camily.dto.GoodsOrderDto">
+ SELECT*
+ FROM GOODSORDER
+ WHERE GOSTATE = 7
+ ORDER BY GOCODE DESC
+</select>
+
+
 </mapper>

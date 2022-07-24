@@ -41,6 +41,9 @@
 #bobtn {
 	text-align: right;
 }
+.fa-star{
+    color:#f9ba48
+}
 </style>
 </head>
 <body class="animsition">
@@ -76,6 +79,29 @@
 							</span>
 							<img alt="" src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${gorvDetail.goimage }">
 							<p class="stext-116 cl4">제품명 : 🌈${gorvDetail.goname }🌈</p>
+							
+							<p class="mt-1"> 별점 : 
+								   <c:if test="${gorvDetail.gorvstarating == 1 }">
+								   <i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${gorvDetail.gorvstarating == 2 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${gorvDetail.gorvstarating == 3 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${gorvDetail.gorvstarating == 4 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${gorvDetail.gorvstarating == 5 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								</p>
+							
+							
+							
+							
+							
 							<div>
 								<p class="stext-115 p-b-26" style="color: black;">
 									${gorvDetail.gorvcontents }</p>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>켐핑용품 후기</title>
+	<title>캠핑용품 후기</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -72,6 +72,9 @@
 	background: #6E6E6E;
 	content: "";
 }
+.fa-star{
+    color:#f9ba48
+}
 
 </style>
 
@@ -124,6 +127,29 @@
 								<p class="stext-117" style="color: black; font-weight: bolder;">
 									제품명 : 🌈${gorvList.goname }🌈 									
 								</p>
+								
+								<p class="mt-1"> 별점 : 
+								   <c:if test="${gorvList.gorvstarating == 1 }">
+								   <i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${gorvList.gorvstarating == 2 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${gorvList.gorvstarating == 3 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${gorvList.gorvstarating == 4 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								   <c:if test="${gorvList.gorvstarating == 5 }">
+								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+								   </c:if>
+								</p>
+								
+								
+								
+								
+								
 
 								<div class="flex-w flex-sb-m p-t-18">
 									<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">

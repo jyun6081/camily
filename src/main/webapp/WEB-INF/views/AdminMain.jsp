@@ -50,7 +50,6 @@
 	<%@ include file="/WEB-INF/views/includes/AdminTopBar.jsp"%>
 	<!-- End TopBar-->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">
@@ -298,6 +297,15 @@
 	});
 </script>
 </body>
+
+<!-- 경고창 표시 -->
+<script type="text/javascript">
+	var checkMsg = '${msg}';
+	console.log(checkMsg.length);
+	if (checkMsg.length > 0) {
+		alert(checkMsg);
+	}
+</script>
 
 
 <script type="text/javascript">

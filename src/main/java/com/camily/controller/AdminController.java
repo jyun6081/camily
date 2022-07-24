@@ -126,5 +126,23 @@ public class AdminController {
 		ModelAndView mav = advc.bannerDelete(bannerInfo, ra);
 		return mav;
 	}
+	
+	// 관리자 게시판 리스트
+	@RequestMapping(value = "/adminboardList")
+	public ModelAndView adminboardList(String page) {
+		System.out.println("관리자 게시판리스트 기능 호출");
+		ModelAndView mav = advc.adminboardList(page);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/modifyBoardState")
+	public @ResponseBody String modifyBoardState(int bocode, int bostate) {
+		System.out.println("관리자 게시판 상태 변경 요청");
+
+		String updateResult = advc.modifyBoardState(bocode, bostate);
+
+		return updateResult;
+	}
 
 }

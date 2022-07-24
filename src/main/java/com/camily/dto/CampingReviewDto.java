@@ -10,11 +10,11 @@ public class CampingReviewDto {
     String cgrvtitle;
     String cgrvcontents;
     String cgrvdate;
-    int cgrvlike;
     int cgrvstate;
     String recrname;
     String cgrvrecode;
     String caimage;
     String cgrvhits;
+    int cgstarating;
     
 }

@@ -44,6 +44,7 @@ public class GoodsReviewService {
 		int hitsResult = grdao.updateHits(gorvcode);
 		
 		GoodsReviewDto goodsReviewDetail = grdao.selectGoodsReviewDetail(gorvcode);
+		System.out.println(goodsReviewDetail);
 		
 		mav.addObject("gorvDetail", goodsReviewDetail);
 		mav.setViewName("goodsreview/GoReviewDetailPage");

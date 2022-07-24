@@ -6,7 +6,6 @@ import lombok.Data;
 public class FAQDto {
 	int faqcode;
     String faqmid;  
-    int faqtype;
     String faqtitle;     
     String faqcontents;
     int faqstate;
