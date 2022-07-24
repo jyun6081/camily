@@ -401,4 +401,14 @@ public class AdminService {
 		return mav;
 	}
 
+	public String modifyBoardState(int bocode, int bostate) {
+		System.out.println("CampingService.getCampingList() 호출");
+		System.out.println("변경할 게시판 코드 : " + bocode);
+		System.out.println("변경할 게시판 state  : " + bostate);
+		
+		int updateResult = addao.updateBoardState(bocode,bostate);
+		return updateResult+"";
+	
+	}
+
 }

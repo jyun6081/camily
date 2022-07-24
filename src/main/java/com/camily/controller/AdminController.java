@@ -135,5 +135,14 @@ public class AdminController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "/modifyBoardState")
+	public @ResponseBody String modifyBoardState(int bocode, int bostate) {
+		System.out.println("관리자 게시판 상태 변경 요청");
+
+		String updateResult = advc.modifyBoardState(bocode, bostate);
+
+		return updateResult;
+	}
 
 }

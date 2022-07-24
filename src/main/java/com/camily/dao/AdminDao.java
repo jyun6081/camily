@@ -57,6 +57,8 @@ public interface AdminDao {
 	
 	int getBoardTotalCount();
 
+	int updateBoardState(@Param("bocode") int bocode,@Param("bostate") int bostate);
+
 
 	
 

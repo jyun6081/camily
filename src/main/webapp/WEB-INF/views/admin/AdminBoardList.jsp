@@ -74,44 +74,80 @@
                                 <table class="table table-bordered" id="dataTable">
                                   <thead>
                                         <tr>
-                                            <th class="align-middle text-center font-weight-bold">상품코드</th>
-                                            <th class="align-middle text-center font-weight-bold">정보</th>
-                                            <th class="align-middle text-center font-weight-bold">이름</th>
-                                            <th class="align-middle text-center font-weight-bold">가격</th>
-                                            <th class="align-middle text-center font-weight-bold">카테고리</th>
-                                            <th class="align-middle text-center font-weight-bold"></th> 
+                                            <th class="align-middle text-center font-weight-bold">게시판코드</th>
+                                            <th class="align-middle text-center font-weight-bold">작성자</th>
+                                            <th class="align-middle text-center font-weight-bold">제목</th>
+                                            <th class="align-middle text-center font-weight-bold">작성일</th>
+                                            <th class="align-middle text-center font-weight-bold">게시글 상태</th> 
                                         </tr>
                                    </thead>                                 
-                                    <c:forEach items="${adminCampingShopList}" var="ShopList">  
+                                    <c:forEach items="${adminboardList}" var="boardList">  
                                   <tbody>                      
                                         <tr>
-                                            <th class="align-middle text-center font-weight-bold">${ShopList.gcode }</th>
+                                            <th class="align-middle text-center font-weight-bold">${boardList.bocode }</th>
                                             <th class="align-middle text-center font-weight-bold">
-                                            <img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${ShopList.gimage }" height="50px" style="text-align: center;">                                           
+                                            ${boardList.bomid }                                           
                                             </th>
-                                            <th class="align-middle text-center font-weight-bold">${ShopList.gname }</th>
-                                            <th class="align-middle text-center font-weight-bold">${ShopList.gprice }</th>
-                                            <th class="align-middle text-center font-weight-bold">${ShopList.gcategory }</th>                                            
+                                            <th class="align-middle text-center font-weight-bold">                        
+                                            			<c:if test="${boardList.bostate == 0 }">
+	                                            			${boardList.botitle }
+	                                            		</c:if>
+	                                            		<c:if test="${boardList.bostate == 1 }">
+	                                            			<a href="boardView?bocode=${boardList.bocode }">${boardList.botitle }</a>
+	                                            		</c:if>		
+                                            </th>
+                                            <th class="align-middle text-center font-weight-bold">${boardList.bodate }</th>                                            
                                             <th class="align-middle text-center font-weight-bold">
-                                            <c:choose>                                           
-                                               <c:when test="${ShopList.gstate == 1}">
-                                                  <button class="btn btn-danger p-2" onclick="shopState(this,'${ShopList.gcode}','${ShopList.gstate}')">제품비활성화</button>    
-                                               </c:when>  
-                                                                                                
-                                               <c:otherwise>
-                                                  <button class="btn btn-primary p-2" onclick="shopState(this,'${ShopList.gcode}','${ShopList.gstate}')">제품활성화</button>  
-                                               </c:otherwise>                              
-                                            </c:choose>                                                                                      
-                                            <button onclick="productmodify(this,'${ShopList.gcode}')" class="btn btn-secondary p-2">제품수정</button>                                            </th>
+                                            			<c:choose>
+                                            			<c:when test="${boardList.bostate == 0 }">
+	                                            			<button  class="btn btn-danger font-weight-bold" onclick="modifyBoardState(this,'${boardList.bocode }')">게시글정지</button>
+	                                            		</c:when>
+	                                            		<c:otherwise>
+	                                            			<button class="btn btn-primary font-weight-bold" onclick="modifyBoardState(this,'${boardList.bocode }')">게시글사용</button>
+	                                            		</c:otherwise>
+                                            			</c:choose>
+                                            </th>
                                         </tr>
                                   </tbody>     
                                     </c:forEach>                                                                                                                          
                                 </table>
                             </div>
+                            <!-- Pagination 시작 -->
+								<div class="flex-c-m flex-w w-full p-t-45" style="margin-top: auto; margin-right: auto;">
+									<c:choose>
+										<c:when test="${pageDto.page <= 1}">
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span>
+										</c:when>
+										<c:otherwise>
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="adminboardList?page=${pageDto.page - 1}"><i class="fa-solid fa-angle-left"></i></a></span>
+										</c:otherwise>
+									</c:choose>
+									<c:forEach begin="${pageDto.startPage }" end="${pageDto.endPage }" var="num" step="1">
+										<c:choose>
+											<c:when test="${pageDto.page == num}">
+												<span><a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">${num}</a></span>
+											</c:when>
+											<c:otherwise>
+												<span><a href="adminboardList?page=${num}" class="flex-c-m how-pagination1 trans-04 m-all-7">${num}</a></span>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${pageDto.page > pageDto.endPage || pageDto.page == pageDto.maxPage}">
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-right"></i></span>
+										</c:when>
+										<c:otherwise>
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="adminboardList?page=${pageDto.page + 1}"><i class="fa-solid fa-angle-right"></i></a></span>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							<!-- Pagination 종료 -->
                         </div>
                        </div>	
                      </div>	
                    </section>
+                   
+                  
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
 	<!-- End of Footer -->
@@ -246,50 +282,44 @@
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 <script type="text/javascript">
- function shopState(thisVal,gcode,gstate){
-	 console.log("캠핑용품 상태변경 - ajax 클릭");
-	 console.log("thisVal :"+ thisVal);
-	 console.log("gcode :"+ gcode);
-	 console.log("gstate :"+ gstate);
-	 
-	 
-		if( $(thisVal).hasClass("btn-danger") ){
-			var gstate = '0'; // 활성화일때 상태 바꿔주기
-			// 비활성화 시켜야 하니 0 값을가지고 update문을 실행을 해줘야 1인 값이 0으로 변화하기 때문
-		} else if( $(thisVal).hasClass("btn-primary") ) {
-			var gstate = '1'; // 비활성화일때 상태 바꿔주기
-		}
-	 
-		console.log("현재상품상태"+ gstate);
-		
-		$.ajax({
-			type : "post",
-			url : "campingShopState",
-			data : {"gcode" : gcode, "gstate" : gstate },
-			success : function(result){
-				
-				if(result == 1){
-					$(thisVal).toggleClass("btn-primary");
-					$(thisVal).toggleClass("btn-danger");
-				} 
-						
-				if(gstate == 1){
-					$(thisVal).text("제품비활성화")
-				} else {
-					$(thisVal).text("제품활성화")
-				}	
-				
-			}
-				
-		});
- }
-</script>
-	
-<script type="text/javascript">
-function productmodify(thisVal, gcode){
-	location.href = "productmodify?gcode="+gcode;
-}
+     function modifyBoardState(btnObj,bocode){
+    	 
+    	 if( $(btnObj).hasClass("btn-primary") ){
+    		 var bostate = '0';
+    	 } else if ( $(btnObj).hasClass("btn-danger") ){
+    		 var bostate = '1';
+    	 }
+    	 console.log("bostate : " + bostate);
+    	 $.ajax({
+    		 type : "get",
+    		 url : "modifyBoardState",
+    		 data : {"bocode" : bocode, "bostate" : bostate},
+    		 success : function(result){
+    			 if(result == 1){
+    					$(btnObj).toggleClass("btn-primary");
+    					$(btnObj).toggleClass("btn-danger");
+    					
+    					if( bostate == '0'){
+    						$(btnObj).text("게시글정지")
+    					} else if (bostate == '1'){
+    						$(btnObj).text("게시글사용")
+    					}
+    			 }
+    			 
+    		 }
+    		 
+    		 
+    	 })
+    	 
+    	 
+     }
+
+
+
+
 
 </script>
+	
+
 		
 </html>
