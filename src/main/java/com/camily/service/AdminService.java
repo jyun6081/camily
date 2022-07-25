@@ -19,7 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.camily.dao.AdminDao;
 import com.camily.dao.MemberDao;
 import com.camily.dto.BannerDto;
+import com.camily.dto.BoardDto;
 import com.camily.dto.CampingDto;
+import com.camily.dto.CampingQuestionDto;
+import com.camily.dto.CampingReviewDto;
+import com.camily.dto.GoodsReviewDto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
 import com.google.gson.Gson;
@@ -103,7 +107,7 @@ public class AdminService {
 	
 	// 관리자 캠핑장 목록 출력
 	public ModelAndView getCampingList(String page) {
-		System.out.println("CampingService.getCampingList() 호출");
+		System.out.println("AdminService.getCampingList() 호출");
 		int selPage = 1;
 		if(page != null) {
 			selPage = Integer.parseInt(page);
@@ -146,7 +150,7 @@ public class AdminService {
 
     // 관리자 캠핑장 상태 변경
 	public String modifyCampingState(String cacode, String castate) {
-		System.out.println("CampingService.getCampingList() 호출");
+		System.out.println("AdminService.getCampingList() 호출");
 		System.out.println("변경할 캠핑장 코드 : " + cacode);
 		System.out.println("변경할 state  : " + castate);
 		
@@ -155,7 +159,7 @@ public class AdminService {
 	}
     // 관리자 캠핑장 상세보기0
 	public ModelAndView getCampingInfo(String cacode) {
-		System.out.println("CampingService.getCampingInfo() 호출");
+		System.out.println("AdminService.getCampingInfo() 호출");
 	    System.out.println("상세보기 캠핑장 코드 : " + cacode);
 		ModelAndView mav = new ModelAndView();
 		
@@ -166,7 +170,7 @@ public class AdminService {
 	}
     // 관리자 캠핑장 정보수정
 	public ModelAndView modifyCampingInfo(CampingDto camping, RedirectAttributes ra) throws IllegalStateException, IOException {
-		System.out.println("CampingService.modifyCampingInfo() 호출");
+		System.out.println("AdminService.modifyCampingInfo() 호출");
 		ModelAndView mav = new ModelAndView();
 		MultipartFile cafile = camping.getCafile();
 		String caimage = "";
@@ -193,7 +197,7 @@ public class AdminService {
 	}
 
 	public ModelAndView registerCamping(CampingDto camping, RedirectAttributes ra) throws IllegalStateException, IOException {
-		System.out.println("CampingService.registerCamping() 호출");
+		System.out.println("AdminService.registerCamping() 호출");
 		ModelAndView mav = new ModelAndView();
 		
 		//캠핑장 코드 생성
@@ -240,7 +244,7 @@ public class AdminService {
 	}
 
 	public ModelAndView homeComponent() {
-		System.out.println("CampingService.homeComponent() 호출");
+		System.out.println("AdminService.homeComponent() 호출");
 		String loginId = (String) session.getAttribute("loginId");
 		System.out.println("loginId : " + loginId);
 		ModelAndView mav = new ModelAndView();
@@ -256,7 +260,7 @@ public class AdminService {
 	}
 
 	public ModelAndView bannerAdd(BannerDto bannerInfo, RedirectAttributes ra) {
-		System.out.println("CampingService.bannerAdd() 호출");
+		System.out.println("AdminService.bannerAdd() 호출");
 		ModelAndView mav = new ModelAndView();
 		//배너 코드 생성
 		String maxBncode = addao.getMaxBncode();
@@ -309,7 +313,7 @@ public class AdminService {
 	}
 
 	public ModelAndView bannerModify(BannerDto bannerInfo, RedirectAttributes ra) {
-		System.out.println("CampingService.bannerModify() 호출");
+		System.out.println("AdminService.bannerModify() 호출");
 		ModelAndView mav = new ModelAndView();
 		// 이미지 비교
 		MultipartFile bnfile = bannerInfo.getBnimagefile();
@@ -343,7 +347,7 @@ public class AdminService {
 	}
 
 	public ModelAndView bannerDelete(BannerDto bannerInfo, RedirectAttributes ra) {
-		System.out.println("CampingService.bannerDelete() 호출");
+		System.out.println("AdminService.bannerDelete() 호출");
 		int deleteResult = addao.bannerDelete(bannerInfo);
 		ModelAndView mav = new ModelAndView();
 		if(deleteResult > 0) {
@@ -354,5 +358,185 @@ public class AdminService {
 		mav.setViewName("redirect:/admin");
 		return mav;
 	}
+	
+	// 관리자 게시판 리스트
+	public ModelAndView adminboardList(String page) {
+		System.out.println("AdminService.adminboardList");
+		
+		int selPage = 1;
+		if(page != null) {
+			selPage = Integer.parseInt(page);
+		}
+        
+		int boardTotalCount = addao.getBoardTotalCount();
+		
+		int pageCount = 10;
+		int pageNumCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > boardTotalCount) {
+			endRow = boardTotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		ArrayList<BoardDto> adminboardList = addao.getAdminBoardList(startRow, endRow);
+		int maxPage = (int)( Math.ceil(  (double)boardTotalCount/pageCount  ) );
+		
+		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
+		
+		int endPage = startPage + pageNumCount - 1;
+		
+		if( endPage > maxPage ) {
+			endPage = maxPage;
+		}
+		PageDto pageDto = new PageDto();
+		pageDto.setPage(selPage);
+		pageDto.setMaxPage(maxPage);
+		pageDto.setStartPage(startPage);
+		pageDto.setEndPage(endPage);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("adminboardList", adminboardList);
+		mav.addObject("pageDto", pageDto);
+		mav.setViewName("admin/AdminBoardList");
+		
+		return mav;
+	}
 
+	public String modifyBoardState(int bocode, int bostate) {
+		System.out.println("AdminService.getCampingList() 호출");
+		System.out.println("변경할 게시판 코드 : " + bocode);
+		System.out.println("변경할 게시판 state  : " + bostate);
+		
+		int updateResult = addao.updateBoardState(bocode,bostate);
+		return updateResult+"";
+	
+	}
+
+	public ModelAndView AdminCampingQuestionPage() {
+		System.out.println("CampingService.AdminCampingQuestionPage() 호출");
+		ModelAndView mav = new ModelAndView();
+		ArrayList<CampingQuestionDto> campingQuestionList = addao.getCampingQuestionList();
+		ArrayList<CampingQuestionDto> newCampingQuestionList = new ArrayList<CampingQuestionDto>();
+		ArrayList<CampingQuestionDto> doneCampingQuestionList = new ArrayList<CampingQuestionDto>();
+		for(int i = 0; i < campingQuestionList.size(); i++) {
+			if(campingQuestionList.get(i).getCqstate() == 1) {
+				newCampingQuestionList.add(campingQuestionList.get(i));
+			}else {
+				doneCampingQuestionList.add(campingQuestionList.get(i));
+			}
+		}
+		
+		mav.addObject("newCampingQuestionList", newCampingQuestionList);
+		mav.addObject("doneCampingQuestionList", doneCampingQuestionList);
+		mav.setViewName("admin/AdminCampingQuestionPage");
+		return mav;
+	}
+
+	public ModelAndView adminGoodsReviewList(String page) {
+		System.out.println("AdminService.adminGoodsReviewList()호출");
+		
+		int selPage = 1;
+		if(page != null) {
+			selPage = Integer.parseInt(page);
+		}
+        
+		int goodsReviewTotalCount = addao.getGoodsReviewTotalCount();
+		
+		int pageCount = 10;
+		int pageNumCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > goodsReviewTotalCount) {
+			endRow = goodsReviewTotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		ArrayList<GoodsReviewDto> adminGoodsReviewList = addao.getAdminGoodsReviewList(startRow, endRow);
+		int maxPage = (int)( Math.ceil(  (double)goodsReviewTotalCount/pageCount  ) );
+		
+		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
+		
+		int endPage = startPage + pageNumCount - 1;
+		
+		if( endPage > maxPage ) {
+			endPage = maxPage;
+		}
+		PageDto pageDto = new PageDto();
+		pageDto.setPage(selPage);
+		pageDto.setMaxPage(maxPage);
+		pageDto.setStartPage(startPage);
+		pageDto.setEndPage(endPage);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("adminGoodsReviewList", adminGoodsReviewList);
+		mav.addObject("pageDto", pageDto);
+		mav.setViewName("admin/AdminGoodsReviewList");
+		
+		return mav;
+	}
+
+	public String modifyGoodsReviewState(int gorvcode, int gorvstate) {
+		System.out.println("CampingService.modifyGoodsReviewState() 호출");
+		System.out.println("변경할 캠핑용품 리뷰코드 : " + gorvcode);
+		System.out.println("변경할 캠핑용품 리뷰 state  : " + gorvstate);
+		
+		int updateResult = addao.updateGoodsReviewState(gorvcode,gorvstate);
+		return updateResult+"";
+	}
+
+	public ModelAndView adminCampingReviewList(String page) {
+		System.out.println("AdminService.adminCampingReviewList()호출");
+		
+		int selPage = 1;
+		if(page != null) {
+			selPage = Integer.parseInt(page);
+		}
+        
+		int campingReviewTotalCount = addao.getCampingReviewTotalCount();
+		
+		int pageCount = 10;
+		int pageNumCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > campingReviewTotalCount) {
+			endRow = campingReviewTotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		ArrayList<CampingReviewDto> adminCampingReviewList = addao.getAdminCampingReviewList(startRow, endRow);
+		int maxPage = (int)( Math.ceil(  (double)campingReviewTotalCount/pageCount  ) );
+		
+		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
+		
+		int endPage = startPage + pageNumCount - 1;
+		
+		if( endPage > maxPage ) {
+			endPage = maxPage;
+		}
+		PageDto pageDto = new PageDto();
+		pageDto.setPage(selPage);
+		pageDto.setMaxPage(maxPage);
+		pageDto.setStartPage(startPage);
+		pageDto.setEndPage(endPage);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("adminCampingReviewList", adminCampingReviewList);
+		mav.addObject("pageDto", pageDto);
+		mav.setViewName("admin/AdminCampingReviewList");
+		
+		return mav;
+	}
+
+	public String modifyCampingReviewState(int cgrvcode, int cgrvstate) {
+		System.out.println("CampingService.modifyCampingReviewState() 호출");
+		System.out.println("변경할 캠핑용품 리뷰코드 : " + cgrvcode);
+		System.out.println("변경할 캠핑용품 리뷰 state  : " + cgrvstate);
+		
+		int updateResult = addao.updateCampingReviewState(cgrvcode,cgrvstate);
+		return updateResult+"";
+	}
 }

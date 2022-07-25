@@ -130,12 +130,14 @@ $(document).ready(function() {
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="section-reply-title">
-								<h5>게시글 작성</h5><h6>자유게시판 글작성 페이지입니다.</h6>
+								<h5>게시글 작성</h5><h6>FAQ 글작성 페이지입니다.</h6>
 						</div> 
 					<div style="width: 100%; margin: auto;">
 						<form method="post" action="FAQwrite2">
 							
-							<input type="text" name="faqtitle" style="width: 40%;" placeholder="제목" /> <br>
+							<input type="text" name="faqtitle" style="width: 40%;
+    border-bottom: 1px solid;
+    border-color: #ddd;" placeholder="제목" /> <br>
 							<hr>
 							<textarea id="summernote" name="faqcontents"></textarea>
 							<br>
@@ -145,10 +147,10 @@ $(document).ready(function() {
 					</div>
 
 
-					<div class="p-r-45 p-r-0-lg">
-						<!-- item blog -->
+					<!-- <div class="p-r-45 p-r-0-lg">
+						item blog
 						<div class="p-b-63"></div>
-					</div>
+					</div> -->
 				</div>
 
 			</div>

@@ -78,7 +78,8 @@
 	            			FROM GOODSORDER 
 	            			ORDER BY GODATE DESC) GOODSORDER
 	      		WHERE GOMID = #{loginId})
-	WHERE GOSTATE BETWEEN 2 AND 5
+	WHERE GOSTATE BETWEEN 2 AND 7
+	OR GOSTATE = 9
 	AND RN BETWEEN #{startRow} AND #{endRow}
  </select>
  
@@ -108,7 +109,7 @@
   WHERE GOMID = #{loginId} AND GOSTATE = 1
  </select>
  
- <!-- 찜삭제 (DELETE) -->
+ <!-- 찜삭제 (UPDATE) -->
  <delete id="calldibs">
   DELETE FROM GOODSORDER
   WHERE GOMID = #{loginId} AND GOCODE = #{gocode} AND GOSTATE = 1
@@ -162,6 +163,20 @@
  <!-- 구매확정 (UPDATE) -->
  <update id="phDecide">
   UPDATE GOODSORDER SET GOSTATE = 5
+  WHERE GOCODE = #{gocode}
+ </update>
+ 
+ <!-- 주문 취소 (DELETE) -->
+ <delete id="PurchaseDelete">
+  DELETE FROM GOODSORDER
+  WHERE GOCODE = #{gocode}
+ </delete>
+ 
+ <!-- 취소요청 하기 STATE 6 관리자 기달리기 (UPDATE) -->
+ <update id="cancelreasonput">
+  UPDATE GOODSORDER SET 
+  GOSTATE = 6,
+  GOCANCEL = #{gocancel}
   WHERE GOCODE = #{gocode}
  </update>
 </mapper>

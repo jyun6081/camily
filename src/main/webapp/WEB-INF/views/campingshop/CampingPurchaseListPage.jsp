@@ -103,36 +103,34 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">상품정보</th>
-                                            <th scope="col">구매상품명</th>
-                                            <th scope="col">상품가격</th>
-                                            <th scope="col">상품수량</th>
-                                            <th scope="col">총금액</th>
-                                            <th scope="col">주문주소</th>
-                                            <th scope="col">상품상태</th>
-                                            <th scope="col"></th>
-                                           
-									 
-								
+                                            <th class="align-middle text-center font-weight-bold">상품정보</th>
+                                            <th class="align-middle text-center font-weight-bold">구매상품명</th>
+                                            <th class="align-middle text-center font-weight-bold">상품가격</th>
+                                            <th class="align-middle text-center font-weight-bold">상품수량</th>
+                                            <th class="align-middle text-center font-weight-bold">총금액</th>
+                                            <th class="align-middle text-center font-weight-bold">주문주소</th>
+                                            <th class="align-middle text-center font-weight-bold">상품상태</th>
+                                            <th class="align-middle text-center font-weight-bold"></th>                                         									 								
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }" alt="IMG" style="width: 60px;"></th>
-                                            <td>${Purchase.goname }</td>
-                                            <td>${Purchase.goprice }원</td>
-                                            <td>${Purchase.goamount }개</td>
-                                            <td>${Purchase.goprice}원</td>
-                                            <td>${Purchase.gomaddr }</td>
-                                            <td id="aaa">
+                                            <th class="align-middle text-center font-weight-bold"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }" alt="IMG" style="width: 60px;"></th>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goname }</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goprice }원</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goamount }개</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goprice}원</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.gomaddr }</td>
+                                            <td id="aaa" class="align-middle text-center font-weight-bold">
                                       <c:if test="${Purchase.gostate == 2 }">
 									  <p>배송준비중</p>								    
-								      <button type="button" class="btn btn-dark" onclick="PurchaseDelete('gocode')">주문취소</button>
+								      <button type="button" class="btn btn-dark" onclick="PurchaseDelete('${Purchase.gocode }')">주문취소</button>
 								    </c:if>
 								    
 								    <c:if test="${Purchase.gostate == 3 }">
 									  <p>배송중</p>				
-									  <button type="button" class="btn btn-dark">주문취소</button>				    
+									  <button type="button" class="btn btn-dark" onclick="PurchaseCancel()">취소문의</button>	
+									  <input type="hidden" value="${Purchase.gocode }" id="cancelGocode">			    
 								    </c:if>
 								    
 								    <c:if test="${Purchase.gostate == 4 }">
@@ -154,9 +152,15 @@
 								    <c:if test="${Purchase.gostate == 7 }">
 									  <p style="font-color : red;">취소완료</p>				
 									</c:if>
+									
+								    <c:if test="${Purchase.gostate == 9 }">
+									  <p style="font-color : red;">취소거절 관리자 1대1 문의 바람</p>				
+									</c:if>
+									
 									</td>
-									<td>				 <button type="button"
-									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">삭제</button></td>
+									<td>				 
+								     <button type="button"
+									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">내역삭제</button></td>
                                         </tr>                                                                       
                                     </tbody>
                                 </table>
@@ -167,9 +171,32 @@
                     
                 
                     </c:forEach>
-                    
-						
-	
+                    					
+	<!-- 배송중 주문취소 모달 -->
+	<div class="modal fade" id="PurchaseCancelModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true"
+		style="z-index: 1200">
+		<div class="modal-dialog" role="document">
+			
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<a class="modal-title w-100 font-weight-bold"> <img
+							src="${pageContext.request.contextPath}/resources/images/icons/logo-01.png"
+							alt="IMG-LOGO" style="width: 35%">
+						</a>
+					</div>
+						<select id="cancelreason" class="">
+							<option value="">취소사유를 선택해주세요</option>
+							<option value="구매 의사 취소" class="">구매의사취소</option>							
+							<option value="다른 상품 잘못 주문" class="">다른 상품 잘못 주문</option>
+							<option value="서비스 불만족" class="">서비스 불만족</option>
+							<option value="상품정보 상이" class="">상품정보 상이</option>
+						</select>
+						<button style="margin-top: 100px" class="btn btn-dark" onclick="cancelreasonput()">주문취소요청</button>
+				</div>
+		</div>
+	</div>
+	<!-- 배송중 주문취소 모달 끝 -->
 								
 	<!-- Load more 시작 -->
 	<div class="flex-c-m flex-w w-full p-t-45">
@@ -362,7 +389,8 @@
 <!-- 주문취소 -->
 <script type="text/javascript">
 function PurchaseDelete(gocode){
-	location.href="PurchaseDelete?gocde="+gocode;
+	 console.log("gocode :"+ gocode);
+	 location.href="PurchaseDelete?gocode="+gocode;
 }
 </script>	
 
@@ -371,6 +399,26 @@ function PurchaseDelete(gocode){
 function phDecide(gocode){
 	var phDecide_Check = confirm("구매확정하겠습니까?");
 	location.href="phDecide?gocode="+gocode;
+}
+</script>
+
+<!-- 구매취소 모달 -->
+<script type="text/javascript">
+function PurchaseCancel(){
+			$("#PurchaseCancelModal").modal('show');
+		}
+</script>
+
+<!-- 취소요청 -->
+<script type="text/javascript">
+function cancelreasonput(){
+	var cancelGocode = $("#cancelGocode").val();  // 취소할코드
+	var cancelreason = $("#cancelreason").val(); // 취소사유
+	
+	console.log("cancelGocode :"+ cancelGocode);
+	console.log("cancelreason :"+ cancelreason);
+	
+	location.href="cancelreasonput?gocode="+cancelGocode+"&gocancel="+cancelreason;
 }
 </script>
 </html>

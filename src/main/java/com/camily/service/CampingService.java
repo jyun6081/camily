@@ -2,6 +2,8 @@ package com.camily.service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -9,9 +11,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.camily.dao.CampingDao;
 import com.camily.dto.CampingDto;
+import com.camily.dto.CampingQuestionDto;
 import com.camily.dto.CampingRoomDto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
@@ -105,10 +109,12 @@ public class CampingService {
 		System.out.println(campingInfo);
 		ArrayList<CampingRoomDto> campingRoomTypeList = cdao.campingRoomTypeList(cacode);
 		ArrayList<CampingRoomDto> campingRoomList = cdao.campingRoomList(cacode);
+		ArrayList<CampingQuestionDto> campingQuestionList = cdao.campingQuestionList(cacode);
 		System.out.println(campingRoomList);
 		mav.addObject("campingInfo", campingInfo);
 		mav.addObject("campingRoomList", campingRoomList);
 		mav.addObject("campingRoomTypeList", campingRoomTypeList);
+		mav.addObject("campingQuestionList", campingQuestionList);
 		mav.setViewName("camping/CampingView");
 		return mav;
 	}
@@ -312,6 +318,74 @@ public class CampingService {
 		String result = totalPrice+"";
 		System.out.println(result);
 		return result;
+	}
+
+	public ModelAndView questionWrite(String cqmid, String cqcacode, String cqcontents, RedirectAttributes ra) {
+		System.out.println("CampingService.questionWrite() 호출");
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("cqmid : " + cqmid);
+		System.out.println("cqcacode : " + cqcacode);
+		System.out.println("cqcontents : " + cqcontents);
+		/*
+		cqcontents.replace("\r\n", "<br>");
+		cqcontents.replace(" ", "&nbps;");
+		*/
+		
+		CampingQuestionDto campingQustionInfo = new CampingQuestionDto();
+		
+		String maxCqcode = cdao.getMaxCqcode();
+		String cqCode = "";
+		if(maxCqcode == null) {
+			cqCode = "CQ0001";
+		}else {
+			int intMaxCqcode = Integer.parseInt(maxCqcode.substring(2)) + 1;
+			if(intMaxCqcode < 10) {
+				cqCode = "CQ000" + intMaxCqcode;
+			}else if(intMaxCqcode < 100){
+				cqCode = "CQ00" + intMaxCqcode;
+			}else if(intMaxCqcode <1000) {
+				cqCode = "CQ0" + intMaxCqcode;
+			}else if(intMaxCqcode < 10000){
+				cqCode = "CQ" + intMaxCqcode;
+			}else {
+				System.out.println("범위 초과");
+			}
+		}
+		campingQustionInfo.setCqcode(cqCode);
+		campingQustionInfo.setCqcacode(cqcacode);
+		campingQustionInfo.setCqmid(cqmid);
+		campingQustionInfo.setCqcontents(cqcontents);
+		
+		
+		int insertResult = cdao.questionWrite(campingQustionInfo);
+		if(insertResult > 0) {
+			ra.addFlashAttribute("msg", "문의글이 등록되었습니다.");
+		}else {
+			ra.addFlashAttribute("msg", "문의글 등록에 실패하였습니다.");
+		}
+		mav.setViewName("redirect:/campingView?cacode="+cqcacode);
+		
+		return mav;
+	}
+
+	public String questionModify(String cqcode, String cqcontents) {
+		System.out.println("CampingService.questionModify() 호출");
+		String result_json = "";
+		LocalDate nowDate = LocalDate.now();
+		LocalTime nowTime = LocalTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String formattedNowTime = nowTime.format(formatter);
+		cqcontents = "[수정됨] "+ nowDate + " " + formattedNowTime + "\r\n" + cqcontents;
+		int updateResult = cdao.questionModify(cqcode, cqcontents);
+		if(updateResult > 0) {
+			CampingQuestionDto campingQuestionInfo = cdao.getCampingQuestionInfo(cqcode);
+			Gson gson = new Gson();
+			result_json = gson.toJson(campingQuestionInfo);
+		}else {
+			result_json = "NG";
+		}
+		return result_json;
 	}
 
 	
