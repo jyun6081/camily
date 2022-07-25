@@ -187,6 +187,8 @@
 							<button type="button" class="btn btn-outline-secondary m-2"
 								onclick="replyWrite()">댓글작성</button>		
 							<div style="float: right;">
+								<a class="btn btn-success"
+									href="boardList">목록</a>
 								<c:if test="${boardView.bomid == sessionScope.loginId}">
 								<button class="btn btn-info"  onclick="boardModify('${boardView.bocode }')">수정</button> 
 								<button class="btn btn-danger"  onclick="boardDelete('${boardView.bocode }')">삭제</button>
