@@ -157,11 +157,12 @@ $(document).ready(function() {
 							<textarea id="summernote" name="bocontents"></textarea>
 							<br>
 							<input id="subBtn" type="button" class="btn btn-default pull-right" value="글 작성"
-								style="float: right;" onclick="goWrite(this.form)" />
+							 onclick="goWrite(this.form)" />
 						</form>
 					</div>
 
-
+					<a class="btn btn-info"
+									href="boardList">목록</a>
 					<!-- <div class="p-r-45 p-r-0-lg">
 						item blog
 						<div class="p-b-63"></div>

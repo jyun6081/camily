@@ -54,7 +54,7 @@ public class CampingReviewController {
 	}
 	
 	//캠핑장 후기 상세페이지 이동
-	@RequestMapping("cgreviewdetail")
+	@RequestMapping(value = "/cgreviewdetail")
 	public ModelAndView cgreviewdetail(int cgrvcode) {
 		System.out.println("CampingReviewController.cgreviewdetail()호출");
 		System.out.println("cgrvcode :" + cgrvcode);

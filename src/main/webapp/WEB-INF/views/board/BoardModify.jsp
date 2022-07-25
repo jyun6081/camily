@@ -150,10 +150,8 @@ $(document).ready(function() {
 					</div>
 
 
-					<!-- <div class="p-r-45 p-r-0-lg">
-						item blog
-						<div class="p-b-63"></div>
-					</div> -->
+					<a class="btn btn-success"
+									href="boardView?bocode=${board.bocode}">목록</a>
 				</div>
 
 			</div>
