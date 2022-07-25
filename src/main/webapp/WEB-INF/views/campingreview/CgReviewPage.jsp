@@ -202,6 +202,22 @@
 										</div>
 									</div>
 
+								<div class="flex-w flex-sb-m p-t-18">
+									<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
+										<span>
+											<span class="cl4"></span><i class="fa-regular fa-user"></i> ${cgrvList.cgrvmid } 
+											<span class="cl12 m-l-4 m-r-6">|</span>
+										</span>
+										<span>
+											<span class="cl4"></span><i class="fa-regular fa-calendar"></i> ${cgrvList.cgrvdate }
+											<span class="cl12 m-l-4 m-r-6">|</span>
+										</span>
+										<span>
+											조회수 <i class="fa-regular fa-eye"></i> ${cgrvList.cgrvhits }
+										</span>
+									</span>
+									<a href="cgreviewdetail?cgrvcode=${cgrvList.cgrvcode }" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
+										상세보기
 
 								</div>
 							</div>

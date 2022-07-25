@@ -11,4 +11,7 @@ public class CampingQuestionDto {
 	private String cqcontents;
 	private String cqdate;
 	private int cqstate;
+	
+	// java에서만 사용
+	private String caname;
 }

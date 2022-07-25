@@ -144,5 +144,47 @@ public class AdminController {
 
 		return updateResult;
 	}
+	
+	@RequestMapping(value = "/adminGoodsReviewList")
+	public ModelAndView adminGoodsReviewList(String page) {
+		System.out.println("관리자 캠핑용품리뷰 리스트 기능 호출");
+		ModelAndView mav = advc.adminGoodsReviewList(page);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/modifyGoodsReviewState")
+	public @ResponseBody String modifyGoodsReviewState(int gorvcode, int gorvstate) {
+		System.out.println("관리자 캠핑용품 리뷰 상태 변경요청");
+		
+		String updateResult = advc.modifyGoodsReviewState(gorvcode, gorvstate);
+		
+		return updateResult;
+	}
+	
+	@RequestMapping(value = "/adminCampingReviewList")
+	public ModelAndView adminCampingReviewList(String Page) {
+		System.out.println("관리자 캠핑장리뷰 리스트 기능 호출");
+		ModelAndView mav = advc.adminCampingReviewList(Page);
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value = "/modifyCampingReviewState")
+	public @ResponseBody String modifyCampingReviewState(int cgrvcode, int cgrvstate) {
+		System.out.println("관리자 캠핑장 리뷰 상태 변경요청");
+		
+		String updateResult = advc.modifyCampingReviewState(cgrvcode, cgrvstate);
+		
+		return updateResult;
+	}
 
+	@RequestMapping(value = "/AdminCampingQuestionPage")
+	public ModelAndView AdminCampingQuestionPage() {
+		System.out.println("관리자 캠핑장 문의게시글 페이지 이동");
+		ModelAndView mav = advc.AdminCampingQuestionPage();
+		return mav;
+	}
+	
 }

@@ -4,11 +4,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Camily - 게시글작성</title>
+<title>관리자 문의 관리 게시판</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css">
@@ -41,51 +39,9 @@
 	href="${pageContext.request.contextPath}/resources/css/util.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/main.css">
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<!-- include summernote css/js-->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/summernote-lite.js"></script>
-<!-- include summernote-ko-KR -->
-<script src="${pageContext.request.contextPath}/resources/js/summernote-ko-KR.js"></script>
-<title>글쓰기</title>
 <!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-<script>
-$(document).ready(function() {
-	  $('#summernote').summernote({
- 	    	placeholder: '내용을 작성하세요',
-	        minHeight: 400,
-	        maxHeight: 400,
-	        focus: true, 
-	        lang : 'ko-KR',
-	        toolbar: [
-    		    // [groupName, [list of button]]
-    		    ['fontname', ['fontname']],
-    		    ['fontsize', ['fontsize']],
-    		    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-    		    ['color', ['forecolor','color']],
-    		    ['table', ['table']],
-    		    ['para', ['paragraph']],
-    		    ['height', ['height']],
-    		    ['insert',['picture','link','video']],
-    		  ],
-    	fontNames: ['바탕체','궁서','굴림체','굴림','돋움체','맑은고딕'],
-    	fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-	    
-	  });
-	  $('#summernote').summernote('fontName', '바탕체');
-	});
-</script>
-<!--===============================================================================================-->
-<script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
+<script src="https://kit.fontawesome.com/d70fa0d402.js" crossorigin="anonymous"></script>
+
 <style type="text/css">
 .section-reply-title {
 	margin-bottom: 30px;
@@ -124,58 +80,105 @@ $(document).ready(function() {
 }
 </style>
 
+
 </head>
 <body class="animsition">
 
 	<!-- TopBar-->
-	<%@ include file="/WEB-INF/views/includes/TopBar.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/AdminTopBar.jsp"%>
 	<!-- End TopBar-->
-	
-	<!-- memberModal -->
-	<%@ include file="/WEB-INF/views/member/memberModal.jsp"%>
-	<!-- EndmemberModal -->
-
-
-	
-
 
 	<!-- Content page -->
-	<section class="bg0 p-t-62 p-b-60">
+	<section class="bg0 p-t-52 p-b-20">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">
-					<div class="section-reply-title">
-								<h5>게시글 작성</h5><h6>자유게시판 글작성 페이지입니다.</h6>
-						</div> 
-					<div style="width: 100%; margin: auto;">
-						<form method="post" action="write2">
+					<div class="p-r-0-lg">
+						<div class="section-reply-title">
+								<h5>캠핑장 문의글 확인</h5>
+						</div>
+						<div>
+							<button class="btn btn-info" onclick="allQuestion()">전체보기</button>
+							<button class="btn btn-warning" onclick="notyetQuestion()">미답변 문의만 보기</button>
+						</div>
+							<div class="row">
+								<div class="col-sm-10 col-md-10 col-lg-8 m-lr-auto">
+									<div class="p-b-30 m-lr-15-sm">
+										<div>
+											<!-- 캠핑장 문의 -->
+											<c:forEach items="${campingQuestionList}" var="campingQustionInfo">
+												<div class="p-b-68" id="${campingQustionInfo.cqcode}">
+													<!-- 캠핑장 문의글 -->
+													<div>
+														<form action="questionWrite" method="post" id="${campingQustionInfo.cqcode}_questionModify">
+															<div class="flex-w flex-sb-m">
+																<span class="mtext-107 cl2 p-r-20" id="questionId">
+																	${campingQustionInfo.cqmid} [ ${campingQustionInfo.caname}]
+																</span>
+																<span id="${campingQustionInfo.cqcode}_qustionBtn">
+																	<button class="btn btn-success m-r-10" onclick="answerQuestionForm('${campingQustionInfo.cqcode}')">답변</button><button class="btn btn-danger" onclick="deleteQuestion('${campingQustionInfo.cqcode}')">삭제</button>
+																</span>
+															</div>
+															<div class="p-b-17" style="font-size: 12px;">${campingQustionInfo.cqdate}</div>
+															<textarea class="stext-102 cl6" id="${campingQustionInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQustionInfo.cqcontents}</textarea>
+														</form>
+													</div>
+													<!-- 답글 -->
+													<div class="flex-w flex-t">
+														<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
+															<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
+														</div>
+														<div class="size-207">
+															<div class="flex-w flex-sb-m p-b-17">
+																<span class="mtext-107 cl2 p-r-20">
+																	Camily
+																</span>
+															</div>
+															<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;">문의하신 내용에 답변 드립니다.</textarea>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+										</div>
+										
+
+
+										<!-- 문의글 작성하기 -->
+										<form action="questionWrite" id="cqform">
+											<input type="hidden" id="cqmid" name="cqmid" value="${sessionScope.loginId}">
+											<input type="hidden" name="cqcacode" value="${campingInfo.cacode}">
+											<div class="row p-b-25">
+												<div class="col-12 p-b-5">
+													<label class="stext-102 cl3" for="review">문의글 작성</label>
+													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>
+												</div>
+											</div>
+											<button type="button" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="cqsubmit();">
+												작성
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
 							
-							<input type="text" name="botitle" style="width: 40%;
-    border-bottom: 1px solid;
-    border-color: #ddd;" placeholder="제목" /> <br>
-							
-							<textarea id="summernote" name="bocontents"></textarea>
-							<br>
-							<input id="subBtn" type="button" class="btn btn-default pull-right" value="글 작성"
-							 onclick="goWrite(this.form)" />
-						</form>
+						<!-- Pagination -->
+						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
+							<a href="#"
+								class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+								1 </a> <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
+								2 </a>
+						</div>
+
 					</div>
-
-					<a class="btn btn-info"
-									href="boardList">목록</a>
-					<!-- <div class="p-r-45 p-r-0-lg">
-						item blog
-						<div class="p-b-63"></div>
-					</div> -->
 				</div>
-
 			</div>
 		</div>
 	</section>
 
-	<!-- footer -->
-	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
 
+
+	<!-- Footer -->
+	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
 
 
 	<!-- Back to top -->
@@ -185,6 +188,12 @@ $(document).ready(function() {
 		</span>
 	</div>
 
+	<!--===============================================================================================-->
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
 	<!--===============================================================================================-->
 	<script
 		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/popper.js"></script>
@@ -222,29 +231,9 @@ $(document).ready(function() {
 			})
 		});
 	</script>
-	
 	<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/js/main2.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
-	<script>
-		function goWrite(form) {
-			var title = form.botitle.value;
-			var content = form.bocontents.value;
-			
-
-			if (title.trim() == '') {
-				alert("제목을 입력해주세요");
-				return false;
-			}
-			
-			if (content.trim() == '') {
-				alert("내용을 입력해주세요");
-				return false;
-			}
-			form.submit();
-		}
-	</script>
-	
 	<script type="text/javascript">
 		var checkMsg = '${msg}';
 		console.log(checkMsg.length);
@@ -252,5 +241,9 @@ $(document).ready(function() {
 			alert(checkMsg);
 		}
 	</script>
+	<script>
+
+	</script>
+
 </body>
 </html>

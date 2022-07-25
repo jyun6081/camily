@@ -46,7 +46,6 @@
 
 
 
-
 	<!-- TopBar-->
 	<%@ include file="/WEB-INF/views/includes/AdminTopBar.jsp"%>
 	<!-- End TopBar-->
@@ -59,7 +58,7 @@
 				<c:forEach items="${bannerList}" var="bannerInfo">
 					<div id="${bannerInfo.bncode}">
 						<div class="item-slick1" style="background-image: url(${pageContext.request.contextPath}/resources/bannerUpload/${bannerInfo.bnimage});">
-						<button class="btn btn-danger" style="float: right; margin: 20px" onclick="bannerModDelForm('${bannerInfo.bncode}','${bannerInfo.bnimage}','${bannerInfo.bntitle}','${bannerInfo.bncontents}','${bannerInfo.bnlink}')">수정/삭제하기</button>
+						<button class="btn btn-danger" style="float: right; margin: 20px" onclick="bannerModDelForm('${bannerInfo.bncode}','${bannerInfo.bnimage}','${bannerInfo.bntitle}','${bannerInfo.bncontents}','${bannerInfo.bnlink}', '${bannerInfo.bntitleeffect}', '${bannerInfo.bncontentseffect}', '${bannerInfo.bnlinkeffect}', '${bannerInfo.bnimage}')">수정/삭제하기</button>
 						<button class="btn btn-primary" style="float: right; margin: 20px" onclick="bannerAddForm()">추가하기</button>
 							<div class="container h-full">
 								<div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
@@ -198,7 +197,6 @@
 		</div>
 	</form>
 	
-</body>
 <script src="${pageContext.request.contextPath}/resources/js/main2.js"></script>
 <!--===============================================================================================-->
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/popper.js"></script>
@@ -298,6 +296,7 @@
 		})
 	});
 </script>
+</body>
 
 <!-- 경고창 표시 -->
 <script type="text/javascript">
@@ -310,14 +309,21 @@
 
 
 <script type="text/javascript">
-function bannerModDelForm(bncode, bnimage, bntitle, bncontents, bnlink) {
+function bannerModDelForm(bncode, bnimage, bntitle, bncontents, bnlink, bntitleeffect, bncontentseffect, bnlinkeffect, bnimage) {
 	console.log(bncode + " - 배너 수정/삭제");
 	$("#modaltitle").text(bncode + "수정/삭제");
 	$("#bncode").val(bncode);
 	$("#bannerImage").attr("src", bnimage);
 	$("#bntitle").val(bntitle);
+	$("#bntitleeffect").val(bntitleeffect).prop("selected", true);
+	$("#select2-bntitleeffect-container").text(bntitleeffect);
 	$("#bncontents").val(bncontents);
+	$("#bncontentseffect").val(bncontentseffect).prop("selected", true);
+	$("#select2-bncontentseffect-container").text(bncontentseffect);
 	$("#bnlink").val(bnlink);
+	$("#bnlinkeffect").val(bnlinkeffect).prop("selected", true);
+	$("#select2-bnlinkeffect-container").text(bnlinkeffect);
+	$("#bannerImage").attr("src", '${pageContext.request.contextPath}/resources/bannerUpload/' + bnimage)
 	$("#addBtn").attr("style","display:none");
 	$("#modifyBtn").removeAttr("style");
 	$("#deleteBtn").removeAttr("style");

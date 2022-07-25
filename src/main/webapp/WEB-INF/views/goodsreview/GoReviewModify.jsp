@@ -133,16 +133,14 @@ $(document).ready(function() {
     border-color: #ddd;"/> <br>
 							<textarea id="summernote"  name="gorvcontents">${goodsReview.gorvcontents}</textarea>
 							<br>
-							<input id="subBtn" type="button" class="btn btn-info pull-right" value="글 작성"
-								style="float: right;" onclick="goWrite(this.form)" />
+							<input id="subBtn" type="button" class="btn btn-default pull-right" value="글 작성"
+							onclick="goWrite(this.form)" />
 						</form>
 					</div>
 
-
-					<!-- <div class="p-r-45 p-r-0-lg">
-						item blog
-						<div class="p-b-63"></div>
-					</div> -->
+			
+					<a class="btn btn-success"
+									href="goreviewdetailpage?gorvcode=${goodsReview.gorvcode}">목록</a>
 				</div>
 
 			</div>

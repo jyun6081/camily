@@ -120,51 +120,18 @@
 							</p>
 							</div>	
 							<div id="bobtn">
-								<a class="btn btn-outline-success" href="cgreviewpage">목록</a> 
+								<a class="btn btn-success" href="cgreviewpage">목록</a> 
 							<c:if test="${sessionScope.loginId == CampingReview.cgrvmid || sessionScope.loginId  == 'admin'}">
-								<a class="btn btn-outline-success" href="cgReviewModify?cgrvcode=${CampingReview.cgrvcode }">수정</a> 
-								<a class="btn btn-outline-success" href="cgReviewDelete?cgrvcode=${CampingReview.cgrvcode }">삭제</a>
+								<a class="btn btn-info" href="cgReviewModify?cgrvcode=${CampingReview.cgrvcode }">수정</a> 
+								<a class="btn btn-danger" href="cgReviewDelete?cgrvcode=${CampingReview.cgrvcode }">삭제</a>
 							</c:if>				
 							</div>
 						</div>
 
-						<div class="flex-w flex-t p-t-16">
-							<span class="size-216 stext-116 cl8 p-t-4">
-								Tags
-							</span>
-
-							<div class="flex-w size-217">
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									송도
-								</a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									캠핑
-								</a>
-								
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									서울근교
-								</a>
-							</div>
-						</div>
+						
 
 						<!--  -->
-						<div class="p-t-40">
-							
-							<h5 class="mtext-113 cl2 p-b-12">
-								댓글
-							</h5>						
-
-							<form>																					
-								<div class="bor19 m-b-20">
-									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="cmt" placeholder="댓글작성하기..."></textarea>
-								</div>
-
-								<button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
-									댓글작성
-								</button>
-							</form>
-						</div>
+						
 					</div>
 				</div>
 			  </div>

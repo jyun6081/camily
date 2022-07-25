@@ -125,4 +125,45 @@
          SET BOSTATE = #{bostate}
          WHERE BOCODE = #{bocode}
     </update>
+    
+    <select id="getCampingQuestionList" resultType="com.camily.dto.CampingQuestionDto">
+    	SELECT CQ.*, C.CANAME
+		FROM CAMPINGQUESTION CQ
+		INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
+		ORDER BY CQDATE DESC
+    </select>
+    
+  	<select id="getAdminGoodsReviewList" resultType="com.camily.dto.GoodsReviewDto">
+    	SELECT GORVCODE, GORVMID, GORVGCODE, GORVTITLE, TO_CHAR(GORVDATE,'YYYY-MM-DD') AS GORVDATE,
+			   GORVSTATE
+		FROM (SELECT ROWNUM RN, GOODSREVIEW.* FROM GOODSREVIEW ORDER BY GORVCODE) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}    
+   </select> 
+    
+    <select id="getGoodsReviewTotalCount" resultType="int">
+    	SELECT COUNT(*) FROM GOODSREVIEW 
+    </select>  
+    
+     <update id="updateGoodsReviewState">
+         UPDATE GOODSREVIEW
+         SET GORVSTATE = #{gorvstate}
+         WHERE GORVCODE = #{gorvcode}
+    </update>
+    
+    <select id="getAdminCampingReviewList" resultType="com.camily.dto.CampingReviewDto">
+    	SELECT CGRVCODE, CGRVMID, CGRVCACODE, CGRVTITLE, TO_CHAR(CGRVDATE,'YYYY-MM-DD') AS CGRVDATE,
+			   CGRVSTATE
+		FROM (SELECT ROWNUM RN, CAMPINGREVIEW.* FROM CAMPINGREVIEW ORDER BY CGRVCODE) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}    
+   </select> 
+    
+    <select id="getCampingReviewTotalCount" resultType="int">
+    	SELECT COUNT(*) FROM CAMPINGREVIEW 
+    </select>
+    
+     <update id="updateCampingReviewState">
+         UPDATE CAMPINGREVIEW
+         SET CGRVSTATE = #{cgrvstate}
+         WHERE CGRVCODE = #{cgrvcode}
+    </update>
 </mapper>

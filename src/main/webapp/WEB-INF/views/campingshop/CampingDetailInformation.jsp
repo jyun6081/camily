@@ -132,17 +132,21 @@
                     </div>
 
                     </c:forEach>			        
-		                 
-    <!-- Load more --> 
-	<div class="flex-c-m flex-w w-full p-t-45" >
-		<button class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04" type="button" 
-		onclick="requestPay()">주문하기</button>
-	</div>	
-
-	                 <c:if test="${fn:length(detailinformation) == 0}">
+		            <br>
+		            <br>
+		            <br>
+		            <br>
+		            <c:if test="${fn:length(detailinformation) == 0}">
 									<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
-								</c:if>     
-	<!-- Load more -->
+								</c:if>       
+   
+					<div class="flex-c-m flex-w w-full p-t-45" >
+						<button class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04" type="button" 
+						onclick="requestPay()">주문하기</button>
+					</div>	
+
+	                    
+	
 		
 
 	</form>
