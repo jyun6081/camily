@@ -180,4 +180,11 @@ public class AdminController {
 		return updateResult;
 	}
 
+	@RequestMapping(value = "/AdminCampingQuestionPage")
+	public ModelAndView AdminCampingQuestionPage() {
+		System.out.println("관리자 캠핑장 문의게시글 페이지 이동");
+		ModelAndView mav = advc.AdminCampingQuestionPage();
+		return mav;
+	}
+	
 }

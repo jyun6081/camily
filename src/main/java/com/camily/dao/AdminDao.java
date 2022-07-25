@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import com.camily.dto.BannerDto;
 import com.camily.dto.BoardDto;
 import com.camily.dto.CampingDto;
+import com.camily.dto.CampingQuestionDto;
 import com.camily.dto.CampingReviewDto;
 import com.camily.dto.GoodsReviewDto;
 import com.camily.dto.MemberDto;
@@ -61,6 +62,8 @@ public interface AdminDao {
 
 	int updateBoardState(@Param("bocode") int bocode,@Param("bostate") int bostate);
 
+	//@Select("SELECT * FROM CAMPINGQUESTION ORDER BY CQDATE DESC")
+	ArrayList<CampingQuestionDto> getCampingQuestionList();
 	ArrayList<GoodsReviewDto> getAdminGoodsReviewList(@Param("startRow") int startRow,@Param("endRow") int endRow);
 
 	int getGoodsReviewTotalCount();

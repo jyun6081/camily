@@ -126,6 +126,13 @@
          WHERE BOCODE = #{bocode}
     </update>
     
+    <select id="getCampingQuestionList" resultType="com.camily.dto.CampingQuestionDto">
+    	SELECT CQ.*, C.CANAME
+		FROM CAMPINGQUESTION CQ
+		INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
+		ORDER BY CQDATE DESC
+    </select>
+    
   	<select id="getAdminGoodsReviewList" resultType="com.camily.dto.GoodsReviewDto">
     	SELECT GORVCODE, GORVMID, GORVGCODE, GORVTITLE, TO_CHAR(GORVDATE,'YYYY-MM-DD') AS GORVDATE,
 			   GORVSTATE
