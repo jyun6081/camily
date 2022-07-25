@@ -28,7 +28,6 @@ public class GoodsReviewService {
 		ModelAndView mav = new ModelAndView();
 		ArrayList<GoodsReviewDto> goreviewList = grdao.selectGoodsReviewList();
 		System.out.println(goreviewList);
-		
 		mav.addObject("goodsReviewList", goreviewList);
 		mav.setViewName("goodsreview/GoReviewPage");
 		return mav;

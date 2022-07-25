@@ -214,7 +214,7 @@
 								class="btn btn-default pull-right" value="글 작성"
 								style="float: right;" onclick="goWrite(this.form)" /> 
 								
-<<<<<<< HEAD
+
 									<span class="text-bold">별점을 선택해주세요</span> <br>
 								<fieldset>
 									<input type="radio" name="gorvstarating" value="5" id="rate1"><label
@@ -228,9 +228,6 @@
 									<input type="radio" name="gorvstarating" value="1" id="rate5"><label
 										for="rate5">★</label>
 								</fieldset>
-=======
-								 
->>>>>>> main
 						</form>
 					</div>
 
