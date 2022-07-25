@@ -199,6 +199,6 @@ public class AdminController {
 	public @ResponseBody String adminCampingAnswer(String cwcqcode, String cwcontents) {
 		System.out.println("캠핑장 문의글 답변달기 ajax");
 		String campingAnswer_ajax = advc.adminCampingAnswer(cwcqcode, cwcontents);
-		return "";
+		return campingAnswer_ajax;
 	}
 }

@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.camily.dto.BannerDto;
 import com.camily.dto.BoardDto;
+import com.camily.dto.CampingAnswerDto;
 import com.camily.dto.CampingDto;
 import com.camily.dto.CampingQuestionDto;
 import com.camily.dto.CampingReviewDto;
@@ -76,11 +77,14 @@ public interface AdminDao {
 
 	int updateCampingReviewState(@Param("cgrvcode") int cgrvcode,@Param("cgrvstate") int cgrvstate);
 
-	@Insert("INSERT INTO CAMPINGANSWER(CWCODE, CWCQCODE, CWMID, CWCONTENTS, CWDATE) VALUES()")
-	int answerWrite(String cwcqcode);
+	@Insert("INSERT INTO CAMPINGANSWER(CWCODE, CWCQCODE, CWMID, CWCONTENTS, CWDATE) VALUES(#{cwcode}, #{cwcqcode}, #{cwmid}, #{cwcontents}, SYSDATE)")
+	int answerWrite(CampingAnswerDto campingAnswerInfo);
 
 	@Select("SELECT MAX(CWCODE) FROM CAMPINGANSWER")
 	String getMaxCwcode();
+
+	@Select("SELECT * FROM CAMPINGANSWER WHERE CWCODE = #{cwcode}")
+	CampingAnswerDto getCampingAnswerInfo(@Param("cwcode") String cwCode);
 
 	
 
