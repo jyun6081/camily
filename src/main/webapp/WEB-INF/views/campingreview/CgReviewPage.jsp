@@ -181,7 +181,7 @@
 										</span> <span> <span class="cl4"></span><i
 												class="fa-regular fa-calendar"></i> ${cgrvList.cgrvdate } <span
 												class="cl12 m-l-4 m-r-6">|</span>
-										</span> <span> 조회수 ${cgrvList.cgrvhits } </span>
+										</span> <span>  <i class="fa-regular fa-eye"></i> ${cgrvList.cgrvhits } </span>
 										</span>
 									</div>
 								</div>
