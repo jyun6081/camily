@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.camily.dao.AdminCampingShopDao">
+
+<select id="adminCampingShop" resultType="com.camily.dto.GoodsDto">
+ SELECT*
+ FROM GOODS
+ ORDER BY GCODE ASC
+</select>
+
+<!-- 관리자 캠핑용품 상태 변경 ajax 클릭시 gstate값 변경 -->
+<update id="campingShopState">
+UPDATE GOODS SET GSTATE = #{gstate}
+WHERE GCODE = #{gcode}
+</update>
+
+<!-- 관리자 캠핑용품 수정 선택한 제품의 대한 수정 페이지 -->
+<select id="productmodify" resultType="com.camily.dto.GoodsDto">
+ SELECT*
+ FROM GOODS
+ WHERE GCODE = #{gcode}
+</select>
+
+<!-- 관리자 캠핑 용품 수정 -->
+<update id="modifyUpdate">
+UPDATE GOODS
+<set>
+	GCODE = #{gcode},
+	GCOMPANYNAME = #{gcompanyname},
+	GPRICE = #{gprice}, 
+	GCATEGORY = #{gcategory},
+	GCONTENTS = #{gcontents},
+	GNAME = #{gname},
+	<if test="gimage.length > 0">
+		GIMAGE = #{gimage},
+	</if>
+	<if test="gsideimage.length > 0">
+		GSIDEIMAGE = #{gsideimage},
+	</if>
+	<if test="gbackimage.length > 0">
+		GBACKIMAGE = #{gbackimage},
+	</if>
+	<if test="gdetailimage.length > 0">
+		GDETAILIMAGE = #{gdetailimage},
+	</if>
+</set>
+WHERE GCODE = #{gcode}
+</update>
+
+<!-- 관리자 상품 등록 처리 dao (INSERT) -->
+<insert id="produckAdd">
+INSERT INTO GOODS(GCODE, GCOMPANYNAME, GPRICE, GCATEGORY, GCONTENTS, GIMAGE, GNAME, GSIDEIMAGE, GBACKIMAGE, GDETAILIMAGE, GSTATE)
+VALUES(#{gcode}, #{gcompanyname}, #{gprice}, #{gcategory}, #{gcontents}, #{gimage},  #{gname}, #{gsideimage}, #{gbackimage}, #{gdetailimage}, 1)
+</insert>
+
+
+
+
+</mapper>

@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>캠핑장 상세보기</title>
+	<title>켐핑장 후기</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/icons/favicon.png"/>
+	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -36,16 +36,6 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->	
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-
-<script src="https://kit.fontawesome.com/d70fa0d402.js" crossorigin="anonymous"></script>
-<style type="text/css">
-#bobtn {
-	text-align: right;
-}
-.fa-star{
-    color:#f9ba48
-}
-</style>
 </head>
 <body class="animsition">
 	
@@ -57,124 +47,105 @@
 	<%@ include file="/WEB-INF/views/member/memberModal.jsp"%>
 	<!-- EndmemberModal -->
 
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('resources/images/bg-02.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			캠핑장 후기 게시판
+		</h2>
+	</section> 
+
+
 	<!-- Content page -->
-	<section class="bg0 p-t-52 p-b-20">
+	<section class="bg0 p-t-62 p-b-60">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-45 p-r-0-lg">
+						<!-- item blog -->
 						
-						<h4 class="ltext-109 cl2 p-b-28">
-								제목 : ${CampingReview.cgrvtitle } 
-							</h4>
-						
-							
-						
-						<div class="p-t-32">
-							<span class="flex-w flex-m stext-111 cl2 p-b-19">
-								<span>
-									<span class="cl4"></span><i class="fa-regular fa-user"></i> ${CampingReview.cgrvmid }  
-									<span class="cl12 m-l-4 m-r-6">|</span>
-								</span>
-
-								<span>
-									<i class="fa-regular fa-calendar"></i> ${CampingReview.cgrvdate }
-									<span class="cl12 m-l-4 m-r-6">|</span>
-								</span>
-								<span> <i class="fa-regular fa-eye"></i> 조회수 ${CampingReview.cgrvhits }</span>
-							</span>	
-							
-							<p class="stext-116 cl4">
-								제품명 : ${CampingReview.caname}
-							</p>
-							
-							<p class="mt-1"> 별점 : 
-								   <c:if test="${CampingReview.cgstarating == 1 }">
-								   <i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 2 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 3 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 4 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 5 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								</p>
-							
-							
-							
-							
-							
-							
-							
-							
-							<div>					
-							<p class="stext-115 p-b-26" style="color: black;">
-								${CampingReview.cgrvcontents }
-							
-							</p>
-							</div>	
-							<div id="bobtn">
-								<a class="btn btn-outline-success" href="cgreviewpage">목록</a> 
-							<c:if test="${sessionScope.loginId == CampingReview.cgrvmid || sessionScope.loginId  == 'admin'}">
-								<a class="btn btn-outline-success" href="cgReviewModify?cgrvcode=${CampingReview.cgrvcode }">수정</a> 
-								<a class="btn btn-outline-success" href="cgReviewDelete?cgrvcode=${CampingReview.cgrvcode }">삭제</a>
-							</c:if>				
-							</div>
-						</div>
-
-						<div class="flex-w flex-t p-t-16">
-							<span class="size-216 stext-116 cl8 p-t-4">
-								Tags
-							</span>
-
-							<div class="flex-w size-217">
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									송도
-								</a>
-
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									캠핑
-								</a>
+						<c:forEach items="${campingreviewList }" var="cgrvList"> 
+						<div class="p-b-63">
+							<%-- <span class="ltext-108 cl2 hov-cl1 trans-04">NO.${goods.gorvcode }</span> --%>
+							<a href="goreviewdetail?gorvcode=${cgrvList.cgrvcode }" class="hov-img0 how-pos5-parent rounded">
+								<img src="${cgrvList.cgrvimage }" alt="IMG">	
 								
-								<a href="#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
-									서울근교
-								</a>
+							</a>
+
+							<div class="p-t-32">
+								<h4 class="p-b-15">
+								
+									<a href="goreviewdetailpage" class="ltext-108 cl2 hov-cl1 trans-04">
+										 
+									
+									</a>
+								</h4> -->
+
+								<p class="stext-117" style="color: black;">
+									제목 : ${cgrvList.cgrvtitle }
+								</p>
+								
+								<p class="stext-116">
+									캠핑장 이름 : 🌈${cgrvList.recrname }🌈 									
+								</p>
+
+								<div class="flex-w flex-sb-m p-t-18">
+									<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
+										<span>
+											<span class="cl4"></span><i class="fa-regular fa-user"></i> ${gorvList.gorvmid } 
+											<span class="cl12 m-l-4 m-r-6">|</span>
+										</span>
+										<span>
+											<span class="cl4"></span><i class="fa-regular fa-calendar"></i> ${gorvList.gorvdate }
+											<span class="cl12 m-l-4 m-r-6">|</span>
+										</span>
+										<span>
+											좋아요 ${cgrvList.cgrvlike }
+										</span>
+									</span>
+									<a href="goreviewdetail?gorvcode=${cgrvList.cgrvcode }" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
+										상세보기
+
+										<i class="fa fa-long-arrow-right m-l-9"></i>
+									</a>
+								</div>
 							</div>
 						</div>
+						</c:forEach> 		
+						
+						<!-- Pagination -->
+						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
+							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+								1
+							</a>
 
-						<!--  -->
-						<div class="p-t-40">
-							
-							<h5 class="mtext-113 cl2 p-b-12">
-								댓글
-							</h5>						
+							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
+								2
+							</a>
 
-							<form>																					
-								<div class="bor19 m-b-20">
-									<textarea class="stext-111 cl2 plh3 size-124 p-lr-18 p-tb-15" name="cmt" placeholder="댓글작성하기..."></textarea>
-								</div>
-
-								<button class="flex-c-m stext-101 cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">
-									댓글작성
-								</button>
-							</form>
+						
+			
 						</div>
-					</div>
+					</div>	
 				</div>
-			  </div>
+
+				<!-- <div class="col-md-4 col-lg-3 p-b-80">
+					<div class="side-menu">
+						<div class="bor17 of-hidden pos-relative">
+							<input class="stext-103 cl2 plh4 size-116 p-l-28 p-r-55" type="text" name="search" placeholder="Search">
+
+							<button class="flex-c-m size-122 ab-t-r fs-18 cl4 hov-cl1 trans-04">
+								<i class="zmdi zmdi-search"></i>
+							</button>
+						</div> -->
+
 			</div>
+		</div>
 	</section>	
 	
-		
-
-	<!-- Footer -->
+	<!-- footer -->	
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
+	
 
 
 	<!-- Back to top -->
@@ -219,12 +190,5 @@
 <!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/resources/js/main2.js"></script>
 
-	<script type="text/javascript">
-		var checkMsg = '${msg}';
-		console.log(checkMsg.length);
-		if (checkMsg.length > 0) {
-			alert(checkMsg);
-		}
-	</script>
 </body>
 </html>

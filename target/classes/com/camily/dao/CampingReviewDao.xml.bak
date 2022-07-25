@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.camily.dao.CampingReviewDao">
+
+	<select id="getMaxCgrvcode" resultType="int">
+		SELECT
+		NVL(MAX(CGRVCODE),0)
+		FROM CAMPINGREVIEW
+	</select>
+
+	<insert id="insertCampingReview">
+		INSERT INTO CAMPINGREVIEW(CGRVCODE, CGRVMID,
+		CGRVCACODE,
+		CGRVTITLE,
+		CGRVCONTENTS, CGRVDATE, CGRVLIKE, CGRVIMAGE,
+		CGRVSTATE)
+		VALUES(#{cgrvcode}, #{cgrvmid}, #{cgrvcacode}, #{cgrvtitle},
+		#{cgrvcontents}, SYSDATE, 1, #{cgrvimage}, 1)
+	</insert>
+
+	<select id="selectCampingReviewList"
+		resultType="com.camily.dto.CampingReviewDto">
+		SELECT DISTINCT RE.RECRNAME, CG.CGRVRECODE, CGRVCODE,
+		CGRVMID, CGRVCACODE, CGRVTITLE, CGRVCONTENTS, TO_CHAR(CGRVDATE,
+		'YYYY-MM-DD HH24:MI')AS CGRVDATE, CGRVLIKE, CGRVIMAGE, CGRVSTATE
+		FROM
+		CAMPINGREVIEW CG INNER JOIN RESERVATION RE
+		ON CG.CGRVCACODE =
+		RE.RECACODE
+		AND CG.CGRVRECODE = RE.RECODE
+		ORDER BY CGRVCODE
+	</select>
+
+</mapper>

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>캠핑장 상세보기</title>
+	<title>Blog Detail</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -42,9 +42,6 @@
 #bobtn {
 	text-align: right;
 }
-.fa-star{
-    color:#f9ba48
-}
 </style>
 </head>
 <body class="animsition">
@@ -65,7 +62,7 @@
 					<div class="p-r-45 p-r-0-lg">
 						
 						<h4 class="ltext-109 cl2 p-b-28">
-								제목 : ${CampingReview.cgrvtitle } 
+								제목 : ${gorvDetail.gorvtitle } 
 							</h4>
 						
 							
@@ -73,59 +70,30 @@
 						<div class="p-t-32">
 							<span class="flex-w flex-m stext-111 cl2 p-b-19">
 								<span>
-									<span class="cl4"></span><i class="fa-regular fa-user"></i> ${CampingReview.cgrvmid }  
+									<span class="cl4"></span><i class="fa-regular fa-user"></i> ${gorvDetail.gorvmid }  
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 
 								<span>
-									<i class="fa-regular fa-calendar"></i> ${CampingReview.cgrvdate }
+									<i class="fa-regular fa-calendar"></i> ${gorvDetail.gorvdate }
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
-								<span> <i class="fa-regular fa-eye"></i> 조회수 ${CampingReview.cgrvhits }</span>
+								<span> <i class="fa-regular fa-eye"></i> 조회수 341<%-- ${gorvDetail.gorvhits } --%> </span>
 							</span>	
 							
 							<p class="stext-116 cl4">
-								제품명 : ${CampingReview.caname}
+								제품명 : 🌈포레스트 체어 XL🌈
 							</p>
-							
-							<p class="mt-1"> 별점 : 
-								   <c:if test="${CampingReview.cgstarating == 1 }">
-								   <i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 2 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 3 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 4 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 5 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								</p>
-							
-							
-							
-							
-							
-							
-							
-							
 							<div>					
 							<p class="stext-115 p-b-26" style="color: black;">
-								${CampingReview.cgrvcontents }
+								${gorvDetail.gorvcontents }
 							
 							</p>
 							</div>	
 							<div id="bobtn">
-								<a class="btn btn-outline-success" href="cgreviewpage">목록</a> 
-							<c:if test="${sessionScope.loginId == CampingReview.cgrvmid || sessionScope.loginId  == 'admin'}">
-								<a class="btn btn-outline-success" href="cgReviewModify?cgrvcode=${CampingReview.cgrvcode }">수정</a> 
-								<a class="btn btn-outline-success" href="cgReviewDelete?cgrvcode=${CampingReview.cgrvcode }">삭제</a>
-							</c:if>				
-							</div>
+								<a class="btn btn-outline-success" href="goReviewModify?gorvcode=${gorvDetail.gorvcode }">수정</a> 
+								<a class="btn btn-outline-success" href="goreviewDelete?gorvcode=${gorvDetail.gorvcode }">삭제</a>
+							</div>						
 						</div>
 
 						<div class="flex-w flex-t p-t-16">
