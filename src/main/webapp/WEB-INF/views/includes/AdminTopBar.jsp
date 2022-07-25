@@ -74,7 +74,16 @@
 				<div class="menu-desktop">
 					<ul class="main-menu">
 						<li><a href="adminMemberList">회원관리</a></li>
-						<li><a href="adminboardList">게시판 관리</a></li>
+						<li>
+						<a href="#">게시판관리</a>
+						    <ul class="sub-menu" style="z-index: 1100">
+								<li><a href="adminboardList">자유게시판관리</a></li>
+								<li><a href="adminGoodsReviewList">캠핑용품 리뷰관리</a></li>
+								<li><a href="adminCampingReviewList">캠핑장 리뷰관리</a></li>
+								<li><a href="AdminCampingCancel">캠핑용품취소관리</a></li>
+								<li><a href="AdminCampingCancelList">캠핑용품취소목록</a></li>
+							</ul>
+						</li>
 						<li>
 						<a href="#">캠핑용품관리</a>
 						    <ul class="sub-menu" style="z-index: 1100">

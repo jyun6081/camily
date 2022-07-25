@@ -212,7 +212,9 @@
 							<textarea id="summernote" name="gorvcontents"></textarea>
 							<br> <input id="subBtn" type="button"
 								class="btn btn-default pull-right" value="글 작성"
-								style="float: right;" onclick="goWrite(this.form)" /> 
+								onclick="goWrite(this.form)" /> 
+								<a class="btn btn-success"
+									href="CampingPurchaseListPage" style="float: right;">목록</a>
 								
 									<span class="text-bold">별점을 선택해주세요</span> <br>
 								<fieldset>

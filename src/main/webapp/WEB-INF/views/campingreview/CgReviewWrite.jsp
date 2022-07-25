@@ -165,8 +165,9 @@ $(document).ready(function() {
 							<textarea id="summernote" name="cgrvcontents"></textarea>
 							<br>
 							<input id="subBtn" type="button" class="btn btn-default pull-right" value="글 작성"
-								style="float: right;" onclick="goWrite(this.form)" />
-					
+							onclick="goWrite(this.form)" />
+							<a class="btn btn-success"
+									href="myReservationList" style="float: right;">목록</a>
 
 
 					<!-- <div class="p-r-45 p-r-0-lg"> -->

@@ -157,7 +157,7 @@
 											<span class="cl12 m-l-4 m-r-6">|</span>
 										</span>
 										<span>
-											조회수 ${cgrvList.cgrvhits }
+											조회수 <i class="fa-regular fa-eye"></i> ${cgrvList.cgrvhits }
 										</span>
 									</span>
 									<a href="cgreviewdetail?cgrvcode=${cgrvList.cgrvcode }" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
