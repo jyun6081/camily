@@ -101,131 +101,8 @@
 
 	<!-- memberModal -->
 	<%@ include file="/WEB-INF/views/member/memberModal.jsp"%>
-	<!-- EndmemberModal -->
-
-
-
-
-
-	<%-- <!-- Content page -->
+	<!-- EndmemberModal -->		
 	<section class="bg0 p-t-62 p-b-60">
-		<div class="container">
-			<div class="row isotope-grid" id="goodsList"></div>
-		</div>
-		<div class="row">
-			<div class="col-md-8 col-lg-9 p-b-80">
-				<div class="p-r-45 p-r-0-lg">
-					<div class="section-reply-title">
-						<h5>캠핑장 REVIEW</h5>
-						<h6 class="mt-2">캠핑장에서의 좋은 경험을 남겨보세요.</h6>
-					</div>
-
-
-					<div class="row isotope-grid">
-						<c:forEach items="${cgrvList}" var="cgrvList">
-							<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-								<!-- Block2 -->
-								<div class="block2">
-									<div class="block2-pic">
-										<!--c:set으로 이미지 파일 이름 지정 -->
-
-										<img class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
-											src="${cgrvList.caimage}" alt="캠핑장 이미지"
-											style="width: 100%; height: 200px; object-fit: cover; object-position: bottom;">
-
-										<!-- <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-											Quick View
-										</a> -->
-									</div>
-
-									<div class="block2-txt flex-w flex-t p-t-14">
-										<div class="block2-txt-child1 flex-col-l ">
-
-											<span class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
-												style="font-size: 20px; font-weight: bold;">${cgrvList.caname}</span>
-										</div>
-									</div>
-
-									<div class="p-t-32">
-										<!-- <h4 class="p-b-15">
-									
-										<a href="goreviewdetailpage" class="ltext-108 cl2 hov-cl1 trans-04">
-											 
-										
-										</a>
-									</h4> -->
-
-										<p class="stext-117 mt-2" style="color: black;">제목 :
-											${cgrvList.cgrvtitle }</p>
-
-										<p class="stext-116">캠핑장 이름 : 🌈${cgrvList.caname }🌈</p>
-										<p class="mt-1">
-											별점 :
-											<c:if test="${cgrvList.cgstarating == 1 }">
-												<i class="fa-solid fa-star"></i>
-											</c:if>
-											<c:if test="${cgrvList.cgstarating == 2 }">
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-											</c:if>
-											<c:if test="${cgrvList.cgstarating == 3 }">
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-											</c:if>
-											<c:if test="${cgrvList.cgstarating == 4 }">
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-											</c:if>
-											<c:if test="${cgrvList.cgstarating == 5 }">
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-												<i class="fa-solid fa-star"></i>
-											</c:if>
-										</p>
-
-										<div class="flex-w flex-sb-m p-t-18">
-											<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
-												<span> <span class="cl4"></span><i
-													class="fa-regular fa-user"></i> ${cgrvList.cgrvmid } <span
-													class="cl12 m-l-4 m-r-6">|</span>
-											</span> <span> <span class="cl4"></span><i
-													class="fa-regular fa-calendar"></i> ${cgrvList.cgrvdate } <span
-													class="cl12 m-l-4 m-r-6">|</span>
-											</span> <span> 조회수 ${cgrvList.cgrvhits } </span>
-											</span> <a href="cgreviewdetail?cgrvcode=${cgrvList.cgrvcode }"
-												class="stext-101 cl2 hov-cl1 trans-04 m-tb-10"> 상세보기 <i
-												class="fa fa-long-arrow-right m-l-9"></i>
-											</a>
-										</div>
-									</div>
-
-
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-				</div>
-			</div>
-
-			<!-- Pagination -->
-			<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-				<a href="#"
-					class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-					1 </a> <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-					2 </a>
-
-
-
-			</div>
-		</div> --%>
-
-		
-	<div class="row isotope-grid"></div>
 
 	<div class="row">
 		<div class="col-md-8 col-lg-9 p-b-80">
@@ -239,10 +116,10 @@
 				<div class="row isotope-grid">
 					<c:forEach items="${campingreviewList}" var="cgrvList">
 						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-							<!-- Block2 -->
+						
 							<div class="block2">
 								<div class="block2-pic">
-									<!--c:set으로 이미지 파일 이름 지정 -->
+									
 
 									<a href="cgreviewdetail?cgrvcode=${cgrvList.cgrvcode }"> <img
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
@@ -250,9 +127,7 @@
 										style="width: 100%; height: 200px; object-fit: cover; object-position: bottom;">
 									</a>
 
-									<!-- <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-											Quick View
-										</a> -->
+									
 								</div>
 
 								<div class="block2-txt flex-w flex-t p-t-14">
@@ -264,13 +139,7 @@
 								</div>
 
 								<div class="p-t-32">
-									<!-- <h4 class="p-b-15">
 									
-										<a href="goreviewdetailpage" class="ltext-108 cl2 hov-cl1 trans-04">
-											 
-										
-										</a>
-									</h4> -->
 
 									<p class="stext-117 mt-2" style="color: black;">제목 :
 										${cgrvList.cgrvtitle }</p>
@@ -320,21 +189,24 @@
 							</div>
 						</div>
 					</c:forEach>
+					<!-- Pagination -->
+						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
+							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+								1
+							</a>
+
+							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
+								2
+							</a>
+
+						
+			
+						</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- Pagination -->
-	<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-		<a href="#"
-			class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-			1 </a> <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-			2 </a>
-
-
-
-	</div>
+	</section>
 	
 
 	
