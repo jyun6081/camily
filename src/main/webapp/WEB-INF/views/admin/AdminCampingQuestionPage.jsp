@@ -101,62 +101,62 @@
 							<button class="btn btn-info" onclick="allQuestion()">전체보기</button>
 							<button class="btn btn-warning" onclick="notyetQuestion()">미답변 문의만 보기</button>
 						</div>
-							<div class="row">
-								<div class="col-sm-10 col-md-10 col-lg-8 m-lr-auto">
-									<div class="p-b-30 m-lr-15-sm">
-										<div>
-											<!-- 캠핑장 문의 -->
-											<c:forEach items="${campingQuestionList}" var="campingQustionInfo">
-												<div class="p-b-68" id="${campingQustionInfo.cqcode}">
-													<!-- 캠핑장 문의글 -->
-													<div>
-														<form action="questionWrite" method="post" id="${campingQustionInfo.cqcode}_questionModify">
-															<div class="flex-w flex-sb-m">
-																<span class="mtext-107 cl2 p-r-20" id="questionId">
-																	${campingQustionInfo.cqmid} [ ${campingQustionInfo.caname}]
-																</span>
-																<span id="${campingQustionInfo.cqcode}_qustionBtn">
-																	<button class="btn btn-success m-r-10" onclick="answerQuestionForm('${campingQustionInfo.cqcode}')">답변</button><button class="btn btn-danger" onclick="deleteQuestion('${campingQustionInfo.cqcode}')">삭제</button>
-																</span>
-															</div>
-															<div class="p-b-17" style="font-size: 12px;">${campingQustionInfo.cqdate}</div>
-															<textarea class="stext-102 cl6" id="${campingQustionInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQustionInfo.cqcontents}</textarea>
-														</form>
-													</div>
-													<!-- 답글 -->
-													<div class="flex-w flex-t">
-														<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
-															<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
+							<div id="questionList">
+								<div class="row">
+									<div class="col-sm-10 col-md-10 col-lg-8 m-lr-auto">
+										<div class="p-b-30 m-lr-15-sm">
+											<div id="campingQuestionList_div">
+												<!-- 캠핑장 문의 -->
+												<c:forEach items="${campingQuestionList}" var="campingQustionInfo">
+													<div class="p-b-68" id="${campingQustionInfo.cqcode}">
+														<!-- 캠핑장 문의글 -->
+														<div>
+															<form action="questionWrite" method="post" id="${campingQustionInfo.cqcode}_questionModify">
+																<div class="flex-w flex-sb-m">
+																	<span class="mtext-107 cl2 p-r-20" id="questionId">
+																		${campingQustionInfo.cqmid} [ ${campingQustionInfo.caname}]
+																	</span>
+																	<span id="${campingQustionInfo.cqcode}_qustionBtn">
+																		<button class="btn btn-success m-r-10" onclick="answerQuestionForm('${campingQustionInfo.cqcode}')">답변</button><button class="btn btn-danger" onclick="deleteQuestion('${campingQustionInfo.cqcode}')">삭제</button>
+																	</span>
+																</div>
+																<div class="p-b-17" style="font-size: 12px;">${campingQustionInfo.cqdate}</div>
+																<textarea class="stext-102 cl6" id="${campingQustionInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQustionInfo.cqcontents}</textarea>
+															</form>
 														</div>
-														<div class="size-207">
-															<div class="flex-w flex-sb-m p-b-17">
-																<span class="mtext-107 cl2 p-r-20">
-																	Camily
-																</span>
-															</div>
-															<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;">문의하신 내용에 답변 드립니다.</textarea>
-														</div>
+														<!-- 답글 -->
+														<c:choose>
+															<c:when test="${campingQustionInfo.cqstate == 1}">
+																<div class="row p-b-25">
+																	<div class="col-12 p-b-5">
+																		<label class="stext-102 cl3" for="review">답글 작성</label>
+																		<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>
+																	</div>
+																</div>
+															</c:when>
+															<c:otherwise>
+																<div class="flex-w flex-t">
+																	<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
+																		<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
+																	</div>
+																	<div class="size-207">
+																		<div class="flex-w flex-sb-m p-b-17">
+																			<span class="mtext-107 cl2 p-r-20">
+																				Camily
+																			</span>
+																		</div>
+																		<textarea class="stext-102 cl6" id="${campingQustionInfo.cqcode}_answer" name="answer" style="width: 100%; resize: none;">문의하신 내용에 답변 드립니다.</textarea>
+																	</div>
+																	<button type="button" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="cqAnswerSubmit('${campingQustionInfo.cqcode}');">
+																		작성
+																	</button>
+																</div>
+															</c:otherwise>
+														</c:choose>
 													</div>
-												</div>
-											</c:forEach>
-										</div>
-										
-
-
-										<!-- 문의글 작성하기 -->
-										<form action="questionWrite" id="cqform">
-											<input type="hidden" id="cqmid" name="cqmid" value="${sessionScope.loginId}">
-											<input type="hidden" name="cqcacode" value="${campingInfo.cacode}">
-											<div class="row p-b-25">
-												<div class="col-12 p-b-5">
-													<label class="stext-102 cl3" for="review">문의글 작성</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>
-												</div>
+												</c:forEach>
 											</div>
-											<button type="button" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="cqsubmit();">
-												작성
-											</button>
-										</form>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -242,7 +242,113 @@
 		}
 	</script>
 	<script>
+		function allQuestion(){
+			$.ajax({
+			type: "get",
+			url: "adminCampingQuestionList",
+			data: {},
+			dataType: "json",
+			async: false,
+			success: function(result){
+				console.log(result);
+				var output = "";
+				for(var i = 0; i < result.length; i++){
+					output += '<div class="p-b-68" id="' + result[i].cqcode + '">';
+					output += '<div>';
+					output += '<div class="flex-w flex-sb-m">';
+					output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+					output += result[i].cqmid +  ' [ ' + result[i].caname + ' ]';
+					output += '</span>';
+					output += '<span id="' + result[i].cqcode + '_qustionBtn">';
+					output += '<button class="btn btn-success m-r-10" onclick="answerQuestionForm(\''+result[i].cqcode+'\')">답변</button><button class="btn btn-danger" onclick="deleteQuestion(\'' + result[i].cqcode + '\')">삭제</button>';
+					output += '</span>';
+					output += '</div>';
+					output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cqdate + '</div>';
+					output += '<textarea class="stext-102 cl6" id="' + result[i].cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">' + result[i].cqcontents + '</textarea>';
+					output += '</div>';
+					if(result[i].cqstate == 1){
+						output += '<div class="row p-b-25">';
+						output += '<div class="col-12 p-b-5">';
+						output += '<label class="stext-102 cl3" for="review">답글 작성</label>';
+						output += '<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>';
+						output += '</div>';
+						output += '</div>';
+					}else{
+						output += '<div class="flex-w flex-t">';
+						output += '<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">';
+						output += '<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>';
+						output += '</div>';
+						output += '<div class="size-207">';
+						output += '<div class="flex-w flex-sb-m p-b-17">';
+						output += '<span class="mtext-107 cl2 p-r-20">';
+						output += 'Camily';
+						output += '</span>';
+						output += '</div>';
+						output += '<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;">문의하신 내용에 답변 드립니다.</textarea>';
+						output += '</div>';
+						output += '<button type="button" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="cqsubmit();">';
+						output += '작성';
+						output += '</button>';
+						output += '</div>';
+					}
+					output += '</div>';
+					$("#campingQuestionList_div").html(output);
+				}
+			}
+			});
+		}
 
+		function notyetQuestion(){
+			$.ajax({
+			type: "get",
+			url: "adminCampingQuestionList",
+			data: {},
+			dataType: "json",
+			async: false,
+			success: function(result){
+				console.log(result);
+				var output = "";
+				for(var i = 0; i < result.length; i++){
+					if(result[i].cqstate == 1){
+						output += '<div class="p-b-68" id="' + result[i].cqcode + '">';
+						output += '<div>';
+						output += '<div class="flex-w flex-sb-m">';
+						output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+						output += result[i].cqmid +  ' [ ' + result[i].caname + ' ]';
+						output += '</span>';
+						output += '<span id="' + result[i].cqcode + '_qustionBtn">';
+						output += '<button class="btn btn-success m-r-10" onclick="answerQuestionForm(\''+result[i].cqcode+'\')">답변</button><button class="btn btn-danger" onclick="deleteQuestion(\'' + result[i].cqcode + '\')">삭제</button>';
+						output += '</span>';
+						output += '</div>';
+						output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cqdate + '</div>';
+						output += '<textarea class="stext-102 cl6" id="' + result[i].cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">' + result[i].cqcontents + '</textarea>';
+						output += '</div>';
+						output += '<div class="row p-b-25">';
+						output += '<div class="col-12 p-b-5">';
+						output += '<label class="stext-102 cl3" for="review">답글 작성</label>';
+						output += '<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>';
+						output += '</div>';
+						output += '</div>';
+						output += '</div>';
+					}
+				}
+				$("#campingQuestionList_div").html(output);
+			}
+			});
+		}
+
+		function cqAnswerSubmit(cqcode){
+			var cqcontents = $("#"+ cqcode +"answer").val();
+			$.ajax({
+			type: "get",
+			url: "adminCampingAnswer",
+			data: {"cqcode": cqcode, "cqcontents": cqcontents},
+			dataType: "json",
+			async: false,
+			success: function(result){
+			}
+			});
+		}
 	</script>
 
 </body>

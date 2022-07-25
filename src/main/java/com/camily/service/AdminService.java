@@ -414,22 +414,18 @@ public class AdminService {
 	
 	}
 
-	public ModelAndView AdminCampingQuestionPage() {
-		System.out.println("CampingService.AdminCampingQuestionPage() 호출");
+	public ModelAndView adminCampingQuestionPage() {
+		System.out.println("CampingService.adminCampingQuestionPage() 호출");
 		ModelAndView mav = new ModelAndView();
 		ArrayList<CampingQuestionDto> campingQuestionList = addao.getCampingQuestionList();
 		ArrayList<CampingQuestionDto> newCampingQuestionList = new ArrayList<CampingQuestionDto>();
-		ArrayList<CampingQuestionDto> doneCampingQuestionList = new ArrayList<CampingQuestionDto>();
 		for(int i = 0; i < campingQuestionList.size(); i++) {
 			if(campingQuestionList.get(i).getCqstate() == 1) {
 				newCampingQuestionList.add(campingQuestionList.get(i));
-			}else {
-				doneCampingQuestionList.add(campingQuestionList.get(i));
 			}
 		}
-		
+		mav.addObject("campingQuestionList", campingQuestionList);
 		mav.addObject("newCampingQuestionList", newCampingQuestionList);
-		mav.addObject("doneCampingQuestionList", doneCampingQuestionList);
 		mav.setViewName("admin/AdminCampingQuestionPage");
 		return mav;
 	}
@@ -538,5 +534,43 @@ public class AdminService {
 		
 		int updateResult = addao.updateCampingReviewState(cgrvcode,cgrvstate);
 		return updateResult+"";
+	}
+
+	public String adminCampingQuestionList() {
+		System.out.println("CampingService.adminCampingQuestionList() 호출");
+		ArrayList<CampingQuestionDto> campingQuestionList = addao.getCampingQuestionList();
+		Gson gson = new Gson();
+		String campingQuestionList_ajax = gson.toJson(campingQuestionList);
+		return campingQuestionList_ajax;
+	}
+
+	public String adminCampingAnswer(String cwcqcode, String cwcontents) {
+		System.out.println("CampingService.adminCampingAnswer() 호출");
+		//캠핑장 코드 생성
+				String maxCwcode = addao.getMaxCwcode();
+				String caCode = "";
+				if(maxCwcode == null) {
+					caCode = "CW0001";
+				}else {
+					int intMaxCwcode = Integer.parseInt(maxCwcode.substring(2)) + 1;
+					if(intMaxCwcode < 10) {
+						caCode = "CW000" + intMaxCwcode;
+					}else if(intMaxCwcode < 100){
+						caCode = "CW00" + intMaxCwcode;
+					}else if(intMaxCwcode <1000) {
+						caCode = "CW0" + intMaxCwcode;
+					}else if(intMaxCwcode < 10000){
+						caCode = "CW" + intMaxCwcode;
+					}else {
+						System.out.println("범위 초과");
+					}
+				}
+		
+		
+		
+		int insertResult = addao.answerWrite(cwcqcode)
+		
+		
+		return null;
 	}
 }

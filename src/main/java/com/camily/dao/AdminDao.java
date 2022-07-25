@@ -76,6 +76,14 @@ public interface AdminDao {
 
 	int updateCampingReviewState(@Param("cgrvcode") int cgrvcode,@Param("cgrvstate") int cgrvstate);
 
+	@Insert("INSERT INTO CAMPINGANSWER(CWCODE, CWCQCODE, CWMID, CWCONTENTS, CWDATE) VALUES()")
+	int answerWrite(String cwcqcode);
+
+	@Select("SELECT MAX(CWCODE) FROM CAMPINGANSWER")
+	String getMaxCwcode();
+
+	
+
 
 
 	
