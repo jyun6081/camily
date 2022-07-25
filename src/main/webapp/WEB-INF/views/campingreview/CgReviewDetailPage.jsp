@@ -85,7 +85,7 @@
 							</span>	
 							
 							<p class="stext-116 cl4">
-								제품명 : ${CampingReview.recrname}
+								제품명 : ${CampingReview.caname}
 							</p>
 							
 							<p class="mt-1"> 별점 : 

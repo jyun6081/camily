@@ -4,11 +4,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>캠핑장 후기</title>
+<title>관리자 문의 관리 게시판</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-<link rel="icon" type="image/png" href="images/icons/favicon.png" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css">
@@ -42,13 +40,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/main.css">
 <!--===============================================================================================-->
-<script
-	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script
-	src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script src="https://kit.fontawesome.com/d70fa0d402.js" crossorigin="anonymous"></script>
 
 <style type="text/css">
 .section-reply-title {
@@ -75,6 +67,8 @@
 	font-family: "Oswald", sans-serif;
 }
 
+
+
 .section-reply-title h5:after {
 	position: absolute;
 	left: 0;
@@ -84,136 +78,107 @@
 	background: #6E6E6E;
 	content: "";
 }
-
-.fa-star {
-	color: #f9ba48
-}
 </style>
-
 
 
 </head>
 <body class="animsition">
 
 	<!-- TopBar-->
-	<%@ include file="/WEB-INF/views/includes/TopBar.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/AdminTopBar.jsp"%>
 	<!-- End TopBar-->
 
-	<!-- memberModal -->
-	<%@ include file="/WEB-INF/views/member/memberModal.jsp"%>
-	<!-- EndmemberModal -->		
-	<section class="bg0 p-t-62 p-b-60">
+	<!-- Content page -->
+	<section class="bg0 p-t-52 p-b-20">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-lg-9 p-b-80">
+					<div class="p-r-0-lg">
+						<div class="section-reply-title">
+								<h5>캠핑장 문의글 확인</h5>
+						</div>
+						<div>
+							<button class="btn btn-info" onclick="allQuestion()">전체보기</button>
+							<button class="btn btn-warning" onclick="notyetQuestion()">미답변 문의만 보기</button>
+						</div>
+							<div class="row">
+								<div class="col-sm-10 col-md-10 col-lg-8 m-lr-auto">
+									<div class="p-b-30 m-lr-15-sm">
+										<div>
+											<!-- 캠핑장 문의 -->
+											<c:forEach items="${campingQuestionList}" var="campingQustionInfo">
+												<div class="p-b-68" id="${campingQustionInfo.cqcode}">
+													<!-- 캠핑장 문의글 -->
+													<div>
+														<form action="questionWrite" method="post" id="${campingQustionInfo.cqcode}_questionModify">
+															<div class="flex-w flex-sb-m">
+																<span class="mtext-107 cl2 p-r-20" id="questionId">
+																	${campingQustionInfo.cqmid} [ ${campingQustionInfo.caname}]
+																</span>
+																<span id="${campingQustionInfo.cqcode}_qustionBtn">
+																	<button class="btn btn-success m-r-10" onclick="answerQuestionForm('${campingQustionInfo.cqcode}')">답변</button><button class="btn btn-danger" onclick="deleteQuestion('${campingQustionInfo.cqcode}')">삭제</button>
+																</span>
+															</div>
+															<div class="p-b-17" style="font-size: 12px;">${campingQustionInfo.cqdate}</div>
+															<textarea class="stext-102 cl6" id="${campingQustionInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQustionInfo.cqcontents}</textarea>
+														</form>
+													</div>
+													<!-- 답글 -->
+													<div class="flex-w flex-t">
+														<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
+															<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
+														</div>
+														<div class="size-207">
+															<div class="flex-w flex-sb-m p-b-17">
+																<span class="mtext-107 cl2 p-r-20">
+																	Camily
+																</span>
+															</div>
+															<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;">문의하신 내용에 답변 드립니다.</textarea>
+														</div>
+													</div>
+												</div>
+											</c:forEach>
+										</div>
+										
 
-	<div class="row">
-		<div class="col-md-8 col-lg-9 p-b-80">
-			<div class="p-r-45 p-r-0-lg">
-				<div class="section-reply-title">
-					<h5>캠핑장 REVIEW</h5>
-					<h6 class="mt-2">캠핑장에서의 좋은 경험을 남겨보세요.</h6>
-				</div>
 
-
-				<div class="row isotope-grid">
-					<c:forEach items="${campingreviewList}" var="cgrvList">
-						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-						
-							<div class="block2">
-								<div class="block2-pic">
-									
-
-									<a href="cgreviewdetail?cgrvcode=${cgrvList.cgrvcode }"> <img
-										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
-										src="${cgrvList.caimage}" alt="캠핑장 이미지"
-										style="width: 100%; height: 200px; object-fit: cover; object-position: bottom;">
-									</a>
-
-									
-								</div>
-
-								<div class="block2-txt flex-w flex-t p-t-14">
-									<div class="block2-txt-child1 flex-col-l ">
-
-										<span class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
-											style="font-size: 20px; font-weight: bold;">${cgrvList.caname}</span>
+										<!-- 문의글 작성하기 -->
+										<form action="questionWrite" id="cqform">
+											<input type="hidden" id="cqmid" name="cqmid" value="${sessionScope.loginId}">
+											<input type="hidden" name="cqcacode" value="${campingInfo.cacode}">
+											<div class="row p-b-25">
+												<div class="col-12 p-b-5">
+													<label class="stext-102 cl3" for="review">문의글 작성</label>
+													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>
+												</div>
+											</div>
+											<button type="button" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="cqsubmit();">
+												작성
+											</button>
+										</form>
 									</div>
 								</div>
-
-								<div class="p-t-32">
-									
-
-									<p class="stext-117 mt-2" style="color: black;">제목 :
-										${cgrvList.cgrvtitle }</p>
-
-									<p class="mt-1">
-										별점 :
-										<c:if test="${cgrvList.cgstarating == 1 }">
-											<i class="fa-solid fa-star"></i>
-										</c:if>
-										<c:if test="${cgrvList.cgstarating == 2 }">
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-										</c:if>
-										<c:if test="${cgrvList.cgstarating == 3 }">
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-										</c:if>
-										<c:if test="${cgrvList.cgstarating == 4 }">
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-										</c:if>
-										<c:if test="${cgrvList.cgstarating == 5 }">
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-										</c:if>
-									</p>
-
-									<div class="flex-w flex-sb-m p-t-18">
-										<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
-											<span> <span class="cl4"></span><i
-												class="fa-regular fa-user"></i> ${cgrvList.cgrvmid } <span
-												class="cl12 m-l-4 m-r-6">|</span>
-										</span> <span> <span class="cl4"></span><i
-												class="fa-regular fa-calendar"></i> ${cgrvList.cgrvdate } <span
-												class="cl12 m-l-4 m-r-6">|</span>
-										</span> <span> 조회수 ${cgrvList.cgrvhits } </span>
-										</span>
-									</div>
-								</div>
-
 							</div>
-						</div>
-					</c:forEach>
-					<!-- Pagination -->
+							
+						<!-- Pagination -->
 						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-								1
-							</a>
-
-							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-								2
-							</a>
-
-						
-			
+							<a href="#"
+								class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+								1 </a> <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
+								2 </a>
 						</div>
+
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</section>
-	
 
-	
 
-	<!-- footer -->
+
+	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
-
 
 
 	<!-- Back to top -->
@@ -223,6 +188,12 @@
 		</span>
 	</div>
 
+	<!--===============================================================================================-->
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
 	<!--===============================================================================================-->
 	<script
 		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/popper.js"></script>
@@ -260,6 +231,8 @@
 			})
 		});
 	</script>
+	<!--===============================================================================================-->
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
 	<script type="text/javascript">
 		var checkMsg = '${msg}';
@@ -268,8 +241,9 @@
 			alert(checkMsg);
 		}
 	</script>
-	<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/js/main2.js"></script>
+	<script>
+
+	</script>
 
 </body>
 </html>

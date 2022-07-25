@@ -21,6 +21,7 @@ import com.camily.dao.MemberDao;
 import com.camily.dto.BannerDto;
 import com.camily.dto.BoardDto;
 import com.camily.dto.CampingDto;
+import com.camily.dto.CampingQuestionDto;
 import com.camily.dto.CampingReviewDto;
 import com.camily.dto.GoodsReviewDto;
 import com.camily.dto.MemberDto;
@@ -411,6 +412,26 @@ public class AdminService {
 		int updateResult = addao.updateBoardState(bocode,bostate);
 		return updateResult+"";
 	
+	}
+
+	public ModelAndView AdminCampingQuestionPage() {
+		System.out.println("CampingService.AdminCampingQuestionPage() 호출");
+		ModelAndView mav = new ModelAndView();
+		ArrayList<CampingQuestionDto> campingQuestionList = addao.getCampingQuestionList();
+		ArrayList<CampingQuestionDto> newCampingQuestionList = new ArrayList<CampingQuestionDto>();
+		ArrayList<CampingQuestionDto> doneCampingQuestionList = new ArrayList<CampingQuestionDto>();
+		for(int i = 0; i < campingQuestionList.size(); i++) {
+			if(campingQuestionList.get(i).getCqstate() == 1) {
+				newCampingQuestionList.add(campingQuestionList.get(i));
+			}else {
+				doneCampingQuestionList.add(campingQuestionList.get(i));
+			}
+		}
+		
+		mav.addObject("newCampingQuestionList", newCampingQuestionList);
+		mav.addObject("doneCampingQuestionList", doneCampingQuestionList);
+		mav.setViewName("admin/AdminCampingQuestionPage");
+		return mav;
 	}
 
 	public ModelAndView adminGoodsReviewList(String page) {
