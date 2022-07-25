@@ -2,6 +2,8 @@ package com.camily.service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -319,9 +321,9 @@ public class CampingService {
 	}
 
 	public ModelAndView questionWrite(String cqmid, String cqcacode, String cqcontents, RedirectAttributes ra) {
+		System.out.println("CampingService.questionWrite() 호출");
 		ModelAndView mav = new ModelAndView();
 		
-		System.out.println("CampingService.questionWrite() 호출");
 		System.out.println("cqmid : " + cqmid);
 		System.out.println("cqcacode : " + cqcacode);
 		System.out.println("cqcontents : " + cqcontents);
@@ -330,7 +332,7 @@ public class CampingService {
 		cqcontents.replace(" ", "&nbps;");
 		*/
 		
-		CampingQuestionDto CampingQustionInfo = new CampingQuestionDto();
+		CampingQuestionDto campingQustionInfo = new CampingQuestionDto();
 		
 		String maxCqcode = cdao.getMaxCqcode();
 		String cqCode = "";
@@ -350,13 +352,13 @@ public class CampingService {
 				System.out.println("범위 초과");
 			}
 		}
-		CampingQustionInfo.setCqcode(cqCode);
-		CampingQustionInfo.setCqcacode(cqcacode);
-		CampingQustionInfo.setCqmid(cqmid);
-		CampingQustionInfo.setCqcontents(cqcontents);
+		campingQustionInfo.setCqcode(cqCode);
+		campingQustionInfo.setCqcacode(cqcacode);
+		campingQustionInfo.setCqmid(cqmid);
+		campingQustionInfo.setCqcontents(cqcontents);
 		
 		
-		int insertResult = cdao.questionWrite(CampingQustionInfo);
+		int insertResult = cdao.questionWrite(campingQustionInfo);
 		if(insertResult > 0) {
 			ra.addFlashAttribute("msg", "문의글이 등록되었습니다.");
 		}else {
@@ -365,6 +367,25 @@ public class CampingService {
 		mav.setViewName("redirect:/campingView?cacode="+cqcacode);
 		
 		return mav;
+	}
+
+	public String questionModify(String cqcode, String cqcontents) {
+		System.out.println("CampingService.questionModify() 호출");
+		String result_json = "";
+		LocalDate nowDate = LocalDate.now();
+		LocalTime nowTime = LocalTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String formattedNowTime = nowTime.format(formatter);
+		cqcontents = "[수정됨] "+ nowDate + " " + formattedNowTime + "\r\n" + cqcontents;
+		int updateResult = cdao.questionModify(cqcode, cqcontents);
+		if(updateResult > 0) {
+			CampingQuestionDto campingQuestionInfo = cdao.getCampingQuestionInfo(cqcode);
+			Gson gson = new Gson();
+			result_json = gson.toJson(campingQuestionInfo);
+		}else {
+			result_json = "NG";
+		}
+		return result_json;
 	}
 
 	

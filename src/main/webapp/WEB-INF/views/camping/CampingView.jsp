@@ -262,18 +262,19 @@
 												<div class="p-b-68" id="${campingQustionInfo.cqcode}">
 													<!-- 캠핑장 문의글 -->
 													<div>
-														<form action="questionWrite" method="post" id="${campingQustionInfo.cqcode}_questionModify">
-															<div class="flex-w flex-sb-m">
-																<span class="mtext-107 cl2 p-r-20" id="questionId">
-																	${campingQustionInfo.cqmid}
-																</span>
-																<span id="${campingQustionInfo.cqcode}_qustionBtn">
-																	<button class="btn btn-success m-r-10" onclick="modifyQuestionForm('${campingQustionInfo.cqcode}')">수정</button><button class="btn btn-danger" onclick="deleteQuestion('${campingQustionInfo.cqcode}')">삭제</button>
-																</span>
-															</div>
-															<div class="p-b-17" style="font-size: 12px;">${campingQustionInfo.cqdate}</div>
-															<textarea class="stext-102 cl6" id="${campingQustionInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQustionInfo.cqcontents}</textarea>
-														</form>
+														<!-- <form action="questionModify" method="post" id="${campingQustionInfo.cqcode}_questionModify">
+															<input type="hidden" name="cqcode" value="${campingQustionInfo.cqcode}">
+														</form> -->
+														<div class="flex-w flex-sb-m">
+															<span class="mtext-107 cl2 p-r-20" id="questionId">
+																${campingQustionInfo.cqmid}
+															</span>
+															<span id="${campingQustionInfo.cqcode}_qustionBtn">
+																<button class="btn btn-success m-r-10" onclick="modifyQuestionForm('${campingQustionInfo.cqcode}')">수정</button><button class="btn btn-danger" onclick="deleteQuestion('${campingQustionInfo.cqcode}')">삭제</button>
+															</span>
+														</div>
+														<div class="p-b-17" style="font-size: 12px;">${campingQustionInfo.cqdate}</div>
+														<textarea class="stext-102 cl6" id="${campingQustionInfo.cqcode}_questionContents" name="cqcontents" style="width: 100%; resize: none;" readonly="readonly">${campingQustionInfo.cqcontents}</textarea>
 													</div>
 													<!-- 답글 -->
 													<div class="flex-w flex-t">
@@ -642,7 +643,7 @@
 		$("#"+cqcode+"_questionContents").removeAttr("readonly");
 		$("#"+cqcode+"_questionContents").addClass("size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10");
 		var output = "";
-		output += '<button class="btn btn-success m-r-10" onclick="modifyQuestion(\'' + cqcode + '\')">수정</button>';
+		output += '<button class="btn btn-primary m-r-10" onclick="modifyQuestion(\'' + cqcode + '\')">확인</button>';
 		output += '<button class="btn btn-danger" onclick="cancelQuestion(\'' + cqcode + '\')">취소</button>'
 		$("#"+cqcode+"_qustionBtn").html(output);
 		
@@ -653,13 +654,37 @@
 		$("#"+cqcode+"_questionContents").attr("readonly", "readonly");
 		$("#"+cqcode+"_questionContents").removeClass("size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10");
 		var output = "";
-		output += '<button class="btn btn-success m-r-10" onclick="modifyQuestionForm(\'' + cqcode + '\')">확인</button>';
+		output += '<button class="btn btn-success m-r-10" onclick="modifyQuestionForm(\'' + cqcode + '\')">수정</button>';
 		output += '<button class="btn btn-danger" onclick="deleteQuestion(\'' + cqcode + '\')">삭제</button>';
 		$("#"+cqcode+"_qustionBtn").html(output);
 	}
 
-	function modifyQuestionForm(){
-		$("#"+cqcode+"_questionModify").submit();
+	function modifyQuestion(cqcode){
+		var cqcontents = $("#" + cqcode + "_questionContents").val();
+		console.log("cqcode : " + cqcode);
+		console.log("cqcontents : " + cqcontents);
+		$.ajax({
+		type: "get",
+		url: "questionModify",
+		data: {"cqcode": cqcode, "cqcontents": cqcontents},
+		dataType: "json",
+		async: false,
+		success: function(result){
+			console.log(result);
+			if(result != "NG"){
+				alert("수정되었습니다.");
+				$("#" + cqcode + "_questionContents").val(result.cqcontents);
+				$("#" + cqcode + "_questionContents").attr("readonly", "readonly");
+				$("#" + cqcode + "_questionContents").removeClass("size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10");
+				var output = "";
+				output += '<button class="btn btn-success m-r-10" onclick="modifyQuestionForm(\'' + cqcode + '\')">수정</button>';
+				output += '<button class="btn btn-danger" onclick="deleteQuestion(\'' + cqcode + '\')">삭제</button>';
+				$("#" + cqcode + "_qustionBtn").html(output);
+			}
+		}
+	});
+		
+//		$("#"+cqcode+"_questionModify").submit();
 	}
 
 	function deleteQuestion(cqcode){

@@ -74,8 +74,14 @@ public interface CampingDao {
 	@Insert("INSERT INTO CAMPINGQUESTION(CQCODE, CQCACODE, CQMID, CQCONTENTS, CQDATE, CQSTATE) VALUES (#{cqcode}, #{cqcacode}, #{cqmid}, #{cqcontents}, SYSDATE, 1)")
 	int questionWrite(CampingQuestionDto campingQustionInfo);
 
-	@Select("SELECT * FROM CAMPINGQUESTION")
+	@Select("SELECT * FROM CAMPINGQUESTION WHERE CQCACODE = #{cacode} ORDER BY CQDATE DESC")
 	ArrayList<CampingQuestionDto> campingQuestionList(String cacode);
+
+	@Update("UPDATE CAMPINGQUESTION SET CQCONTENTS = #{cqcontents} WHERE CQCODE = #{cqcode}")
+	int questionModify(@Param("cqcode") String cqcode, @Param("cqcontents") String cqcontents);
+
+	@Select("SELECT * FROM CAMPINGQUESTION WHERE CQCODE = #{cqcode}")
+	CampingQuestionDto getCampingQuestionInfo(String cqcode);
 
 
 }

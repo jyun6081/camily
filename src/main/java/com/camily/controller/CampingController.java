@@ -251,4 +251,18 @@ public class CampingController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "questionModify")
+	public @ResponseBody String questionModify(String cqcode, String cqcontents) {
+		System.out.println("캠핑장 글 수정");
+		String result_json = csvc.questionModify(cqcode, cqcontents);
+		return result_json;
+	}
+	
+	@RequestMapping(value = "questionDelete")
+	public ModelAndView questionDelete(String cqcode) {
+		System.out.println("캠핑장 문의글 삭제");
+		//ModelAndView mav = csvc.questionDelete(cqcode);
+		return null;
+	}
+	
 }

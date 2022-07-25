@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import com.camily.dto.BannerDto;
 import com.camily.dto.BoardDto;
 import com.camily.dto.CampingDto;
+import com.camily.dto.CampingQuestionDto;
 import com.camily.dto.MemberDto;
 
 public interface AdminDao {
@@ -58,6 +59,9 @@ public interface AdminDao {
 	int getBoardTotalCount();
 
 	int updateBoardState(@Param("bocode") int bocode,@Param("bostate") int bostate);
+
+	//@Select("SELECT * FROM CAMPINGQUESTION ORDER BY CQDATE DESC")
+	ArrayList<CampingQuestionDto> getCampingQuestionList();
 
 
 	
