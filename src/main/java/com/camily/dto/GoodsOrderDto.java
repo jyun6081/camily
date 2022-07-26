@@ -16,9 +16,10 @@ public class GoodsOrderDto {
 	
 	private String gostate;   // 상품 상태
     private String godate;    // 주문 일자 o  
-	    
-    private String gocancel;
-    
+
+    private String divisionsum; // 원래 가격 찾기 
+    private String gocancel; // 상품 취소 사유
+   
 	public String getGodate() {
 		return godate;
 	}

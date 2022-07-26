@@ -188,7 +188,8 @@
 					         <p>아직 HOT한 예약 목록이 없습니다.</p>
 						 </c:if>
 						 
-						 <c:if test="${homeList2[2].cacode != null}">						
+						 <c:if test="${homeList2[0].cacode != null}">						
+							<div class="#7FFF00">
 							<img src="${homeList2[0].caimage }">
 							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
 								<span class="ltext-107 cl2 txt-center">1</span>
@@ -198,6 +199,7 @@
 									<div class="block1-link stext-101 cl0 trans-09">${homeList2[0].caname }</div>
 								</div>
 							 </a>
+							</div> 
 					     </c:if>		 
 					  </div>
 					</div>
@@ -210,7 +212,7 @@
 					         <p>아직 HOT한 예약 목록이 없습니다.</p>
 						 </c:if>
 						    
-						 <c:if test="${homeList2[2].cacode != null}">
+						 <c:if test="${homeList2[1].cacode != null}">
 							<img src="${homeList2[1].caimage }">
 							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
 								<span class="ltext-107 cl2 txt-center">2</span>

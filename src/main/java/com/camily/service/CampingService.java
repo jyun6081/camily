@@ -1,5 +1,6 @@
 package com.camily.service;
 
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -93,8 +94,22 @@ public class CampingService {
 		pageDto.setStartPage(startPage);
 		pageDto.setEndPage(endPage);
 		
+		String Crprice = ""; // 상품가격
+		for(int z = 0; z < campingList.size(); z++) {
+			if(campingList.get(z).getCrprice() != null) {			
+				Crprice = campingList.get(z).getCrprice(); // 상품가격 가져오기
+				int Crprice_int = Integer.parseInt(Crprice);
+				
+				// 상품가격 콤마표시
+				DecimalFormat formatter = new DecimalFormat("###,###");
+				System.out.println("Crprice_int의 금액 표기["+Crprice_int+"] ==> " +formatter.format(Crprice_int));		  
+				campingList.get(z).setFormatprice(formatter.format(Crprice_int)); // , 추가하기				
+			}
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("campingList", campingList);
+		System.out.println(campingList);
 		mav.addObject("type", type);
 		mav.addObject("pageDto", pageDto);
 		mav.addObject("searchKeyword", searchKeyword);
@@ -142,6 +157,8 @@ public class CampingService {
 		CampingDto campingInfo = cdao.campingView(cacode);
 		CampingRoomDto RoomInfo = new CampingRoomDto();
 		RoomInfo = cdao.getRoomInfo(cacode, roomSel, numSel);
+		
+		
 		mav.addObject("cacode", cacode);
 		mav.addObject("caname", campingInfo.getCaname());
 		mav.addObject("RoomInfo", RoomInfo);
@@ -149,10 +166,19 @@ public class CampingService {
 		mav.addObject("startday", startday);
 		endday = endday.substring(6,10) + "-" + endday.substring(0,2) + "-" + endday.substring(3,5);
 		mav.addObject("endday", endday);
-		int totalPrice = totalPrice(startday, endday, RoomInfo.getCrprice());
 		
-		System.out.println(totalPrice);
-		mav.addObject("totalPrice", totalPrice);
+		int totalPrice = totalPrice(startday, endday, RoomInfo.getCrprice()); // 결제 금액 	
+		
+		int total = totalPrice; // 상품가격 가져오기
+		String totalPricesum = ""; //상품가격 콤마표시
+	    // 상품가격 콤마표시
+	    DecimalFormat formatter = new DecimalFormat("###,###");
+	    System.out.println("total의 금액 표기["+total+"] ==> " +formatter.format(total));		  
+	    totalPricesum = formatter.format(total); // , 추가하기
+		
+		System.out.println("totalPricesum :"+ totalPricesum);
+		
+		mav.addObject("totalPrice", totalPricesum);
 		mav.addObject("people", people);
 		mav.setViewName("camping/CampingReservation");
 		return mav;
@@ -205,6 +231,7 @@ public class CampingService {
 		System.out.println("CampingService.myReservationList() 호출");
 		ModelAndView mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("loginId");
+
 		if(loginId == null) {
 			mav.setViewName("redirect:/");
 		}else {
@@ -216,9 +243,18 @@ public class CampingService {
 				String endday = endday_date.toString();
 				myReservationList.get(i).setStartday(startday);
 				myReservationList.get(i).setEndday(endday);
+				
 				int totalPrice = totalPrice(startday, endday, myReservationList.get(i).getCrprice());
 				myReservationList.get(i).setTotalprice(totalPrice);
+				
+				int total = totalPrice;
+			    // 상품가격 콤마표시
+			    DecimalFormat formatter = new DecimalFormat("###,###");
+			    System.out.println("total의 금액 표기["+total+"] ==> " +formatter.format(total));		  
+			    myReservationList.get(i).setFormatsum(formatter.format(total)); // , 추가하기
+												
 			}
+			
 			System.out.println(myReservationList);
 			mav.addObject("myReservationList", myReservationList);
 			mav.setViewName("member/MyReservationList");			
@@ -315,8 +351,13 @@ public class CampingService {
 		startday = startday.substring(6,10) + "-" + startday.substring(0,2) + "-" + startday.substring(3,5);
 		endday = endday.substring(6,10) + "-" + endday.substring(0,2) + "-" + endday.substring(3,5);
 		int totalPrice = totalPrice(startday, endday, crprice);
-		String result = totalPrice+"";
-		System.out.println(result);
+			
+		// 상품가격 콤마표시
+		DecimalFormat formatter = new DecimalFormat("###,###");		  
+		String formattertotalPrice = formatter.format(totalPrice); // , 추가하기	
+			
+		String result = formattertotalPrice;
+		System.out.println("result :"+ result);
 		return result;
 	}
 

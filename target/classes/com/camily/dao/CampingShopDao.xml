@@ -130,7 +130,9 @@
   
  <!-- 값이 있으면 해당하는 상품이 있으니까 수량만 늘려줌 (UPDATE) ZZ -->
  <update id="update">
-  UPDATE DETAILINFORMATION SET DIAMOUNT = #{diamount} + #{old}
+  UPDATE DETAILINFORMATION 
+  SET DIAMOUNT = #{diamount} + #{old},
+  DITOTALPRICE = DITOTALPRICE + #{ditotalprice2}
   WHERE DIMID = #{loginId} 
  </update>
   

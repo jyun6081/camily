@@ -87,7 +87,7 @@
 								<h5>장바구니🛒</h5><h6>구매하고싶은 상품 여러개를 장바구니에 넣어보세요!</h6>
 						</div>
 			          <c:forEach items="${detailinformation }" var="information">
-		                <div class="col-9" style="padding-top: 30px; margin: auto; font-family: Poppins-Bold;">
+		                <div id="productRepeat" class="col-9" style="padding-top: 30px; margin: auto; font-family: Poppins-Bold;">
                         <div class="bg-light rounded p-4">                       
                             <div class="table-responsive">
                                 <table class="table">
@@ -106,6 +106,13 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <th scope="row"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${information.diimage }" alt="IMG" style="width: 60px;"></th>
+                                            <td>${information.diname }</td>
+                                            <td>${information.diprice }원</td>
+                                            <td>${information.diamount }개</td>
+                                            <td>${sumTotal }원</td>
+                                            <td id="${information.dicode}1">${information.diaddr }</td>
+                                           	<td><a href="deletepoket?dicode=${information.dicode }" class="btn btn-dark">삭제하기</a></td>
                                             <th class="align-middle text-center font-weight-bold"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${information.diimage }" alt="IMG" style="width: 60px;"></th>
                                             <td class="align-middle text-center font-weight-bold" style = "word-break: break-all">${information.diname }</td>
                                             <td class="align-middle text-center font-weight-bold">${information.diprice }원</td>
@@ -121,33 +128,28 @@
 									 		<input type="hidden" value="${information.ditotalprice }" name="ditotalprice" id="ditotal">
 									 		<input type="hidden" value="${information.diname }"       name="diname" id="diname">
 									 		<input type="hidden" value="${information.diimage }"      name="diimage">
+									 		<input type="hidden" value="${sumTotal }" id="sumTotal">
 											</th>
 									     </tr>  
-									                                                                
+									                                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        
                     </div>
 
                     </c:forEach>			        
-		            <br>
-		            <br>
-		            <br>
-		            <br>
-		            <c:if test="${fn:length(detailinformation) == 0}">
-									<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
-								</c:if>       
-   
-					<div class="flex-c-m flex-w w-full p-t-45" >
-						<button class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04" type="button" 
-						onclick="requestPay()">주문하기</button>
-					</div>	
-
-	                    
-	
-		
+		                 
+    <!-- Load more --> 
+	<div class="flex-c-m flex-w w-full p-t-45" >
+		<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" type="button" 
+		onclick="requestPay()">주문하기</button>
+	</div>	
+                                    			       		          
+	                 <c:if test="${fn:length(detailinformation) == 0}">
+						<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
+					</c:if>     
+	<!-- Load more -->
 
 	</form>
 	
@@ -441,23 +443,25 @@ IMP.init("imp10142481");
 function requestPay() {
 	var ditotal = $("#ditotal").val();
 	var diname = $("#diname").val();
+	var sumTotal = $("#sumTotal").val();
 	
+	console.log("productRepeat :"+ productRepeat);
 	console.log("ditotal :"+ ditotal);
-	console.log("diname :"+ diname);
+	console.log("sumTotal :"+ sumTotal);
 	
     // IMP.request_pay(param, callback) 결제창 호출
     IMP.request_pay({ // param
         pg: "html5_inicis",
         pay_method: "card",
         name: diname,
-        amount: ditotal
+        amount: sumTotal
     }, function (rsp) { // callback
         if (rsp.success) {
             alert("결제성공입니다.");
             //$("#goobsform").submit();
         } else {
         	alert("결제실패입니다.");
-        	//$("#goobsform").submit();
+        	$("#goobsform").submit();
         }
     });	
 }

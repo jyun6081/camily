@@ -2,6 +2,7 @@ package com.camily.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -240,7 +241,23 @@ public class AdminCampingShopService {
 	    // 관리자 캠핑 용품 페이지 이동 요청 
 	 	ArrayList<GoodsOrderDto> AdminCampingSendProduckt = acdao.AdminCampingSendProduckt();
 	    System.out.println("AdminCampingSendProduckt :"+ AdminCampingSendProduckt);
-	 	
+	    
+	 	String formatsum = ""; // 관리자 총상품 가격
+	 	String formattergoprice = ""; // 상품총가격 콤마표시
+	    for(int z = 0; z < AdminCampingSendProduckt.size(); z++) {
+			  // 상품총가격
+	    	  formatsum = "";
+	    	  formatsum += AdminCampingSendProduckt.get(z).getGoprice();
+			  System.out.println("formatsum :"+ formatsum);
+			  int formattergoprice_int = Integer.parseInt(formatsum);
+			  
+			  // 상품총가격 콤마표시
+			  DecimalFormat formatter = new DecimalFormat("###,###");
+			  System.out.println("formattergoprice_int의 금액 표기["+formattergoprice_int+"] ==> " +formatter.format(formattergoprice_int));			  
+			  formattergoprice = formatter.format(formattergoprice_int); // 상품총가격 표시
+	    }
+
+	    mav.addObject("formattergoprice", formattergoprice);
 		mav.addObject("AdminCampingSendProduckt", AdminCampingSendProduckt);
 		mav.setViewName("admin/AdminCampingSendProduckt");
 		return mav;
@@ -285,6 +302,22 @@ public class AdminCampingShopService {
 	    ArrayList<GoodsOrderDto> AdminCampingCancel = acdao.AdminCampingCancel();
 	    System.out.println("AdminCampingCancel :"+ AdminCampingCancel);
 	    
+	    String formatsum = ""; // 관리자 총상품 가격
+	 	String formattergoprice = ""; // 상품총가격 콤마표시
+	    for(int z = 0; z < AdminCampingCancel.size(); z++) {
+			  // 상품총가격
+	    	  formatsum = "";
+	    	  formatsum += AdminCampingCancel.get(z).getGoprice();
+			  System.out.println("formatsum :"+ formatsum);
+			  int formattergoprice_int = Integer.parseInt(formatsum);
+			  
+			  // 상품총가격 콤마표시
+			  DecimalFormat formatter = new DecimalFormat("###,###");
+			  System.out.println("formattergoprice_int의 금액 표기["+formattergoprice_int+"] ==> " +formatter.format(formattergoprice_int));			  
+			  formattergoprice = formatter.format(formattergoprice_int); // 상품총가격 표시
+	    }
+	    
+	    mav.addObject("formattergoprice", formattergoprice);
 	    mav.addObject("AdminCampingCancel", AdminCampingCancel);
 		mav.setViewName("admin/AdminCampingCancel");
 	    
@@ -330,6 +363,22 @@ public class AdminCampingShopService {
 	    ArrayList<GoodsOrderDto> AdminCampingCancelList = acdao.AdminCampingCancelList();
 	    System.out.println("AdminCampingCancelList :"+ AdminCampingCancelList);
 	    
+	    String formatsum = ""; // 관리자 총상품 가격
+	 	String formattergoprice = ""; // 상품총가격 콤마표시
+	    for(int z = 0; z < AdminCampingCancelList.size(); z++) {
+			  // 상품총가격
+	    	  formatsum = "";
+	    	  formatsum += AdminCampingCancelList.get(z).getGoprice();
+			  System.out.println("formatsum :"+ formatsum);
+			  int formattergoprice_int = Integer.parseInt(formatsum);
+			  
+			  // 상품총가격 콤마표시
+			  DecimalFormat formatter = new DecimalFormat("###,###");
+			  System.out.println("formattergoprice_int의 금액 표기["+formattergoprice_int+"] ==> " +formatter.format(formattergoprice_int));			  
+			  formattergoprice = formatter.format(formattergoprice_int); // 상품총가격 표시
+	    }
+	    
+	    mav.addObject("formattergoprice", formattergoprice);	    
 	    mav.addObject("AdminCampingCancelList", AdminCampingCancelList);
 		mav.setViewName("admin/AdminCampingCancelList");
 	    
