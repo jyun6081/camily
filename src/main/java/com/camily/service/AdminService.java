@@ -26,6 +26,8 @@ import com.camily.dto.BoardDto;
 import com.camily.dto.CampingDto;
 import com.camily.dto.CampingQnADto;
 import com.camily.dto.CampingReviewDto;
+import com.camily.dto.CampingRoomDto;
+import com.camily.dto.GoodsQnADto;
 import com.camily.dto.GoodsReviewDto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
@@ -245,6 +247,53 @@ public class AdminService {
 		
 		return mav;
 	}
+	
+    // 관리자 캠핑장 객실 조회
+	public String getCheckRoomType(String cacode) {
+		System.out.println("CampingService.getCheckRoomType() 호출");
+		Gson gson = new Gson();
+		ArrayList<CampingRoomDto> roomType = addao.selectCampingRommList(cacode);
+		
+		String roomType_json = gson.toJson(roomType);
+		return roomType_json;
+	}
+    // 관리자 캠핑장 객실 상태 변경
+	public String modifyCpRoomState(CampingRoomDto campingRoom) {
+		System.out.println("CampingService.modifyCpRoomState() 호출");
+		System.out.println(campingRoom);
+		
+		int updateResult = addao.updateCpRoomState(campingRoom);
+		return updateResult+"";
+	}
+	// 관리자 캠핑장 객실정보 변경
+	public ModelAndView modifyCpRoomInfo(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
+		System.out.println("CampingService.modifyCpRoomState() 호출");
+		ModelAndView mav = new ModelAndView();
+		
+		//파일 업로드
+		MultipartFile crfile = campingRoom.getCrfile();
+		String crimage = "";
+		if( !crfile.isEmpty() ) {
+			System.out.println("첨부파일 있음");
+			UUID uuid = UUID.randomUUID();
+			//1. 파일명 생성
+			crimage = uuid.toString()+"_"+crfile.getOriginalFilename();
+			//프로필 이미지 파일 저장
+			crfile.transferTo(  new File(savePath, crimage)   );
+		} 
+		campingRoom.setCrimage(crimage);
+		System.out.println(campingRoom);
+		
+		int updateResult = addao.updateCpRoomInfo(campingRoom);
+		ra.addFlashAttribute("msg", "객실 정보가 변경되었습니다.");
+		mav.setViewName("redirect:/adminCamping");
+		return mav;
+	}
+
+	
+	
+	
+	
 
 	public ModelAndView homeComponent() {
 		System.out.println("AdminService.homeComponent() 호출");
@@ -612,6 +661,85 @@ public class AdminService {
 		}
 		return campingAnswer_ajax;
 	}
+	
+	
+	public ModelAndView adminGoodsQuestionPage() {
+		System.out.println("AdminService.adminGoodsQuestionPage() 호출");
+		ModelAndView mav = new ModelAndView();
+		
+		ArrayList<GoodsQnADto> goodsQnAList = addao.getGoodsQnAList();
+		
+		mav.addObject("goodsQnAList", goodsQnAList);
+		mav.setViewName("admin/AdminGoodsQuestionPage");
+		return mav;
+	}
+
+	public String adminGoodsQuestionList() {
+		System.out.println("CampingService.adminCampingQuestionList() 호출");
+		ArrayList<GoodsQnADto> goodsQnAList = addao.getGoodsQnAList();
+		Gson gson = new Gson();
+		String goodsQnAList_ajax = gson.toJson(goodsQnAList);
+		
+		return goodsQnAList_ajax;
+	}
+
+	public String adminGoodsAnswer(String gwgqcode, String gwcontents) {
+		System.out.println("CampingService.adminCampingAnswer() 호출");
+		// 캠핑용품 문의 답변 코드생성
+		String maxGwcode = addao.getMaxGwcode();
+		String gwCode = "";
+		if(maxGwcode == null) {
+			gwCode = "CW0001";
+		}else {
+			int intMaxCwcode = Integer.parseInt(maxGwcode.substring(2)) + 1;
+			if(intMaxCwcode < 10) {
+				gwCode = "CW000" + intMaxCwcode;
+			}else if(intMaxCwcode < 100){
+				gwCode = "CW00" + intMaxCwcode;
+			}else if(intMaxCwcode <1000) {
+				gwCode = "CW0" + intMaxCwcode;
+			}else if(intMaxCwcode < 10000){
+				gwCode = "CW" + intMaxCwcode;
+			}else {
+				System.out.println("범위 초과");
+			}
+		}
+		GoodsQnADto goodsAnswerInfo = new GoodsQnADto();
+		goodsAnswerInfo.setGwcode(gwCode);
+		goodsAnswerInfo.setGwgqcode(gwgqcode);
+		String gwmid = (String) session.getAttribute("loginId");
+		goodsAnswerInfo.setGwmid(gwmid);
+		goodsAnswerInfo.setGwcontents(gwcontents);
+		
+		System.out.println(goodsAnswerInfo);
+		int insertResult = addao.goodsAnswerWrite(goodsAnswerInfo);
+		String goodsAnswer_ajax = "";
+		if(insertResult > 0) {
+			goodsAnswerInfo = addao.getGoodsQnAInfo(gwgqcode);
+//			addao.updateCqstate(cwcqcode);
+			Gson gson = new Gson();
+			goodsAnswer_ajax = gson.toJson(goodsAnswerInfo);
+		}else {
+			goodsAnswer_ajax = "NG";
+		}
+		
+		return goodsAnswer_ajax;
+	}
+
+	public String adminGoodsAnswerModify(String gwcode, String gwcontents) {
+		System.out.println("CampingService.adminGoodsAnswerModify() 호출");
+		
+		int updateResult = addao.goodsAnswerModify(gwcode, gwcontents);
+		GoodsQnADto goodsAnswerInfo = new GoodsQnADto();
+		String goodsAnswer_ajax = "";
+		if(updateResult > 0) {
+			goodsAnswerInfo = addao.getGoodsAnswerInfo(gwcode);
+			Gson gson = new Gson();
+			goodsAnswer_ajax = gson.toJson(goodsAnswerInfo);
+		}else {
+			goodsAnswer_ajax = "NG";
+		}
+		return goodsAnswer_ajax;
 
 	public String deleteQustion(String cqcode) {
 		System.out.println("CampingService.adminCampingAnswerModify() 호출");

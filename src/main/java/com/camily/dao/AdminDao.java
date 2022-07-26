@@ -13,6 +13,8 @@ import com.camily.dto.BoardDto;
 import com.camily.dto.CampingDto;
 import com.camily.dto.CampingQnADto;
 import com.camily.dto.CampingReviewDto;
+import com.camily.dto.CampingRoomDto;
+import com.camily.dto.GoodsQnADto;
 import com.camily.dto.GoodsReviewDto;
 import com.camily.dto.MemberDto;
 
@@ -40,6 +42,14 @@ public interface AdminDao {
 	String getMaxCacode();
 	// 캠핑장 등록
 	int insertCamping(CampingDto camping);
+	// 객실 타입 조회
+	ArrayList<CampingRoomDto> selectCampingRommList(String cacode);
+	// 객실 상태 변경
+	int updateCpRoomState(CampingRoomDto campingRoom);
+	// 객실 정보 변경
+	int updateCpRoomInfo(CampingRoomDto campingRoom);
+
+	
 	
 	@Select("SELECT * FROM BANNER ORDER BY BNCODE")
 	ArrayList<BannerDto> getBannerList();
@@ -92,6 +102,20 @@ public interface AdminDao {
 	@Select("SELECT * FROM CAMPINGANSWER WHERE CWCODE = #{cwcode}")
 	CampingQnADto getCampingAnswerInfo(String cwcode);
 
+	ArrayList<GoodsQnADto> getGoodsQnAList();
+	@Select("SELECT MAX(GWCODE) FROM GOODSANSWER")
+	String getMaxGwcode();
+	
+	@Insert("INSERT INTO GOODSANSWER(GWCODE, GWGQCODE, GWMID, GWCONTENTS, GWDATE) VALUES(#{gwcode}, #{gwgqcode}, #{gwmid}, #{gwcontents}, SYSDATE)")
+	int goodsAnswerWrite(GoodsQnADto goodsAnswerInfo);
+   
+	GoodsQnADto getGoodsQnAInfo(String gwgqcode);
+	
+	@Update("UPDATE GOODSANSWER SET GWCONTENTS = #{gwcontents} WHERE GWCODE = #{gwcode}")
+	int goodsAnswerModify(@Param("gwcode")String gwcode, @Param("gwcontents")String gwcontents);
+	
+	@Select("SELECT * FROM GOODSANSWER WHERE GWCODE = #{gwcode}")
+	GoodsQnADto getGoodsAnswerInfo(String gwcode);
 	@Update("UPDATE CAMPINGQUESTION SET CQSTATE = 0 WHERE CQCODE = #{cqcode}")
 	int deleteQustion(String cqcode);
 

@@ -1,5 +1,8 @@
 package com.camily.service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +19,7 @@ import com.camily.dto.CampingDetailInformationDto;
 import com.camily.dto.CampingDto;
 import com.camily.dto.GoodsDto;
 import com.camily.dto.GoodsOrderDto;
+import com.camily.dto.GoodsQnADto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
 import com.google.gson.Gson;
@@ -87,8 +91,9 @@ public class CampingShopService {
 		ModelAndView mav = new ModelAndView();
 		
 		GoodsDto campingDetail = cdao.campingDetail(gcode);
-		
+		ArrayList<GoodsQnADto> goodsQuestionList = cdao.goodsQuestionList(gcode);
 		mav.addObject("campingDetail", campingDetail);
+		mav.addObject("goodsQuestionList", goodsQuestionList);
 		mav.setViewName("campingshop/CampingDetailPage");
 		
 		return mav;
@@ -494,6 +499,78 @@ public class CampingShopService {
 		mav.setViewName("redirect:/CampingPurchaseListPage");
 		
 		return mav;
+	}
+
+	public ModelAndView goodsQuestionWrite(String gqmid, String gqgcode, String gqcontents, RedirectAttributes ra) {
+		System.out.println("CampingShopService.goodsQuestionWrite() 호출");
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("gqmid : " + gqmid);
+		System.out.println("gqgcode : " + gqgcode);
+		System.out.println("gqcontents : " + gqcontents);
+		
+		GoodsQnADto goodsQuestionInfo = new GoodsQnADto();
+		String maxGqcode = cdao.getMaxGqcode();
+		String GqCode = "";
+		if(maxGqcode == null) {
+			GqCode = "GQ0001";
+		}else {
+			int intMaxGqcode = Integer.parseInt(maxGqcode.substring(2)) + 1;
+			if(intMaxGqcode < 10) {
+				GqCode = "GQ000" + intMaxGqcode;
+			}else if(intMaxGqcode < 100){
+				GqCode = "GQ00" + intMaxGqcode;
+			}else if(intMaxGqcode <1000) {
+				GqCode = "GQ0" + intMaxGqcode;
+			}else if(intMaxGqcode < 10000){
+				GqCode = "GQ" + intMaxGqcode;
+			}else {
+				System.out.println("범위 초과");
+			}
+		}
+		goodsQuestionInfo.setGqcode(GqCode);
+		goodsQuestionInfo.setGqgcode(gqgcode);
+		goodsQuestionInfo.setGqmid(gqmid);
+		goodsQuestionInfo.setGqcontents(gqcontents);
+		
+		int insertResult = cdao.goodsQuestionWrite(goodsQuestionInfo);
+		if(insertResult > 0) {
+			ra.addFlashAttribute("msg", "문의글이 등록되었습니다.");
+		}else {
+			ra.addFlashAttribute("msg", "문의글 등록에 실패하였습니다.");
+		}
+		mav.setViewName("redirect:/campingDetailPage?gcode="+gqgcode);
+		return mav;
+	}
+
+	public String goodsQuestionModify(String gqcode, String gqcontents) {
+		System.out.println("CampingShopService.goodsQuestionModify() 호출");
+		
+		String result_json = "";
+		LocalDate nowDate = LocalDate.now();
+		LocalTime nowTime = LocalTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String formattedNowTime = nowTime.format(formatter);
+		gqcontents = gqcontents + "\r\n"+ "[수정됨] "+ nowDate + " " + formattedNowTime;
+		
+		int updateResult = cdao.goodsQuestionModify(gqcode,gqcontents);
+		if(updateResult > 0) {
+			GoodsQnADto goodsQuestionInfo = cdao.getGoodsQuestionInfo(gqcode);
+			Gson gson = new Gson();
+			result_json = gson.toJson(goodsQuestionInfo);
+		} else {
+			result_json = "NG";
+		}
+		
+		return result_json;
+	}
+
+	public String modifyGoodsQuestionState(String gqcode) {
+		System.out.println("CampingShopService.modifyGoodsQuestionState() 호출");
+		
+		int modifyStateResult = cdao.modifyGoodsQuestionState(gqcode);
+		
+		return modifyStateResult+"";
 	}
 
 
