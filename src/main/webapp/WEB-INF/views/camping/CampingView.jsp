@@ -204,7 +204,7 @@
 						</li>
 
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#information" role="tab" onclick="drawMap('${campingInfo.calatitude}', '${campingInfo.calongitude}', '${campingInfo.caname}')">캠핑장 정보</a>
+							<a class="nav-link" data-toggle="tab" href="#information" role="tab">캠핑장 문의</a>
 						</li>
 					</ul>
 
@@ -246,8 +246,19 @@
 
 						<!-- - -->
 						<div class="tab-pane fade show active" id="description" role="tabpanel">
-							<div class="how-pos2 p-lr-15-md">
+							<div class="how-pos2 p-lr-15-md p-b-30">
+								<h5 class="p-b-10">캠핑장 소개</h5>
 								<p class="stext-102 cl6">${campingInfo.cacontents}</p>
+							</div>
+							<div class="how-pos2 p-lr-15-md p-b-30">
+								<h5 class="p-b-10">캠핑장 시설</h5>
+								<p class="stext-102 cl6">${campingInfo.cainfo}</p>
+							</div>
+							<div class="how-pos2 p-lr-15-md">
+								<h5 class="p-b-10">캠핑장 위치</h5>
+								<div class="m-lr-auto">
+									<div id="map" style="height: 400px;"></div>
+								</div>
 							</div>
 						</div>
 
@@ -331,18 +342,7 @@
 									</div>
 								</div>
 							</div>
-							
-							
-							
-							
-							
-							<div class="row">
-								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-									<div id="map" style="width: 500px; height: 400px;"></div>
-								</div>
-							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -459,10 +459,11 @@
 		});
 	</script>
 	<!--===============================================================================================-->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=10d14c6ccf8a5da29debf326077676e3">
-	</script>
-	<script type="text/javascript">
-		function drawMap(calatitude, calongitude, caname) {
+	<script>
+		window.onload = function(){
+			var calatitude = '${campingInfo.calatitude}';
+			var calongitude = '${campingInfo.calongitude}';
+			var caname = '${campingInfo.caname}';
 			console.log("calatitude : " + calatitude);
 			console.log("calongitude : " + calongitude);
 			console.log("caname : " + caname);
@@ -496,6 +497,7 @@
 			});
 		}
 	</script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=10d14c6ccf8a5da29debf326077676e3"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main2.js"></script>
 </body>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
