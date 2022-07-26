@@ -21,7 +21,7 @@ import com.camily.dao.MemberDao;
 import com.camily.dto.BannerDto;
 import com.camily.dto.BoardDto;
 import com.camily.dto.CampingDto;
-import com.camily.dto.CampingQuestionDto;
+import com.camily.dto.CampingQnADto;
 import com.camily.dto.CampingReviewDto;
 import com.camily.dto.GoodsReviewDto;
 import com.camily.dto.MemberDto;
@@ -414,22 +414,20 @@ public class AdminService {
 	
 	}
 
-	public ModelAndView AdminCampingQuestionPage() {
-		System.out.println("CampingService.AdminCampingQuestionPage() 호출");
+	public ModelAndView adminCampingQuestionPage() {
+		System.out.println("CampingService.adminCampingQuestionPage() 호출");
 		ModelAndView mav = new ModelAndView();
-		ArrayList<CampingQuestionDto> campingQuestionList = addao.getCampingQuestionList();
-		ArrayList<CampingQuestionDto> newCampingQuestionList = new ArrayList<CampingQuestionDto>();
-		ArrayList<CampingQuestionDto> doneCampingQuestionList = new ArrayList<CampingQuestionDto>();
-		for(int i = 0; i < campingQuestionList.size(); i++) {
-			if(campingQuestionList.get(i).getCqstate() == 1) {
-				newCampingQuestionList.add(campingQuestionList.get(i));
-			}else {
-				doneCampingQuestionList.add(campingQuestionList.get(i));
+		ArrayList<CampingQnADto> campingQnAList = addao.getCampingQnAList();
+		/*
+		ArrayList<CampingQnADto> newCampingQuestionList = new ArrayList<CampingQnADto>();
+		for(int i = 0; i < campingQnAList.size(); i++) {
+			if(campingQnAList.get(i).getCqstate() == 1) {
+				newCampingQuestionList.add(campingQnAList.get(i));
 			}
 		}
-		
-		mav.addObject("newCampingQuestionList", newCampingQuestionList);
-		mav.addObject("doneCampingQuestionList", doneCampingQuestionList);
+		*/
+		mav.addObject("campingQnAList", campingQnAList);
+//		mav.addObject("newCampingQuestionList", newCampingQuestionList);
 		mav.setViewName("admin/AdminCampingQuestionPage");
 		return mav;
 	}
@@ -538,5 +536,71 @@ public class AdminService {
 		
 		int updateResult = addao.updateCampingReviewState(cgrvcode,cgrvstate);
 		return updateResult+"";
+	}
+
+	public String adminCampingQuestionList() {
+		System.out.println("CampingService.adminCampingQuestionList() 호출");
+		ArrayList<CampingQnADto> campingQnAList = addao.getCampingQnAList();
+		Gson gson = new Gson();
+		String campingQnAList_ajax = gson.toJson(campingQnAList);
+		return campingQnAList_ajax;
+	}
+
+	public String adminCampingAnswer(String cwcqcode, String cwcontents) {
+		System.out.println("CampingService.adminCampingAnswer() 호출");
+		// 캠핑장 문의 답변 코드생성
+		String maxCwcode = addao.getMaxCwcode();
+		String cwCode = "";
+		if(maxCwcode == null) {
+			cwCode = "CW0001";
+		}else {
+			int intMaxCwcode = Integer.parseInt(maxCwcode.substring(2)) + 1;
+			if(intMaxCwcode < 10) {
+				cwCode = "CW000" + intMaxCwcode;
+			}else if(intMaxCwcode < 100){
+				cwCode = "CW00" + intMaxCwcode;
+			}else if(intMaxCwcode <1000) {
+				cwCode = "CW0" + intMaxCwcode;
+			}else if(intMaxCwcode < 10000){
+				cwCode = "CW" + intMaxCwcode;
+			}else {
+				System.out.println("범위 초과");
+			}
+		}
+		CampingQnADto campingAnswerInfo = new CampingQnADto();
+		campingAnswerInfo.setCwcode(cwCode);
+		campingAnswerInfo.setCwcqcode(cwcqcode);
+		String cwmid = (String) session.getAttribute("loginId");
+		campingAnswerInfo.setCwmid(cwmid);
+		campingAnswerInfo.setCwcontents(cwcontents);
+		
+		System.out.println(campingAnswerInfo);
+		int insertResult = addao.answerWrite(campingAnswerInfo);
+		String campingAnswer_ajax = "";
+		if(insertResult > 0) {
+			campingAnswerInfo = addao.getCampingQnAInfo(cwcqcode);
+//			addao.updateCqstate(cwcqcode);
+			Gson gson = new Gson();
+			campingAnswer_ajax = gson.toJson(campingAnswerInfo);
+		}else {
+			campingAnswer_ajax = "NG";
+		}
+		
+		return campingAnswer_ajax;
+	}
+
+	public String adminCampingAnswerModify(String cwcode, String cwcontents) {
+		System.out.println("CampingService.adminCampingAnswerModify() 호출");
+		int updateResult = addao.campingAnswerModify(cwcode, cwcontents);
+		CampingQnADto campingAnswerInfo = new CampingQnADto();
+		String campingAnswer_ajax = "";
+		if(updateResult > 0) {
+			campingAnswerInfo = addao.getCampingAnswerInfo(cwcode);
+			Gson gson = new Gson();
+			campingAnswer_ajax = gson.toJson(campingAnswerInfo);
+		}else {
+			campingAnswer_ajax = "NG";
+		}
+		return campingAnswer_ajax;
 	}
 }
