@@ -8,7 +8,7 @@
 				<!-- p-b-50  : : 패팅 바텀 50px-->
 				<div  class="col-sm-6 col-lg-3">
 							<a href="#" class="logo">
-						<img style="margin:0 auto;" src="${pageContext.request.contextPath}/resources/images/icons/logo-03.png" alt="IMG-LOGO">
+						<img style="margin:0 auto;" src="${pageContext.request.contextPath}/resources/images/icons/logo-03.jpg" alt="IMG-LOGO">
 					</a>
 				
 				

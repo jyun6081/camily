@@ -204,7 +204,7 @@
 						</li>
 
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#information" role="tab" onclick="drawMap('${campingInfo.calatitude}', '${campingInfo.calongitude}', '${campingInfo.caname}')">캠핑장 정보</a>
+							<a class="nav-link" data-toggle="tab" href="#information" role="tab">캠핑장 문의</a>
 						</li>
 					</ul>
 
@@ -246,8 +246,19 @@
 
 						<!-- - -->
 						<div class="tab-pane fade show active" id="description" role="tabpanel">
-							<div class="how-pos2 p-lr-15-md">
+							<div class="how-pos2 p-lr-15-md p-b-30">
+								<h5 class="p-b-10">캠핑장 소개</h5>
 								<p class="stext-102 cl6">${campingInfo.cacontents}</p>
+							</div>
+							<div class="how-pos2 p-lr-15-md p-b-30">
+								<h5 class="p-b-10">캠핑장 시설</h5>
+								<p class="stext-102 cl6">${campingInfo.cainfo}</p>
+							</div>
+							<div class="how-pos2 p-lr-15-md">
+								<h5 class="p-b-10">캠핑장 위치</h5>
+								<div class="m-lr-auto">
+									<div id="map" style="height: 400px;"></div>
+								</div>
 							</div>
 						</div>
 
@@ -256,46 +267,64 @@
 							<div class="row">
 								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 									<div class="p-b-30 m-lr-15-sm">
-										<div>
+										<div id="campingQnAList_div">
 											<!-- 캠핑장 문의 -->
-											<c:forEach items="${campingQuestionList}" var="campingQustionInfo">
-												<div class="p-b-68" id="${campingQustionInfo.cqcode}">
-													<!-- 캠핑장 문의글 -->
-													<div>
-														<!-- <form action="questionModify" method="post" id="${campingQustionInfo.cqcode}_questionModify">
-															<input type="hidden" name="cqcode" value="${campingQustionInfo.cqcode}">
-														</form> -->
-														<div class="flex-w flex-sb-m">
-															<span class="mtext-107 cl2 p-r-20" id="questionId">
-																${campingQustionInfo.cqmid}
-															</span>
-															<span id="${campingQustionInfo.cqcode}_qustionBtn">
-																<button class="btn btn-success m-r-10" onclick="modifyQuestionForm('${campingQustionInfo.cqcode}')">수정</button><button class="btn btn-danger" onclick="deleteQuestion('${campingQustionInfo.cqcode}')">삭제</button>
-															</span>
-														</div>
-														<div class="p-b-17" style="font-size: 12px;">${campingQustionInfo.cqdate}</div>
-														<textarea class="stext-102 cl6" id="${campingQustionInfo.cqcode}_questionContents" name="cqcontents" style="width: 100%; resize: none;" readonly="readonly">${campingQustionInfo.cqcontents}</textarea>
-													</div>
-													<!-- 답글 -->
-													<div class="flex-w flex-t">
-														<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
-															<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
-														</div>
-														<div class="size-207">
-															<div class="flex-w flex-sb-m p-b-17">
-																<span class="mtext-107 cl2 p-r-20">
-																	Camily
-																</span>
+											<c:forEach items="${campingQnAList}" var="campingQnAInfo">
+												<div class="p-b-68" id="${campingQnAInfo.cqcode}">
+													<c:choose>
+														<c:when test="${campingQnAInfo.cqstate != 0}">
+															<!-- 캠핑장 문의글 -->
+															<div id="${campingQnAInfo.cqcode}_question">
+																<div class="flex-w flex-sb-m">
+																	<span class="mtext-107 cl2 p-r-20" id="questionId">
+																		${campingQnAInfo.cqmid} [ ${campingQnAInfo.caname}]
+																	</span>
+																	<c:if test="${campingQnAInfo.cqmid == sessionScope.loginId}">
+																		<span id="${campingQnAInfo.cqcode}_qustionBtn">
+																			<button class="btn btn-success m-r-10" onclick="modifyQuestionForm('${campingQnAInfo.cqcode}')">수정</button>
+																			<button type="button" class="btn btn-danger" onclick="deleteQuestion('${campingQnAInfo.cqcode}', '${campingInfo.cacode}')">삭제</button>
+																		</span>
+																	</c:if>
+																</div>
+																<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cqdate}</div>
+																<textarea class="stext-102 cl6" id="${campingQnAInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cqcontents}</textarea>
 															</div>
-															<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;">문의하신 내용에 답변 드립니다.</textarea>
-														</div>
-													</div>
+															<!-- 답글 -->
+															<div id="${campingQnAInfo.cqcode}_answer">
+																<c:if test="${campingQnAInfo.cwcode != null}">
+																	<div class="flex-w flex-t">
+																		<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
+																			<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
+																		</div>
+																		<div class="size-207">
+																			<div class="flex-w flex-sb-m">
+																				<span class="mtext-107 cl2 p-r-20">
+																					Camily
+																				</span>
+																			</div>
+																			<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cwdate}</div>
+																			<textarea class="stext-102 cl6" id="${campingQnAInfo.cwcode}_answerForm" name="answer" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cwcontents}</textarea>
+																		</div>
+																	</div>
+																</c:if>
+															</div>
+														</c:when>
+														<c:otherwise>
+															<div id="${campingQnAInfo.cqcode}_question">
+																<div class="flex-w flex-sb-m">
+																	<span class="mtext-107 cl2 p-r-20" id="questionId">
+																		${campingQnAInfo.cqmid} [ ${campingQnAInfo.caname}]
+																	</span>
+																</div>
+																<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cqdate}</div>
+																<textarea class="stext-102 cl6" id="${campingQnAInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>
+															</div>
+														</c:otherwise>
+													</c:choose>
 												</div>
 											</c:forEach>
 										</div>
 										
-
-
 										<!-- 문의글 작성하기 -->
 										<form action="questionWrite" id="cqform">
 											<input type="hidden" id="cqmid" name="cqmid" value="${sessionScope.loginId}">
@@ -313,18 +342,7 @@
 									</div>
 								</div>
 							</div>
-							
-							
-							
-							
-							
-							<div class="row">
-								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-									<div id="map" style="width: 500px; height: 400px;"></div>
-								</div>
-							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -441,10 +459,11 @@
 		});
 	</script>
 	<!--===============================================================================================-->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=10d14c6ccf8a5da29debf326077676e3">
-	</script>
-	<script type="text/javascript">
-		function drawMap(calatitude, calongitude, caname) {
+	<script>
+		window.onload = function(){
+			var calatitude = '${campingInfo.calatitude}';
+			var calongitude = '${campingInfo.calongitude}';
+			var caname = '${campingInfo.caname}';
 			console.log("calatitude : " + calatitude);
 			console.log("calongitude : " + calongitude);
 			console.log("caname : " + caname);
@@ -478,6 +497,7 @@
 			});
 		}
 	</script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=10d14c6ccf8a5da29debf326077676e3"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main2.js"></script>
 </body>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -687,8 +707,19 @@
 //		$("#"+cqcode+"_questionModify").submit();
 	}
 
-	function deleteQuestion(cqcode){
-
+	function deleteQuestion(cqcode, cacode){
+		/*
+		$.ajax({
+		type: "get",
+		url: "questionDelete",
+		data: {"cqcode": cqcode, "cqcacode": cacode},
+		dataType: "json",
+		async: false,
+		success: function(result){
+		}
+		});
+		*/
+		location.href = "questionDelete?cqcode=" + cqcode + "&cqcacode=" + cacode;
 	}
 </script>
 <script type="text/javascript">

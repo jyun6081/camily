@@ -65,7 +65,7 @@
 					<div class="p-r-45 p-r-0-lg">
 						
 						<h4 class="ltext-109 cl2 p-b-28">
-								제목 : ${CampingReview.cgrvtitle } 
+								${cgrvDetail.cgrvtitle } 
 							</h4>
 						
 							
@@ -73,64 +73,58 @@
 						<div class="p-t-32">
 							<span class="flex-w flex-m stext-111 cl2 p-b-19">
 								<span>
-									<span class="cl4"></span><i class="fa-regular fa-user"></i> ${CampingReview.cgrvmid }  
+									<span class="cl4"></span><i class="fa-regular fa-user"></i> ${cgrvDetail.cgrvmid }  
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 
 								<span>
-									<i class="fa-regular fa-calendar"></i> ${CampingReview.cgrvdate }
+									<i class="fa-regular fa-calendar"></i> ${cgrvDetail.cgrvdate }
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
-								<span> <i class="fa-regular fa-eye"></i> 조회수 ${CampingReview.cgrvhits }</span>
+								<span> <i class="fa-regular fa-eye"></i> 조회수 ${cgrvDetail.cgrvhits }</span>
 							</span>	
-							
-							<p class="stext-116 cl4">
-								제품명 : ${CampingReview.caname}
+							<hr>
+							<img alt="" src="${cgrvDetail.caimage }" style="height: 50px;">
+							<p class="stext-117">
+								캠핑장 : 🌈${cgrvDetail.caname}🌈
 							</p>
 							
 							<p class="mt-1"> 별점 : 
-								   <c:if test="${CampingReview.cgstarating == 1 }">
+								   <c:if test="${cgrvDetail.cgstarating == 1 }">
 								   <i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 2 }">
+								   <c:if test="${cgrvDetail.cgstarating == 2 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 3 }">
+								   <c:if test="${cgrvDetail.cgstarating == 3 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 4 }">
+								   <c:if test="${cgrvDetail.cgstarating == 4 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${CampingReview.cgstarating == 5 }">
+								   <c:if test="${cgrvDetail.cgstarating == 5 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
 								</p>
 							
-							
-							
-							
-							
-							
-							
-							
 							<div>					
 							<p class="stext-115 p-b-26" style="color: black;">
-								${CampingReview.cgrvcontents }
+								${cgrvDetail.cgrvcontents }
 							
 							</p>
 							</div>	
+							<hr>
 							<div id="bobtn">
 								<a class="btn btn-success" href="cgreviewpage">목록</a> 
-							<c:if test="${sessionScope.loginId == CampingReview.cgrvmid || sessionScope.loginId  == 'admin'}">
-								<a class="btn btn-info" href="cgReviewModify?cgrvcode=${CampingReview.cgrvcode }">수정</a> 
-								<a class="btn btn-danger" href="cgReviewDelete?cgrvcode=${CampingReview.cgrvcode }">삭제</a>
+							<c:if test="${sessionScope.loginId == cgrvDetail.cgrvmid}">
+								<button class="btn btn-info" onclick="cgreviewModify('${cgrvDetail.cgrvcode }')">수정</button> 
+								<button class="btn btn-danger" onclick="cgreviewDelete('${cgrvDetail.cgrvcode }')">삭제</button>
 							</c:if>				
 							</div>
 						</div>
 
 						
 
-						<!--  -->
 						
 					</div>
 				</div>
@@ -191,6 +185,28 @@
 		console.log(checkMsg.length);
 		if (checkMsg.length > 0) {
 			alert(checkMsg);
+		}
+	</script>
+	
+	<script type="text/javascript">
+		function cgreviewModify(cgrvcode) {
+			var modifyCheck = confirm("캠핑장 리뷰를 수정하시겠습니까?");
+			if (modifyCheck == true) {
+				location.href = "cgreviewModify?cgrvcode=${cgrvDetail.cgrvcode }"
+			} else {
+				return;
+			}
+		}
+	</script>
+
+	<script type="text/javascript">
+		function cgreviewDelete(cgrvcode) {
+			var delectCheck = confirm("게시글을 삭제하시겠습니까?");
+			if (delectCheck == true) {
+				location.href = "cgreviewDelete?cgrvcode=${cgrvDetail.cgrvcode }"
+			} else {
+				return;
+			}
 		}
 	</script>
 </body>

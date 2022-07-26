@@ -77,8 +77,10 @@
 							</span> <span> <i class="fa-regular fa-eye"></i> 조회수 ${gorvDetail.gorvhits }
 							</span>
 							</span>
-							<img alt="" src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${gorvDetail.goimage }">
-							<p class="stext-116 cl4">제품명 : 🌈${gorvDetail.goname }🌈</p>
+							<hr>
+							<div>
+							<img alt="" src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${gorvDetail.goimage }" style="height: 50px;">
+							<p class="stext-117">제품명 : 🌈${gorvDetail.goname }🌈</p>
 							
 							<p class="mt-1"> 별점 : 
 								   <c:if test="${gorvDetail.gorvstarating == 1 }">
@@ -97,22 +99,20 @@
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
 								</p>
-							
-							
-							
-							
-							
+								</div>							
 							<div>
 								<p class="stext-115 p-b-26" style="color: black;">
 									${gorvDetail.gorvcontents }</p>
 							</div>
+							
+							<hr>
 							<div id="bobtn">
 								<a class="btn btn-success" href="goreviewpage">목록</a>
-								<c:if test="${sessionScope.loginId == gorvDetail.gorvmid || sessionScope.loginId  == 'admin'}">
-								<a class="btn btn-info"
-									href="goReviewModify?gorvcode=${gorvDetail.gorvcode }">수정</a> <a
+								<c:if test="${sessionScope.loginId == gorvDetail.gorvmid}">
+								<button class="btn btn-info"
+									onclick="goreviewModify('${gorvDetail.gorvcode }')">수정</button> <button
 									class="btn btn-danger"
-									href="goreviewDelete?gorvcode=${gorvDetail.gorvcode }">삭제</a>
+									onclick="goreviewDelete'${gorvDetail.gorvcode }')">삭제</button>
 								</c:if>
 							</div>
 						</div>
@@ -179,6 +179,28 @@
 		console.log(checkMsg.length);
 		if (checkMsg.length > 0) {
 			alert(checkMsg);
+		}
+	</script>
+	
+	<script type="text/javascript">
+		function goreviewModify(gorvcode) {
+			var modifyCheck = confirm("캠핑용품 리뷰를 수정하시겠습니까?");
+			if (modifyCheck == true) {
+				location.href = "goreviewModify?gorvcode=${gorvDetail.gorvcode }"
+			} else {
+				return;
+			}
+		}
+	</script>
+
+	<script type="text/javascript">
+		function goreviewDelete(gorvcode) {
+			var delectCheck = confirm("게시글을 삭제하시겠습니까?");
+			if (delectCheck == true) {
+				location.href = "goreviewDelete?gorvcode=${gorvDetail.gorvcode }"
+			} else {
+				return;
+			}
 		}
 	</script>
 </body>

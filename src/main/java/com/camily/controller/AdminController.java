@@ -267,4 +267,10 @@ public class AdminController {
 		return goodsAnswer_ajax;
 	}
 	
+	@RequestMapping(value = "deleteQustion")
+	public @ResponseBody String deleteQustion(String cqcode) {
+		System.out.println("캠핑장 문의글 삭제 ajax");
+		String result = advc.deleteQustion(cqcode);
+		return result;
+	}
 }
