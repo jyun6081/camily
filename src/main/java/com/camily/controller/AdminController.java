@@ -201,4 +201,11 @@ public class AdminController {
 		String campingAnswer_ajax = advc.adminCampingAnswer(cwcqcode, cwcontents);
 		return campingAnswer_ajax;
 	}
+	
+	@RequestMapping(value = "adminCampingAnswerModify")
+	public @ResponseBody String adminCampingAnswerModify(String cwcode, String cwcontents) {
+		System.out.println("캠핑장 문의글 답변수정 ajax");
+		String campingAnswer_ajax = advc.adminCampingAnswerModify(cwcode, cwcontents);
+		return campingAnswer_ajax;
+	}
 }

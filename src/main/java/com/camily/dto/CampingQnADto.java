@@ -3,8 +3,9 @@ package com.camily.dto;
 import lombok.Data;
 
 @Data
-public class CampingQuestionDto {
+public class CampingQnADto {
 
+	// campingQustion
 	private String cqcode;
 	private String cqcacode;
 	private String cqmid;
@@ -14,4 +15,12 @@ public class CampingQuestionDto {
 	
 	// java에서만 사용
 	private String caname;
+	
+	// campingAnswer
+	private String cwcode;
+	private String cwcqcode;
+	private String cwmid;
+	private String cwcontents;
+	private String cwdate;
+	
 }

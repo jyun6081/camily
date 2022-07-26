@@ -10,9 +10,8 @@ import org.apache.ibatis.annotations.Update;
 
 import com.camily.dto.BannerDto;
 import com.camily.dto.BoardDto;
-import com.camily.dto.CampingAnswerDto;
 import com.camily.dto.CampingDto;
-import com.camily.dto.CampingQuestionDto;
+import com.camily.dto.CampingQnADto;
 import com.camily.dto.CampingReviewDto;
 import com.camily.dto.GoodsReviewDto;
 import com.camily.dto.MemberDto;
@@ -64,7 +63,8 @@ public interface AdminDao {
 	int updateBoardState(@Param("bocode") int bocode,@Param("bostate") int bostate);
 
 	//@Select("SELECT * FROM CAMPINGQUESTION ORDER BY CQDATE DESC")
-	ArrayList<CampingQuestionDto> getCampingQuestionList();
+	ArrayList<CampingQnADto> getCampingQnAList();
+	
 	ArrayList<GoodsReviewDto> getAdminGoodsReviewList(@Param("startRow") int startRow,@Param("endRow") int endRow);
 
 	int getGoodsReviewTotalCount();
@@ -78,13 +78,19 @@ public interface AdminDao {
 	int updateCampingReviewState(@Param("cgrvcode") int cgrvcode,@Param("cgrvstate") int cgrvstate);
 
 	@Insert("INSERT INTO CAMPINGANSWER(CWCODE, CWCQCODE, CWMID, CWCONTENTS, CWDATE) VALUES(#{cwcode}, #{cwcqcode}, #{cwmid}, #{cwcontents}, SYSDATE)")
-	int answerWrite(CampingAnswerDto campingAnswerInfo);
+	int answerWrite(CampingQnADto campingAnswerInfo);
 
 	@Select("SELECT MAX(CWCODE) FROM CAMPINGANSWER")
 	String getMaxCwcode();
 
+//	@Select("SELECT * FROM CAMPINGANSWER WHERE CWCODE = #{cwcode}")
+	CampingQnADto getCampingQnAInfo(@Param("cwcqcode") String cwcqcode);
+
+	@Update("UPDATE CAMPINGANSWER SET CWCONTENTS = #{cwcontents} WHERE CWCODE = #{cwcode}")
+	int campingAnswerModify(@Param("cwcode") String cwcode, @Param("cwcontents") String cwcontents);
+
 	@Select("SELECT * FROM CAMPINGANSWER WHERE CWCODE = #{cwcode}")
-	CampingAnswerDto getCampingAnswerInfo(@Param("cwcode") String cwCode);
+	CampingQnADto getCampingAnswerInfo(String cwcode);
 
 	
 
