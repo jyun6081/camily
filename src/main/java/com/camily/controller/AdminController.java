@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.camily.dto.BannerDto;
 import com.camily.dto.CampingDto;
+import com.camily.dto.CampingRoomDto;
 import com.camily.service.AdminService;
 
 @Controller
@@ -102,6 +103,33 @@ public class AdminController {
 		ModelAndView mav = advc.registerCamping(camping, ra);
 		return mav;
 	}
+	
+	// 관리자 캠핑장 객실 조회
+	@RequestMapping(value="/adminCheckRoomType")
+	public @ResponseBody String adminCheckRoomType(String cacode) {
+		System.out.println("관리자 객실타입 조회 요청");
+		String roomType = advc.getCheckRoomType(cacode);
+		return roomType;
+	}
+	// 관리자 캠핑장 객실 상태 변경
+	@RequestMapping(value="/modifyCpRoomState")
+	public @ResponseBody String modifyCpRoomState(CampingRoomDto campingRoom) {
+		System.out.println("관리자 객실상태 변경 요청");
+		
+		String modifyResult = advc.modifyCpRoomState(campingRoom);
+		return modifyResult; 
+	}
+	// 관리자 캠핑장 객실정보 변경
+	@RequestMapping(value="/modifyCpRoomInfo")
+	public ModelAndView modifyCpRoomInfo(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
+		System.out.println("캠핑장 객실정보 변경 요청");
+		
+		ModelAndView mav = advc.modifyCpRoomInfo(campingRoom,ra);
+		return mav;
+	}
+	
+	
+	
 
 	@RequestMapping(value = "bannerAdd")
 	public ModelAndView bannerAdd(BannerDto bannerInfo, RedirectAttributes ra) {
@@ -187,15 +215,6 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/adminGoodsQuestionPage")
-	public ModelAndView adminGoodsQuestionPage() {
-		System.out.println("관리자 캠핑용품 문의 게시글 페이지 이동");
-		ModelAndView mav = advc.adminGoodsQuestionPage();
-		
-		return mav;
-	}
-	
-	
 	@RequestMapping(value = "adminCampingQuestionList")
 	public @ResponseBody String adminCampingQuestionList() {
 		System.out.println("캠핑장 문의글 전체보기 ajax");
@@ -217,4 +236,35 @@ public class AdminController {
 		String campingAnswer_ajax = advc.adminCampingAnswerModify(cwcode, cwcontents);
 		return campingAnswer_ajax;
 	}
+	
+	@RequestMapping(value = "/adminGoodsQuestionPage")
+	public ModelAndView adminGoodsQuestionPage() {
+		System.out.println("관리자 캠핑용품 문의 게시글 페이지 이동");
+		ModelAndView mav = advc.adminGoodsQuestionPage();
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/adminGoodsQuestionList")
+	public @ResponseBody String adminGoodsQuestionList() {
+		System.out.println("캠핑용품 문의글 전체보기 ajax");
+		String goodsQuestionList_ajax = advc.adminGoodsQuestionList();
+		
+		return goodsQuestionList_ajax;
+	}
+	
+	@RequestMapping(value = "/adminGoodsAnswer")
+	public @ResponseBody String adminGoodsAnswer(String gwgqcode, String gwcontents) {
+		System.out.println("캠핑용품 문의글 답변달기 ajax");
+		String goodsAnswer_ajax = advc.adminGoodsAnswer(gwgqcode, gwcontents);
+		return goodsAnswer_ajax;
+	}
+	
+	@RequestMapping(value = "adminGoodsAnswerModify")
+	public @ResponseBody String adminGoodsAnswerModify(String gwcode, String gwcontents) {
+		System.out.println("캠핑용품 문의글 답변수정 ajax");
+		String goodsAnswer_ajax = advc.adminGoodsAnswerModify(gwcode,gwcontents);
+		return goodsAnswer_ajax;
+	}
+	
 }

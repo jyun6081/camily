@@ -78,8 +78,39 @@
     <insert id="insertCamping">
     INSERT INTO CAMPING (CACODE,CANAME,CALATITUDE,CALONGITUDE,CACONTENTS,CAINFO,CAIMAGE,CATYPE,CALINECONTENTS,CASTATE) VALUES 
     (#{cacode},#{caname},#{calatitude},#{calongitude},#{cacontents},#{cainfo},#{caimage},#{catype},#{calinecontents}, 1)
-    
     </insert>
+    
+    <select id="selectCampingRommList" resultType="com.camily.dto.CampingRoomDto">
+     SELECT * 
+     FROM CAMPINGROOM 
+     WHERE CRCACODE = #{cacode} ORDER BY LPAD(CRNUM, 2, '0')
+    </select>
+    
+    <update id="updateCpRoomState">
+     UPDATE CAMPINGROOM
+     SET CRSTATE = #{crstate}
+     <where>
+     CRCACODE = #{crcacode} AND
+     CRNAME = #{crname} AND
+     CRNUM = #{crnum}
+     </where>
+    </update>
+    
+    <update id="updateCpRoomInfo">
+     UPDATE CAMPINGROOM
+    <set>
+     CRSTNPEOPLE = #{crstnpeople},
+     CRMAXPEOPLE = #{crmaxpeople},
+     CRIMAGE = #{crimage},
+     CRPRICE = #{crprice}
+    </set>
+    <where>
+     CRCACODE = #{crcacode} AND
+     CRNAME = #{crname} AND
+     CRNUM = #{crnum}
+    </where>
+    
+    </update>
     
     <update id="bannerModify">
     UPDATE BANNER
@@ -159,5 +190,20 @@
 		FROM CAMPINGQUESTION CQ
 		LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
 		WHERE CQ.CQCODE = #{cwcqcode}
+    </select>
+    
+    <select id="getGoodsQnAList" resultType="com.camily.dto.GoodsQnADto">
+        SELECT GQ.*, G.GNAME, GW.*
+		FROM GOODSQUESTION GQ
+		INNER JOIN GOODS G ON GQ.GQGCODE = G.GCODE
+        LEFT OUTER JOIN GOODSANSWER GW ON GQ.GQCODE = GW.GWGQCODE
+		ORDER BY GQDATE DESC
+    </select>
+    
+    <select id="getGoodsQnAInfo" resultType="com.camily.dto.GoodsQnADto">
+    	SELECT *
+		FROM GOODSQUESTION GQ
+		LEFT OUTER JOIN GOODSANSWER GW ON GQ.GQCODE = GW.GWGQCODE
+		WHERE GQ.GQCODE = #{gwgqcode}    
     </select>
 </mapper>

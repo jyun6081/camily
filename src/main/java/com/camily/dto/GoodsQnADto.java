@@ -18,7 +18,7 @@ public class GoodsQnADto {
 	private String gwcontents;
 	private String gwdate;
 	
-	
+	private String gname;
 	
 
 
