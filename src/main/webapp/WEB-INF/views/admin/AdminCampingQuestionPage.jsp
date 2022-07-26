@@ -95,12 +95,13 @@
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-0-lg">
 						<div class="section-reply-title">
-								<h5>캠핑장 문의글 확인</h5>
+								<h5 style="display: inline;">캠핑장 문의글 확인</h5>
+								<div style="float: right;">
+									<button class="btn btn-info" onclick="allQuestion()">전체보기</button>
+									<button class="btn btn-warning" onclick="notyetQuestion()">미답변 문의만 보기</button>
+								</div>
 						</div>
-						<div>
-							<button class="btn btn-info" onclick="allQuestion()">전체보기</button>
-							<button class="btn btn-warning" onclick="notyetQuestion()">미답변 문의만 보기</button>
-						</div>
+						
 							<div id="questionList">
 								<div class="row">
 									<div class="col-sm-10 col-md-10 col-lg-8 m-lr-auto">
@@ -322,6 +323,7 @@
 						output += '<textarea class="stext-102 cl6 autoTextarea" id="' + result[i].cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>';
 						output += '</div>';
 					}
+					output += '</div>';
 					$("#campingQnAList_div").html(output);
 				}
 			}
