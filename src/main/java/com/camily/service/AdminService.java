@@ -740,7 +740,7 @@ public class AdminService {
 			goodsAnswer_ajax = "NG";
 		}
 		return goodsAnswer_ajax;
-
+	}
 	public String deleteQustion(String cqcode) {
 		System.out.println("CampingService.adminCampingAnswerModify() 호출");
 		int updateResult = addao.deleteQustion(cqcode);
