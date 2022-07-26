@@ -11,20 +11,6 @@
 		FROM (SELECT ROWNUM RN, MEMBERS.* FROM MEMBERS ORDER BY MNAME) 
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
-	<!-- <select id="getMemberList" resultType="com.camily.dto.MemberDto">
-		SELECT * 
-		FROM ( 	SELECT ROWNUM RN, MEMBERS.*
-		       		FROM ( 	SELECT MEMBERS.*, CA.CRPRICE FROM CAMPING
-		             			LEFT OUTER JOIN ( SELECT C.CACODE, MIN(TO_NUMBER(CR.CRPRICE)) AS CRPRICE
-		                    	FROM CAMPING C
-		              			LEFT OUTER JOIN CAMPINGROOM CR ON C.CACODE = CR.CRCACODE
-		                       	GROUP BY C.CACODE ) CA ON CAMPING.CACODE = CA.CACODE
-		            <if test="type.length > 0">
-		       		WHERE CATYPE LIKE '%'||#{type}||'%'
-		       		</if>
-		      		ORDER BY CAMPING.CACODE) CAMPING)
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
-	</select> -->
 	
 	<select id="getMemberTotalCount" resultType="int">
 		SELECT COUNT(*) FROM MEMBERS
