@@ -187,4 +187,13 @@ public class AdminController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/adminGoodsQuestionPage")
+	public ModelAndView adminGoodsQuestionPage() {
+		System.out.println("관리자 캠핑용품 문의 게시글 페이지 이동");
+		ModelAndView mav = advc.adminGoodsQuestionPage();
+		
+		return mav;
+	}
+	
+	
 }

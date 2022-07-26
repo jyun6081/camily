@@ -539,4 +539,12 @@ public class AdminService {
 		int updateResult = addao.updateCampingReviewState(cgrvcode,cgrvstate);
 		return updateResult+"";
 	}
+
+	public ModelAndView adminGoodsQuestionPage() {
+		System.out.println("AdminService.adminGoodsQuestionPage() 호출");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("admin/AdminGoodsQuestionPage");
+		return mav;
+	}
 }
