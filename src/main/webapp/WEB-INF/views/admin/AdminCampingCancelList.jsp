@@ -99,7 +99,7 @@
                                             <th class="align-middle text-center font-weight-bold">${CancelList.gomaddr }</th>
                                             <th class="align-middle text-center font-weight-bold">${CancelList.goname }</th>
                                             <th class="align-middle text-center font-weight-bold">${CancelList.goamount }개</th>
-                                            <th class="align-middle text-center font-weight-bold">${formattergoprice }원</th> 
+                                            <th class="align-middle text-center font-weight-bold">${CancelList.goprice }원</th> 
                                             <th class="align-middle text-center font-weight-bold">${CancelList.gocancel }</th>                                                                          
                                         </tr>
                                   </tbody>     

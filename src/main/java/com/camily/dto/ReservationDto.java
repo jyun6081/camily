@@ -24,5 +24,4 @@ public class ReservationDto {
 	private String endday;
 	private String crprice;
 	private int totalprice;
-	private String formatsum;
 }

@@ -71,7 +71,13 @@
 	font-family: "Oswald", sans-serif;
 }
 
+#aaa{
+	font-weight: bold;
 
+
+
+
+}
 </style>
 </head>
 <body class="animsition">
@@ -111,9 +117,9 @@
                                         <tr>
                                             <th class="align-middle text-center font-weight-bold"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }" alt="IMG" style="width: 60px;"></th>
                                             <td class="align-middle text-center font-weight-bold">${Purchase.goname }</td>
-                                            <td class="align-middle text-center font-weight-bold">${Purchase.divisionsum }원</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goprice }원</td>
                                             <td class="align-middle text-center font-weight-bold">${Purchase.goamount }개</td>
-                                            <td class="align-middle text-center font-weight-bold">${divisionsum2}원</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goprice}원</td>
                                             <td class="align-middle text-center font-weight-bold">${Purchase.gomaddr }</td>
                                             <td id="aaa" class="align-middle text-center font-weight-bold">
                                       <c:if test="${Purchase.gostate == 2 }">
