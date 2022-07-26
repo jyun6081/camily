@@ -636,9 +636,10 @@
 					"startday": startday,
 					"endday": endday
 				},
+				dataType: "json",
 				async: false,
 				success: function (result) {
-					console.log("totalPrice : " + result);
+					console.log(result);
 					
 					$("#totalPrice").text(result + "원");
 					

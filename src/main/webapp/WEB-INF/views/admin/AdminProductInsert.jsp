@@ -58,12 +58,9 @@
 	<!-- TopBar-->
 	<%@ include file="/WEB-INF/views/includes/AdminTopBar.jsp"%>
 	<!-- End TopBar-->
+  
       <form action="produckAdd" method="post" enctype="multipart/form-data">
        <div class="card shadow mb-8 col-sm-10" style="margin:0 auto; align-items: center; ">
-       <div
-	    class="d-sm-flex align-items-center justify-content-between mb-4" style="margin:0 auto; ">
-        <h1 class="h3 mb-0 text-gray-800">관리자 캠핑용품 등록 페이지 - AdminProductInsert.jsp</h1>
-	   </div>
        <button class="btn btn-secondary p-2" type="submit">등록하기</button>
                         <div class="card-body" >
                             <div class="table-responsive">

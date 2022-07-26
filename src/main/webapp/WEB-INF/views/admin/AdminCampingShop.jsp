@@ -66,7 +66,7 @@
 					<div class="row" style="margin:0 auto; ">
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4" style="margin:0 auto; ">
-						<h1 class="h3 mb-0 text-gray-800">관리자 캠핑용품 관리 페이지 - AdminCampingShop.jsp</h1>
+						<h1 class="h3 mb-0 text-gray-800">관리자 캠핑관리 페이지 - AdminCampingShop.jsp</h1>
 					</div>
                       <div class="card shadow mb-8 col-sm-10" style="margin:0 auto; ">
                         <div class="card-body" >
