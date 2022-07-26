@@ -77,8 +77,6 @@
 								<li><a href="adminboardList">자유게시판관리</a></li>
 								<li><a href="adminGoodsReviewList">캠핑용품 리뷰관리</a></li>
 								<li><a href="adminCampingReviewList">캠핑장 리뷰관리</a></li>
-								<li><a href="AdminCampingCancel">캠핑용품취소관리</a></li>
-								<li><a href="AdminCampingCancelList">캠핑용품취소목록</a></li>
 							</ul>
 						</li>
 						<li>

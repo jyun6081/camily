@@ -23,19 +23,19 @@ public class GoodsReviewService {
 	private HttpSession session;
 	
 	// 캠핑용품 후기 리스트
-	public ModelAndView goreviewList() {
-		System.out.println("GoodsReviewService.goreviewList() 호출");
+	public ModelAndView goreviewpage() {
+		System.out.println("GoodsReviewService.goreviewpage() 호출");
 		ModelAndView mav = new ModelAndView();
-		ArrayList<GoodsReviewDto> goreviewList = grdao.selectGoodsReviewList();
-		System.out.println(goreviewList);
+		ArrayList<GoodsReviewDto> goreviewpage = grdao.selectGoodsReviewList();
+		System.out.println(goreviewpage);
 		
-		mav.addObject("goodsReviewList", goreviewList);
+		mav.addObject("goodsReviewList", goreviewpage);
 		mav.setViewName("goodsreview/GoReviewPage");
 		return mav;
 	}
 	
 	// 캠핑용품 후기 상세보기
-	public ModelAndView goreviewdetail(int gorvcode) {
+	public ModelAndView goreviewdetailpage(int gorvcode) {
 		System.out.println("GoodsReviewService.goreviewdetailpage() 호출");
 		ModelAndView mav = new ModelAndView();
 		System.out.println("상품리뷰 코드 : " + gorvcode);
@@ -43,10 +43,10 @@ public class GoodsReviewService {
 		//조회수 증가
 		int hitsResult = grdao.updateHits(gorvcode);
 		
-		GoodsReviewDto goodsReviewDetail = grdao.selectGoodsReviewDetail(gorvcode);
-		System.out.println(goodsReviewDetail);
+		GoodsReviewDto goreviewdetailpage = grdao.selectGoodsReviewDetail(gorvcode);
+		System.out.println(goreviewdetailpage);
 		
-		mav.addObject("gorvDetail", goodsReviewDetail);
+		mav.addObject("gorvDetail", goreviewdetailpage);
 		mav.setViewName("goodsreview/GoReviewDetailPage");
 		return mav;
 	}
@@ -78,7 +78,7 @@ public class GoodsReviewService {
 		
 	}
 	
-	public ModelAndView goReviewModify(int gorvcode) {
+	public ModelAndView goreviewModify(int gorvcode) {
 		System.out.println("GoodsReviewService.goReviewModify()호출");
 		ModelAndView mav = new ModelAndView();
 		GoodsReviewDto goodsReview = grdao.selectGoodsReview(gorvcode);
@@ -90,13 +90,13 @@ public class GoodsReviewService {
 		return mav;
 	}
 
-	public ModelAndView goReviewModifyForm(GoodsReviewDto goreview, RedirectAttributes ra) {
+	public ModelAndView goreviewModifyForm(GoodsReviewDto goreview, RedirectAttributes ra) {
 		System.out.println("GoodsReviewService.goReviewMoidfyForm()호출");
 		ModelAndView mav = new ModelAndView();
 		int updateResult = grdao.updateGoodsReview(goreview);
 		
 		ra.addFlashAttribute("msg", "게시글이 수정되었습니다!");
-		mav.setViewName("redirect:/goreviewdetail?gorvcode=" + goreview.getGorvcode());
+		mav.setViewName("redirect:/goreviewdetailpage?gorvcode=" + goreview.getGorvcode());
 		return mav;
 	}
 

@@ -125,7 +125,7 @@ $(document).ready(function() {
 								<h5>캠핑용품 리뷰 수정</h5><h6>캠핑용품 리뷰 수정 페이지입니다.</h6>
 						</div> 
 					<div style="width: 100%; margin: auto;">
-						<form method="post" action="goReviewModifyForm">
+						<form method="post" action="goreviewModifyForm">
 							<input type="hidden" name="gorvcode" value="${goodsReview.gorvcode }">
 							<input type="hidden" name="gorvmid" value="${goodsReview.gorvmid }">
 							<input type="text" name="gorvtitle" value="${goodsReview.gorvtitle }" style="width: 40%;
