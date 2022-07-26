@@ -115,7 +115,9 @@
     <update id="bannerModify">
     UPDATE BANNER
 	<set>
-		BNIMAGE = #{bnimage},
+		<if test="bnimage != null">
+			BNIMAGE = #{bnimage},
+		</if>
 		BNTITLE = #{bntitle},
 		BNTITLEEFFECT = #{bntitleeffect},
 		BNCONTENTS = #{bncontents},
