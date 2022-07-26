@@ -152,7 +152,7 @@
 									<span class="stext-105 cl3">
 										<c:choose>
 											<c:when test="${campingInfo.crprice != null}">
-												${campingInfo.crprice}원 부터 ~
+												${campingInfo.formatprice}원 부터 ~
 											</c:when>
 											<c:otherwise>
 												준비중

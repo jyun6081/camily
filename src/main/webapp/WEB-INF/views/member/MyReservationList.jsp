@@ -121,7 +121,7 @@
                                             <td>${myReservationInfo.caname}</td>
                                             <td>${myReservationInfo.recrname} ${myReservationInfo.recrnum}</td>
                                             <td>${myReservationInfo.startday} ~ ${myReservationInfo.endday}</td>
-                                            <td>${myReservationInfo.totalprice}원</td>
+                                            <td>${myReservationInfo.formatsum}원</td>
                                             <td><a href="cpWrite?recacode=${myReservationInfo.recacode }&recode=${myReservationInfo.recode}"
 									 class="flex-c-m stext-101 cl0 size-80 bg1 bor1 hov-btn1 trans-04">후기작성</a></td>
                                             				

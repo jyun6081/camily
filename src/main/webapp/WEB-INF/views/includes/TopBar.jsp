@@ -183,6 +183,7 @@
 	</div>
 
 </header>
+<!-- 찜목록 리스트 -->
 <script type="text/javascript"> 
   function cartselect(loginId){
 	  console.log("loginId :" + loginId);
@@ -210,7 +211,7 @@
 					output += '</div>';
 					output += '</li>';
 				}
-				$("#zzz").html(output);
+				$("#gitList").html(output);
 			}
 	 });
   } 
@@ -317,7 +318,7 @@ console.log(uid);
 			</div>
 			
 			<div class="header-cart-content flex-w js-pscroll">
-				<ul class="header-cart-wrapitem w-full" id="zzz">
+				<ul class="header-cart-wrapitem w-full" id="gitList">
 					
 				</ul>
 				
