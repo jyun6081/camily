@@ -11,20 +11,6 @@
 		FROM (SELECT ROWNUM RN, MEMBERS.* FROM MEMBERS ORDER BY MNAME) 
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
-	<!-- <select id="getMemberList" resultType="com.camily.dto.MemberDto">
-		SELECT * 
-		FROM ( 	SELECT ROWNUM RN, MEMBERS.*
-		       		FROM ( 	SELECT MEMBERS.*, CA.CRPRICE FROM CAMPING
-		             			LEFT OUTER JOIN ( SELECT C.CACODE, MIN(TO_NUMBER(CR.CRPRICE)) AS CRPRICE
-		                    	FROM CAMPING C
-		              			LEFT OUTER JOIN CAMPINGROOM CR ON C.CACODE = CR.CRCACODE
-		                       	GROUP BY C.CACODE ) CA ON CAMPING.CACODE = CA.CACODE
-		            <if test="type.length > 0">
-		       		WHERE CATYPE LIKE '%'||#{type}||'%'
-		       		</if>
-		      		ORDER BY CAMPING.CACODE) CAMPING)
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
-	</select> -->
 	
 	<select id="getMemberTotalCount" resultType="int">
 		SELECT COUNT(*) FROM MEMBERS
@@ -126,10 +112,11 @@
          WHERE BOCODE = #{bocode}
     </update>
     
-    <select id="getCampingQuestionList" resultType="com.camily.dto.CampingQuestionDto">
-    	SELECT CQ.*, C.CANAME
+    <select id="getCampingQnAList" resultType="com.camily.dto.CampingQnADto">
+    	SELECT CQ.*, C.CANAME, CW.*
 		FROM CAMPINGQUESTION CQ
 		INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
+        LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
 		ORDER BY CQDATE DESC
     </select>
     
@@ -166,4 +153,11 @@
          SET CGRVSTATE = #{cgrvstate}
          WHERE CGRVCODE = #{cgrvcode}
     </update>
+    
+    <select id="getCampingQnAInfo" resultType="com.camily.dto.CampingQnADto">
+    	SELECT *
+		FROM CAMPINGQUESTION CQ
+		LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
+		WHERE CQ.CQCODE = #{cwcqcode}
+    </select>
 </mapper>

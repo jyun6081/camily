@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.camily.dao.CampingReviewDao;
 import com.camily.dto.CampingReviewDto;
 import com.camily.dto.GoodsReviewDto;
+import com.camily.dto.PageDto;
 
 @Service
 public class CampingReviewService {
@@ -20,13 +21,13 @@ public class CampingReviewService {
 	private HttpSession session;
 
 	@Autowired
-	CampingReviewDao crdo;
+	CampingReviewDao crdao;
 
 	public int insertCampingReview(CampingReviewDto review) {
 		System.out.println("CampingReviewService.insertGoodsReview()호출");
 
 		// 글번호 조회
-		int cgrvno = crdo.getMaxCgrvcode() + 1;
+		int cgrvno = crdao.getMaxCgrvcode() + 1;
 		System.out.println("생성된 글번호 :" + cgrvno);
 		review.setCgrvcode(cgrvno);
 
@@ -40,7 +41,7 @@ public class CampingReviewService {
 		review.setCgrvcacode(cgrvcacode);
 
 		System.out.println("review" + review);
-		int WriteReviewResult = crdo.insertCampingReview(review);
+		int WriteReviewResult = crdao.insertCampingReview(review);
 
 		return WriteReviewResult;
 
@@ -49,9 +50,10 @@ public class CampingReviewService {
 	public ModelAndView CampingReviewList() {
 		System.out.println("CampingReviewService.CampingReviewList() 호출");
 		ModelAndView mav = new ModelAndView();
-		ArrayList<CampingReviewDto> campingreviewList = crdo.selectCampingReviewList();
+		
+		ArrayList<CampingReviewDto> campingreviewList = crdao.selectCampingReviewList();
 		System.out.println(campingreviewList);
-
+		
 		mav.addObject("campingreviewList", campingreviewList);
 		mav.setViewName("campingreview/CgReviewPage");
 		return mav;
@@ -63,9 +65,9 @@ public class CampingReviewService {
 		ModelAndView mav = new ModelAndView();
 		
 		//조회수 증가
-		int hitsResult = crdo.updateHits(cgrvcode);
+		int hitsResult = crdao.updateHits(cgrvcode);
 		
-		CampingReviewDto CampingReview = crdo.CampingReviewDetail(cgrvcode);
+		CampingReviewDto CampingReview = crdao.CampingReviewDetail(cgrvcode);
 		System.out.println(CampingReview);
 		
 		mav.addObject("CampingReview", CampingReview);
@@ -77,7 +79,7 @@ public class CampingReviewService {
 	public ModelAndView cgReviewModify(int cgrvcode) {
 		System.out.println("GoodsReviewService.cgReviewModify()호출");
 		ModelAndView mav = new ModelAndView();
-		CampingReviewDto CampingReview = crdo.selectCampingReview(cgrvcode);
+		CampingReviewDto CampingReview = crdao.selectCampingReview(cgrvcode);
 		System.out.println("CampingReview : " + CampingReview);
 
 		mav.addObject("CampingReview", CampingReview);
@@ -89,7 +91,7 @@ public class CampingReviewService {
 	public ModelAndView cgReviewModifyForm(CampingReviewDto cgreview, RedirectAttributes ra) {
 		System.out.println("GoodsReviewService.goReviewMoidfyForm()호출");
 		ModelAndView mav = new ModelAndView();
-		int updateResult = crdo.updateCampingReview(cgreview);
+		int updateResult = crdao.updateCampingReview(cgreview);
 		
 		ra.addFlashAttribute("msg", "게시글이 수정되었습니다!");
 		mav.setViewName("redirect:/cgreviewdetail?cgrvcode=" + cgreview.getCgrvcode());
@@ -100,7 +102,7 @@ public class CampingReviewService {
 		System.out.println("GoodsReviewService.cgreviewDelete() 호출");
 		ModelAndView mav = new ModelAndView();
 		System.out.println("삭제할 캠핑용품 후기 게시글 : " + cgrvcode);
-		crdo.deleteCampingReview(cgrvcode);
+		crdao.deleteCampingReview(cgrvcode);
 		
 		ra.addFlashAttribute("msg", "게시글이 삭제되었습니다!");
 		mav.setViewName("redirect:/cgreviewpage");

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.camily.dao.CampingDao;
 import com.camily.dto.CampingDto;
-import com.camily.dto.CampingQuestionDto;
+import com.camily.dto.CampingQnADto;
 import com.camily.dto.CampingRoomDto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
@@ -109,7 +109,7 @@ public class CampingService {
 		System.out.println(campingInfo);
 		ArrayList<CampingRoomDto> campingRoomTypeList = cdao.campingRoomTypeList(cacode);
 		ArrayList<CampingRoomDto> campingRoomList = cdao.campingRoomList(cacode);
-		ArrayList<CampingQuestionDto> campingQuestionList = cdao.campingQuestionList(cacode);
+		ArrayList<CampingQnADto> campingQuestionList = cdao.campingQuestionList(cacode);
 		System.out.println(campingRoomList);
 		mav.addObject("campingInfo", campingInfo);
 		mav.addObject("campingRoomList", campingRoomList);
@@ -332,7 +332,7 @@ public class CampingService {
 		cqcontents.replace(" ", "&nbps;");
 		*/
 		
-		CampingQuestionDto campingQustionInfo = new CampingQuestionDto();
+		CampingQnADto campingQustionInfo = new CampingQnADto();
 		
 		String maxCqcode = cdao.getMaxCqcode();
 		String cqCode = "";
@@ -379,7 +379,7 @@ public class CampingService {
 		cqcontents = "[수정됨] "+ nowDate + " " + formattedNowTime + "\r\n" + cqcontents;
 		int updateResult = cdao.questionModify(cqcode, cqcontents);
 		if(updateResult > 0) {
-			CampingQuestionDto campingQuestionInfo = cdao.getCampingQuestionInfo(cqcode);
+			CampingQnADto campingQuestionInfo = cdao.getCampingQuestionInfo(cqcode);
 			Gson gson = new Gson();
 			result_json = gson.toJson(campingQuestionInfo);
 		}else {
