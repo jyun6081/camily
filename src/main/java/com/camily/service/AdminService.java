@@ -2,6 +2,9 @@ package com.camily.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -591,6 +594,12 @@ public class AdminService {
 
 	public String adminCampingAnswerModify(String cwcode, String cwcontents) {
 		System.out.println("CampingService.adminCampingAnswerModify() 호출");
+		LocalDate nowDate = LocalDate.now();
+		LocalTime nowTime = LocalTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String formattedNowTime = nowTime.format(formatter);
+		cwcontents = "[수정됨] "+ nowDate + " " + formattedNowTime + "\r\n" + cwcontents;
+		
 		int updateResult = addao.campingAnswerModify(cwcode, cwcontents);
 		CampingQnADto campingAnswerInfo = new CampingQnADto();
 		String campingAnswer_ajax = "";
@@ -602,5 +611,20 @@ public class AdminService {
 			campingAnswer_ajax = "NG";
 		}
 		return campingAnswer_ajax;
+	}
+
+	public String deleteQustion(String cqcode) {
+		System.out.println("CampingService.adminCampingAnswerModify() 호출");
+		int updateResult = addao.deleteQustion(cqcode);
+		String result = "";
+		if(updateResult > 0) {
+			CampingQnADto campingQuestionInfo = addao.getCampingQnAInfo(cqcode);
+			System.out.println(campingQuestionInfo);
+			Gson gson = new Gson();
+			result = gson.toJson(campingQuestionInfo);
+		}else {
+			result = "NG";
+		}
+		return result;
 	}
 }
