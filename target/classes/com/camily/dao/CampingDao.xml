@@ -53,4 +53,12 @@
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
+	<select id="campingQuestionList" resultType="com.camily.dto.CampingQnADto">
+		SELECT * 
+		FROM CAMPINGQUESTION CQ
+		LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
+		WHERE CQCACODE = #{cacode}
+		ORDER BY CQDATE DESC
+	</select>
+	
 </mapper>

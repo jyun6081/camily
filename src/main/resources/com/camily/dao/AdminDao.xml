@@ -112,10 +112,11 @@
          WHERE BOCODE = #{bocode}
     </update>
     
-    <select id="getCampingQuestionList" resultType="com.camily.dto.CampingQuestionDto">
-    	SELECT CQ.*, C.CANAME
+    <select id="getCampingQnAList" resultType="com.camily.dto.CampingQnADto">
+    	SELECT CQ.*, C.CANAME, CW.*
 		FROM CAMPINGQUESTION CQ
 		INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
+        LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
 		ORDER BY CQDATE DESC
     </select>
     
@@ -152,4 +153,12 @@
          SET CGRVSTATE = #{cgrvstate}
          WHERE CGRVCODE = #{cgrvcode}
     </update>
+    
+    <select id="getCampingQnAInfo" resultType="com.camily.dto.CampingQnADto">
+    	SELECT CQ.*, C.CANAME, CW.*
+		FROM CAMPINGQUESTION CQ
+		INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
+		LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
+		WHERE CQ.CQCODE = #{cqcode}
+    </select>
 </mapper>

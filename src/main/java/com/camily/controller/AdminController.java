@@ -180,11 +180,39 @@ public class AdminController {
 		return updateResult;
 	}
 
-	@RequestMapping(value = "/AdminCampingQuestionPage")
-	public ModelAndView AdminCampingQuestionPage() {
+	@RequestMapping(value = "/adminCampingQuestionPage")
+	public ModelAndView adminCampingQuestionPage() {
 		System.out.println("관리자 캠핑장 문의게시글 페이지 이동");
-		ModelAndView mav = advc.AdminCampingQuestionPage();
+		ModelAndView mav = advc.adminCampingQuestionPage();
 		return mav;
 	}
 	
+	@RequestMapping(value = "adminCampingQuestionList")
+	public @ResponseBody String adminCampingQuestionList() {
+		System.out.println("캠핑장 문의글 전체보기 ajax");
+		String campingQuestionList_ajax = advc.adminCampingQuestionList();
+		
+		return campingQuestionList_ajax;
+	}
+	
+	@RequestMapping(value = "adminCampingAnswer")
+	public @ResponseBody String adminCampingAnswer(String cwcqcode, String cwcontents) {
+		System.out.println("캠핑장 문의글 답변달기 ajax");
+		String campingAnswer_ajax = advc.adminCampingAnswer(cwcqcode, cwcontents);
+		return campingAnswer_ajax;
+	}
+	
+	@RequestMapping(value = "adminCampingAnswerModify")
+	public @ResponseBody String adminCampingAnswerModify(String cwcode, String cwcontents) {
+		System.out.println("캠핑장 문의글 답변수정 ajax");
+		String campingAnswer_ajax = advc.adminCampingAnswerModify(cwcode, cwcontents);
+		return campingAnswer_ajax;
+	}
+	
+	@RequestMapping(value = "deleteQustion")
+	public @ResponseBody String deleteQustion(String cqcode) {
+		System.out.println("캠핑장 문의글 삭제 ajax");
+		String result = advc.deleteQustion(cqcode);
+		return result;
+	}
 }
