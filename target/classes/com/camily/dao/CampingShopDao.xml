@@ -181,6 +181,41 @@
   GOCANCEL = #{gocancel}
   WHERE GOCODE = #{gocode}
  </update>
+ 
+ <select id="goodsQuestionList" resultType="com.camily.dto.GoodsQnADto">
+	SELECT GQ.*, GW.*
+	FROM GOODSQUESTION GQ  
+	LEFT OUTER JOIN GOODSANSWER GW ON
+	GQ.GQCODE = GW.GWGQCODE AND GQ.GQGCODE = #{gcode}
+ </select>
+ 
+ <select id="getMaxGqcode" resultType="string">
+  SELECT MAX(GQCODE) 
+  FROM GOODSQUESTION
+ </select>
+ 
+ <insert id="goodsQuestionWrite">
+  INSERT INTO GOODSQUESTION(GQCODE,GQGCODE,GQMID,GQCONTENTS,GQDATE,GQSTATE)
+  VALUES (#{gqcode}, #{gqgcode}, #{gqmid}, #{gqcontents}, SYSDATE, 1)
+ </insert>
+ 
+ <update id="goodsQuestionModify">
+  UPDATE GOODSQUESTION 
+  SET GQCONTENTS = #{gqcontents}
+  WHERE GQCODE = #{gqcode}
+ </update>
+ 
+ <select id="getGoodsQuestionInfo" resultType="com.camily.dto.GoodsQnADto">
+  SELECT * 
+  FROM GOODSQUESTION
+  WHERE GQCODE = #{gqcode}
+ </select>
+ 
+  <update id="modifyGoodsQuestionState">
+  UPDATE GOODSQUESTION
+  SET GQSTATE = 0
+  WHERE GQCODE = #{gqcode}
+  </update>
 </mapper>
 
     

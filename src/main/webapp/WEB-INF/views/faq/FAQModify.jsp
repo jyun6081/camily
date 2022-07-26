@@ -81,7 +81,43 @@ $(document).ready(function() {
 	});
 </script>
 
+<style type="text/css">
+.section-reply-title {
+	margin-bottom: 30px;
+}
 
+.section-reply-title h5 {
+	color: #000000;
+	font-weight: 600;
+	line-height: 21px;
+	text-transform: uppercase;
+	padding-left: 20px;
+	position: relative;
+	font-family: "Oswald", sans-serif;
+}
+
+.section-reply-title h6 {
+	color: #848484;
+	font-weight: 600;
+	line-height: 21px;
+	text-transform: uppercase;
+	padding-left: 20px;
+	position: relative;
+	font-family: "Oswald", sans-serif;
+}
+
+
+
+.section-reply-title h5:after {
+	position: absolute;
+	left: 0;
+	top: -6px;
+	height: 32px;
+	width: 4px;
+	background: #6E6E6E;
+	content: "";
+}
+</style>
 </head>
 <body class="animsition">
 
@@ -89,25 +125,21 @@ $(document).ready(function() {
 	<%@ include file="/WEB-INF/views/includes/TopBar.jsp"%>
 
 
-	<!-- Title page -->
-	<section class="bg-img1 txt-center p-lr-15 p-tb-92"
-		style="background-image: url('resources/images/bg-02.jpg');">
-		<h2 class="ltext-105 cl0 txt-center">FAQ 게시판</h2>
-	</section>
-
-
 	<!-- Content page -->
 	<section class="bg0 p-t-62 p-b-60">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">
-					<h2 style="text-align: center;">FAQ 글 수정</h2>
-					<br> 
+					<div class="section-reply-title">
+								<h5>FAQ 수정</h5><h6>FAQ 수정 페이지입니다.</h6>
+						</div> 
 					<div style="width: 100%; margin: auto;">
 						<form method="post" action="FAQModifyForm">
 							<input type="hidden" name="faqcode" value="${faq.faqcode }">
 							<input type="hidden" name="faqmid" value="${faq.faqmid }">
-							<input type="text" name="faqtitle" value="${faq.faqtitle }" style="width: 40%;"/> <br>
+							<input type="text" name="faqtitle" value="${faq.faqtitle }" style="width: 40%;
+    border-bottom: 1px solid;
+    border-color: #ddd;"/> <br>
 							<textarea id="summernote"  name="faqcontents">${faq.faqcontents}</textarea>
 							<br>
 							<input id="subBtn" type="button" class="btn btn-info pull-right" value="글 작성"
@@ -116,10 +148,10 @@ $(document).ready(function() {
 					</div>
 
 
-					<div class="p-r-45 p-r-0-lg">
-						<!-- item blog -->
+					<!-- <div class="p-r-45 p-r-0-lg">
+						item blog
 						<div class="p-b-63"></div>
-					</div>
+					</div> -->
 				</div>
 
 			</div>

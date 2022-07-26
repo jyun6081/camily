@@ -56,11 +56,6 @@
 <!--===============================================================================================-->
 <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
-
-<style type="text/css">
-
-
-</style>
 </head>
 <body class="animsition">
 
@@ -107,6 +102,9 @@
                               <label style="display:inline-block"><input type="checkbox" name="catype" value="글램핑" style="display:inline-block" id="checkbox3">글램핑</label>&nbsp;
                               <label style="display:inline-block"><input type="checkbox" name="catype" value="카라반" style="display:inline-block" id="checkbox4">카라반</label>
 						  </div>
+						  
+						  
+						  <div class="row">
 						  <div class="md-form mb-3">
 						       <c:set var="campIMG" value="${campingInfo.caimage}" />
 						       <c:choose>
@@ -119,6 +117,50 @@
 						       </c:choose>
 							   <input type="file" id="updateCampingImg" name="cafile" onchange="readURL(this);"> 
 						  </div>
+						  
+						  						    	<!-- 해당 날짜에 가능한 객실 타입목록 표시 -->
+						    	<div class="col-sm-6">
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-203 flex-c-m respon6">
+										객실타입
+									</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<select class="js-select2" name="roomSel" id="roomSel"
+												onchange="checkRoomNum()">
+												<option>캠핑장 종류 선택</option>
+											</select>
+											<div class="dropDownSelect2"></div>
+										</div>
+									</div>
+								</div>
+								<!-- 해당 타입의 가능한 객실 번호 표시 -->
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-203 flex-c-m respon6">
+										객실번호
+									</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<select class="js-select2" name="numSel" id="numSel" onchange="checkRoomBtn()">
+												<option>객실번호 선택</option>
+											</select>
+											<div class="dropDownSelect2"></div>
+										</div>
+									</div>
+								</div>
+								  <div class="text-right">
+								   <button class="btn-sm btn-primary mt-3" id="cpRoomStopBtn" type="button" onclick="modifyCpRoomState(this,'${campingInfo.cacode}')">객실상태</button>
+								   <button class="btn-sm btn-info" type="button" onclick="modifyCpRoomForm();">객실수정</button>
+								   </div>
+						  </div>
+						  </div>
+						  
+						  
+						  
+						  
+						  
                         </div>
                         
                        <div class="modal-footer d-flex justify-content-center">
@@ -128,6 +170,76 @@
                     </div>	
                     </form>
                     </section>
+                    
+                    
+                    
+                    
+                          <form action="modifyCpRoomInfo" method="post" id="cpRoomInfoForm" enctype="multipart/form-data">
+		<div class="modal fade" id="modifyCpRoomModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true"
+			style="z-index: 1500">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<button class="close text-right font-weight-bold mt-2 mr-2"
+						type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">x&nbsp;</span>
+					</button>
+					<div class="modal-header text-center">
+						<a class="modal-title w-100 font-weight-bold"> <img
+							src="${pageContext.request.contextPath}/resources/images/icons/logo-01.png"
+							alt="IMG-LOGO" style="width: 35%">
+						</a>
+					</div>
+					<div class="modal-body mx-3">
+						<div class="md-form mb-3">
+							<input type="text" class="form-control validate" name="crcacode"
+								 readonly="readonly" value="${campingInfo.cacode }" >
+							<span id="idCheckMsg" style="font-size: 13px"></span>
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-6 md-form mb-3">
+								<input type="text" id="cpRoomInfo_crname" readonly="readonly" name="crname"
+									class="form-control validate detailAddr">
+							</div>
+							<div class="col-sm-6 md-form mb-3">
+								<input type="text" id="cpRoomInfo_crnum" readonly="readonly" name="crnum"
+									class="form-control validate extraAddr">
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-4 md-form mb-3">
+							<span>가격</span>
+								<input type="text" id="cpRoomInfo_crprice" name="crprice"
+									class="form-control validate detailAddr">
+							</div>
+							<div class="col-sm-4 md-form mb-3">
+							<span>최소 인원</span>
+								<input type="text" id="cpRoomInfo_crstnpeople" name="crstnpeople"
+									class="form-control validate extraAddr">
+							</div>
+							<div class="col-sm-4 md-form mb-3">
+							<span>최대 인원</span>
+								<input type="text" id="cpRoomInfo_crmaxpeople" name="crmaxpeople"
+									class="form-control validate extraAddr">
+							</div>
+						</div>
+						
+						<div class="md-form mb-3">
+						   <img id="cpRoomInfo_crimage" height="100px" class="mb-3">
+						   <input type="file" onchange="modifyCpRoomImage(this);" name="crfile">
+						</div>
+						
+					</div>
+
+					<div class="modal-footer d-flex justify-content-center">
+						<button class="btn btn-info" type="submit">수정하기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
 	<!-- End of Footer -->
@@ -294,6 +406,227 @@ $(document).ready(function(){
 });
 </script>
 
+<script type="text/javascript">
+var ableRoom = [];
+var crname = "";
+var crimage = "";
+var crprice = "";
+var crstnpeople = "";
+var crmaxpeople = "";
+var crnum = "";
+$(document).ready(function(){
+	var cacode = '${campingInfo.cacode}';
+	console.log("cacode : " + cacode);
+		$.ajax({
+			type: "get",
+			url: "adminCheckRoomType",
+			data: {
+				"cacode": cacode
+			},
+			dataType: "json",
+			async: false,
+			success: function (result) {
+				ableRoom = result;
+				console.log(result);
+
+				var roomtype = [];
+
+
+				for (var i = 0; i < result.length; i++) {
+					// console.log(roomtype.includes(result[i].crname));
+					if (!roomtype.includes(result[i].crname)) {
+						roomtype.push(result[i].crname);
+					}
+					/*
+					if(i == 0){
+						roomtype[0] = result[0].crname;
+					}else{
+						for(var j = 0; j < roomtype.length; j++){
+							if(result[i].crname == roomtype[j]){
+								break;
+							}else{
+								roomtype.push(result[i].crname);									
+							}
+						}							
+					}
+					*/
+				}
+				roomtype.sort();
+				console.log(roomtype);
+				var output = '<option>캠핑장 종류 선택</option>';
+				for (var i = 0; i < roomtype.length; i++) {
+					output += '<option value="' + roomtype[i] + '">' + roomtype[i] + '</option>'
+				}
+				$("#roomSel").html(output);
+			}
+		})
+
+});
+
+function checkRoomNum() {
+	var roomSel = $("#roomSel").val();
+	console.log("roomSel : " + roomSel);
+	console.log(ableRoom);
+	var output = "<option>객실번호 선택</option>";
+	for (var i = 0; i < ableRoom.length; i++) {
+		console.log("ableRoom[i].crname : " + ableRoom[i].crname);
+		if (ableRoom[i].crname == roomSel) {
+			console.log(roomSel);
+			output += '<option value="' + ableRoom[i].crnum + '">' + ableRoom[i].crnum + '</option>'
+			
+		}
+	}
+	
+	$("#numSel").html(output);
+	$("#cpRoomStopBtn").removeClass("btn-primary");
+	$("#cpRoomStopBtn").removeClass("btn-danger");
+	$("#cpRoomStopBtn").addClass("btn-warning");
+	$("#cpRoomStopBtn").text("선택중");
+	$("#cpRoomStopBtn").attr("onclick", "");
+}
+
+ function checkRoomBtn(){
+	console.log("객실버튼 조회")
+	var checkRoom = $("#roomSel").val();
+	console.log($("#roomSel").val());
+	var checkNum = $("#numSel").val();
+	console.log($("#numSel").val());
+	for(var i = 0; i<ableRoom.length; i++){
+		if(ableRoom[i].crname == checkRoom && ableRoom[i].crnum == checkNum){
+			console.log("crstate : " + ableRoom[i].crstate);
+			
+			crimage = ableRoom[i].crimage;
+			crprice = ableRoom[i].crprice;
+			crstnpeople = ableRoom[i].crstnpeople;
+			crmaxpeople = ableRoom[i].crmaxpeople;
+			crname = ableRoom[i].crname;
+			crnum = ableRoom[i].crnum;
+			
+			if(ableRoom[i].crstate == '0'){
+				console.log("객실사용")
+				$("#cpRoomStopBtn").text("중지됨")
+				$("#cpRoomStopBtn").removeClass("btn-warning"); 
+				$("#cpRoomStopBtn").removeClass("btn-primary")
+		    	$("#cpRoomStopBtn").addClass("btn-danger");
+		        $("#cpRoomStopBtn").attr("onclick", "modifyCpRoomState(this,'${campingInfo.cacode}')"); 
+			} else{
+				console.log("객실중지")
+				$("#cpRoomStopBtn").text("사용중")
+				$("#cpRoomStopBtn").removeClass("btn-warning"); 
+				$("#cpRoomStopBtn").removeClass("btn-danger");
+		    	$("#cpRoomStopBtn").addClass("btn-primary");
+		        $("#cpRoomStopBtn").attr("onclick", "modifyCpRoomState(this,'${campingInfo.cacode}')"); 
+			}
+			
+			
+		}
+	}
+	/*
+	console.log("ableRoom.crstate : " + ableRoom.crstate)
+	    if(ableRoom.crstate == '0'){
+	    	console.log("객실사용")
+		  $("#cpRoomStopBtn").text("객실사용")
+	    } else {
+	    	console.log("객실중지")
+	 	  $("#cpRoomStopBtn").text("객실중지")
+	    }
+	*/
+	var cacode = '${campingInfo.cacode}';
+	$.ajax({
+		type: "get",
+		url: "adminCheckRoomType",
+		data: {
+			"cacode": cacode
+		},
+		dataType: "json",
+		async: false,
+		success: function (result) {
+			ableRoom = result;
+		}
+	});
+
+} 
+
+function modifyCpRoomState(btnObj,cacode){
+	var cpRoomSel = $("#roomSel").val();
+	var cpNumSel = $("#numSel").val();
+	console.log(cacode);
+	console.log(cpRoomSel);
+	console.log(cpNumSel);
+	
+	if( $(btnObj).hasClass("btn-primary") ){
+		 var crstate = '0';
+	 } else if ( $(btnObj).hasClass("btn-danger") ){
+		 var crstate = '1';
+	 }
+	
+ 	$.ajax({
+		type : "get",
+		url : "modifyCpRoomState",
+		data : {"crname" : cpRoomSel, "crnum" : cpNumSel, "crcacode" : cacode, "crstate" : crstate},
+		success: function (result) {
+			console.log(result)
+			
+			if(result == 1){
+			  alert("객실 상태가 변경되었습니다.");
+			  window.location.href = "${pageContext.request.contextPath}/adminCampingInfo?cacode=" + cacode;
+			} else {
+				alert("객실을 선택해주세요.")
+			}
+			 /* if(result == 1){
+					$(btnObj).toggleClass("btn-primary");
+					$(btnObj).toggleClass("btn-danger");
+					
+					if( crstate == '0'){
+						$(btnObj).text("중지됨")
+					} else if (crstate == '1'){
+						$(btnObj).text("이용중")
+					}
+			 } */
+			
+			
+		}
+		
+	}) 
+	
+}
+
+</script>
+
+<script type="text/javascript">
+function modifyCpRoomForm(){
+	
+	if($("#roomSel").val() == "캠핑장 종류 선택" || $("#numSel").val() == "객실번호 선택"){
+		alert("객실을 선택해주세요!")
+	} else {
+	    $("#modifyCpRoomModal").modal("show");
+	    console.log("crimage : " + crimage);
+	    console.log("crprice : " + crprice);
+	    console.log("crstnpeople : " + crstnpeople);
+	    console.log("crmaxpeople : " + crmaxpeople);
+	    console.log("crname : " + crname);
+	    
+	    $("#cpRoomInfo_crname").val(crname);
+	    $("#cpRoomInfo_crnum").val(crnum);
+	    $("#cpRoomInfo_crprice").val(crprice);
+	    $("#cpRoomInfo_crstnpeople").val(crstnpeople);
+	    $("#cpRoomInfo_crmaxpeople").val(crmaxpeople);
+	    
+	    console.log(crimage.substring(0,4));
+	    if (crimage.substring(0,4) == "http"){
+	      $("#cpRoomInfo_crimage").attr("src", crimage);
+	    } else {
+	    	$("#cpRoomInfo_crimage").attr("src", "${pageContext.request.contextPath}/resources/caimageUpload/"+crimage);	
+	    }
+		
+	   
+	}
+	
+
+}
+
+
+</script>
 
 
 		

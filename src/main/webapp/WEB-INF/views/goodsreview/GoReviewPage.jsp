@@ -94,7 +94,7 @@
 	
 
 	<!-- Content page -->
-	<section class="bg0 p-t-62 p-b-60" >
+	<%-- <section class="bg0 p-t-62 p-b-60" >
 		<div class="container">
 			<div class="row" >
 				<div class="col-md-8 col-lg-9 p-b-80">
@@ -105,7 +105,7 @@
 						</div>
 						<c:forEach items="${goodsReviewList }" var="gorvList"> 
 						<div class="p-b-63">
-							<%-- <span class="ltext-108 cl2 hov-cl1 trans-04">NO.${goods.gorvcode }</span> --%>
+							<span class="ltext-108 cl2 hov-cl1 trans-04">NO.${goods.gorvcode }</span>
 							<a href="goreviewdetailpage?gorvcode=${gorvList.gorvcode }" class="hov-img0 how-pos5-parent rounded">
 								<img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${gorvList.goimage }" alt="IMG">	
 								
@@ -193,8 +193,112 @@
 	
 			</div>
 		</div>
-	</section>	
+	</section> --%>	
 	
+	<section class="bg0 p-t-62 p-b-60">
+
+	<div class="row">
+		<div class="col-md-8 col-lg-9 p-b-80">
+			<div class="p-r-45 p-r-0-lg">
+				<div class="section-reply-title">
+					<h5>캠핑용품 REVIEW </h5><h6 class="mt-2">캠핑용품을 사용해보시고 후기를 남겨보세요.</h6>
+				</div>
+
+
+				<div class="row isotope-grid">
+					<c:forEach items="${goodsReviewList}" var="gorvList">
+						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+						
+							<div class="block2">
+								<div class="block2-pic">
+									
+
+									<a href="goreviewdetailpage?gorvcode=${gorvList.gorvcode }"> <img
+										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
+										src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${gorvList.goimage}" alt="캠핑용품 이미지"
+										style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 10px;">
+									</a>
+
+									
+								</div>
+
+								<div class="block2-txt flex-w flex-t">
+									<div class="block2-txt-child1 flex-col-l ">
+
+										<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
+											style="font-size: 20px; font-weight: bold;" href="goreviewdetailpage?gorvcode=${gorvList.gorvcode }">${gorvList.gorvtitle }</a>
+									</div>
+								</div>
+
+								<div>
+									
+
+									<p class="stext-117" style="color: black;">
+										🌈${gorvList.goname}🌈</p>
+
+									<p class="mt-1">
+										별점 :
+										<c:if test="${gorvList.gorvstarating == 1 }">
+											<i class="fa-solid fa-star"></i>
+										</c:if>
+										<c:if test="${gorvList.gorvstarating == 2 }">
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+										</c:if>
+										<c:if test="${gorvList.gorvstarating == 3 }">
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+										</c:if>
+										<c:if test="${gorvList.gorvstarating == 4 }">
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+										</c:if>
+										<c:if test="${gorvList.gorvstarating == 5 }">
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+										</c:if>
+									</p>
+
+									<div class="flex-w flex-sb-m p-t-18">
+										<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
+											<span> <span class="cl4"></span><i
+												class="fa-regular fa-user"></i> ${gorvList.gorvmid } <span
+												class="cl12 m-l-4 m-r-6">|</span>
+										</span> <span> <span class="cl4"></span><i
+												class="fa-regular fa-calendar"></i> ${gorvList.gorvdate } <span
+												class="cl12 m-l-4 m-r-6">|</span>
+										</span> <span>  <i class="fa-regular fa-eye"></i> ${gorvList.gorvhits } </span>
+										</span>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</c:forEach>
+					<!-- Pagination -->
+						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
+							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
+								1
+							</a>
+
+							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
+								2
+							</a>
+
+						
+			
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
 	<!-- footer -->	
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
 	

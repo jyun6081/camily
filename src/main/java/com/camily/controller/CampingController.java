@@ -15,10 +15,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.camily.dto.CampingDto;
 import com.camily.dto.ItemDto;
@@ -243,8 +245,24 @@ public class CampingController {
 	}
 
 	@RequestMapping(value = "questionWrite")
-	public ModelAndView questionWrite() {
-		return null;
+	public ModelAndView questionWrite(String cqmid, String cqcacode, String cqcontents, RedirectAttributes ra) {
+		System.out.println("캠핑장 문의글 작성");
+		ModelAndView mav = csvc.questionWrite(cqmid, cqcacode, cqcontents, ra);
+		return mav;
+	}
+	
+	@RequestMapping(value = "questionModify")
+	public @ResponseBody String questionModify(String cqcode, String cqcontents) {
+		System.out.println("캠핑장 글 수정");
+		String result_json = csvc.questionModify(cqcode, cqcontents);
+		return result_json;
+	}
+	
+	@RequestMapping(value = "questionDelete")
+	public  ModelAndView questionDelete(String cqcode, String cqcacode, RedirectAttributes ra) {
+		System.out.println("캠핑장 문의글 삭제");
+		ModelAndView mav = csvc.questionDelete(cqcode, cqcacode, ra);
+		return mav;
 	}
 	
 }

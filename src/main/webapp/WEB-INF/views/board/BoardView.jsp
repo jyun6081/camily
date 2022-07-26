@@ -146,19 +146,13 @@
 							</span> <span> <i class="fa-regular fa-eye"></i> 조회수
 									${boardView.bohits }
 							</span>
+							
 							</span>
 							<hr>
 							<div>
 								<p class="stext-117 cl6 p-b-26">${boardView.bocontents }</p>
 							</div>
-
-
-							  <div id="bobtn">
-								<c:if test="${boardView.bomid == sessionScope.loginId}">
-								<button class="btn btn-dark"  onclick="boardModify('${boardView.bocode }')">수정</button> 
-								<button class="btn btn-dark"  onclick="boardDelete('${boardView.bocode }')">삭제</button>
-								</c:if>	
-							 </div> 
+					  
 						</div>
 
 						<!--  -->
@@ -177,9 +171,9 @@
 											</span>
 										</h6>
 										<p>${reply.rpcontents }</p>
-											<button type="button" class="btn btn-outline-success"
+											<button type="button" class="btn btn-info"
 												id="${reply.rpcode }" onclick="replyModifyInfo('${reply.rpcode }')">수정</button>
-											<button type="button" class="btn btn-outline-success"
+											<button type="button" class="btn btn-danger"
 												id="${reply.rpcode }" onclick="replyDelete()">삭제</button>	
 									</div>
 
@@ -191,7 +185,15 @@
 									name="rpcontents" id="contents" placeholder="댓글작성하기..."></textarea>
 							</div>
 							<button type="button" class="btn btn-outline-secondary m-2"
-								onclick="replyWrite()">댓글작성</button>
+								onclick="replyWrite()">댓글작성</button>		
+							<div style="float: right;">
+								<a class="btn btn-success"
+									href="boardList">목록</a>
+								<c:if test="${boardView.bomid == sessionScope.loginId}">
+								<button class="btn btn-info"  onclick="boardModify('${boardView.bocode }')">수정</button> 
+								<button class="btn btn-danger"  onclick="boardDelete('${boardView.bocode }')">삭제</button>
+								</c:if>									
+							 </div> 							
 						</div>
 					</div>
 				</div>
@@ -240,14 +242,14 @@
 					</div>
 					
 					<div class="modal-footer d-flex justify-content-center">	
-						<button class="btn btn-dark" id="modifyFormDelete_Btn" type="button"
+						<button class="btn btn-info" type="button"
 							onclick="replyModify()">수정하기</button>			
 					</div>
 					
 				</div>
 		</div>
-	</div>
-	
+	</div>		
+		
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
 
@@ -364,8 +366,10 @@
 								output += '</h6>';	
 								output += '<p>' + result[i].rpcontents + '</p>';
 								if (result[i].rpmid == "${sessionScope.loginId}") {
-								output += '<button type="button" class="btn btn-dark" id="' + result[i].rpcode + '" onclick="replyModifyInfo(' + result[i].rpcode + ')">수정</button>';
-								output += '<button type="button" class="btn btn-dark" id="' + result[i].rpcode + '" onclick="replyDelete(' + result[i].rpcode + ',' + result[i].bocode + ')">삭제</button>';
+								output += '<div id="bobtn">'	
+								output += '<button type="button" class="btn btn-info " id="' + result[i].rpcode + '" onclick="replyModifyInfo(' + result[i].rpcode + ')">수정</button>';
+								output += '<button type="button" class="btn btn-danger" id="' + result[i].rpcode + '" onclick="replyDelete(' + result[i].rpcode + ',' + result[i].bocode + ')">삭제</button>';
+								output += '</div>'
 								}
 								output += '</div>';
 								output += '</div>';
@@ -497,5 +501,12 @@
 			});
 		}
 		</script>
+		
+		<script type="text/javascript">
+		function boardReportView(){
+		$("#BoardReportModal").modal('show');
+		}
+		</script>
+		
 </body>
 </html>
