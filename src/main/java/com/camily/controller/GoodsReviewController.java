@@ -22,24 +22,25 @@ public class GoodsReviewController {
 	@Autowired
 	GoodsReviewService grvc;
 
-	// 캠핑용품 후기 리스트
+	// 캠핑용품 후기 페이지
 	@RequestMapping(value = "/goreviewpage")
-	public ModelAndView goreviewList() {
+	public ModelAndView goreviewpage() {
 		System.out.println("캠핑용품 리뷰 페이지 이동 요청");
-		ModelAndView mav = grvc.goreviewList();
+		ModelAndView mav = grvc.goreviewpage();
 
 		return mav;
 	}
 
-	// 캠핑용품 후기 상세보기
+	// 캠핑용품 후기 상세페이지 
 	@RequestMapping(value = "/goreviewdetailpage")
-	public ModelAndView goreviewdetail(int gorvcode) {
+	public ModelAndView goreviewdetailpage(int gorvcode) {
 		System.out.println("캠핑용품 리뷰 상세페이지 이동요청");
-		ModelAndView mav = grvc.goreviewdetail(gorvcode);
+		ModelAndView mav = grvc.goreviewdetailpage(gorvcode);
 
 		return mav;
 	}
-
+	
+	// 캠핑용품 후기 작성
 	@GetMapping("cgWrite")
 	public String cgWrite(String image, String gogcode, String gocode) {
 		System.out.println("GoodsReviewController.CgWrite()호출");
@@ -52,7 +53,8 @@ public class GoodsReviewController {
 
 		return "board/BoardWrite2";
 	}
-
+	
+	// 캠핑용품 후기 작성
 	@RequestMapping("cgWrite2")
 	public String cgWrite2(GoodsReviewDto grdo, RedirectAttributes ra) {
 		System.out.println("GoodsReviewController.CampingGoodsWrite()호출");
@@ -63,23 +65,24 @@ public class GoodsReviewController {
 		return "redirect:/goreviewpage";
 	}
 
-	// 게시글 수정 기능
-	@RequestMapping(value = "/goReviewModify")
+	// 캠핑용품 후기 수정 
+	@RequestMapping(value = "/goreviewModify")
 	public ModelAndView goReviewModify(int gorvcode) {
 		System.out.println("캠핑용품 후기 수정 기능 요청");
-		ModelAndView mav = grvc.goReviewModify(gorvcode);
+		ModelAndView mav = grvc.goreviewModify(gorvcode);
 		return mav;
 	}
-
-	@RequestMapping(value = "/goReviewModifyForm")
+	
+	// 캠핑용품 후기 수정폼
+	@RequestMapping(value = "/goreviewModifyForm")
 	public ModelAndView goReviewModifyForm(GoodsReviewDto goreview, RedirectAttributes ra) {
 		System.out.println("캠핑용품 후기 수정 기능 요청");
 		System.out.println("goreview :" + goreview);
-		ModelAndView mav = grvc.goReviewModifyForm(goreview,ra);
+		ModelAndView mav = grvc.goreviewModifyForm(goreview,ra);
 		return mav;
 	}
 
-	// 캠핑용품 후기 게시글 삭제
+	// 캠핑용품 후기 삭제
 	@RequestMapping(value = "/goreviewDelete")
 	public ModelAndView goreviewDelete(int gorvcode, RedirectAttributes ra) {
 		System.out.println("캠핑용품 후기 게시물 삭제 요청");

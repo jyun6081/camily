@@ -97,7 +97,7 @@
 	                                            			${CaReviewList.cgrvtitle }
 	                                            		</c:if>
 	                                            		<c:if test="${CaReviewList.cgrvstate == 1 }">
-	                                            			<a href="cgreviewdetail?cgrvcode=${CaReviewList.cgrvcode }">${CaReviewList.cgrvtitle }</a>
+	                                            			<a href="cgreviewdetailpage?cgrvcode=${CaReviewList.cgrvcode }">${CaReviewList.cgrvtitle }</a>
 	                                            		</c:if>	
 	                                        </th>    		
                                             <th class="align-middle text-center font-weight-bold">${CaReviewList.cgrvdate }</th>                                            

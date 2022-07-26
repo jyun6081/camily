@@ -135,7 +135,7 @@ $(document).ready(function() {
 								<h5>캠핑장 리뷰 수정</h5><h6>캠핑장 리뷰 수정 페이지입니다.</h6>
 						</div>  
 					<div style="width: 100%; margin: auto;">
-						<form method="post" action="cgReviewModifyForm">
+						<form method="post" action="cgreviewModifyForm">
 							<input type="hidden" name="cgrvcode" value="${CampingReview.cgrvcode }">
 							<input type="hidden" name="cgrvmid" value="${CampingReview.cgrvmid }">
 							<input type="text" name="cgrvtitle" value="${CampingReview.cgrvtitle }" style="width: 40%;
@@ -150,7 +150,7 @@ $(document).ready(function() {
 
 
 					<a class="btn btn-success"
-									href="myReservationList">목록</a>
+									href="cgreviewdetailpage?cgrvcode=${CampingReview.cgrvcode }">목록</a>
 				</div>
 
 			</div>

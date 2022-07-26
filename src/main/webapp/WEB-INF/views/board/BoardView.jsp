@@ -242,7 +242,7 @@
 					</div>
 					
 					<div class="modal-footer d-flex justify-content-center">	
-						<button class="btn btn-info" id="modifyFormDelete_Btn" type="button"
+						<button class="btn btn-info" type="button"
 							onclick="replyModify()">수정하기</button>			
 					</div>
 					

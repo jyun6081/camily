@@ -121,28 +121,28 @@
 								<div class="block2-pic">
 									
 
-									<a href="cgreviewdetail?cgrvcode=${cgrvList.cgrvcode }"> <img
+									<a href="cgreviewdetailpage?cgrvcode=${cgrvList.cgrvcode }"> <img
 										class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
 										src="${cgrvList.caimage}" alt="캠핑장 이미지"
-										style="width: 100%; height: 200px; object-fit: cover; object-position: bottom;">
+										style="width: 100%; height: 100%; object-fit: cover; object-position: center; border-radius: 10px;">
 									</a>
 
 									
 								</div>
 
-								<div class="block2-txt flex-w flex-t p-t-14">
-									<div class="block2-txt-child1 flex-col-l ">
+								<div class="block2-txt flex-w flex-t">
+									<div class="block2-txt-child1 flex-col-l">
 
-										<span class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
-											style="font-size: 20px; font-weight: bold;">${cgrvList.caname}</span>
+										<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
+											style="font-size: 20px; font-weight: bold;" href="cgreviewdetailpage?cgrvcode=${cgrvList.cgrvcode }">${cgrvList.cgrvtitle }</a>
 									</div>
 								</div>
 
-								<div class="p-t-32">
+								<div>
 									
 
-									<p class="stext-117 mt-2" style="color: black;">제목 :
-										${cgrvList.cgrvtitle }</p>
+									<p class="stext-117" style="color: black;">
+										🌈${cgrvList.caname}🌈</p>
 
 									<p class="mt-1">
 										별점 :
