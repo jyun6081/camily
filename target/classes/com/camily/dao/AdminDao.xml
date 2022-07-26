@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.camily.dao.AdminDao">
+
+	<select id="getMemberList" resultType="com.camily.dto.MemberDto">
+		SELECT MID, MPW, MNAME, MTEL, MEMAIL, TO_CHAR(MBIRTH,'YYYY-MM-DD') AS MBIRTH,
+			   MADDR, MSTATE
+		FROM (SELECT ROWNUM RN, MEMBERS.* FROM MEMBERS ORDER BY MNAME) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<select id="getMemberTotalCount" resultType="int">
+		SELECT COUNT(*) FROM MEMBERS
+	</select>	
+		
+	<update id="updateMemberState">
+		UPDATE MEMBERS
+		SET MSTATE = #{mstate}
+		WHERE MID = #{mid}
+	</update>
+	
+	<select id="selectMemberInfo" resultType="com.camily.dto.MemberDto">
+		SELECT MID, MPW, MNAME, MTEL, MEMAIL, TO_CHAR(MBIRTH,'YYYY-MM-DD') AS MBIRTH,
+			   MADDR, MSTATE
+		FROM MEMBERS
+		WHERE MID = #{mid}
+	</select>
+
+    <select id="getCampingList" resultType="com.camily.dto.CampingDto" >
+        SELECT * 
+		FROM ( 	SELECT ROWNUM RN, CAMPING.*
+		       		FROM ( 	SELECT CAMPING.*, CA.CRPRICE FROM CAMPING
+		             		LEFT OUTER JOIN ( SELECT C.CACODE, MIN(TO_NUMBER(CR.CRPRICE)) AS CRPRICE
+		                    FROM CAMPING C
+		              		LEFT OUTER JOIN CAMPINGROOM CR ON C.CACODE = CR.CRCACODE
+		                    GROUP BY C.CACODE ) CA ON CAMPING.CACODE = CA.CACODE
+		      		ORDER BY CAMPING.CACODE) CAMPING)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+    </select>
+
+	<select id="getCampTotalCount" resultType="int">
+		SELECT COUNT(*) FROM CAMPING
+	</select>
+    
+    <update id="updateCampingState">
+         UPDATE CAMPING
+         SET CASTATE = #{castate}
+         WHERE CACODE = #{cacode}
+    </update>
+    
+    <select id="selectCampingInfo" resultType="com.camily.dto.CampingDto">
+        SELECT * FROM CAMPING WHERE CACODE = #{cacode}
+    </select>
+    
+    <update id="updateCampingInfo">
+        UPDATE CAMPING
+        <set>
+        CANAME = #{caname},
+        CALINECONTENTS = #{calinecontents},
+        CACONTENTS = #{cacontents},
+        CAINFO = #{cainfo},
+        CATYPE = #{catype},
+        <if test="caimage.length > 0">
+        CAIMAGE = #{caimage}
+        </if>
+        </set>
+        WHERE CACODE = #{cacode}
+    </update>
+    
+    <select id="getMaxCacode" resultType="string">
+      SELECT MAX(CACODE)
+      FROM CAMPING
+    </select>
+    
+    <insert id="insertCamping">
+    INSERT INTO CAMPING (CACODE,CANAME,CALATITUDE,CALONGITUDE,CACONTENTS,CAINFO,CAIMAGE,CATYPE,CALINECONTENTS,CASTATE) VALUES 
+    (#{cacode},#{caname},#{calatitude},#{calongitude},#{cacontents},#{cainfo},#{caimage},#{catype},#{calinecontents}, 1)
+    </insert>
+    
+    <select id="selectCampingRommList" resultType="com.camily.dto.CampingRoomDto">
+     SELECT * 
+     FROM CAMPINGROOM 
+     WHERE CRCACODE = #{cacode} ORDER BY LPAD(CRNUM, 2, '0')
+    </select>
+    
+    <update id="updateCpRoomState">
+     UPDATE CAMPINGROOM
+     SET CRSTATE = #{crstate}
+     <where>
+     CRCACODE = #{crcacode} AND
+     CRNAME = #{crname} AND
+     CRNUM = #{crnum}
+     </where>
+    </update>
+    
+    <update id="updateCpRoomInfo">
+     UPDATE CAMPINGROOM
+    <set>
+     CRSTNPEOPLE = #{crstnpeople},
+     CRMAXPEOPLE = #{crmaxpeople},
+     CRIMAGE = #{crimage},
+     CRPRICE = #{crprice}
+    </set>
+    <where>
+     CRCACODE = #{crcacode} AND
+     CRNAME = #{crname} AND
+     CRNUM = #{crnum}
+    </where>
+    
+    </update>
+    
+    <update id="bannerModify">
+    UPDATE BANNER
+	<set>
+		<if test="bnimage != null">
+			BNIMAGE = #{bnimage},
+		</if>
+		BNTITLE = #{bntitle},
+		BNTITLEEFFECT = #{bntitleeffect},
+		BNCONTENTS = #{bncontents},
+		BNCONTENTSEFFECT = #{bncontentseffect},
+		BNLINK = #{bnlink},
+		BNLINKEFFECT = #{bnlinkeffect}
+	</set>
+	WHERE BNCODE = #{bncode}
+    </update>
+    
+    <select id="getAdminBoardList" resultType="com.camily.dto.BoardDto">
+    	SELECT BOCODE, BOMID, BOTITLE, BOCONTENTS, TO_CHAR(BODATE,'YYYY-MM-DD') AS BODATE,
+			   BOSTATE, BOHITS
+		FROM (SELECT ROWNUM RN, BOARDS.* FROM BOARDS ORDER BY BOCODE) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}    
+    </select>
+    
+    <select id="getBoardTotalCount" resultType="int">
+    	SELECT COUNT(*) FROM BOARDS  
+    </select>
+    
+    <update id="updateBoardState">
+         UPDATE BOARDS
+         SET BOSTATE = #{bostate}
+         WHERE BOCODE = #{bocode}
+    </update>
+    
+    <select id="getCampingQnAList" resultType="com.camily.dto.CampingQnADto">
+    	SELECT CQ.*, C.CANAME, CW.*
+		FROM CAMPINGQUESTION CQ
+		INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
+        LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
+		ORDER BY CQDATE DESC
+    </select>
+    
+  	<select id="getAdminGoodsReviewList" resultType="com.camily.dto.GoodsReviewDto">
+    	SELECT GORVCODE, GORVMID, GORVGCODE, GORVTITLE, TO_CHAR(GORVDATE,'YYYY-MM-DD') AS GORVDATE,
+			   GORVSTATE
+		FROM (SELECT ROWNUM RN, GOODSREVIEW.* FROM GOODSREVIEW ORDER BY GORVCODE) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}    
+   </select> 
+    
+    <select id="getGoodsReviewTotalCount" resultType="int">
+    	SELECT COUNT(*) FROM GOODSREVIEW 
+    </select>  
+    
+     <update id="updateGoodsReviewState">
+         UPDATE GOODSREVIEW
+         SET GORVSTATE = #{gorvstate}
+         WHERE GORVCODE = #{gorvcode}
+    </update>
+    
+    <select id="getAdminCampingReviewList" resultType="com.camily.dto.CampingReviewDto">
+    	SELECT CGRVCODE, CGRVMID, CGRVCACODE, CGRVTITLE, TO_CHAR(CGRVDATE,'YYYY-MM-DD') AS CGRVDATE,
+			   CGRVSTATE
+		FROM (SELECT ROWNUM RN, CAMPINGREVIEW.* FROM CAMPINGREVIEW ORDER BY CGRVCODE) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}    
+   </select> 
+    
+    <select id="getCampingReviewTotalCount" resultType="int">
+    	SELECT COUNT(*) FROM CAMPINGREVIEW 
+    </select>
+    
+     <update id="updateCampingReviewState">
+         UPDATE CAMPINGREVIEW
+         SET CGRVSTATE = #{cgrvstate}
+         WHERE CGRVCODE = #{cgrvcode}
+    </update>
+    
+    <select id="getCampingQnAInfo" resultType="com.camily.dto.CampingQnADto">
+    	SELECT CQ.*, C.CANAME, CW.*
+		FROM CAMPINGQUESTION CQ
+		INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
+		LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
+		WHERE CQ.CQCODE = #{cqcode}
+    </select>
+    
+    <select id="getGoodsQnAList" resultType="com.camily.dto.GoodsQnADto">
+        SELECT GQ.*, G.GNAME, GW.*
+		FROM GOODSQUESTION GQ
+		INNER JOIN GOODS G ON GQ.GQGCODE = G.GCODE
+        LEFT OUTER JOIN GOODSANSWER GW ON GQ.GQCODE = GW.GWGQCODE
+		ORDER BY GQDATE DESC
+    </select>
+    
+    <select id="getGoodsQnAInfo" resultType="com.camily.dto.GoodsQnADto">
+    	SELECT *
+		FROM GOODSQUESTION GQ
+		LEFT OUTER JOIN GOODSANSWER GW ON GQ.GQCODE = GW.GWGQCODE
+		WHERE GQ.GQCODE = #{gwgqcode}    
+    </select>
+</mapper>

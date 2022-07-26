@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.camily.dao.CampingReviewDao">
+
+	<select id="getMaxCgrvcode" resultType="int">
+		SELECT
+		NVL(MAX(CGRVCODE),0)
+		FROM CAMPINGREVIEW
+	</select>
+
+	<insert id="insertCampingReview">
+		INSERT INTO CAMPINGREVIEW(CGRVCODE, CGRVMID,
+		CGRVCACODE,
+		CGRVTITLE,
+		CGRVCONTENTS, CGRVDATE,
+		CGRVSTATE,
+		CGRVRECODE,CGRVHITS,CGSTARATING)
+		VALUES(#{cgrvcode}, #{cgrvmid}, #{cgrvcacode},
+		#{cgrvtitle},
+		#{cgrvcontents}, SYSDATE, 1,
+		#{cgrvrecode}, 0, #{cgstarating})
+	</insert>
+
+	<select id="selectCampingReviewList"
+		resultType="com.camily.dto.CampingReviewDto">
+		SELECT DISTINCT CA.CAIMAGE, CA.CANAME, CG.CGRVRECODE,
+		CGRVCODE, CGRVMID, CGRVCACODE, CGRVTITLE, CGRVCONTENTS,
+		TO_CHAR(CGRVDATE, 'YYYY-MM-DD HH24:MI')AS CGRVDATE,
+		CGRVSTATE, CGRVHITS, CGSTARATING	
+		FROM CAMPINGREVIEW CG, RESERVATION RE, CAMPING CA
+		WHERE
+		CG.CGRVCACODE = RE.RECACODE
+		AND CA.CACODE = RE.RECACODE
+		AND CG.CGRVRECODE = RE.RECODE
+		AND CGRVSTATE = 1
+		ORDER BY CGRVCODE
+	</select>
+
+	<select id="CampingReviewDetail"
+		resultType="com.camily.dto.CampingReviewDto">
+		SELECT DISTINCT CA.CAIMAGE, CA.CANAME, CG.CGRVRECODE,
+		CGRVCODE, CGRVMID, CGRVCACODE, CGRVTITLE, CGRVCONTENTS,
+		TO_CHAR(CGRVDATE, 'YYYY-MM-DD HH24:MI')AS CGRVDATE,
+		CGRVSTATE, CGRVHITS, CGSTARATING
+		FROM CAMPINGREVIEW CG, RESERVATION RE, CAMPING CA
+		WHERE CG.CGRVCACODE = RE.RECACODE
+		AND CA.CACODE = RE.RECACODE
+		AND CG.CGRVRECODE = RE.RECODE
+		AND CGRVCODE = #{cgrvcode}
+		AND CGRVSTATE = 1
+		ORDER BY CGRVCODE
+	</select>
+
+	<update id="updateHits">
+		UPDATE CAMPINGREVIEW SET CGRVHITS = CGRVHITS+1 WHERE CGRVCODE = #{cgrvcode}
+	</update>
+	
+	<update id="deleteCampingReview">
+		UPDATE CAMPINGREVIEW SET CGRVSTATE = 0 WHERE CGRVCODE = #{cgrvcode}
+	</update>
+
+	<select id="selectCampingReview" resultType="com.camily.dto.CampingReviewDto">
+		SELECT * FROM CAMPINGREVIEW WHERE CGRVCODE = #{cgrvcode}
+	</select>
+	
+	<update id="updateCampingReview">
+		UPDATE CAMPINGREVIEW
+		SET CGRVTITLE = #{cgrvtitle}, CGRVCONTENTS = #{cgrvcontents}
+		WHERE CGRVCODE = #{cgrvcode}
+	</update>
+
+</mapper>
