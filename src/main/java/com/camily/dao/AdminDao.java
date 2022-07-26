@@ -84,13 +84,16 @@ public interface AdminDao {
 	String getMaxCwcode();
 
 //	@Select("SELECT * FROM CAMPINGANSWER WHERE CWCODE = #{cwcode}")
-	CampingQnADto getCampingQnAInfo(@Param("cwcqcode") String cwcqcode);
+	CampingQnADto getCampingQnAInfo(@Param("cqcode") String cqcode);
 
 	@Update("UPDATE CAMPINGANSWER SET CWCONTENTS = #{cwcontents} WHERE CWCODE = #{cwcode}")
 	int campingAnswerModify(@Param("cwcode") String cwcode, @Param("cwcontents") String cwcontents);
 
 	@Select("SELECT * FROM CAMPINGANSWER WHERE CWCODE = #{cwcode}")
 	CampingQnADto getCampingAnswerInfo(String cwcode);
+
+	@Update("UPDATE CAMPINGQUESTION SET CQSTATE = 0 WHERE CQCODE = #{cqcode}")
+	int deleteQustion(String cqcode);
 
 	
 

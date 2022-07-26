@@ -109,52 +109,67 @@
 												<!-- 캠핑장 문의 -->
 												<c:forEach items="${campingQnAList}" var="campingQnAInfo">
 													<div class="p-b-68" id="${campingQnAInfo.cqcode}">
-														<!-- 캠핑장 문의글 -->
-														<div id="${campingQnAInfo.cqcode}_question">
-															<div class="flex-w flex-sb-m">
-																<span class="mtext-107 cl2 p-r-20" id="questionId">
-																	${campingQnAInfo.cqmid} [ ${campingQnAInfo.caname}]
-																</span>
-																<span id="${campingQnAInfo.cqcode}_qustionBtn">
-																	<button type="button" class="btn btn-danger" onclick="deleteQuestion('${campingQnAInfo.cqcode}')">삭제</button>
-																</span>
-															</div>
-															<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cqdate}</div>
-															<textarea class="stext-102 cl6" id="${campingQnAInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cqcontents}</textarea>
-														</div>
-														<!-- 답글 -->
-														<div id="${campingQnAInfo.cqcode}_answer">
-															<c:choose>
-																<c:when test="${campingQnAInfo.cwcode == null}">
-																	<div class="row p-b-25">
-																		<div class="col-12 p-b-5">
-																			<label class="stext-102 cl3" for="review">답글 작성</label>
-																			<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="${campingQnAInfo.cqcode}_cwcontents" name="cwcontents" style="resize: none;"></textarea>
-																			<button class="btn btn-primary m-t-10" onclick="cqAnswerSubmit('${campingQnAInfo.cqcode}')" style="float: right;">답변작성</button>
-																		</div>
+														<c:choose>
+															<c:when test="${campingQnAInfo.cqstate != 0}">
+																<!-- 캠핑장 문의글 -->
+																<div id="${campingQnAInfo.cqcode}_question">
+																	<div class="flex-w flex-sb-m">
+																		<span class="mtext-107 cl2 p-r-20" id="questionId">
+																			${campingQnAInfo.cqmid} [ ${campingQnAInfo.caname}]
+																		</span>
+																		<span id="${campingQnAInfo.cqcode}_qustionBtn">
+																			<button type="button" class="btn btn-danger" onclick="deleteQuestion('${campingQnAInfo.cqcode}')">삭제</button>
+																		</span>
 																	</div>
-																</c:when>
-																<c:otherwise>
-																	<div class="flex-w flex-t">
-																		<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
-																			<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
-																		</div>
-																		<div class="size-207">
-																			<div class="flex-w flex-sb-m">
-																				<span class="mtext-107 cl2 p-r-20">
-																					Camily
-																				</span>
-																				<span id="${campingQnAInfo.cwcode}_modifyAnswerBtn">
-																					<button type="button" class="btn btn-success" onclick="modifyAnswerForm('${campingQnAInfo.cwcode}')">수정</button>
-																				</span>
+																	<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cqdate}</div>
+																	<textarea class="stext-102 cl6" id="${campingQnAInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cqcontents}</textarea>
+																</div>
+																<!-- 답글 -->
+																<div id="${campingQnAInfo.cqcode}_answer">
+																	<c:choose>
+																		<c:when test="${campingQnAInfo.cwcode == null}">
+																			<div class="row p-b-25">
+																				<div class="col-12 p-b-5">
+																					<label class="stext-102 cl3" for="review">답글 작성</label>
+																					<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="${campingQnAInfo.cqcode}_cwcontents" name="cwcontents" style="resize: none;"></textarea>
+																					<button class="btn btn-primary m-t-10" onclick="cqAnswerSubmit('${campingQnAInfo.cqcode}')" style="float: right;">답변작성</button>
+																				</div>
 																			</div>
-																			<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cwdate}</div>
-																			<textarea class="stext-102 cl6" id="${campingQnAInfo.cwcode}_answerForm" name="answer" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cwcontents}</textarea>
-																		</div>
+																		</c:when>
+																		<c:otherwise>
+																			<div class="flex-w flex-t">
+																				<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
+																					<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
+																				</div>
+																				<div class="size-207">
+																					<div class="flex-w flex-sb-m">
+																						<span class="mtext-107 cl2 p-r-20">
+																							Camily
+																						</span>
+																						<span id="${campingQnAInfo.cwcode}_modifyAnswerBtn">
+																							<button type="button" class="btn btn-success" onclick="modifyAnswerForm('${campingQnAInfo.cwcode}')">수정</button>
+																						</span>
+																					</div>
+																					<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cwdate}</div>
+																					<textarea class="stext-102 cl6" id="${campingQnAInfo.cwcode}_answerForm" name="answer" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cwcontents}</textarea>
+																				</div>
+																			</div>
+																		</c:otherwise>
+																	</c:choose>
+																</div>
+															</c:when>
+															<c:otherwise>
+																<div id="${campingQnAInfo.cqcode}_question">
+																	<div class="flex-w flex-sb-m">
+																		<span class="mtext-107 cl2 p-r-20" id="questionId">
+																			${campingQnAInfo.cqmid} [ ${campingQnAInfo.caname}]
+																		</span>
 																	</div>
-																</c:otherwise>
-															</c:choose>
-														</div>
+																	<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cqdate}</div>
+																	<textarea class="stext-102 cl6" id="${campingQnAInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>
+																</div>
+															</c:otherwise>
+														</c:choose>
 													</div>
 												</c:forEach>
 											</div>
@@ -256,45 +271,57 @@
 				var output = "";
 				for(var i = 0; i < result.length; i++){
 					output += '<div class="p-b-68" id="' + result[i].cqcode + '">';
-					output += '<div>';
-					output += '<div class="flex-w flex-sb-m">';
-					output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
-					output += result[i].cqmid +  ' [ ' + result[i].caname + ' ]';
-					output += '</span>';
-					output += '<span id="' + result[i].cqcode + '_qustionBtn">';
-					output += '<button class="btn btn-danger" onclick="deleteQuestion(\'' + result[i].cqcode + '\')">삭제</button>';
-					output += '</span>';
-					output += '</div>';
-					output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cqdate + '</div>';
-					output += '<textarea class="stext-102 cl6" id="' + result[i].cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">' + result[i].cqcontents + '</textarea>';
-					output += '</div>';
-					output += '<div id="' + result[i].cqcode + '_answer">';
-					if(result[i].cwcode == null){
-						output += '<div class="row p-b-25">';
-						output += '<div class="col-12 p-b-5">';
-						output += '<label class="stext-102 cl3" for="review">답글 작성</label>';
-						output += '<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="' + result[i].cqcode + '_cwcontents" name="cwcontents" style="resize: none;"></textarea>';
-						output += '<button class="btn btn-primary m-t-10" onclick="cqAnswerSubmit(\'' + result[i].cqcode + '\')" style="float: right;">답변작성</button>';
+					if(result.cqstate != 0){
+						output += '<div id="' + result[i].cqcode + '_question">';
+						output += '<div class="flex-w flex-sb-m">';
+						output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+						output += result[i].cqmid +  ' [ ' + result[i].caname + ' ]';
+						output += '</span>';
+						output += '<span id="' + result[i].cqcode + '_qustionBtn">';
+						output += '<button class="btn btn-danger" onclick="deleteQuestion(\'' + result[i].cqcode + '\')">삭제</button>';
+						output += '</span>';
+						output += '</div>';
+						output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cqdate + '</div>';
+						output += '<textarea class="stext-102 cl6" id="' + result[i].cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">' + result[i].cqcontents + '</textarea>';
+						output += '</div>';
+						output += '<div id="' + result[i].cqcode + '_answer">';
+						if(result[i].cwcode == null){
+							output += '<div class="row p-b-25">';
+							output += '<div class="col-12 p-b-5">';
+							output += '<label class="stext-102 cl3" for="review">답글 작성</label>';
+							output += '<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="' + result[i].cqcode + '_cwcontents" name="cwcontents" style="resize: none;"></textarea>';
+							output += '<button class="btn btn-primary m-t-10" onclick="cqAnswerSubmit(\'' + result[i].cqcode + '\')" style="float: right;">답변작성</button>';
+							output += '</div>';
+							output += '</div>';
+						}else{
+							output += '<div class="flex-w flex-t">';
+							output += '<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">';
+							output += '<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>';
+							output += '</div>';
+							output += '<div class="size-207">';
+							output += '<div class="flex-w flex-sb-m">';
+							output += '<span class="mtext-107 cl2 p-r-20">';
+							output += 'Camily';
+							output += '</span>';
+							output += '</div>';
+							output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cwdate + '</div>'
+							output += '<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;" readonly="readonly">' + result[i].cwcontents + '</textarea>';
+							output += '</div>';
+							output += '</div>';
+						}
 						output += '</div>';
 						output += '</div>';
 					}else{
-						output += '<div class="flex-w flex-t">';
-						output += '<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">';
-						output += '<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>';
-						output += '</div>';
-						output += '<div class="size-207">';
+						output += '<div id="' + result[i].cqcode + '_question">';
 						output += '<div class="flex-w flex-sb-m">';
-						output += '<span class="mtext-107 cl2 p-r-20">';
-						output += 'Camily';
+						output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+						output += result[i].cqmid + ' [ ' + result[i].caname + ' ]';
 						output += '</span>';
 						output += '</div>';
-						output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cwdate + '</div>'
-						output += '<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;" readonly="readonly">' + result[i].cwcontents + '</textarea>';
-						output += '</div>';
+						output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cqdate + '</div>';
+						output += '<textarea class="stext-102 cl6" id="' + result[i].cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>';
 						output += '</div>';
 					}
-					output += '</div>';
-					output += '</div>';
 					$("#campingQnAList_div").html(output);
 				}
 			}
@@ -312,7 +339,7 @@
 				console.log(result);
 				var output = "";
 				for(var i = 0; i < result.length; i++){
-					if(result[i].cwcode == null){
+					if(result.cqstate != 0 && result[i].cwcode == null){
 						output += '<div class="p-b-68" id="' + result[i].cqcode + '">';
 						output += '<div>';
 						output += '<div class="flex-w flex-sb-m">';
@@ -410,6 +437,32 @@
 				if(result != "NG"){
 					$("#" + cwcode + "_answerForm").val(result.cwcontents);
 					cancelModify(cwcode);
+				}
+			}
+			});
+		}
+
+		function deleteQuestion(cqcode){
+			$.ajax({
+			type: "get",
+			url: "deleteQustion",
+			data: {"cqcode": cqcode},
+			dataType: "json",
+			async: false,
+			success: function(result){
+				console.log(result);
+				if(result != "NG"){
+					var output = "";
+					output += '<div id="' + cqcode + '_question">';
+					output += '<div class="flex-w flex-sb-m">';
+					output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+					output += result.cqmid +' [ ' + result.caname + ']';
+					output += '</span>';
+					output += '</div>';
+					output += '<div class="p-b-17" style="font-size: 12px;">' + result.cqdate + '</div>';
+					output += '<textarea class="stext-102 cl6" id="' + cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>';
+					output += '</div>';
+					$("#" + cqcode).html(output);
 				}
 			}
 			});

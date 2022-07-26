@@ -259,10 +259,10 @@ public class CampingController {
 	}
 	
 	@RequestMapping(value = "questionDelete")
-	public ModelAndView questionDelete(String cqcode) {
+	public  ModelAndView questionDelete(String cqcode, String cqcacode, RedirectAttributes ra) {
 		System.out.println("캠핑장 문의글 삭제");
-		//ModelAndView mav = csvc.questionDelete(cqcode);
-		return null;
+		ModelAndView mav = csvc.questionDelete(cqcode, cqcacode, ra);
+		return mav;
 	}
 	
 }
