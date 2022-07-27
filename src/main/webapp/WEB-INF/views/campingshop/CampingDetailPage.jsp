@@ -151,7 +151,7 @@
 								src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
 								style="width: 75%;">
 						</button>
-						<div class="mtext-106 cl2">$: ${campingDetail.gprice }원</div>
+						<div class="mtext-106 cl2">${campingDetail.gprice }원</div>
 
 						<p class="stext-102 cl3 p-t-23">이 제품은 케밀리 전용 제품입니다.</p>
 
@@ -177,13 +177,13 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-6">
+									<div class="col-5">
 										<button style="border-radius: 10px;"
 											class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 											구매하기</button>
 									</div>
 
-									<div class="col-6">
+									<div class="col-5">
 										<button type="button" style="border-radius: 10px;"
 											class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04"
 											onclick="shoppingbasket('${campingDetail.gcode }','${campingDetail.gname }','${campingDetail.gimage }',
