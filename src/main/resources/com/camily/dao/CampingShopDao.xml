@@ -185,6 +185,7 @@
 	FROM GOODSQUESTION GQ  
 	LEFT OUTER JOIN GOODSANSWER GW ON
 	GQ.GQCODE = GW.GWGQCODE AND GQ.GQGCODE = #{gcode}
+	ORDER BY GQ.GQDATE DESC
  </select>
  
  <select id="getMaxGqcode" resultType="string">

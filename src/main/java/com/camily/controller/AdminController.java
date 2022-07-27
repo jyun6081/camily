@@ -273,4 +273,11 @@ public class AdminController {
 		String result = advc.deleteQustion(cqcode);
 		return result;
 	}
+	
+	@RequestMapping(value = "adminDeleteGoodsQuestion")
+	public @ResponseBody String deleteGoodsQustion(String gqcode) {
+		System.out.println("캠핑용품 문의글 삭제 ajax");
+		String result = advc.deleteGoodsQustion(gqcode);
+		return result;
+	}
 }

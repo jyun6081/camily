@@ -689,17 +689,17 @@ public class AdminService {
 		String maxGwcode = addao.getMaxGwcode();
 		String gwCode = "";
 		if(maxGwcode == null) {
-			gwCode = "CW0001";
+			gwCode = "GW0001";
 		}else {
 			int intMaxCwcode = Integer.parseInt(maxGwcode.substring(2)) + 1;
 			if(intMaxCwcode < 10) {
-				gwCode = "CW000" + intMaxCwcode;
+				gwCode = "GW000" + intMaxCwcode;
 			}else if(intMaxCwcode < 100){
-				gwCode = "CW00" + intMaxCwcode;
+				gwCode = "GW00" + intMaxCwcode;
 			}else if(intMaxCwcode <1000) {
-				gwCode = "CW0" + intMaxCwcode;
+				gwCode = "GW0" + intMaxCwcode;
 			}else if(intMaxCwcode < 10000){
-				gwCode = "CW" + intMaxCwcode;
+				gwCode = "GW" + intMaxCwcode;
 			}else {
 				System.out.println("범위 초과");
 			}
@@ -740,7 +740,7 @@ public class AdminService {
 			goodsAnswer_ajax = "NG";
 		}
 		return goodsAnswer_ajax;
-
+	}
 	public String deleteQustion(String cqcode) {
 		System.out.println("CampingService.adminCampingAnswerModify() 호출");
 		int updateResult = addao.deleteQustion(cqcode);
@@ -750,6 +750,21 @@ public class AdminService {
 			System.out.println(campingQuestionInfo);
 			Gson gson = new Gson();
 			result = gson.toJson(campingQuestionInfo);
+		}else {
+			result = "NG";
+		}
+		return result;
+	}
+
+	public String deleteGoodsQustion(String gqcode) {
+		System.out.println("CampingService.deleteGoodsQustion() 호출");
+		int updateResult = addao.deleteGoodsQustion(gqcode);
+		String result = "";
+		if(updateResult > 0) {
+			GoodsQnADto goodsQuestionInfo = addao.getGoodsQnAInfo(gqcode);
+			System.out.println(goodsQuestionInfo);
+			Gson gson = new Gson();
+			result = gson.toJson(goodsQuestionInfo);
 		}else {
 			result = "NG";
 		}

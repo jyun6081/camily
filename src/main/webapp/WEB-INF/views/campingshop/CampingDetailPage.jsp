@@ -253,21 +253,24 @@
 											readonly="readonly">${goodsQuestionInfo.gqcontents}</textarea>
 									</div>
 									<!-- 답글 -->
-									<div class="flex-w flex-t">
-										<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6"
-											style="text-align: center;">
-											<i class="fa-solid fa-turn-up"
-												style="transform: rotate(90deg); font-size: 30px;"></i>
-										</div>
-										<div class="size-207 mt-1">
-											<div class="flex-w flex-sb-m">
-												<span class="mtext-107 cl2 p-r-20"> Camily </span>
+									<c:if test="${goodsQuestionInfo.gwcode != null }">
+										<div class="flex-w flex-t">
+											<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6"
+												style="text-align: center;">
+												<i class="fa-solid fa-turn-up"
+													style="transform: rotate(90deg); font-size: 30px;"></i>
 											</div>
-											<div class="p-b-17" style="font-size: 12px;">${goodsQuestionInfo.gwdate}</div>
-											<textarea class="stext-102 cl6" id="answer" name="answer"
-												style="width: 100%; resize: none;">${goodsQuestionInfo.gwcontents}</textarea>
+											<div class="size-207 mt-1">
+												<div class="flex-w flex-sb-m">
+													<span class="mtext-107 cl2 p-r-20"> Camily </span>
+												</div>
+												<div class="p-b-17" style="font-size: 12px;">${goodsQuestionInfo.gwdate}</div>
+												<textarea class="stext-102 cl6" id="answer" name="answer"
+													style="width: 100%; resize: none;">${goodsQuestionInfo.gwcontents}</textarea>
+											</div>
 										</div>
-									</div>
+									</c:if>
+									
 								</div>
 							</c:otherwise>
 						</c:choose>

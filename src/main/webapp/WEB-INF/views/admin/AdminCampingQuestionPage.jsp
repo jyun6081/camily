@@ -270,8 +270,8 @@
 				console.log(result);
 				var output = "";
 				for(var i = 0; i < result.length; i++){
-					output += '<div class="p-b-68" id="' + result[i].cqcode + '">';
-					if(result.cqstate != 0){
+					if(result[i].cqstate != 0){
+						output += '<div class="p-b-68" id="' + result[i].cqcode + '">';
 						output += '<div id="' + result[i].cqcode + '_question">';
 						output += '<div class="flex-w flex-sb-m">';
 						output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
