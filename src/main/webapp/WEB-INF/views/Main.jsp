@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,7 +179,7 @@
 					<h5>Hot Camping</h5>
 				</div>
 				 <div class="row">
-
+						
 					<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
 						<!-- Block1 -->
 						<div class="block1 wrap-pic-w">
@@ -190,9 +191,12 @@
 						 <c:if test="${homeList2[0].cacode != null}">						
 							<div class="#7FFF00">
 							<img src="${homeList2[0].caimage }">
+							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
+								<span class="ltext-107 cl2 txt-center">1</span>
+							</div>
 						     <a href="campingView?cacode=${homeList2[0].cacode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
-									<div class="block1-link stext-101 cl0 trans-09">Shop Now</div>
+									<div class="block1-link stext-101 cl0 trans-09">${homeList2[0].caname }</div>
 								</div>
 							 </a>
 							</div> 
@@ -210,9 +214,12 @@
 						    
 						 <c:if test="${homeList2[1].cacode != null}">
 							<img src="${homeList2[1].caimage }">
+							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
+								<span class="ltext-107 cl2 txt-center">2</span>
+							</div>
 						     <a href="campingView?cacode=${homeList2[1].cacode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
-									<div class="block1-link stext-101 cl0 trans-09">Shop Now</div>
+									<div class="block1-link stext-101 cl0 trans-09">${homeList2[1].caname }</div>
 								</div>
 							 </a>
 						  </c:if>
@@ -229,9 +236,12 @@
 						 
 						  <c:if test="${homeList2[2].cacode != null}">
 							<img src="${homeList2[2].caimage }">
+							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
+								<span class="ltext-107 cl2 txt-center">3</span>
+							</div>
 						     <a href="campingView?cacode=${homeList2[2].cacode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
-									<div class="block1-link stext-101 cl0 trans-09">Shop Now</div>
+									<div class="block1-link stext-101 cl0 trans-09">${homeList2[2].caname }</div>
 								</div>
 							 </a>
 						  </c:if>

@@ -36,9 +36,6 @@
 				</div>
 
 				<div class="right-top-bar flex-w h-full">
-					<!-- <span class="flex-c-m trans-04 p-lr-25">
-							sessionId님 환영합니다.
-						</span> -->
 
 					<c:choose>
 						<c:when test="${sessionScope.loginId == null }">
@@ -74,7 +71,14 @@
 				<div class="menu-desktop">
 					<ul class="main-menu">
 						<li><a href="adminMemberList">회원관리</a></li>
-						<li><a href="adminboardList">게시판 관리</a></li>
+						<li>
+						<a href="#">게시판관리</a>
+						    <ul class="sub-menu" style="z-index: 1100">
+								<li><a href="adminboardList">자유게시판관리</a></li>
+								<li><a href="adminGoodsReviewList">캠핑용품 리뷰관리</a></li>
+								<li><a href="adminCampingReviewList">캠핑장 리뷰관리</a></li>
+							</ul>
+						</li>
 						<li>
 						<a href="#">캠핑용품관리</a>
 						    <ul class="sub-menu" style="z-index: 1100">
@@ -135,45 +139,42 @@
 	<div class="menu-mobile">
 		<ul class="topbar-mobile">
 			<li>
-				<div class="left-top-bar">sessionId님 환영합니다.</div>
+				<c:if test="${sessionScope.loginId != null }">
+					<div class="left-top-bar" style="float: left;">${sessionScope.loginId } <span style="color:red">관리자</span>님 환영합니다.</div>
+				</c:if>
 			</li>
 
 			<li>
-				<div class="right-top-bar flex-w h-full">
-					<!-- <a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
-						</a> -->
-
-					<a href="#" class="flex-c-m p-lr-10 trans-04"> 내정보 보기 </a>
-
-					<!-- <a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
-						</a> -->
+				<div class="right-top-bar flex-w h-full" style="display: flex; justify-content: end;">
+					<a href="memberLogout" class="flex-c-m trans-04 p-lr-25">로그아웃</a>
 				</div>
 			</li>
 		</ul>
 
 		<ul class="main-menu-m">
-			<li><a href="CampingList">캠핑장</a></li>
-			<li><a href="campingShopPage">캠핑용품</a>
-			<li><a href="#">후기</a>
+			<li><a href="adminMemberList">회원관리</a></li>
+			<li><a href="#">게시판 관리</a></li>
+			<li><a href="#">캠핑용 품관리</a>
 				<ul class="sub-menu-m">
-					<li><a href="cgreviewpage">캠핑장 후기</a></li>
-					<li><a href="goreviewpage">캠핑용품 후기</a></li>
+					<li><a href="adminCampingShop">캠핑용품 관리</a></li>
+					<li><a href="AdminProductInsert">캠핑용품 등록</a></li>
+					<li><a href="AdminCampingSendProduckt">캠핑용품 배송관리</a></li>
 				</ul> <span class="arrow-main-menu-m"> <i class="fa fa-angle-right" aria-hidden="true"></i>
 				</span>
 			</li>
-			<li><a href="shoping-cart.html" class="label1 rs1" data-label1="hot">이벤트</a></li>
+			<li><a href="#">캠핑장 관리</a>
+				<ul class="sub-menu-m">
+					<li><a href="adminCamping">캠핑장 목록</a></li>
+								<li><a href="adminCampingInsertPage">캠핑장 등록</a></li>
+				</ul> <span class="arrow-main-menu-m"> <i class="fa fa-angle-right" aria-hidden="true"></i>
+				</span>
+			</li>
 
-			<li><a href="boardList">FAQ</a></li>
+			<!-- <li><a href="boardList">FAQ</a></li>
 
 			<li><a href="about.html">캠핑TIP</a></li>
 
-			<li><a href="contact.html">고객센터</a></li>
+			<li><a href="contact.html">고객센터</a></li> -->
 		</ul>
 	</div>
 

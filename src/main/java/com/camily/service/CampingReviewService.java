@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.camily.dao.CampingReviewDao;
 import com.camily.dto.CampingReviewDto;
 import com.camily.dto.GoodsReviewDto;
+import com.camily.dto.PageDto;
 
 @Service
 public class CampingReviewService {
@@ -20,13 +21,13 @@ public class CampingReviewService {
 	private HttpSession session;
 
 	@Autowired
-	CampingReviewDao crdo;
+	CampingReviewDao crdao;
 
 	public int insertCampingReview(CampingReviewDto review) {
 		System.out.println("CampingReviewService.insertGoodsReview()호출");
 
 		// 글번호 조회
-		int cgrvno = crdo.getMaxCgrvcode() + 1;
+		int cgrvno = crdao.getMaxCgrvcode() + 1;
 		System.out.println("생성된 글번호 :" + cgrvno);
 		review.setCgrvcode(cgrvno);
 
@@ -40,7 +41,7 @@ public class CampingReviewService {
 		review.setCgrvcacode(cgrvcacode);
 
 		System.out.println("review" + review);
-		int WriteReviewResult = crdo.insertCampingReview(review);
+		int WriteReviewResult = crdao.insertCampingReview(review);
 
 		return WriteReviewResult;
 
@@ -49,58 +50,59 @@ public class CampingReviewService {
 	public ModelAndView CampingReviewList() {
 		System.out.println("CampingReviewService.CampingReviewList() 호출");
 		ModelAndView mav = new ModelAndView();
-		ArrayList<CampingReviewDto> campingreviewList = crdo.selectCampingReviewList();
+		
+		ArrayList<CampingReviewDto> campingreviewList = crdao.selectCampingReviewList();
 		System.out.println(campingreviewList);
-
+		
 		mav.addObject("campingreviewList", campingreviewList);
 		mav.setViewName("campingreview/CgReviewPage");
 		return mav;
 	}
 
-	public ModelAndView CampingReviewDetail(int cgrvcode) {
-		System.out.println("CampingReviewService.CampingReviewDetail() 호출");
+	public ModelAndView cgreviewdetailpage(int cgrvcode) {
+		System.out.println("CampingReviewService.cgreviewdetailpage() 호출");
 		
 		ModelAndView mav = new ModelAndView();
 		
 		//조회수 증가
-		int hitsResult = crdo.updateHits(cgrvcode);
+		int hitsResult = crdao.updateHits(cgrvcode);
 		
-		CampingReviewDto CampingReview = crdo.CampingReviewDetail(cgrvcode);
-		System.out.println(CampingReview);
+		CampingReviewDto cgreviewdetailpage = crdao.CampingReviewDetail(cgrvcode);
+		System.out.println(cgreviewdetailpage);
 		
-		mav.addObject("CampingReview", CampingReview);
+		mav.addObject("cgrvDetail", cgreviewdetailpage);
 		mav.setViewName("campingreview/CgReviewDetailPage");
 		
 		return mav;
 	}
 
-	public ModelAndView cgReviewModify(int cgrvcode) {
-		System.out.println("GoodsReviewService.cgReviewModify()호출");
+	public ModelAndView cgreviewModify(int cgrvcode) {
+		System.out.println("GoodsReviewService.cgreviewModify()호출");
 		ModelAndView mav = new ModelAndView();
-		CampingReviewDto CampingReview = crdo.selectCampingReview(cgrvcode);
-		System.out.println("CampingReview : " + CampingReview);
+		CampingReviewDto cgreviewModify = crdao.selectCampingReview(cgrvcode);
+		System.out.println("cgreviewModify : " + cgreviewModify);
 
-		mav.addObject("CampingReview", CampingReview);
+		mav.addObject("CampingReview", cgreviewModify);
 		mav.setViewName("campingreview/CgReviewModify");
 
 		return mav;
 	}
 
-	public ModelAndView cgReviewModifyForm(CampingReviewDto cgreview, RedirectAttributes ra) {
-		System.out.println("GoodsReviewService.goReviewMoidfyForm()호출");
+	public ModelAndView cgreviewModifyForm(CampingReviewDto cgreview, RedirectAttributes ra) {
+		System.out.println("GoodsReviewService.cgreviewModifyForm()호출");
 		ModelAndView mav = new ModelAndView();
-		int updateResult = crdo.updateCampingReview(cgreview);
+		int updateResult = crdao.updateCampingReview(cgreview);
 		
 		ra.addFlashAttribute("msg", "게시글이 수정되었습니다!");
-		mav.setViewName("redirect:/cgreviewdetail?cgrvcode=" + cgreview.getCgrvcode());
+		mav.setViewName("redirect:/cgreviewdetailpage?cgrvcode=" + cgreview.getCgrvcode());
 		return mav;
 	}
 
-	public ModelAndView cgReviewDelete(int cgrvcode, RedirectAttributes ra) {
+	public ModelAndView cgreviewDelete(int cgrvcode, RedirectAttributes ra) {
 		System.out.println("GoodsReviewService.cgreviewDelete() 호출");
 		ModelAndView mav = new ModelAndView();
 		System.out.println("삭제할 캠핑용품 후기 게시글 : " + cgrvcode);
-		crdo.deleteCampingReview(cgrvcode);
+		crdao.deleteCampingReview(cgrvcode);
 		
 		ra.addFlashAttribute("msg", "게시글이 삭제되었습니다!");
 		mav.setViewName("redirect:/cgreviewpage");

@@ -9,21 +9,25 @@
 		resultType="com.camily.dto.GoodsReviewDto">
 		SELECT GONAME, GORVCODE, GORVMID, GORVGCODE, GORVTITLE,
 		GORVCONTENTS, TO_CHAR(GORVDATE,
-		'YYYY-MM-DD')AS GORVDATE, GORVLIKE,
-		GO.GOIMAGE, GORVHITS, GORVSTARATING
+		'YYYY-MM-DD')AS GORVDATE,
+		GO.GOIMAGE, GORVHITS, GORVSTARATING, GORVSTATE
 		FROM GOODSORDER GO INNER JOIN GOODSREVIEW GR
 		ON GR.GORVGOCODE = GO.GOCODE
+		WHERE GORVSTATE
+		= 1
 		ORDER BY GORVCODE
 	</select>
 
 	<select id="selectGoodsReviewDetail"
 		resultType="com.camily.dto.GoodsReviewDto">
-		SELECT GORVCODE, GORVMID, GORVGCODE, GORVTITLE,
+		SELECT GONAME, GORVCODE, GORVMID, GORVGCODE, GORVTITLE,
 		GORVCONTENTS,
 		TO_CHAR(GORVDATE,
-		'YYYY-MM-DD')AS GORVDATE, GORVLIKE, GORVHITS, GORVSTARATING
+		'YYYY-MM-DD')AS GORVDATE, 
+		GO.GOIMAGE, GORVHITS, GORVSTARATING, GORVSTATE
 		FROM
-		GOODSREVIEW
+		GOODSORDER GO INNER JOIN GOODSREVIEW GR
+		ON GR.GORVGOCODE = GO.GOCODE
 		WHERE GORVCODE
 		= #{gorvcode}
 	</select>
@@ -36,14 +40,15 @@
 	<insert id="insertGoodsReview">
 		INSERT INTO GOODSREVIEW(GORVCODE, GORVMID, GORVGCODE,
 		GORVTITLE,
-		GORVCONTENTS, GORVDATE, GORVLIKE, GORVGOCODE,GOIMAGE, GORVHITS, GORVSTARATING)
+		GORVCONTENTS, GORVDATE, GORVGOCODE,GOIMAGE, GORVHITS, GORVSTARATING, GORVSTATE)
 		VALUES(#{gorvcode}, #{gorvmid}, #{gorvgcode}, #{gorvtitle},
-		#{gorvcontents}, SYSDATE, 1, #{gorvgocode}, #{goimage}, 1, #{gorvstarating})
+		#{gorvcontents}, SYSDATE, #{gorvgocode}, #{goimage}, 0, #{gorvstarating}, 1)
 	</insert>
 
-	<delete id="deleteGoodsReview">
-		DELETE FROM GOODSREVIEW WHERE GORVCODE = #{gorvcode}
-	</delete>
+	<update id="deleteGoodsReview">
+		UPDATE GOODSREVIEW SET GORVSTATE = 0
+		WHERE GORVCODE = #{gorvcode}
+	</update>
 
 	<select id="selectGoodsReview" resultType="com.camily.dto.GoodsReviewDto">
 		SELECT * FROM GOODSREVIEW WHERE GORVCODE = #{gorvcode}

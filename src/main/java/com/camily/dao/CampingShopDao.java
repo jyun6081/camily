@@ -11,6 +11,7 @@ import com.camily.dto.CampingDetailInformationDto;
 import com.camily.dto.CampingDto;
 import com.camily.dto.GoodsDto;
 import com.camily.dto.GoodsOrderDto;
+import com.camily.dto.GoodsQnADto;
 import com.camily.dto.MemberDto;
 
 public interface CampingShopDao {
@@ -105,6 +106,28 @@ public interface CampingShopDao {
     
 	// 취소요청 하기 STATE 6 관리자 기달리기 (UPDATE)
 	int cancelreasonput(@Param("gocode") String gocode, @Param("gocancel") String gocancel);
+    
+	// 캠핑용품 문의글 가져오기
+	ArrayList<GoodsQnADto> goodsQuestionList(String gcode);
+	
+    // 문의글 코드 최댓값 조회
+	String getMaxGqcode();
+	
+    // 캠핑용품 문의글 작성
+	int goodsQuestionWrite(GoodsQnADto goodsQuestionInfo);
+	
+    // 문의글 수정
+	int goodsQuestionModify(@Param("gqcode") String gqcode, @Param("gqcontents") String gqcontents);
+	
+    // 문의글 정보
+	GoodsQnADto getGoodsQuestionInfo(String gqcode);
+	
+    // 문의글 삭제(state 0)
+	int modifyGoodsQuestionState(String gqcode);
+   
+
+   
+
    
 
    

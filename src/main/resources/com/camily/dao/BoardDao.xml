@@ -7,7 +7,7 @@
 
 	<select id="selectBoardList"
 		resultType="com.camily.dto.BoardDto">
-		SELECT BOCODE, BOMID, BOTYPE, BOTITLE, BOCONTENTS,
+		SELECT BOCODE, BOMID, BOTITLE, BOCONTENTS,
 		TO_CHAR(BODATE,
 		'YYYY-MM-DD')AS BODATE, BOSTATE, BOHITS
 		FROM BOARDS
@@ -18,19 +18,20 @@
 
 	<select id="selectBoardView"
 		resultType="com.camily.dto.BoardDto">
-		SELECT BOCODE, BOMID, BOTYPE, BOTITLE, BOCONTENTS,
+		SELECT BOCODE, BOMID, BOTITLE, BOCONTENTS,
 		TO_CHAR(BODATE,
 		'YYYY-MM-DD')AS BODATE, BOSTATE, BOHITS
 		FROM BOARDS
 		WHERE BOCODE
-		= #{bocode}
+		=
+		#{bocode}
 	</select>
 
 	<insert id="insertBoard">
 		INSERT INTO BOARDS (BOCODE, BOMID, BOTITLE,
-		BOCONTENTS,BOTYPE,BODATE,BOSTATE, BOHITS)
+		BOCONTENTS,BODATE,BOSTATE, BOHITS)
 		VALUES (#{bocode}, #{bomid},
-		#{botitle}, #{bocontents},1,SYSDATE,1,1)
+		#{botitle}, #{bocontents},SYSDATE,1,0)
 	</insert>
 
 	<select id="getMaxBocode" resultType="int">
@@ -39,7 +40,7 @@
 	</select>
 
 	<update id="deleteBoard">
-		UPDATE BOARDS SET BOSTATE = 0 
+		UPDATE BOARDS SET BOSTATE = 0
 		WHERE BOCODE = #{bocode}
 	</update>
 
@@ -57,9 +58,10 @@
 
 	<select id="selectFAQList" resultType="com.camily.dto.FAQDto">
 		SELECT FAQCODE, FAQMID,
-		FAQTYPE, FAQTITLE, FAQCONTENTS,
+		FAQTITLE, FAQCONTENTS,
 		TO_CHAR(FAQDATE,'YYYY-MM-DD')AS
-		FAQDATE, FAQSTATE, FAQHITS
+		FAQDATE,
+		FAQSTATE, FAQHITS
 		FROM FAQ
 		WHERE FAQSTATE = 1
 		ORDER BY FAQCODE
@@ -73,50 +75,53 @@
 
 	<insert id="insertFAQ">
 		INSERT INTO FAQ (FAQCODE, FAQMID, FAQTITLE,
-		FAQCONTENTS,FAQTYPE,FAQDATE,FAQSTATE,FAQHITS)
+		FAQCONTENTS,FAQDATE,FAQSTATE,FAQHITS)
 		VALUES (#{faqcode},
 		#{faqmid},
-		#{faqtitle}, #{faqcontents},1,SYSDATE,1,1)
+		#{faqtitle}, #{faqcontents},SYSDATE,1,0)
 	</insert>
 
 
 	<select id="selectFAQView" resultType="com.camily.dto.FAQDto">
 		SELECT FAQCODE, FAQMID,
-		FAQTYPE, FAQTITLE, FAQCONTENTS,
+		FAQTITLE, FAQCONTENTS,
 		TO_CHAR(FAQDATE,
 		'YYYY-MM-DD')AS
-		FAQDATE, FAQSTATE, FAQHITS
+		FAQDATE,
+		FAQSTATE, FAQHITS
 		FROM FAQ
 		WHERE FAQCODE
 		= #{faqcode}
 	</select>
-	
+
 	<select id="selectFAQ" resultType="com.camily.dto.FAQDto">
-		SELECT * FROM FAQ WHERE FAQCODE = #{faqcode}
+		SELECT * FROM FAQ WHERE
+		FAQCODE = #{faqcode}
 	</select>
-	
-	
+
+
 	<update id="updateFAQ">
 		UPDATE FAQ
 		SET FAQTITLE = #{faqtitle}, FAQCONTENTS =
 		#{faqcontents}
 		WHERE FAQCODE = #{faqcode}
 	</update>
-	
-	
+
+
 	<update id="deleteFAQ">
 		UPDATE FAQ
 		SET FAQSTATE = 0
 		WHERE FAQCODE = #{faqcode}
 	</update>
-	
+
 	<update id="updateHits">
-		UPDATE BOARDS SET BOHITS = BOHITS+1 WHERE BOCODE = #{bocode}
+		UPDATE BOARDS SET BOHITS = BOHITS+1 WHERE BOCODE =
+		#{bocode}
 	</update>
-	
+
 	<update id="updateFAQHits">
-		UPDATE FAQ SET FAQHITS = FAQHITS+1 WHERE FAQCODE = #{faqcode}
+		UPDATE FAQ SET FAQHITS = FAQHITS+1 WHERE FAQCODE =
+		#{faqcode}
 	</update>
-	
-	
+
 </mapper>
