@@ -54,8 +54,9 @@
 	</select>
 	
 	<select id="campingQuestionList" resultType="com.camily.dto.CampingQnADto">
-		SELECT * 
+		SELECT CQ.*, C.CANAME, CW.*
 		FROM CAMPINGQUESTION CQ
+		INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
 		LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
 		WHERE CQCACODE = #{cacode}
 		ORDER BY CQDATE DESC
