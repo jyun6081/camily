@@ -71,13 +71,11 @@
 	font-family: "Oswald", sans-serif;
 }
 
-#aaa{
-	font-weight: bold;
-
-
-
-
+.aclass{
+ position: relative;
+ animation-fill-mode: both;
 }
+
 </style>
 </head>
 <body class="animsition">
@@ -115,13 +113,21 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }" alt="IMG" style="width: 60px;"></th>
-                                            <td>${Purchase.goname }</td>
-                                            <td>${Purchase.goprice }원</td>
+                                            <th scope="row">
+                                            <a href="campingDetailPage?gcode=${Purchase.gogcode}" class="aclass">
+                                            <img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }" alt="IMG" style="width: 60px;">
+                                            </a>
+                                            </th>
+                                            <td>
+                                             <a href="campingDetailPage?gcode=${Purchase.gogcode}" class="aclass">
+                                            ${Purchase.goname }
+                                             </a>
+                                            </td>
+                                            <td>${Purchase.divisionsum }원</td>
                                             <td>${Purchase.goamount }개</td>
-                                            <td>${Purchase.goprice}원</td>
+                                            <td>${Purchase.goformatter}원</td>
                                             <td>${Purchase.gomaddr }</td>
-                                            <td id="aaa">
+                                            <td>
                                       <c:if test="${Purchase.gostate == 2 }">
 									  <p>배송준비중</p>								    
 								      <button type="button" class="btn btn-dark" onclick="PurchaseDelete('${Purchase.gocode }')">주문취소</button>

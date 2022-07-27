@@ -130,7 +130,15 @@
 								       <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 75%;">
 						</button>
 						<div class="mtext-106 cl2">
-						$: ${campingDetail.gprice }원 
+						 <c:choose>
+						  <c:when test="${campingDetail.gstate == 0}">
+						    해당상품은 임시 비활성화 상품입니다.
+						  </c:when>
+	                       
+	                      <c:otherwise>
+					        ${campingDetail.gprice }원 	                      
+	                      </c:otherwise>					 
+						 </c:choose>
 						</div>
 
 						<p class="stext-102 cl3 p-t-23">
@@ -154,7 +162,13 @@
 									</div>
 								</div>
 									</div>
-                                 <div class="row"> 
+                             <div class="row">                                                               
+                               	<c:choose>
+						           <c:when test="${campingDetail.gstate == 0}">
+						                 <input class="mtext-104 cl3 txt-center num-product" readonly="readonly" value="점검중입니다.">
+						           </c:when>
+	                       
+	                              <c:otherwise>
                                  	<div class="col-6">
 									<button style="border-radius: 10px;" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 								        구매하기
@@ -167,9 +181,11 @@
                                             '${campingDetail.gprice }')">
 								        장바구니
 								    </button>									
-                                    </div>
+                                    </div>	                                                        
+	                             </c:otherwise>					 
+						       </c:choose>
                                     
-								</div>	
+						    </div>	
 						</div>
 					 </form>
 					</div>

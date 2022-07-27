@@ -187,13 +187,15 @@
 					         <p>아직 HOT한 예약 목록이 없습니다.</p>
 						 </c:if>
 						 
-						 <c:if test="${homeList2[2].cacode != null}">						
+						 <c:if test="${homeList2[0].cacode != null}">						
+							<div class="#7FFF00">
 							<img src="${homeList2[0].caimage }">
 						     <a href="campingView?cacode=${homeList2[0].cacode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
 									<div class="block1-link stext-101 cl0 trans-09">Shop Now</div>
 								</div>
 							 </a>
+							</div> 
 					     </c:if>		 
 					  </div>
 					</div>
@@ -206,7 +208,7 @@
 					         <p>아직 HOT한 예약 목록이 없습니다.</p>
 						 </c:if>
 						    
-						 <c:if test="${homeList2[2].cacode != null}">
+						 <c:if test="${homeList2[1].cacode != null}">
 							<img src="${homeList2[1].caimage }">
 						     <a href="campingView?cacode=${homeList2[1].cacode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
