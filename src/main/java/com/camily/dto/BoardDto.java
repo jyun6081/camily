@@ -23,12 +23,7 @@ public class BoardDto {
 	public void setBomid(String bomid) {
 		this.bomid = bomid;
 	}
-	public int getBotype() {
-		return botype;
-	}
-	public void setBotype(int botype) {
-		this.botype = botype;
-	}
+
 	public String getBotitle() {
 		return botitle;
 	}

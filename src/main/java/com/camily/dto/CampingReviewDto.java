@@ -52,24 +52,14 @@ public class CampingReviewDto {
 	public void setCgrvdate(String cgrvdate) {
 		this.cgrvdate = cgrvdate;
 	}
-	public int getCgrvlike() {
-		return cgrvlike;
-	}
-	public void setCgrvlike(int cgrvlike) {
-		this.cgrvlike = cgrvlike;
-	}
+
 	public int getCgrvstate() {
 		return cgrvstate;
 	}
 	public void setCgrvstate(int cgrvstate) {
 		this.cgrvstate = cgrvstate;
 	}
-	public String getRecrname() {
-		return recrname;
-	}
-	public void setRecrname(String recrname) {
-		this.recrname = recrname;
-	}
+
 	public String getCgrvrecode() {
 		return cgrvrecode;
 	}

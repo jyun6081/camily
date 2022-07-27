@@ -227,29 +227,7 @@ public class CampingShopController {
 		
 		return mav; 
 	}
-	// 문의글 작성
-	@RequestMapping(value="/goodsQuestionWrite")
-	public ModelAndView goodsQuestionWrite(String gqmid, String gqgcode, String gqcontents, RedirectAttributes ra ) {
-		System.out.println("캠핑용품 문의글 작성");
-		ModelAndView mav = csvc.goodsQuestionWrite(gqmid,gqgcode,gqcontents,ra);
-		return mav;
-	}
 	
-	@RequestMapping(value="/goodsQuestionModify")
-	public @ResponseBody String goodsQuestionModify(String gqcode, String gqcontents) {
-		System.out.println("캠핑용품 문의글 수정");
-		
-		String result_json = csvc.goodsQuestionModify(gqcode,gqcontents);
-		
-		return result_json;
-	}
-	@RequestMapping(value="/deleteGoodsQuestion")
-	public @ResponseBody String deleteGoodsQuestion(String gqcode) {
-		System.out.println("캠핑용품 문의글 삭제");
-		
-		String modifyStateResult = csvc.modifyGoodsQuestionState(gqcode);
-		return modifyStateResult;
-	}
 	
 	
 	}

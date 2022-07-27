@@ -23,12 +23,7 @@ public class FAQDto {
 	public void setFaqmid(String faqmid) {
 		this.faqmid = faqmid;
 	}
-	public int getFaqtype() {
-		return faqtype;
-	}
-	public void setFaqtype(int faqtype) {
-		this.faqtype = faqtype;
-	}
+
 	public String getFaqtitle() {
 		return faqtitle;
 	}
