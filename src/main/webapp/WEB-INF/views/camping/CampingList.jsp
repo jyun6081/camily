@@ -152,7 +152,8 @@
 									<span class="stext-105 cl3">
 										<c:choose>
 											<c:when test="${campingInfo.crprice != null}">
-												${campingInfo.crprice}원 부터 ~
+												${campingInfo.cformatter}원 부터 ~
+												<%-- ${campingInfo.crprice} --%>
 											</c:when>
 											<c:otherwise>
 												준비중

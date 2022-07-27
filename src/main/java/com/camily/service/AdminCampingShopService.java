@@ -2,8 +2,11 @@ package com.camily.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,9 @@ public class AdminCampingShopService {
     
 	@Autowired
 	AdminCampingShopDao acdao;
+	
+	@Autowired
+	private HttpSession session;
 	
 	// 관리자 캠핑 용품 페이지 이동 요청 
 	public ModelAndView adminCampingShop() {
@@ -42,7 +48,7 @@ public class AdminCampingShopService {
 		
 		// ajax 클릭시 gstate값 변경
 		int campingShopState = acdao.campingShopState(gcode,gstate);
-				
+		
 		return campingShopState+"";
 	}
     
@@ -240,7 +246,21 @@ public class AdminCampingShopService {
 	    // 관리자 캠핑 용품 페이지 이동 요청 
 	 	ArrayList<GoodsOrderDto> AdminCampingSendProduckt = acdao.AdminCampingSendProduckt();
 	    System.out.println("AdminCampingSendProduckt :"+ AdminCampingSendProduckt);
-	 	
+        
+	    String ditotalprice = "";
+	    String divisionsum = "";
+	    for(int z = 0; z < AdminCampingSendProduckt.size(); z++) {
+	    	
+	    	  // 상품가격 / 상품수량		 			  
+			  ditotalprice = AdminCampingSendProduckt.get(z).getGoprice();	 	  
+              int format = Integer.parseInt(ditotalprice); // int형태 변환
+              
+			  // 상품가격 콤마표시
+			  DecimalFormat formatter = new DecimalFormat("###,###");			
+			  divisionsum = formatter.format(format); // 장바구니 가격모음 , 추가하기
+			  AdminCampingSendProduckt.get(z).setGoformatter2(divisionsum);
+	    }
+	    
 		mav.addObject("AdminCampingSendProduckt", AdminCampingSendProduckt);
 		mav.setViewName("admin/AdminCampingSendProduckt");
 		return mav;
@@ -284,6 +304,20 @@ public class AdminCampingShopService {
 	    // 관리자 캠핑 용품 취소관리 페이지 
 	    ArrayList<GoodsOrderDto> AdminCampingCancel = acdao.AdminCampingCancel();
 	    System.out.println("AdminCampingCancel :"+ AdminCampingCancel);
+	    
+	    String ditotalprice = "";
+	    String divisionsum = "";
+	    for(int z = 0; z < AdminCampingCancel.size(); z++) {
+	    	
+	    	  // 상품가격 / 상품수량		 			  
+			  ditotalprice = AdminCampingCancel.get(z).getGoprice();	 	  
+              int format = Integer.parseInt(ditotalprice); // int형태 변환
+              
+			  // 상품가격 콤마표시
+			  DecimalFormat formatter = new DecimalFormat("###,###");			
+			  divisionsum = formatter.format(format); // 장바구니 가격모음 , 추가하기
+			  AdminCampingCancel.get(z).setGoformatter2(divisionsum);
+	    }
 	    
 	    mav.addObject("AdminCampingCancel", AdminCampingCancel);
 		mav.setViewName("admin/AdminCampingCancel");
@@ -329,6 +363,20 @@ public class AdminCampingShopService {
 	    // 관리자 취소목록 페이지 
 	    ArrayList<GoodsOrderDto> AdminCampingCancelList = acdao.AdminCampingCancelList();
 	    System.out.println("AdminCampingCancelList :"+ AdminCampingCancelList);
+	    
+	    String ditotalprice = "";
+	    String divisionsum = "";
+	    for(int z = 0; z < AdminCampingCancelList.size(); z++) {
+	    	
+	    	  // 상품가격 / 상품수량		 			  
+			  ditotalprice = AdminCampingCancelList.get(z).getGoprice();	 	  
+              int format = Integer.parseInt(ditotalprice); // int형태 변환
+              
+			  // 상품가격 콤마표시
+			  DecimalFormat formatter = new DecimalFormat("###,###");			
+			  divisionsum = formatter.format(format); // 장바구니 가격모음 , 추가하기
+			  AdminCampingCancelList.get(z).setGoformatter2(divisionsum);
+	    }
 	    
 	    mav.addObject("AdminCampingCancelList", AdminCampingCancelList);
 		mav.setViewName("admin/AdminCampingCancelList");

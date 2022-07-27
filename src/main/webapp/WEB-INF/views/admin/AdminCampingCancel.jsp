@@ -66,7 +66,7 @@
 					<div class="row" style="margin:0 auto; ">
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4" style="margin:0 auto; ">
-						<h1 class="h3 mb-0 text-gray-800">관리자 캠핑용품 취소관리 페이지 - AdminCampingSendProduckt.jsp</h1>
+						<h1 class="h3 mb-0 text-gray-800">관리자 캠핑용품 취소관리 페이지 - AdminCampingCancel.jsp</h1>
 					</div>
                       <div class="card shadow mb-8 col-sm-10" style="margin:0 auto; ">
                         <div class="card-body" >
@@ -101,7 +101,7 @@
                                             <th class="align-middle text-center font-weight-bold">${CampingCancel.gomaddr }</th>
                                             <th class="align-middle text-center font-weight-bold">${CampingCancel.goname }</th>
                                             <th class="align-middle text-center font-weight-bold">${CampingCancel.goamount }개</th>
-                                            <th class="align-middle text-center font-weight-bold">${CampingCancel.goprice }원</th> 
+                                            <th class="align-middle text-center font-weight-bold">${CampingCancel.goformatter2 }원</th> 
                                             <th class="align-middle text-center font-weight-bold">${CampingCancel.gocancel }</th> 
                                             <th class="align-middle text-center font-weight-bold">       
                                                 <button class="btn btn-danger p-2" onclick="cancelOk(this,'${CampingCancel.gocode }')">취소승인</button>

@@ -145,7 +145,7 @@
                     
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
-								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<a href="campingDetailPage?gcode=${camping.gcode}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									${camping.gname }
 								</a>
 
@@ -157,7 +157,7 @@
 							<div class="block2-txt-child2 flex-r p-t-3">
 	                            <c:choose>
 							       <c:when test="${sessionScope.loginId != null}">	
-								      <button id="toggle" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" onclick="cartInsert(this,'${camping.gcode}')">
+								      <button id="toggle_${camping.gcode }" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" onclick="cartInsert(this,'${camping.gcode}')">
 										<i class="zmdi zmdi-favorite-outline"></i>
 								      </button>   	<!--<i class="fa-thin fa-heart-circle-check"></i>  -->
 								   </c:when>
@@ -304,9 +304,8 @@
 			dataType : "json",
 			success : function(cartresult){
 				console.log("cartresult :"+ cartresult)
-                $("#toggle").remove();
+                $("#toggle_"+gcode).remove();
 			}
-			
 	 });
  }
 </script>

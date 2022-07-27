@@ -1,5 +1,6 @@
 package com.camily.service;
 
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -74,6 +75,24 @@ public class CampingService {
 		System.out.println("endRow : " + endRow);
 		
 		ArrayList<CampingDto> campingList = cdao.getCampingList(startRow, endRow, type, searchKeyword);
+		 
+		    String ditotalprice = "";
+		    String divisionsum = "";		  
+		    for(int z = 0; z < campingList.size(); z++) {
+		      if(campingList.get(z).getCrprice() != null) {		    	  
+		    	  // 상품가격 / 상품수량		 			  
+		    	  ditotalprice = campingList.get(z).getCrprice();	 	  
+		    	  int format = Integer.parseInt(ditotalprice); // int형태 변환
+		    	  
+		    	  // 상품가격 콤마표시
+		    	  DecimalFormat formatter = new DecimalFormat("###,###");			
+		    	  divisionsum = formatter.format(format); // 장바구니 가격모음 , 추가하기
+		    	  campingList.get(z).setCformatter(divisionsum);
+		      }
+		    }
+		
+		
+		
 		int maxPage = (int)( Math.ceil(  (double)campTotalCount/pageCount  ) );
 		
 		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
@@ -144,8 +163,19 @@ public class CampingService {
 		endday = endday.substring(6,10) + "-" + endday.substring(0,2) + "-" + endday.substring(3,5);
 		mav.addObject("endday", endday);
 		int totalPrice = totalPrice(startday, endday, RoomInfo.getCrprice());
+		int totalPrice2 = totalPrice(startday, endday, RoomInfo.getCrprice()); // 콤마표시
 		
-		System.out.println(totalPrice);
+
+		  String divisionsum = "";		  	   	  
+		   	  
+		    // 상품가격 콤마표시
+		    DecimalFormat formatter = new DecimalFormat("###,###");			
+		    divisionsum = formatter.format(totalPrice2); // 장바구니 가격모음 , 추가하기
+		      		    			
+		
+		System.out.println(divisionsum);		
+		mav.addObject("divisionsum", divisionsum);
+		
 		mav.addObject("totalPrice", totalPrice);
 		mav.addObject("people", people);
 		mav.setViewName("camping/CampingReservation");
@@ -203,6 +233,7 @@ public class CampingService {
 			mav.setViewName("redirect:/");
 		}else {
 			ArrayList<ReservationDto> myReservationList = cdao.getMyReservationList(loginId);
+								
 			for (int i = 0; i < myReservationList.size(); i++) {
 				String startday = cdao.getStartday(myReservationList.get(i).getRecode());
 				LocalDate endday_date = cdao.getEndday(myReservationList.get(i).getRecode());
@@ -212,6 +243,19 @@ public class CampingService {
 				myReservationList.get(i).setEndday(endday);
 				int totalPrice = totalPrice(startday, endday, myReservationList.get(i).getCrprice());
 				myReservationList.get(i).setTotalprice(totalPrice);
+				
+			    int ditotalprice = 0;
+			    String divisionsum = "";		  
+	    	  
+			    	  // 상품가격 / 상품수량		 			  
+			    	  ditotalprice = myReservationList.get(i).getTotalprice();	 	  
+			    	  
+			    	  // 상품가격 콤마표시
+			    	  DecimalFormat formatter = new DecimalFormat("###,###");			
+			    	  divisionsum = formatter.format(ditotalprice); // 장바구니 가격모음 , 추가하기
+			    	  myReservationList.get(i).setMyformatter(divisionsum);
+			      
+			    								
 			}
 			System.out.println(myReservationList);
 			mav.addObject("myReservationList", myReservationList);
@@ -247,14 +291,25 @@ public class CampingService {
 			mav.setViewName("redirect:/");
 		}else {
 			ReservationDto myReservationInfo = cdao.getMyReservationInfo(loginId, recode);
+		
 			String startday = cdao.getStartday(recode);
 			LocalDate endday_date = cdao.getEndday(recode);
 			endday_date = endday_date.plusDays(1);
 			String endday = endday_date.toString();
 			myReservationInfo.setStartday(startday);
 			myReservationInfo.setEndday(endday);
-			int totalPrice = totalPrice(startday, endday, myReservationInfo.getCrprice());
-			myReservationInfo.setTotalprice(totalPrice);
+			
+			int totalPrice = totalPrice(startday, endday, myReservationInfo.getCrprice());			
+		    String divisionsum = "";		  
+    	  
+		    	  // 상품가격 콤마표시
+		    	  DecimalFormat formatter = new DecimalFormat("###,###");			
+		    	  divisionsum = formatter.format(totalPrice); // 장바구니 가격모음 , 추가하기
+		    	  System.out.println("divisionsum :"+ divisionsum);
+		    	  
+		    	  myReservationInfo.setMyformatter(divisionsum);
+				  myReservationInfo.setTotalprice(totalPrice);
+			
 			System.out.println(myReservationInfo);
 			mav.addObject("myReservationInfo", myReservationInfo);
 			mav.setViewName("member/MyReservation");
@@ -309,6 +364,7 @@ public class CampingService {
 		startday = startday.substring(6,10) + "-" + startday.substring(0,2) + "-" + startday.substring(3,5);
 		endday = endday.substring(6,10) + "-" + endday.substring(0,2) + "-" + endday.substring(3,5);
 		int totalPrice = totalPrice(startday, endday, crprice);
+		  	
 		String result = totalPrice+"";
 		System.out.println(result);
 		return result;

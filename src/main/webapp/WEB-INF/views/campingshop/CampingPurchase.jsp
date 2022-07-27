@@ -92,7 +92,7 @@
 									<td class="column-2">${campingpurchase.gname }</td>
 									<td class="column-3">${campingpurchase.gprice }</td>
 									<td class="column-4">${campingpurchase.gamount }개</td>
-									<td class="column-5" >${totalPrice}</td> <!-- 총 가격 -->
+									<td class="column-5" >${campingpurchase.gformatter }원</td> <!-- 총 가격 -->
 								</tr>
 							</table>
 						</div>
@@ -186,7 +186,7 @@
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2">
-									 ${totalPrice} 원
+								   ${campingpurchase.gformatter }원
 								</span>
 							</div>
 						</div>	

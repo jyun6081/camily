@@ -29,8 +29,21 @@ public class GoodsDto {
 	private String gamount; // 내가 고른 상품 갯수
     private String price2; // ajax 장바구니 담김 가격들 모음
     private String gstate; // 상품의 상태값  
+    private String gformatter; // 상품의 총합 콤마
+   
     
-    
+	public String getGdate() {
+		return gdate;
+	}
+	public void setGdate(String gdate) {
+		this.gdate = gdate;
+	}
+	public String getGformatter() {
+		return gformatter;
+	}
+	public void setGformatter(String gformatter) {
+		this.gformatter = gformatter;
+	}
 	public MultipartFile getGimagefile() {
 		return gimagefile;
 	}

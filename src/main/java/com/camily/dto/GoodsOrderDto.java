@@ -16,9 +16,47 @@ public class GoodsOrderDto {
 	
 	private String gostate;   // 상품 상태
     private String godate;    // 주문 일자 o  
-	    
+
+    private String divisionsum; // 원래 가격 찾기 
     private String gocancel;
     
+    private String goformatter; // 상품 총가격 콤마 
+    private String goformatter2; // 상품 총가격 관리자 페이지 콤마
+    
+    
+    
+	public String getGoformatter2() {
+		return goformatter2;
+	}
+
+	public void setGoformatter2(String goformatter2) {
+		this.goformatter2 = goformatter2;
+	}
+
+	public String getGoformatter() {
+		return goformatter;
+	}
+
+	public void setGoformatter(String goformatter) {
+		this.goformatter = goformatter;
+	}
+
+	public String getDivisionsum() {
+		return divisionsum;
+	}
+
+	public void setDivisionsum(String divisionsum) {
+		this.divisionsum = divisionsum;
+	}
+
+	public String getGocancel() {
+		return gocancel;
+	}
+
+	public void setGocancel(String gocancel) {
+		this.gocancel = gocancel;
+	}
+
 	public String getGodate() {
 		return godate;
 	}
