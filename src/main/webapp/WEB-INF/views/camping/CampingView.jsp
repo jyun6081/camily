@@ -194,7 +194,7 @@
 				<!-- Tab01 -->
 				<div class="tab01">
 					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs" role="tablist" id="tabList">
 						<li class="nav-item p-b-10">
 							<a class="nav-link" data-toggle="tab" href="#roomtype" role="tab">객실정보</a>
 						</li>
@@ -277,7 +277,8 @@
 															<div id="${campingQnAInfo.cqcode}_question">
 																<div class="flex-w flex-sb-m">
 																	<span class="mtext-107 cl2 p-r-20" id="questionId">
-																		${campingQnAInfo.cqmid} [ ${campingQnAInfo.caname}]
+																		${campingQnAInfo.cqmid}
+																		<!-- [ ${campingQnAInfo.caname}] -->
 																	</span>
 																	<c:if test="${campingQnAInfo.cqmid == sessionScope.loginId}">
 																		<span id="${campingQnAInfo.cqcode}_qustionBtn">
@@ -287,7 +288,7 @@
 																	</c:if>
 																</div>
 																<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cqdate}</div>
-																<textarea class="stext-102 cl6" id="${campingQnAInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cqcontents}</textarea>
+																<textarea class="stext-102 cl6 autoTextarea" id="${campingQnAInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cqcontents}</textarea>
 															</div>
 															<!-- 답글 -->
 															<div id="${campingQnAInfo.cqcode}_answer">
@@ -303,7 +304,7 @@
 																				</span>
 																			</div>
 																			<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cwdate}</div>
-																			<textarea class="stext-102 cl6" id="${campingQnAInfo.cwcode}_answerForm" name="answer" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cwcontents}</textarea>
+																			<textarea class="stext-102 cl6 autoTextarea" id="${campingQnAInfo.cwcode}_answerForm" name="answer" style="width: 100%; resize: none;" readonly="readonly">${campingQnAInfo.cwcontents}</textarea>
 																		</div>
 																	</div>
 																</c:if>
@@ -313,11 +314,12 @@
 															<div id="${campingQnAInfo.cqcode}_question">
 																<div class="flex-w flex-sb-m">
 																	<span class="mtext-107 cl2 p-r-20" id="questionId">
-																		${campingQnAInfo.cqmid} [ ${campingQnAInfo.caname}]
+																		${campingQnAInfo.cqmid}
+																		<!-- [ ${campingQnAInfo.caname}] -->
 																	</span>
 																</div>
 																<div class="p-b-17" style="font-size: 12px;">${campingQnAInfo.cqdate}</div>
-																<textarea class="stext-102 cl6" id="${campingQnAInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>
+																<textarea class="stext-102 cl6 autoTextarea" id="${campingQnAInfo.cqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>
 															</div>
 														</c:otherwise>
 													</c:choose>
@@ -332,7 +334,7 @@
 											<div class="row p-b-25">
 												<div class="col-12 p-b-5">
 													<label class="stext-102 cl3" for="review">문의글 작성</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>
+													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10 autoTextarea" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>
 												</div>
 											</div>
 											<button type="button" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="cqsubmit();">
@@ -497,6 +499,25 @@
 			});
 		}
 	</script>
+	<script>
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			console.log("check!!");
+			textareaAutoSize();
+		});
+		function textareaAutoSize(){
+			let textarea =  $(".autoTextarea");
+			// console.log(textarea);
+			for(var i = 0; i < textarea.length; i++){
+				if (textarea) {
+					// console.log("textarea["+i+"] : " + textarea[i])
+					textarea[i].style.height = 'auto';
+					let height = textarea[i].scrollHeight; // 높이
+					// console.log(height);
+					textarea[i].style.height = ( height + 8 ) + `px`;
+				}
+			}
+		}
+	</script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=10d14c6ccf8a5da29debf326077676e3"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main2.js"></script>
 </body>
@@ -640,7 +661,9 @@
 				async: false,
 				success: function (result) {
 					console.log(result);
-					
+					console.log(result.toLocaleString());
+					result = result.toLocaleString();
+					console.log(parseInt(result.replace(",","")));
 					$("#totalPrice").text(result + "원");
 					
 
