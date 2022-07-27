@@ -1,5 +1,7 @@
 package com.camily.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -12,6 +14,8 @@ public class CampingRoomDto {
 	private String crprice;			// 캠핑장 객실 가격
 	private String crstate;			// 캠핑장 객실 사용가능 유무
 	private String crnum;			// 캠핑장 객실 번호
+	
+	private MultipartFile crfile;
 	public String getCrcacode() {
 		return crcacode;
 	}

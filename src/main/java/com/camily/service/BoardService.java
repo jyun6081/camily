@@ -2,6 +2,7 @@ package com.camily.service;
 
 import java.util.ArrayList;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -248,4 +249,5 @@ public class BoardService {
 			mav.setViewName("redirect:/FAQList");
 			return mav;
 		}
+
 }

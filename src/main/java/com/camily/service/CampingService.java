@@ -3,6 +3,8 @@ package com.camily.service;
 import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -10,9 +12,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.camily.dao.CampingDao;
 import com.camily.dto.CampingDto;
+import com.camily.dto.CampingQnADto;
 import com.camily.dto.CampingRoomDto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
@@ -108,8 +112,22 @@ public class CampingService {
 		pageDto.setStartPage(startPage);
 		pageDto.setEndPage(endPage);
 		
+		String Crprice = ""; // 상품가격
+		for(int z = 0; z < campingList.size(); z++) {
+			if(campingList.get(z).getCrprice() != null) {			
+				Crprice = campingList.get(z).getCrprice(); // 상품가격 가져오기
+				int Crprice_int = Integer.parseInt(Crprice);
+				
+				// 상품가격 콤마표시
+				DecimalFormat formatter = new DecimalFormat("###,###");
+				System.out.println("Crprice_int의 금액 표기["+Crprice_int+"] ==> " +formatter.format(Crprice_int));		  
+				campingList.get(z).setFormatprice(formatter.format(Crprice_int)); // , 추가하기				
+			}
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("campingList", campingList);
+		System.out.println(campingList);
 		mav.addObject("type", type);
 		mav.addObject("pageDto", pageDto);
 		mav.addObject("searchKeyword", searchKeyword);
@@ -124,10 +142,12 @@ public class CampingService {
 		System.out.println(campingInfo);
 		ArrayList<CampingRoomDto> campingRoomTypeList = cdao.campingRoomTypeList(cacode);
 		ArrayList<CampingRoomDto> campingRoomList = cdao.campingRoomList(cacode);
+		ArrayList<CampingQnADto> campingQnAList = cdao.campingQuestionList(cacode);
 		System.out.println(campingRoomList);
 		mav.addObject("campingInfo", campingInfo);
 		mav.addObject("campingRoomList", campingRoomList);
 		mav.addObject("campingRoomTypeList", campingRoomTypeList);
+		mav.addObject("campingQnAList", campingQnAList);
 		mav.setViewName("camping/CampingView");
 		return mav;
 	}
@@ -155,6 +175,8 @@ public class CampingService {
 		CampingDto campingInfo = cdao.campingView(cacode);
 		CampingRoomDto RoomInfo = new CampingRoomDto();
 		RoomInfo = cdao.getRoomInfo(cacode, roomSel, numSel);
+		
+		
 		mav.addObject("cacode", cacode);
 		mav.addObject("caname", campingInfo.getCaname());
 		mav.addObject("RoomInfo", RoomInfo);
@@ -162,6 +184,7 @@ public class CampingService {
 		mav.addObject("startday", startday);
 		endday = endday.substring(6,10) + "-" + endday.substring(0,2) + "-" + endday.substring(3,5);
 		mav.addObject("endday", endday);
+
 		int totalPrice = totalPrice(startday, endday, RoomInfo.getCrprice());
 		int totalPrice2 = totalPrice(startday, endday, RoomInfo.getCrprice()); // 콤마표시
 		
@@ -229,6 +252,7 @@ public class CampingService {
 		System.out.println("CampingService.myReservationList() 호출");
 		ModelAndView mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("loginId");
+
 		if(loginId == null) {
 			mav.setViewName("redirect:/");
 		}else {
@@ -241,6 +265,7 @@ public class CampingService {
 				String endday = endday_date.toString();
 				myReservationList.get(i).setStartday(startday);
 				myReservationList.get(i).setEndday(endday);
+				
 				int totalPrice = totalPrice(startday, endday, myReservationList.get(i).getCrprice());
 				myReservationList.get(i).setTotalprice(totalPrice);
 				
@@ -255,8 +280,8 @@ public class CampingService {
 			    	  divisionsum = formatter.format(ditotalprice); // 장바구니 가격모음 , 추가하기
 			    	  myReservationList.get(i).setMyformatter(divisionsum);
 			      
-			    								
 			}
+			
 			System.out.println(myReservationList);
 			mav.addObject("myReservationList", myReservationList);
 			mav.setViewName("member/MyReservationList");			
@@ -364,10 +389,91 @@ public class CampingService {
 		startday = startday.substring(6,10) + "-" + startday.substring(0,2) + "-" + startday.substring(3,5);
 		endday = endday.substring(6,10) + "-" + endday.substring(0,2) + "-" + endday.substring(3,5);
 		int totalPrice = totalPrice(startday, endday, crprice);
-		  	
+
 		String result = totalPrice+"";
 		System.out.println(result);
 		return result;
+	}
+
+	public ModelAndView questionWrite(String cqmid, String cqcacode, String cqcontents, RedirectAttributes ra) {
+		System.out.println("CampingService.questionWrite() 호출");
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("cqmid : " + cqmid);
+		System.out.println("cqcacode : " + cqcacode);
+		System.out.println("cqcontents : " + cqcontents);
+		/*
+		cqcontents.replace("\r\n", "<br>");
+		cqcontents.replace(" ", "&nbps;");
+		*/
+		
+		CampingQnADto campingQustionInfo = new CampingQnADto();
+		
+		String maxCqcode = cdao.getMaxCqcode();
+		String cqCode = "";
+		if(maxCqcode == null) {
+			cqCode = "CQ0001";
+		}else {
+			int intMaxCqcode = Integer.parseInt(maxCqcode.substring(2)) + 1;
+			if(intMaxCqcode < 10) {
+				cqCode = "CQ000" + intMaxCqcode;
+			}else if(intMaxCqcode < 100){
+				cqCode = "CQ00" + intMaxCqcode;
+			}else if(intMaxCqcode <1000) {
+				cqCode = "CQ0" + intMaxCqcode;
+			}else if(intMaxCqcode < 10000){
+				cqCode = "CQ" + intMaxCqcode;
+			}else {
+				System.out.println("범위 초과");
+			}
+		}
+		campingQustionInfo.setCqcode(cqCode);
+		campingQustionInfo.setCqcacode(cqcacode);
+		campingQustionInfo.setCqmid(cqmid);
+		campingQustionInfo.setCqcontents(cqcontents);
+		
+		
+		int insertResult = cdao.questionWrite(campingQustionInfo);
+		if(insertResult > 0) {
+			ra.addFlashAttribute("msg", "문의글이 등록되었습니다.");
+		}else {
+			ra.addFlashAttribute("msg", "문의글 등록에 실패하였습니다.");
+		}
+		mav.setViewName("redirect:/campingView?cacode="+cqcacode);
+		
+		return mav;
+	}
+
+	public String questionModify(String cqcode, String cqcontents) {
+		System.out.println("CampingService.questionModify() 호출");
+		String result_json = "";
+		LocalDate nowDate = LocalDate.now();
+		LocalTime nowTime = LocalTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String formattedNowTime = nowTime.format(formatter);
+		cqcontents = "[수정됨] "+ nowDate + " " + formattedNowTime + "\r\n" + cqcontents;
+		int updateResult = cdao.questionModify(cqcode, cqcontents);
+		if(updateResult > 0) {
+			CampingQnADto campingQuestionInfo = cdao.getCampingQuestionInfo(cqcode);
+			Gson gson = new Gson();
+			result_json = gson.toJson(campingQuestionInfo);
+		}else {
+			result_json = "NG";
+		}
+		return result_json;
+	}
+
+	public ModelAndView questionDelete(String cqcode, String cqcacode, RedirectAttributes ra) {
+		System.out.println("CampingService.questionDelete() 호출");
+		ModelAndView mav = new ModelAndView();
+		int updateResult = cdao.questionDelete(cqcode);
+		if(updateResult > 0) {
+			ra.addFlashAttribute("msg", "문의글이 삭제되었습니다.");
+		}else {
+			ra.addFlashAttribute("msg", "문의글 삭제에 실패하였습니다.");
+		}
+		mav.setViewName("redirect:/campingView?cacode="+cqcacode);
+		return mav;
 	}
 
 	

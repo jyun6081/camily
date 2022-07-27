@@ -135,4 +135,6 @@ public class CampingDto {
 	
 	
 	
+	// java에서만 사용 
+	private String formatprice;
 }

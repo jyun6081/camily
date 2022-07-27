@@ -18,7 +18,8 @@ public class GoodsOrderDto {
     private String godate;    // 주문 일자 o  
 
     private String divisionsum; // 원래 가격 찾기 
-    private String gocancel;
+
+    private String gocancel; // 상품 취소 사유
     
     private String goformatter; // 상품 총가격 콤마 
     private String goformatter2; // 상품 총가격 관리자 페이지 콤마
