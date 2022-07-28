@@ -453,7 +453,7 @@ public class CampingService {
 		return mav;
 	}
 
-	public String selPage(String pageNum, String cacode) {
+	public String selCampingQnAPage(String pageNum, String cacode) {
 		int selPage = 1;
 
 		if(pageNum != null) {

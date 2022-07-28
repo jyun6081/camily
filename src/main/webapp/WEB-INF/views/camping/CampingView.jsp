@@ -783,8 +783,7 @@
 
 	function prevPage(pageNum, cacode, maxPage, startPage, endPage){
 		pageNum--;
-		console.log("pageNum : " + pageNum);
-		console.log("cacode : " + cacode);
+		selPage(pageNum, cacode, maxPage, startPage, endPage);
 		/*
 		$.ajax({
 		type: "get",
@@ -804,7 +803,7 @@
 		var loginId = '${sessionScope.loginId}';
 		$.ajax({
 		type: "get",
-		url: "selPage",
+		url: "selCampingQnAPage",
 		data: {"pageNum": pageNum, "cacode": cacode},
 		dataType: "json",
 		async: false,
@@ -867,6 +866,13 @@
 			output = "";
 			console.log("pageNum : " + pageNum);
 			console.log("cacode : " + cacode);
+			// 페이징 수 : 5
+			var pageNumCount = 5;
+			startPage = parseInt(Math.ceil(pageNum/pageNumCount) - 1) * pageNumCount + 1;
+			endPage = startPage + pageNumCount - 1;
+			if(endPage > maxPage){
+				endPage = maxPage;
+			}
 			console.log("maxPage : " + maxPage);
 			console.log("startPage : " + startPage);
 			console.log("endPage : " + endPage);
@@ -876,6 +882,9 @@
 			}else{
 				output += '<span class="flex-c-m how-pagination1 trans-04 m-all-7" onclick="prevPage(\'' + pageNum + '\', \'' + cacode + '\', \'' + maxPage + '\', \'' + startPage + '\', \'' + endPage + '\')" style="cursor: pointer;"><i class="fa-solid fa-angle-left"></i></span>';
 			}
+			var repeat = 0;
+			if(pageNumCount > endPage)
+
 			for(var num = startPage; num <= endPage; num++){
 				if(pageNum == num){
 					output += '<span><a href="#tabList" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">' + num + '</a></span>';
@@ -896,8 +905,7 @@
 
 	function nextPage(pageNum, cacode, maxPage, startPage, endPage){
 		pageNum++;
-		console.log("pageNum : " + pageNum);
-		console.log("cacode : " + cacode);
+		selPage(pageNum, cacode, maxPage, startPage, endPage);
 		/*
 		$.ajax({
 		type: "get",

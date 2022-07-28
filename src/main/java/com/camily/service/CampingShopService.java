@@ -17,6 +17,7 @@ import com.camily.dao.CampingShopDao;
 import com.camily.dto.BannerDto;
 import com.camily.dto.CampingDetailInformationDto;
 import com.camily.dto.CampingDto;
+import com.camily.dto.CampingQnADto;
 import com.camily.dto.GoodsDto;
 import com.camily.dto.GoodsOrderDto;
 import com.camily.dto.GoodsQnADto;
@@ -90,10 +91,46 @@ public class CampingShopService {
 		
 		ModelAndView mav = new ModelAndView();
 		
+		/* --- */
+		int selPage = 1;
+		/*
+		if(page != null) {
+			selPage = Integer.parseInt(page);
+		}
+		*/
+		int campingQnATotalCount = cdao.getGoodsQnATotalCount();
+		System.out.println(campingQnATotalCount);
+		int pageCount = 5;
+		int pageNumCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > campingQnATotalCount) {
+			endRow = campingQnATotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		ArrayList<GoodsQnADto> goodsQuestionList = cdao.goodsQuestionList(startRow, endRow, gcode);
+		int maxPage = (int)( Math.ceil(  (double)campingQnATotalCount/pageCount  ) );
+		
+		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
+		
+		int endPage = startPage + pageNumCount - 1;
+		
+		if( endPage > maxPage ) {
+			endPage = maxPage;
+		}
+		PageDto pageDto = new PageDto();
+		pageDto.setPage(selPage);
+		pageDto.setMaxPage(maxPage);
+		pageDto.setStartPage(startPage);
+		pageDto.setEndPage(endPage);
+		/* --- */
+		
 		GoodsDto campingDetail = cdao.campingDetail(gcode);
-		ArrayList<GoodsQnADto> goodsQuestionList = cdao.goodsQuestionList(gcode);
+		
 		mav.addObject("campingDetail", campingDetail);
 		mav.addObject("goodsQuestionList", goodsQuestionList);
+		mav.addObject("pageDto", pageDto);
 		mav.setViewName("campingshop/CampingDetailPage");
 		
 		return mav;
@@ -571,6 +608,30 @@ public class CampingShopService {
 		int modifyStateResult = cdao.modifyGoodsQuestionState(gqcode);
 		
 		return modifyStateResult+"";
+	}
+
+	public String selGoodsQnAPage(String pageNum, String gcode) {
+		int selPage = 1;
+
+		if(pageNum != null) {
+			selPage = Integer.parseInt(pageNum);
+		}
+
+		int campingQnATotalCount = cdao.getGoodsQnATotalCount();
+		System.out.println(campingQnATotalCount);
+		int pageCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > campingQnATotalCount) {
+			endRow = campingQnATotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		ArrayList<GoodsQnADto> goodsQnAList = cdao.goodsQuestionList(startRow, endRow, gcode);
+		Gson gson = new Gson();
+		String campingQnAList_ajax = gson.toJson(goodsQnAList);
+		return campingQnAList_ajax;
 	}
 
 

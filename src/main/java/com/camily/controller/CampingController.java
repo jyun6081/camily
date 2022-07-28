@@ -279,10 +279,10 @@ public class CampingController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "selPage")
-	public @ResponseBody String selPage(String pageNum, String cacode) {
+	@RequestMapping(value = "selCampingQnAPage")
+	public @ResponseBody String selCampingQnAPage(String pageNum, String cacode) {
 		System.out.println("캠핑장 문의글 페이지 선택 ajax");
-		String campingQnAList_ajax = csvc.selPage(pageNum, cacode);
+		String campingQnAList_ajax = csvc.selCampingQnAPage(pageNum, cacode);
 		return campingQnAList_ajax;
 	}
 	
