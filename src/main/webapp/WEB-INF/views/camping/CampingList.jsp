@@ -45,20 +45,12 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-<style type="text/css">
-}
-#myform fieldset {
-	direction: rtl;
-	border: 0;
-}
-
-
-#myform label {
-	font-size: 1em;
-	color: transparent;
-	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-</style>
+	<style type="text/css">
+		.grid{
+			display: grid;
+			grid-template-columns: 1fr 80px
+		}
+	</style>
 </head>
 
 <body class="animsition">
@@ -149,7 +141,7 @@
 								</a> -->
 							</div>
 
-							<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt flex-w flex-t p-t-14 grid">
 								<div class="block2-txt-child1 flex-col-l ">
 									<c:choose>
 										<c:when test="${campingInfo.crprice != null}">
@@ -162,7 +154,9 @@
 											<span class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" style="font-size: 20px; font-weight: bold;">${campingInfo.caname}</span>
 										</c:otherwise>
 									</c:choose>
-
+																		
+										
+									
 									<span class="stext-105 cl3">
 										<c:choose>
 											<c:when test="${campingInfo.crprice != null}">
@@ -174,7 +168,11 @@
 										</c:choose>
 									</span>
 								</div>
-
+								<c:if test="${campingInfo.castaravg != null}">
+								<div>
+									<span style="text-align: end;">⭐ <span style="font-weight: bold;">${campingInfo.castaravg}</span> / 5</span>
+								</div>
+								</c:if>
 							</div>
 						</div>
 					</div>
