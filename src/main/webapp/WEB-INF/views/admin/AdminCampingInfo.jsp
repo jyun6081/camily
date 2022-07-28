@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -54,76 +54,99 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/main.css">
 <!--===============================================================================================-->
-<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
 </head>
 <body class="animsition">
 
 	<!-- TopBar-->
 	<%@ include file="/WEB-INF/views/includes/AdminTopBar.jsp"%>
 	<!-- End TopBar-->
-	
+
 	<!-- memberModal -->
 	<%@ include file="/WEB-INF/views/member/memberModal.jsp"%>
 	<!-- EndmemberModal -->
 
 	<section class="section-slide" style="margin-top: 100px;">
-					<!-- Page Heading -->
-				
+		<!-- Page Heading -->
 
-					<!-- Content Row -->
-					<form action="modifyCampingInfo" method="post" enctype="multipart/form-data">
-					<div class="row" style="margin:0 auto; ">
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4 col-sm-6" style="margin:0 auto; ">
-						<h1 class="h3 mb-0 text-gray-800">관리자 캠핑장 상세 페이지 - AdminCampingInfo.jsp</h1>
+
+		<!-- Content Row -->
+		<form action="modifyCampingInfo" method="post"
+			enctype="multipart/form-data">
+			<div class="row" style="margin: 0 auto;">
+				<div
+					class="d-sm-flex align-items-center justify-content-between mb-4 col-sm-6"
+					style="margin: 0 auto;">
+					<h1 class="h3 mb-0 text-gray-800">관리자 캠핑장 상세 페이지 -
+						AdminCampingInfo.jsp</h1>
+				</div>
+				<div class="card shadow mb-8 col-sm-7" style="margin: 0 auto;">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">캠핑장 상세정보
+							(${campingInfo.cacode })</h6>
+						<input type="hidden" name="cacode" value="${campingInfo.cacode }">
 					</div>
-                      <div class="card shadow mb-8 col-sm-7" style="margin:0 auto; ">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">캠핑장 상세정보 (${campingInfo.cacode })</h6>
-                            <input type="hidden" name="cacode" value="${campingInfo.cacode }">
-                        </div>
-                        <div class="card-body" >
-                           <div class="md-form mb-2">
-							  <input type="text" class="form-control validate" name="caname" value="${campingInfo.caname }">
-						  </div>
-						   <div class="md-form mb-2">
-							  <input type="text" class="form-control validate" name="calinecontents" value="${campingInfo.calinecontents }">
-						  </div>
-						  <div class="md-form mb-2">
-							  <textarea class="form-control validate" name="cacontents" rows="15" cols="50">${campingInfo.cacontents }</textarea>
-						  </div>
-						  <div class="md-form mb-3">
-							  <input type="text" class="form-control validate" name="cainfo" value="${campingInfo.cainfo }">
-						  </div>
-						  <div class="md-form mb-2">
-						      <label style="display:inline-block"><input type="checkbox" name="catype" value="일반야영장" style="display:inline-block" id="checkbox1">일반야영장</label>&nbsp;
-                              <label style="display:inline-block"><input type="checkbox" name="catype" value="자동차야영장" style="display:inline-block" id="checkbox2">자동차야영장</label>&nbsp;
-                              <label style="display:inline-block"><input type="checkbox" name="catype" value="글램핑" style="display:inline-block" id="checkbox3">글램핑</label>&nbsp;
-                              <label style="display:inline-block"><input type="checkbox" name="catype" value="카라반" style="display:inline-block" id="checkbox4">카라반</label>
-						  </div>
-						  
-						  
-						  <div class="row">
-						  <div class="md-form mb-3">
-						       <c:set var="campIMG" value="${campingInfo.caimage}" />
-						       <c:choose>
-						         <c:when test="${fn:substring(campIMG,0,4) == 'http'}">
-						             <img src="${campingInfo.caimage }" height="100px" id="preview"><br> <br>
-						         </c:when>
-						         <c:otherwise>
-							        <img src="${pageContext.request.contextPath}/resources/caimageUpload/${campingInfo.caimage }" height="100px" id="preview"><br> <br>
-						         </c:otherwise>
-						       </c:choose>
-							   <input type="file" id="updateCampingImg" name="cafile" onchange="readURL(this);"> 
-						  </div>
-						  
-						  						    	<!-- 해당 날짜에 가능한 객실 타입목록 표시 -->
-						    	<div class="col-sm-6">
+					<div class="card-body">
+						<div class="md-form mb-2">
+							<input type="text" class="form-control validate" name="caname"
+								value="${campingInfo.caname }">
+						</div>
+						<div class="md-form mb-2">
+							<input type="text" class="form-control validate"
+								name="calinecontents" value="${campingInfo.calinecontents }">
+						</div>
+						<div class="md-form mb-2">
+							<textarea class="form-control validate" name="cacontents"
+								rows="15" cols="50">${campingInfo.cacontents }</textarea>
+						</div>
+						<div class="md-form mb-3">
+							<input type="text" class="form-control validate" name="cainfo"
+								value="${campingInfo.cainfo }">
+						</div>
+						<div class="md-form mb-2">
+							<label style="display: inline-block"><input
+								type="checkbox" name="catype" value="일반야영장"
+								style="display: inline-block" id="checkbox1">일반야영장</label>&nbsp;
+							<label style="display: inline-block"><input
+								type="checkbox" name="catype" value="자동차야영장"
+								style="display: inline-block" id="checkbox2">자동차야영장</label>&nbsp;
+							<label style="display: inline-block"><input
+								type="checkbox" name="catype" value="글램핑"
+								style="display: inline-block" id="checkbox3">글램핑</label>&nbsp; <label
+								style="display: inline-block"><input type="checkbox"
+								name="catype" value="카라반" style="display: inline-block"
+								id="checkbox4">카라반</label>
+						</div>
+
+
+						<div class="row">
+							<div class="md-form mb-3">
+								<c:set var="campIMG" value="${campingInfo.caimage}" />
+								<c:choose>
+									<c:when test="${fn:substring(campIMG,0,4) == 'http'}">
+										<img src="${campingInfo.caimage }" height="100px" id="preview">
+										<br>
+										<br>
+									</c:when>
+									<c:otherwise>
+										<img
+											src="${pageContext.request.contextPath}/resources/caimageUpload/${campingInfo.caimage }"
+											height="100px" id="preview">
+										<br>
+										<br>
+									</c:otherwise>
+								</c:choose>
+								<input type="file" id="updateCampingImg" name="cafile"
+									onchange="readURL(this);">
+							</div>
+
+							<!-- 해당 날짜에 가능한 객실 타입목록 표시 -->
+							<div class="col-sm-6">
 								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										객실타입
-									</div>
+									<div class="size-203 flex-c-m respon6">객실타입</div>
 
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
@@ -137,46 +160,45 @@
 								</div>
 								<!-- 해당 타입의 가능한 객실 번호 표시 -->
 								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">
-										객실번호
-									</div>
+									<div class="size-203 flex-c-m respon6">객실번호</div>
 
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
-											<select class="js-select2" name="numSel" id="numSel" onchange="checkRoomBtn()">
+											<select class="js-select2" name="numSel" id="numSel"
+												onchange="checkRoomBtn()">
 												<option>객실번호 선택</option>
 											</select>
 											<div class="dropDownSelect2"></div>
 										</div>
 									</div>
 								</div>
-								  <div class="text-right">
-								   <button class="btn-sm btn-primary mt-3" id="cpRoomStopBtn" type="button" onclick="modifyCpRoomState(this,'${campingInfo.cacode}')">객실상태</button>
-								   <button class="btn-sm btn-info" type="button" onclick="modifyCpRoomForm();">객실수정</button>
-								   </div>
-						  </div>
-						  </div>
-						  
-						  
-						  
-						  
-						  
-                        </div>
-                        
-                       <div class="modal-footer d-flex justify-content-center">
+								<div class="text-right">
+									<button class="btn-sm btn-primary mt-3" id="cpRoomStopBtn"
+										type="button"
+										onclick="modifyCpRoomState(this,'${campingInfo.cacode}')">객실상태</button>
+									<button class="btn-sm btn-info" type="button"
+										onclick="modifyCpRoomForm();">객실수정</button>
+									<button class="btn-sm btn-success" type="button"
+										onclick="addCpRoomForm();">객실추가</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer d-flex justify-content-center">
 						<button class="btn-lg btn-dark" type="submit">수정하기</button>
 					</div>
-                    </div>	
-                    </div>	
-                    </form>
-                    </section>
-                    
-                    
-                    
-                    
-                          <form action="modifyCpRoomInfo" method="post" id="cpRoomInfoForm" enctype="multipart/form-data">
-		<div class="modal fade" id="modifyCpRoomModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true"
+				</div>
+			</div>
+		</form>
+	</section>
+
+
+
+  <!-- 객실 수정 modal -->
+	<form action="modifyCpRoomInfo" method="post" id="modifyCpRoom"
+		enctype="multipart/form-data">
+		<div class="modal fade" id="modifyCpRoomModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
 			style="z-index: 1500">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -193,44 +215,43 @@
 					<div class="modal-body mx-3">
 						<div class="md-form mb-3">
 							<input type="text" class="form-control validate" name="crcacode"
-								 readonly="readonly" value="${campingInfo.cacode }" >
-							<span id="idCheckMsg" style="font-size: 13px"></span>
+								readonly="readonly" value="${campingInfo.cacode }"> <span
+								id="idCheckMsg" style="font-size: 13px"></span>
 						</div>
-						
+
 						<div class="row">
 							<div class="col-sm-6 md-form mb-3">
-								<input type="text" id="cpRoomInfo_crname" readonly="readonly" name="crname"
-									class="form-control validate detailAddr">
+								<input type="text" id="cpRoomInfo_crname" readonly="readonly"
+									name="crname" class="form-control validate detailAddr">
 							</div>
 							<div class="col-sm-6 md-form mb-3">
-								<input type="text" id="cpRoomInfo_crnum" readonly="readonly" name="crnum"
-									class="form-control validate extraAddr">
+								<input type="text" id="cpRoomInfo_crnum" readonly="readonly"
+									name="crnum" class="form-control validate extraAddr">
 							</div>
 						</div>
-						
+
 						<div class="row">
 							<div class="col-sm-4 md-form mb-3">
-							<span>가격</span>
-								<input type="text" id="cpRoomInfo_crprice" name="crprice"
-									class="form-control validate detailAddr">
+								<span>가격</span> <input type="text" id="cpRoomInfo_crprice"
+									name="crprice" class="form-control validate detailAddr">
 							</div>
 							<div class="col-sm-4 md-form mb-3">
-							<span>최소 인원</span>
-								<input type="text" id="cpRoomInfo_crstnpeople" name="crstnpeople"
+								<span>최소 인원</span> <input type="text"
+									id="cpRoomInfo_crstnpeople" name="crstnpeople"
 									class="form-control validate extraAddr">
 							</div>
 							<div class="col-sm-4 md-form mb-3">
-							<span>최대 인원</span>
-								<input type="text" id="cpRoomInfo_crmaxpeople" name="crmaxpeople"
+								<span>최대 인원</span> <input type="text"
+									id="cpRoomInfo_crmaxpeople" name="crmaxpeople"
 									class="form-control validate extraAddr">
 							</div>
 						</div>
-						
+
 						<div class="md-form mb-3">
-						   <img id="cpRoomInfo_crimage" height="100px" class="mb-3">
-						   <input type="file" onchange="modifyCpRoomImage(this);" name="crfile">
+							<img id="cpRoomInfo_crimage" height="100px" class="mb-3"> <input
+								type="file" onchange="modifyCpRoomImage(this);" name="crfile">
 						</div>
-						
+
 					</div>
 
 					<div class="modal-footer d-flex justify-content-center">
@@ -240,10 +261,76 @@
 			</div>
 		</div>
 	</form>
+	
+	
+	  <!-- 객실 추가 modal -->
+	<form action="adminAddCpRoom" method="post" id="addCpRoom"
+		enctype="multipart/form-data">
+		<div class="modal fade" id="addCpRoomModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			style="z-index: 1500">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<button class="close text-right font-weight-bold mt-2 mr-2"
+						type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">x&nbsp;</span>
+					</button>
+					<div class="modal-header text-center">
+						<a class="modal-title w-100 font-weight-bold"> <img
+							src="${pageContext.request.contextPath}/resources/images/icons/logo-01.png"
+							alt="IMG-LOGO" style="width: 35%">
+						</a>
+					</div>
+					<div class="modal-body mx-3">
+						<div class="md-form mb-3">
+							<input type="text" class="form-control validate" name="crcacode"
+								readonly="readonly" value="${campingInfo.cacode }"> <span
+								id="idCheckMsg" style="font-size: 13px"></span>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6 md-form mb-3">
+							 <span>객실타입</span>
+								<input type="text" id="cpRoomAdd_crname"
+									name="crname" class="form-control validate detailAddr">
+							</div>
+							<div class="col-sm-6 md-form mb-3">
+								<span>가격</span> <input type="text" id="cpRoomInfo_crprice"
+									name="crprice" class="form-control validate detailAddr">
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6 md-form mb-3">
+								<span>최소 인원</span> <input type="text"
+									id="cpRoomInfo_crstnpeople" name="crstnpeople"
+									class="form-control validate extraAddr">
+							</div>
+							<div class="col-sm-6 md-form mb-3">
+								<span>최대 인원</span> <input type="text"
+									id="cpRoomInfo_crmaxpeople" name="crmaxpeople"
+									class="form-control validate extraAddr">
+							</div>
+						</div>
+
+						<div class="md-form mb-3">
+							<img id="cpRoomAdd_crimage" height="100px" class="mb-3"> <input
+								type="file" onchange="addCpRoomImage(this);" name="crfile">
+						</div>
+
+					</div>
+
+					<div class="modal-footer d-flex justify-content-center">
+						<button class="btn btn-info" type="submit">등록하기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
 	<!-- End of Footer -->
-	
+
 	<script type="text/javascript">
 		var checkMsg = '${msg}';
 		console.log(checkMsg.length);
@@ -370,20 +457,36 @@
 </body>
 
 <script type="text/javascript">
+$('.modal').on('hidden.bs.modal', function (e) {
+	console.log("관리자 모달창 초기화!");
+	$("#modifyCpRoom")[0].reset();
+	$("#addCpRoom")[0].reset();
+   });
 
 
-    
-     function readURL(input) {
-    	  if (input.files && input.files[0]) {
-    	    var reader = new FileReader();
-    	    reader.onload = function(e) {
-    	      document.getElementById('preview').src = e.target.result;
-    	    };
-    	    reader.readAsDataURL(input.files[0]);
-    	  } else {
-    	    document.getElementById('preview').src = "";
-    	  }
-    	}
+     function modifyCpRoomImage(input) {
+      	  if (input.files && input.files[0]) {
+      	    var reader = new FileReader();
+      	    reader.onload = function(e) {
+      	      document.getElementById('cpRoomInfo_crimage').src = e.target.result;
+      	    };
+      	    reader.readAsDataURL(input.files[0]);
+      	  } else {
+      	    document.getElementById('cpRoomInfo_crimage').src = "";
+      	  }
+      	}
+     
+     function addCpRoomImage(input) {
+     	  if (input.files && input.files[0]) {
+     	    var reader = new FileReader();
+     	    reader.onload = function(e) {
+     	      document.getElementById('cpRoomAdd_crimage').src = e.target.result;
+     	    };
+     	    reader.readAsDataURL(input.files[0]);
+     	  } else {
+     	    document.getElementById('cpRoomAdd_crimage').src = "";
+     	  }
+     	}
      </script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -457,6 +560,7 @@ $(document).ready(function(){
 				for (var i = 0; i < roomtype.length; i++) {
 					output += '<option value="' + roomtype[i] + '">' + roomtype[i] + '</option>'
 				}
+				output += '<option value="add">객실추가</option>'
 				$("#roomSel").html(output);
 			}
 		})
@@ -618,16 +722,24 @@ function modifyCpRoomForm(){
 	    } else {
 	    	$("#cpRoomInfo_crimage").attr("src", "${pageContext.request.contextPath}/resources/caimageUpload/"+crimage);	
 	    }
-		
-	   
 	}
-	
-
 }
 
+function addCpRoomForm(){
+	var roomSel = $("#roomSel").val();
+	console.log("roomSel : " + roomSel);
+	if(roomSel == "add" || roomSel == "캠핑장 종류 선택"){
+		$("#cpRoomAdd_crname").val("");
+		$("#cpRoomAdd_crname").removeAttr("readonly");
+	}else{
+		$("#cpRoomAdd_crname").val(roomSel);
+		$("#cpRoomAdd_crname").attr("readonly","readonly");
+	}
+	$("#addCpRoomModal").modal("show");
+}
 
 </script>
 
 
-		
+
 </html>

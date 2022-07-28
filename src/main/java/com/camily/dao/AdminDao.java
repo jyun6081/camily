@@ -122,6 +122,10 @@ public interface AdminDao {
     
 	@Update("UPDATE GOODSQUESTION SET GQSTATE = 0 WHERE GQCODE = #{gqcode}")
 	int deleteGoodsQustion(String gqcode);
+    
+	int selectMaxCrNum(CampingRoomDto campingRoom);
+    
+	int addCampingRoom(CampingRoomDto campingRoom);
 
 	
 
