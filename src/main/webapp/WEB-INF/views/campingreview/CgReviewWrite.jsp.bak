@@ -257,7 +257,7 @@ $(document).ready(function() {
 		function goWrite(form) {
 			var title = form.cgrvtitle.value;
 			var content = form.cgrvcontents.value;
-			var star = form.cgstarating.value;
+			
 
 			if (title.trim() == '') {
 				alert("제목을 입력해주세요");
@@ -268,12 +268,6 @@ $(document).ready(function() {
 				alert("내용을 입력해주세요");
 				return false;
 			}
-			
-			if(star.trim() == '') {
-				alert("별점을 입력해주세요");
-				return false;
-			}
-			
 			form.submit();
 		}
 	</script>

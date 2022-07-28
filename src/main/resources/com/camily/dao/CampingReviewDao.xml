@@ -72,4 +72,10 @@
 		WHERE CGRVCODE = #{cgrvcode}
 	</update>
 
+	<select id="SelectAvgStar" resultType="String">
+		SELECT AVG(CGSTARATING) AS CASTARAVG
+		FROM CAMPINGREVIEW CG, CAMPING CP
+		WHERE CP.CACODE = #{cacode}
+		AND CG.CGRVCACODE = CP.CACODE
+	</select>
 </mapper>

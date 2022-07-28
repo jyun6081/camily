@@ -45,20 +45,6 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-<style type="text/css">
-}
-#myform fieldset {
-	direction: rtl;
-	border: 0;
-}
-
-
-#myform label {
-	font-size: 1em;
-	color: transparent;
-	text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-</style>
 </head>
 
 <body class="animsition">
