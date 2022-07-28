@@ -49,6 +49,7 @@ public class CampingController {
 		return mav;
 	}
 
+	// 캠핑장 상세보기 페이지 이동
 	@RequestMapping(value = "campingView")
 	public ModelAndView campingView(@Param("cacode") String cacode) {
 		System.out.println("캠핑장 상세 페이지 이동");
@@ -57,6 +58,7 @@ public class CampingController {
 		return mav;
 	}
 
+	// 공공데이터 캠핑장 정보 가져오기
 	@RequestMapping(value = "campingListInput")
 	public String campingListInput() throws IOException {
 		boolean run = true;
@@ -151,6 +153,7 @@ public class CampingController {
 		return "camping/CampingList";
 	}
 
+	// 캠핑장 예약 기능
 	@RequestMapping(value = "campingReservation")
 	public ModelAndView campingReservation(String recode, String recacode, String remid, String recrname,
 			String recrnum, String startday, String endday, int repeople, String remname, String remtel,
@@ -172,6 +175,7 @@ public class CampingController {
 		return mav;
 	}
 
+	// 캠핑장 예약 페이지 이동
 	@RequestMapping(value = "campingReservationPage")
 	public ModelAndView campingReservationPage(String cacode, String startday, String endday, String roomSel,
 			String numSel, int people) {
@@ -180,6 +184,7 @@ public class CampingController {
 		return mav;
 	}
 
+	// 예약 가능한 캠핑장 객실 타입 찾기 ajax
 	@RequestMapping(value = "checkRoomType")
 	public @ResponseBody String checkRoomType(String cacode, String startday, String endday) {
 		System.out.println("예매가능 캠핑장 타입 ajax");
@@ -187,6 +192,7 @@ public class CampingController {
 		return roomType_json;
 	}
 
+	// 내정보 보기 기능
 	@RequestMapping(value = "getMyInfo")
 	public @ResponseBody String getMyInfo(String loginId) {
 		System.out.println("내정보 ajax");
@@ -194,7 +200,7 @@ public class CampingController {
 		return myInfo_json;
 	}
 
-	// member로 이동
+	// 내 캠핑장 예약내역 페이지 이동 (member folder)
 	@RequestMapping(value = "myReservationList")
 	public ModelAndView myReservationList() {
 		System.out.println("내 캠핑장 예약내역 페이지 이동");
@@ -202,13 +208,15 @@ public class CampingController {
 		return mav;
 	}
 
+	// 내 캠핑장 예약내역 상세보기 페이지 이동
 	@RequestMapping(value = "myReservation")
 	public ModelAndView myReservation(String recode) {
-		System.out.println("내 캠핑장 예약내영 상세보기 페이지 이동");
+		System.out.println("내 캠핑장 예약내역 상세보기 페이지 이동");
 		ModelAndView mav = csvc.myReservation(recode);
 		return mav;
 	}
 
+	// 캠핑장 예약 내용 수정 ajax
 	@RequestMapping(value = "changeReserveMsg")
 	public @ResponseBody String changeReserveMsg(String recode, String remname, String remtel, String rememail,
 			String rerequest) {
@@ -221,6 +229,7 @@ public class CampingController {
 		return Updateresult;
 	}
 
+	// 예약번호 생성 (결제전 코드 생성)
 	@RequestMapping(value = "getRecode")
 	public @ResponseBody String getRecode() {
 		System.out.println("예약번호 생성");
@@ -229,6 +238,7 @@ public class CampingController {
 		return recode;
 	}
 
+	// 예약 취소 기능
 	@RequestMapping(value = "cancelReservation")
 	public ModelAndView cancelReservation(String recode) {
 		System.out.println("캠핑 예약 취소 호출");
@@ -237,6 +247,7 @@ public class CampingController {
 		return mav;
 	}
 	
+	// 예약 예상 가격 계산
 	@RequestMapping(value = "checkTotalPrice")
 	public @ResponseBody String checkTotalPrice(String crprice, String startday, String endday) {
 		System.out.println("예약 예상가격 계산");
@@ -244,6 +255,7 @@ public class CampingController {
 		return totalPrice;
 	}
 
+	// 캠핑장 문의글 작성 기능
 	@RequestMapping(value = "questionWrite")
 	public ModelAndView questionWrite(String cqmid, String cqcacode, String cqcontents, RedirectAttributes ra) {
 		System.out.println("캠핑장 문의글 작성");
@@ -251,6 +263,7 @@ public class CampingController {
 		return mav;
 	}
 	
+	// 캠핑장 문의글 수정 기능 ajax
 	@RequestMapping(value = "questionModify")
 	public @ResponseBody String questionModify(String cqcode, String cqcontents) {
 		System.out.println("캠핑장 글 수정");
@@ -258,11 +271,19 @@ public class CampingController {
 		return result_json;
 	}
 	
+	// 캠핑장 문의글 삭제 기능
 	@RequestMapping(value = "questionDelete")
-	public  ModelAndView questionDelete(String cqcode, String cqcacode, RedirectAttributes ra) {
+	public ModelAndView questionDelete(String cqcode, String cqcacode, RedirectAttributes ra) {
 		System.out.println("캠핑장 문의글 삭제");
 		ModelAndView mav = csvc.questionDelete(cqcode, cqcacode, ra);
 		return mav;
+	}
+	
+	@RequestMapping(value = "selPage")
+	public @ResponseBody String selPage(String pageNum, String cacode) {
+		System.out.println("캠핑장 문의글 페이지 선택 ajax");
+		String campingQnAList_ajax = csvc.selPage(pageNum, cacode);
+		return campingQnAList_ajax;
 	}
 	
 }

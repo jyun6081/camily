@@ -270,23 +270,24 @@
 						</div>
 					</c:forEach>
 				</div>
-
-				<!-- 문의글 작성하기 -->
-				<form action="goodsQuestionWrite" id="gqform">
-					<input type="hidden" id="gqmid" name="gqmid"
-						value="${sessionScope.loginId}"> <input type="hidden"
-						name="gqgcode" value="${campingDetail.gcode}">
-					<div class="row p-b-25">
-						<div class="col-12 p-b-5">
-							<label class="stext-102 cl3" for="review">문의글 작성</label>
-							<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
-								id="cqcontents" name="gqcontents" style="resize: none;"></textarea>
+				<c:if test="${sessionScope.loginId != null}">
+					<!-- 문의글 작성하기 -->
+					<form action="goodsQuestionWrite" id="gqform">
+						<input type="hidden" id="gqmid" name="gqmid"
+							value="${sessionScope.loginId}"> <input type="hidden"
+							name="gqgcode" value="${campingDetail.gcode}">
+						<div class="row p-b-25">
+							<div class="col-12 p-b-5">
+								<label class="stext-102 cl3" for="review">문의글 작성</label>
+								<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
+									id="cqcontents" name="gqcontents" style="resize: none;"></textarea>
+							</div>
 						</div>
-					</div>
-					<button type="button"
-						class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10"
-						onclick="cqsubmit();">작성</button>
-				</form>
+						<button type="button"
+							class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10"
+							onclick="cqsubmit();">작성</button>
+					</form>
+				</c:if>
 			</div>
 		</div>
 	</div>
