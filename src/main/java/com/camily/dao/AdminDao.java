@@ -116,8 +116,16 @@ public interface AdminDao {
 	
 	@Select("SELECT * FROM GOODSANSWER WHERE GWCODE = #{gwcode}")
 	GoodsQnADto getGoodsAnswerInfo(String gwcode);
+	
 	@Update("UPDATE CAMPINGQUESTION SET CQSTATE = 0 WHERE CQCODE = #{cqcode}")
 	int deleteQustion(String cqcode);
+    
+	@Update("UPDATE GOODSQUESTION SET GQSTATE = 0 WHERE GQCODE = #{gqcode}")
+	int deleteGoodsQustion(String gqcode);
+    
+	int selectMaxCrNum(CampingRoomDto campingRoom);
+    
+	int addCampingRoom(CampingRoomDto campingRoom);
 
 	
 

@@ -95,12 +95,13 @@
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-0-lg">
 						<div class="section-reply-title">
-								<h5>캠핑장 문의글 확인</h5>
+								<h5 style="display: inline;">캠핑장 문의글 확인</h5>
+								<div style="float: right;">
+									<button class="btn btn-info" onclick="allQuestion()">전체보기</button>
+									<button class="btn btn-warning" onclick="notyetQuestion()">미답변 문의만 보기</button>
+								</div>
 						</div>
-						<div>
-							<button class="btn btn-info" onclick="allQuestion()">전체보기</button>
-							<button class="btn btn-warning" onclick="notyetQuestion()">미답변 문의만 보기</button>
-						</div>
+						
 							<div id="questionList">
 								<div class="row">
 									<div class="col-sm-10 col-md-10 col-lg-8 m-lr-auto">
@@ -271,7 +272,7 @@
 				var output = "";
 				for(var i = 0; i < result.length; i++){
 					output += '<div class="p-b-68" id="' + result[i].cqcode + '">';
-					if(result.cqstate != 0){
+					if(result[i].cqstate != 0){
 						output += '<div id="' + result[i].cqcode + '_question">';
 						output += '<div class="flex-w flex-sb-m">';
 						output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
@@ -303,14 +304,16 @@
 							output += '<span class="mtext-107 cl2 p-r-20">';
 							output += 'Camily';
 							output += '</span>';
+
+							output += '<span id="' + result[i].cwcode + '_modifyAnswerBtn">'
+							output += '<button type="button" class="btn btn-success" onclick="modifyAnswerForm(' + result[i].cwcode + ')">수정</button>'
+							output += '</span>'
 							output += '</div>';
 							output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cwdate + '</div>'
 							output += '<textarea class="stext-102 cl6 autoTextarea" id="answer" name="answer" style="width: 100%; resize: none;" readonly="readonly">' + result[i].cwcontents + '</textarea>';
 							output += '</div>';
 							output += '</div>';
 						}
-						output += '</div>';
-						output += '</div>';
 					}else{
 						output += '<div id="' + result[i].cqcode + '_question">';
 						output += '<div class="flex-w flex-sb-m">';
@@ -322,6 +325,7 @@
 						output += '<textarea class="stext-102 cl6 autoTextarea" id="' + result[i].cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>';
 						output += '</div>';
 					}
+					output += '</div>';
 					$("#campingQnAList_div").html(output);
 				}
 			}
@@ -340,7 +344,7 @@
 				console.log(result);
 				var output = "";
 				for(var i = 0; i < result.length; i++){
-					if(result.cqstate != 0 && result[i].cwcode == null){
+					if(result[i].cqstate != 0 && result[i].cwcode == null){
 						output += '<div class="p-b-68" id="' + result[i].cqcode + '">';
 						output += '<div>';
 						output += '<div class="flex-w flex-sb-m">';
@@ -481,13 +485,13 @@
 	}
 	function textareaAutoSize(){
 		let textarea =  $(".autoTextarea");
-		console.log(textarea);
+		// console.log(textarea);
 		for(var i = 0; i < textarea.length; i++){
 			if (textarea) {
-				console.log("textarea["+i+"] : " + textarea[i])
+				// console.log("textarea["+i+"] : " + textarea[i])
 				textarea[i].style.height = 'auto';
 				let height = textarea[i].scrollHeight; // 높이
-				console.log(height);
+				// console.log(height);
 				textarea[i].style.height = ( height + 8 ) + `px`;
 			}
 		}

@@ -216,61 +216,58 @@
 				<div>
 					<!-- 캠핑장 문의 -->
 					<c:forEach items="${goodsQuestionList}" var="goodsQuestionInfo">
-						<c:choose>
-							<c:when test="${goodsQuestionInfo.gqstate == 0 }">
-								<div>
-									<div class="flex-w flex-sb-m">
-										<span class="mtext-107 cl2 p-r-20" id="questionId">
-											${goodsQuestionInfo.gqmid} </span>
-									</div>
-									<div class="p-b-17" style="font-size: 12px;">${goodsQuestionInfo.gqdate}</div>
-									<textarea class="stext-102 cl6"
-										id="${goodsQuestionInfo.gqcode}_questionContents"
-										name="cqcontents" style="width: 100%; resize: none;"
-										readonly="readonly">삭제된 문의글입니다.</textarea>
-								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="p-b-68" id="${goodsQuestionInfo.gqcode}">
+						<div class="p-b-68" id="${goodsQuestionInfo.gqcode}">
+							<c:choose>
+								<c:when test="${goodsQuestionInfo.gqstate != 0}">
 									<!-- 캠핑장 문의글 -->
-									<div>
+									<div id="${goodsQuestionInfo.gqcode}_question">
 										<div class="flex-w flex-sb-m">
 											<span class="mtext-107 cl2 p-r-20" id="questionId">
-												${goodsQuestionInfo.gqmid} </span> 
-											  <c:if test="${sessionScope.loginId ==  goodsQuestionInfo.gqmid}">
+												${goodsQuestionInfo.gqmid}
+											</span>
+											<c:if test="${goodsQuestionInfo.gqmid == sessionScope.loginId}">
 												<span id="${goodsQuestionInfo.gqcode}_qustionBtn">
-												  <button class="btn btn-success m-r-10"
-													onclick="modifyGoodsQuestionForm('${goodsQuestionInfo.gqcode}')">수정</button>
-												  <button class="btn btn-danger"
-													onclick="deleteGoodsQuestion('${goodsQuestionInfo.gqcode}','${goodsQuestionInfo.gqgcode }')">삭제</button>
-										      	</span>
-											  </c:if>
+													<button class="btn btn-success m-r-10" onclick="modifyGoodsQuestionForm('${goodsQuestionInfo.gqcode}')">수정</button>
+													<button type="button" class="btn btn-danger" onclick="deleteGoodsQuestion('${goodsQuestionInfo.gqcode}', '${goodsQuestionInfo.gqgcode}')">삭제</button>
+												</span>
+											</c:if>
 										</div>
 										<div class="p-b-17" style="font-size: 12px;">${goodsQuestionInfo.gqdate}</div>
-										<textarea class="stext-102 cl6"
-											id="${goodsQuestionInfo.gqcode}_questionContents"
-											name="cqcontents" style="width: 100%; resize: none;"
-											readonly="readonly">${goodsQuestionInfo.gqcontents}</textarea>
+										<textarea class="stext-102 cl6 autoTextarea" id="${goodsQuestionInfo.gqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${goodsQuestionInfo.gqcontents}</textarea>
 									</div>
 									<!-- 답글 -->
-									<div class="flex-w flex-t">
-										<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6"
-											style="text-align: center;">
-											<i class="fa-solid fa-turn-up"
-												style="transform: rotate(90deg); font-size: 30px;"></i>
-										</div>
-										<div class="size-207 mt-1">
-											<div class="flex-w flex-sb-m">
-												<span class="mtext-107 cl2 p-r-20"> Camily </span>
+									<div id="${goodsQuestionInfo.gqcode}_answer">
+										<c:if test="${goodsQuestionInfo.gwcode != null}">
+											<div class="flex-w flex-t">
+												<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
+													<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
+												</div>
+												<div class="size-207">
+													<div class="flex-w flex-sb-m">
+														<span class="mtext-107 cl2 p-r-20">
+															Camily
+														</span>
+													</div>
+													<div class="p-b-17" style="font-size: 12px;">${goodsQuestionInfo.gwdate}</div>
+													<textarea class="stext-102 cl6 autoTextarea" id="${goodsQuestionInfo.gwcode}_answerForm" name="answer" style="width: 100%; resize: none;" readonly="readonly">${goodsQuestionInfo.gwcontents}</textarea>
+												</div>
 											</div>
-											<div class="p-b-17" style="font-size: 12px;">${goodsQuestionInfo.gwdate}</div>
-											<textarea class="stext-102 cl6" id="answer" name="answer"
-												style="width: 100%; resize: none;">${goodsQuestionInfo.gwcontents}</textarea>
-										</div>
+										</c:if>
 									</div>
-								</div>
-							</c:otherwise>
-						</c:choose>
+								</c:when>
+								<c:otherwise>
+									<div id="${goodsQuestionInfo.gqcode}_question">
+										<div class="flex-w flex-sb-m">
+											<span class="mtext-107 cl2 p-r-20" id="questionId">
+												${goodsQuestionInfo.gqmid}
+											</span>
+										</div>
+										<div class="p-b-17" style="font-size: 12px;">${goodsQuestionInfo.gqdate}</div>
+										<textarea class="stext-102 cl6 autoTextarea" id="${goodsQuestionInfo.gqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</div>
 					</c:forEach>
 				</div>
 
@@ -600,7 +597,7 @@
 							var output = "";
 							output += '<button class="btn btn-success m-r-10" onclick="modifyQuestionForm(\''
 									+ gqcode + '\')">수정</button>';
-							output += '<button class="btn btn-danger" onclick="deleteQuestion(\''
+							output += '<button class="btn btn-danger" onclick="deleteGoodsQuestion(\''
 									+ gqcode + '\')">삭제</button>';
 							$("#" + gqcode + "_qustionBtn").html(output);
 						}

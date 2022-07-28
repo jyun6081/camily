@@ -40,7 +40,8 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/main.css">
 <!--===============================================================================================-->
-<script src="https://kit.fontawesome.com/d70fa0d402.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/d70fa0d402.js"
+	crossorigin="anonymous"></script>
 
 <style type="text/css">
 .section-reply-title {
@@ -66,8 +67,6 @@
 	position: relative;
 	font-family: "Oswald", sans-serif;
 }
-
-
 
 .section-reply-title h5:after {
 	position: absolute;
@@ -95,66 +94,82 @@
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-0-lg">
 						<div class="section-reply-title">
-								<h5>캠핑장 문의글 확인</h5>
+								<h5>캠핑용품 문의글 확인</h5>
 						</div>
 						<div>
 							<button class="btn btn-info" onclick="allQuestion()">전체보기</button>
-							<button class="btn btn-warning" onclick="notyetQuestion()">미답변 문의만 보기</button>
+							<button class="btn btn-warning" onclick="notyetQuestion()">미답변
+								문의만 보기</button>
 						</div>
 							<div id="questionList">
 								<div class="row">
 									<div class="col-sm-10 col-md-10 col-lg-8 m-lr-auto">
 										<div class="p-b-30 m-lr-15-sm">
-											<div id="campingQnAList_div">
-												<!-- 캠핑장 문의 -->
+											<div id="goodsQnAList_div">
+												<!-- 상품 문의 -->
 												<c:forEach items="${goodsQnAList}" var="goodsQnAInfo">
 													<div class="p-b-68" id="${goodsQnAInfo.gqcode}">
-														<!-- 캠핑장 문의글 -->
-														<div id="${goodsQnAInfo.gqcode}_question">
-															<div class="flex-w flex-sb-m">
-																<span class="mtext-107 cl2 p-r-20" id="questionId">
-																	${goodsQnAInfo.gqmid} [ ${goodsQnAInfo.gname}]
-																</span>
-																<span id="${goodsQnAInfo.gqcode}_qustionBtn">
-																	<button type="button" class="btn btn-danger" onclick="deleteQuestion('${goodsQnAInfo.gqcode}')">삭제</button>
-																</span>
-															</div>
-															<div class="p-b-17" style="font-size: 12px;">${goodsQnAInfo.gqdate}</div>
-															<textarea class="stext-102 cl6" id="${goodsQnAInfo.gqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${goodsQnAInfo.gqcontents}</textarea>
-														</div>
-														<!-- 답글 -->
-														<div id="${goodsQnAInfo.gqcode}_answer">
-															<c:choose>
-																<c:when test="${goodsQnAInfo.gwcode == null}">
-																	<div class="row p-b-25">
-																		<div class="col-12 p-b-5">
-																			<label class="stext-102 cl3" for="review">답글 작성</label>
-																			<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="${goodsQnAInfo.gqcode}_gwcontents" name="gwcontents" style="resize: none;"></textarea>
-																			<button class="btn btn-primary m-t-10" onclick="gqAnswerSubmit('${goodsQnAInfo.gqcode}')" style="float: right;">답변작성</button>
-																		</div>
+														<c:choose>
+															<c:when test="${goodsQnAInfo.gqstate != 0}">
+																<!-- 상품 문의글 -->
+																<div id="${goodsQnAInfo.gqcode}_question">
+																	<div class="flex-w flex-sb-m">
+																		<span class="mtext-107 cl2 p-r-20" id="questionId">
+																			${goodsQnAInfo.gqmid} [ ${goodsQnAInfo.gname} ]
+																		</span>
+																		<span id="${goodsQnAInfo.gqcode}_qustionBtn">
+																			<button type="button" class="btn btn-danger" onclick="deleteQuestion('${goodsQnAInfo.gqcode}')">삭제</button>
+																		</span>
 																	</div>
-																</c:when>
-																<c:otherwise>
-																	<div class="flex-w flex-t">
-																		<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
-																			<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
-																		</div>
-																		<div class="size-207">
-																			<div class="flex-w flex-sb-m">
-																				<span class="mtext-107 cl2 p-r-20">
-																					Camily
-																				</span>
-																				<span id="${goodsQnAInfo.gwcode}_modifyAnswerBtn">
-																					<button type="button" class="btn btn-success" onclick="modifyAnswerForm('${goodsQnAInfo.gwcode}')">수정</button>
-																				</span>
+																	<div class="p-b-17" style="font-size: 12px;">${goodsQnAInfo.gqdate}</div>
+																	<textarea class="stext-102 cl6 autoTextarea" id="${goodsQnAInfo.gqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">${goodsQnAInfo.gqcontents}</textarea>
+																</div>
+																<!-- 답글 -->
+																<div id="${goodsQnAInfo.gqcode}_answer">
+																	<c:choose>
+																		<c:when test="${goodsQnAInfo.gwcode == null}">
+																			<div class="row p-b-25">
+																				<div class="col-12 p-b-5">
+																					<label class="stext-102 cl3" for="review">답글 작성</label>
+																					<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10 autoTextarea" id="${goodsQnAInfo.gqcode}_gwcontents" name="gwcontents" style="resize: none;"></textarea>
+																					<button class="btn btn-primary m-t-10" onclick="gqAnswerSubmit('${goodsQnAInfo.gqcode}')" style="float: right;">답변작성</button>
+																				</div>
 																			</div>
-																			<div class="p-b-17" style="font-size: 12px;">${goodsQnAInfo.gwdate}</div>
-																			<textarea class="stext-102 cl6" id="${goodsQnAInfo.gwcode}_answerForm" name="answer" style="width: 100%; resize: none;" readonly="readonly">${goodsQnAInfo.gwcontents}</textarea>
-																		</div>
+																		</c:when>
+																		<c:otherwise>
+																			<div class="flex-w flex-t">
+																				<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">
+																					<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>
+																				</div>
+																				<div class="size-207">
+																					<div class="flex-w flex-sb-m">
+																						<span class="mtext-107 cl2 p-r-20">
+																							Camily
+																						</span>
+																						<span id="${goodsQnAInfo.gwcode}_modifyAnswerBtn">
+																							<button type="button" class="btn btn-success" onclick="modifyAnswerForm('${goodsQnAInfo.gwcode}')">수정</button>
+																						</span>
+																					</div>
+																					<div class="p-b-17" style="font-size: 12px;">${goodsQnAInfo.gwdate}</div>
+																					<textarea class="stext-102 cl6 autoTextarea" id="${goodsQnAInfo.gwcode}_answerForm" name="answer" style="width: 100%; resize: none;" readonly="readonly">${goodsQnAInfo.gwcontents}</textarea>
+																				</div>
+																			</div>
+																		</c:otherwise>
+																	</c:choose>
+																</div>
+															</c:when>
+															<c:otherwise>
+																<div id="${goodsQnAInfo.gqcode}_question">
+																	<div class="flex-w flex-sb-m">
+																		<span class="mtext-107 cl2 p-r-20" id="questionId">
+																			${goodsQnAInfo.gqmid} [ ${goodsQnAInfo.gname}]
+																		</span>
 																	</div>
-																</c:otherwise>
-															</c:choose>
-														</div>
+																	<div class="p-b-17" style="font-size: 12px;">${goodsQnAInfo.gqdate}</div>
+																	<textarea class="stext-102 cl6 autoTextarea" id="${goodsQnAInfo.gqcode}_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>
+																</div>
+															</c:otherwise>
+														</c:choose>
 													</div>
 												</c:forEach>
 											</div>
@@ -162,7 +177,8 @@
 									</div>
 								</div>
 							</div>
-							
+						</div>
+
 						<!-- Pagination -->
 						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
 							<a href="#"
@@ -244,61 +260,133 @@
 		}
 	</script>
 	<script>
-		function allQuestion(){
-			$.ajax({
-			type: "get",
-			url: "adminGoodsQuestionList",
-			data: {},
-			dataType: "json",
-			async: false,
-			success: function(result){
-				console.log(result);
-				var output = "";
-				for(var i = 0; i < result.length; i++){
+	function allQuestion(){
+		$.ajax({
+		type: "get",
+		url: "adminGoodsQuestionList",
+		data: {},
+		dataType: "json",
+		async: false,
+		success: function(result){
+			console.log(result);
+			var output = "";
+			for(var i = 0; i < result.length; i++){
+				if(result[i].gqstate != 0){
 					output += '<div class="p-b-68" id="' + result[i].gqcode + '">';
-					output += '<div>';
-					output += '<div class="flex-w flex-sb-m">';
-					output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
-					output += result[i].gqmid +  ' [ ' + result[i].gname + ' ]';
-					output += '</span>';
-					output += '<span id="' + result[i].gqcode + '_qustionBtn">';
-					output += '<button class="btn btn-danger" onclick="deleteQuestion(\'' + result[i].gqcode + '\')">삭제</button>';
-					output += '</span>';
-					output += '</div>';
-					output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].gqdate + '</div>';
-					output += '<textarea class="stext-102 cl6" id="' + result[i].gqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">' + result[i].gqcontents + '</textarea>';
-					output += '</div>';
-					output += '<div id="' + result[i].gqcode + '_answer">';
-					if(result[i].gwcode == null){
-						output += '<div class="row p-b-25">';
-						output += '<div class="col-12 p-b-5">';
-						output += '<label class="stext-102 cl3" for="review">답글 작성</label>';
-						output += '<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="' + result[i].gqcode + '_cwcontents" name="cwcontents" style="resize: none;"></textarea>';
-						output += '<button class="btn btn-primary m-t-10" onclick="cqAnswerSubmit(\'' + result[i].gqcode + '\')" style="float: right;">답변작성</button>';
-						output += '</div>';
-						output += '</div>';
-					}else{
-						output += '<div class="flex-w flex-t">';
-						output += '<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">';
-						output += '<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>';
-						output += '</div>';
-						output += '<div class="size-207">';
+					if(result[i].gqstate != 0){
+						output += '<div id="' + result[i].gqcode + '_question">';
 						output += '<div class="flex-w flex-sb-m">';
-						output += '<span class="mtext-107 cl2 p-r-20">';
-						output += 'Camily';
+						output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+						output += result[i].gqmid +  ' [ ' + result[i].gname + ' ]';
+						output += '</span>';
+						output += '<span id="' + result[i].gqcode + '_qustionBtn">';
+						output += '<button class="btn btn-danger" onclick="deleteQuestion(\'' + result[i].gqcode + '\')">삭제</button>';
 						output += '</span>';
 						output += '</div>';
-						output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].gwdate + '</div>'
-						output += '<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;" readonly="readonly">' + result[i].gwcontents + '</textarea>';
+						output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].gqdate + '</div>';
+						output += '<textarea class="stext-102 cl6 autoTextarea" id="' + result[i].gqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">' + result[i].gqcontents + '</textarea>';
 						output += '</div>';
+						output += '<div id="' + result[i].gqcode + '_answer">';
+						if(result[i].gwcode == null){
+							output += '<div class="row p-b-25">';
+							output += '<div class="col-12 p-b-5">';
+							output += '<label class="stext-102 cl3" for="review">답글 작성</label>';
+							output += '<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10 autoTextarea" id="' + result[i].gqcode + '_cwcontents" name="cwcontents" style="resize: none;"></textarea>';
+							output += '<button class="btn btn-primary m-t-10" onclick="cqAnswerSubmit(\'' + result[i].gqcode + '\')" style="float: right;">답변작성</button>';
+							output += '</div>';
+							output += '</div>';
+						}else{
+							output += '<div class="flex-w flex-t">';
+							output += '<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">';
+							output += '<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>';
+							output += '</div>';
+							output += '<div class="size-207">';
+							output += '<div class="flex-w flex-sb-m">';
+							output += '<span class="mtext-107 cl2 p-r-20">';
+							output += 'Camily';
+							output += '</span>';
+
+							output += '<span id="' + result[i].cwcode + '_modifyAnswerBtn">'
+							output += '<button type="button" class="btn btn-success" onclick="modifyAnswerForm(' + result[i].cwcode + ')">수정</button>'
+							output += '</span>'
+							output += '</div>';
+							output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cwdate + '</div>'
+							output += '<textarea class="stext-102 cl6 autoTextarea" id="answer" name="answer" style="width: 100%; resize: none;" readonly="readonly">' + result[i].gwcontents + '</textarea>';
+							output += '</div>';
+							output += '</div>';
+						}
+					}else{
+						output += '<div id="' + result[i].gqcode + '_question">';
+						output += '<div class="flex-w flex-sb-m">';
+						output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+						output += result[i].gqmid + ' [ ' + result[i].gname + ' ]';
+						output += '</span>';
+						output += '</div>';
+						output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].gqdate + '</div>';
+						output += '<textarea class="stext-102 cl6 autoTextarea" id="' + result[i].gqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>';
 						output += '</div>';
 					}
 					output += '</div>';
-					output += '</div>';
-					$("#campingQnAList_div").html(output);
+					$("#goodsQnAList_div").html(output);
 				}
+				$("#goodsQnAList_div").html(output);
 			}
-			});
+		}
+		});
+	}
+
+		function notyetQuestion() {
+			$
+					.ajax({
+						type : "get",
+						url : "adminGoodsQuestionList",
+						data : {},
+						dataType : "json",
+						async : false,
+						success : function(result) {
+							console.log(result);
+							var output = "";
+							for (var i = 0; i < result.length; i++) {
+								if (result.gqstate != 0
+										&& result[i].gwcode == null) {
+									output += '<div class="p-b-68" id="' + result[i].gqcode + '">';
+									output += '<div>';
+									output += '<div class="flex-w flex-sb-m">';
+									output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+									output += result[i].gqmid + ' [ '
+											+ result[i].gname + ' ]';
+									output += '</span>';
+									output += '<span id="' + result[i].gqcode + '_qustionBtn">';
+									output += '<button class="btn btn-danger" onclick="deleteQuestion(\''
+											+ result[i].gqcode
+											+ '\')">삭제</button>';
+									output += '</span>';
+									output += '</div>';
+									output += '<div class="p-b-17" style="font-size: 12px;">'
+											+ result[i].gqdate + '</div>';
+									output += '<textarea class="stext-102 cl6" id="'
+											+ result[i].gqcode
+											+ '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">'
+											+ result[i].gqcontents
+											+ '</textarea>';
+									output += '</div>';
+									output += '<div id="' + result[i].gqcode + '_answer">';
+									output += '<div class="row p-b-25">';
+									output += '<div class="col-12 p-b-5">';
+									output += '<label class="stext-102 cl3" for="review">답글 작성</label>';
+									output += '<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="' + result[i].gqcode + '_cwcontents" name="cwcontents" style="resize: none;"></textarea>';
+									output += '<button class="btn btn-primary m-t-10" onclick="gqAnswerSubmit(\''
+											+ result[i].gqcode
+											+ '\')" style="float: right;">답변작성</button>';
+									output += '</div>';
+									output += '</div>';
+									output += '</div>';
+									output += '</div>';
+								}
+							}
+							$("#goodsQnAList_div").html(output);
+						}
+					});
 		}
 
 		function notyetQuestion(){
@@ -312,7 +400,7 @@
 				console.log(result);
 				var output = "";
 				for(var i = 0; i < result.length; i++){
-					if(result[i].gwcode == null){
+					if(result[i].gqstate != 0 && result[i].gwcode == null){
 						output += '<div class="p-b-68" id="' + result[i].gqcode + '">';
 						output += '<div>';
 						output += '<div class="flex-w flex-sb-m">';
@@ -324,13 +412,13 @@
 						output += '</span>';
 						output += '</div>';
 						output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].gqdate + '</div>';
-						output += '<textarea class="stext-102 cl6" id="' + result[i].gqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">' + result[i].gqcontents + '</textarea>';
+						output += '<textarea class="stext-102 cl6 autoTextarea" id="' + result[i].gqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">' + result[i].gqcontents + '</textarea>';
 						output += '</div>';
 						output += '<div id="' + result[i].gqcode + '_answer">';
 						output += '<div class="row p-b-25">';
 						output += '<div class="col-12 p-b-5">';
 						output += '<label class="stext-102 cl3" for="review">답글 작성</label>';
-						output += '<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="' + result[i].gqcode + '_cwcontents" name="cwcontents" style="resize: none;"></textarea>';
+						output += '<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10 autoTextarea" id="' + result[i].gqcode + '_cwcontents" name="cwcontents" style="resize: none;"></textarea>';
 						output += '<button class="btn btn-primary m-t-10" onclick="cqAnswerSubmit(\'' + result[i].gqcode + '\')" style="float: right;">답변작성</button>';
 						output += '</div>';
 						output += '</div>';
@@ -338,7 +426,7 @@
 						output += '</div>';
 					}
 				}
-				$("#campingQnAList_div").html(output);
+				$("#goodsQnAList_div").html(output);
 			}
 			});
 		}
@@ -368,54 +456,110 @@
 				output += '</span>';
 				output += '</div>';
 				output += '<div class="p-b-17" style="font-size: 12px;">' + result.gwdate + '</div>'
-				output += '<textarea class="stext-102 cl6" id="answer" name="answer" style="width: 100%; resize: none;" readonly="readonly">' + result.gwcontents + '</textarea>';
+				output += '<textarea class="stext-102 cl6 autoTextarea" id="answer" name="answer" style="width: 100%; resize: none;" readonly="readonly">' + result.gwcontents + '</textarea>';
 				output += '</div>';
 				output += '</div>';
 				$("#" + result.gqcode + "_answer").html(output);
 			}
 			});
-			
+			textareaAutoSize();
 		}
 
-		function modifyAnswerForm(gwcode){
+		function modifyAnswerForm(gwcode) {
 			$("#" + gwcode + "_answerForm").removeAttr("readonly")
-			$("#" + gwcode + "_answerForm").addClass("size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10");
+			$("#" + gwcode + "_answerForm").addClass(
+					"size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10");
 
 			var output = "";
-			output += '<button class="btn btn-primary m-r-10" onclick="modifyAnswer(\'' + gwcode + '\')">확인</button>';
-			output += '<button class="btn btn-danger" onclick="cancelModify(\'' + gwcode + '\')">취소</button>'
-			$("#"+gwcode+"_modifyAnswerBtn").html(output);
+			output += '<button class="btn btn-primary m-r-10" onclick="modifyAnswer(\''
+					+ gwcode + '\')">확인</button>';
+			output += '<button class="btn btn-danger" onclick="cancelModify(\''
+					+ gwcode + '\')">취소</button>'
+			$("#" + gwcode + "_modifyAnswerBtn").html(output);
 		}
 
-		function cancelModify(gwcode){
+		function cancelModify(gwcode) {
 			$("#" + gwcode + "_answerForm").attr("readonly")
-			$("#" + gwcode + "_answerForm").removeClass("size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10");
+			$("#" + gwcode + "_answerForm").removeClass(
+					"size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10");
 
 			var output = "";
-			output += '<button type="button" class="btn btn-success" onclick="modifyAnswerForm(\'' + gwcode + '\')">수정</button>';
-			$("#"+gwcode+"_modifyAnswerBtn").html(output);
+			output += '<button type="button" class="btn btn-success" onclick="modifyAnswerForm(\''
+					+ gwcode + '\')">수정</button>';
+			$("#" + gwcode + "_modifyAnswerBtn").html(output);
 		}
 
-		function modifyAnswer(gwcode){
+		function modifyAnswer(gwcode) {
 			var gwcontents = $("#" + gwcode + "_answerForm").val();
 			console.log(gwcontents);
 			$.ajax({
+				type : "get",
+				url : "adminGoodsAnswerModify",
+				data : {
+					"gwcode" : gwcode,
+					"gwcontents" : gwcontents
+				},
+				dataType : "json",
+				async : false,
+				success : function(result) {
+					console.log(result);
+					if (result != "NG") {
+						$("#" + gwcode + "_answerForm").val(result.gwcontents);
+						cancelModify(gwcode);
+					}
+				}
+			});
+			textareaAutoSize();
+		}
+
+		/*
+		function deleteQuestion(cqcode){
+			$.ajax({
 			type: "get",
-			url: "adminGoodsAnswerModify",
-			data: {"gwcode": gwcode, "gwcontents": gwcontents},
+			url: "deleteQustion",
+			data: {"cqcode": cqcode},
 			dataType: "json",
 			async: false,
 			success: function(result){
 				console.log(result);
 				if(result != "NG"){
-					$("#" + gwcode + "_answerForm").val(result.gwcontents);
-					cancelModify(gwcode);
+					var output = "";
+					output += '<div id="' + cqcode + '_question">';
+					output += '<div class="flex-w flex-sb-m">';
+					output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+					output += result.cqmid +' [ ' + result.caname + ']';
+					output += '</span>';
+					output += '</div>';
+					output += '<div class="p-b-17" style="font-size: 12px;">' + result.cqdate + '</div>';
+					output += '<textarea class="stext-102 cl6 autoTextarea" id="' + cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>';
+					output += '</div>';
+					$("#" + cqcode).html(output);
 				}
 			}
 			});
 		}
+		*/
+
 
 	</script>
 
 </body>
+<script>
+	window.onload = function(){
+		textareaAutoSize();
+	}
+	function textareaAutoSize(){
+		let textarea =  $(".autoTextarea");
+		// console.log(textarea);
+		for(var i = 0; i < textarea.length; i++){
+			if (textarea) {
+				// console.log("textarea["+i+"] : " + textarea[i])
+				textarea[i].style.height = 'auto';
+				let height = textarea[i].scrollHeight; // 높이
+				// console.log(height);
+				textarea[i].style.height = ( height + 8 ) + `px`;
+			}
+		}
+	}
+</script>
 </html>

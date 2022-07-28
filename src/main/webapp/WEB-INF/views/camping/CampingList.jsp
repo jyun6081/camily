@@ -7,7 +7,7 @@
 <html lang="en">
 
 <head>
-	<title>캠핑장</title>
+	<title>캠핑장 목록</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->

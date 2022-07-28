@@ -273,4 +273,20 @@ public class AdminController {
 		String result = advc.deleteQustion(cqcode);
 		return result;
 	}
+	
+	@RequestMapping(value = "adminDeleteGoodsQuestion")
+	public @ResponseBody String deleteGoodsQustion(String gqcode) {
+		System.out.println("캠핑용품 문의글 삭제 ajax");
+		String result = advc.deleteGoodsQustion(gqcode);
+		return result;
+	}
+	
+	@RequestMapping(value = "/adminAddCpRoom")
+	public ModelAndView adminAddCpRoom(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
+		System.out.println("관리자 객실 추가 요청");
+		
+		ModelAndView mav = advc.addCampingRoom(campingRoom,ra);
+		
+		return mav;
+	}
 }
