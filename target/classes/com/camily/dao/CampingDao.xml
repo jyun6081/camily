@@ -54,12 +54,22 @@
 	</select>
 	
 	<select id="campingQuestionList" resultType="com.camily.dto.CampingQnADto">
-		SELECT CQ.*, C.CANAME, CW.*
+		<!-- SELECT CQ.*, C.CANAME, CW.*
 		FROM CAMPINGQUESTION CQ
 		INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
 		LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
 		WHERE CQCACODE = #{cacode}
-		ORDER BY CQDATE DESC
+		ORDER BY CQDATE DESC -->
+		
+		SELECT *
+		FROM (	SELECT ROWNUM RN, QNA.* 
+		       		FROM (	SELECT CQ.*, C.CANAME, CW.* 
+				                FROM CAMPINGQUESTION CQ
+				                INNER JOIN CAMPING C ON CQ.CQCACODE = C.CACODE
+				                LEFT OUTER JOIN CAMPINGANSWER CW ON CQ.CQCODE = CW.CWCQCODE
+				                WHERE CQCACODE =#{cacode}
+				                ORDER BY CQDATE DESC) QNA )
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 </mapper>

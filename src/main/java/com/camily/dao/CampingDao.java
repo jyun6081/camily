@@ -75,7 +75,7 @@ public interface CampingDao {
 	int questionWrite(CampingQnADto campingQustionInfo);
 
 //	@Select("SELECT * FROM CAMPINGQUESTION WHERE CQCACODE = #{cacode} ORDER BY CQDATE DESC")
-	ArrayList<CampingQnADto> campingQuestionList(String cacode);
+	ArrayList<CampingQnADto> campingQuestionList(@Param("startRow") int startRow, @Param("endRow") int endRow, @Param("cacode") String cacode);
 
 	@Update("UPDATE CAMPINGQUESTION SET CQCONTENTS = #{cqcontents} WHERE CQCODE = #{cqcode}")
 	int questionModify(@Param("cqcode") String cqcode, @Param("cqcontents") String cqcontents);
@@ -85,6 +85,9 @@ public interface CampingDao {
 
 	@Update("UPDATE CAMPINGQUESTION SET CQSTATE = 0 WHERE CQCODE = #{cqcode}")
 	int questionDelete(String cqcode);
+
+	@Select("SELECT COUNT(*) FROM CAMPINGQUESTION")
+	int getCampingQnATotalCount();
 
 
 }

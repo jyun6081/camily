@@ -167,9 +167,9 @@
 				</c:forEach>
 			</div>
 
-			<!-- Load more -->
+			
+			<!-- Pagination 시작 -->
 			<div class="flex-c-m flex-w w-full p-t-45">
-				<!-- Pagination 시작 -->
 				<div class="flex-c-m flex-w w-full p-t-45" style="margin-top: auto; margin-right: auto;">
 					<c:choose>
 						<c:when test="${pageDto.page <= 1}">
@@ -198,8 +198,8 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<!-- Pagination 종료 -->
 			</div>
+			<!-- Pagination 종료 -->
 		</div>
 	</div>
 

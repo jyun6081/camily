@@ -269,8 +269,8 @@
 									<div class="p-b-30 m-lr-15-sm">
 										<div id="campingQnAList_div">
 											<!-- 캠핑장 문의 -->
-											<c:forEach items="${campingQnAList}" var="campingQnAInfo">
-												<div class="p-b-68" id="${campingQnAInfo.cqcode}">
+											<c:forEach items="${campingQnAList}" var="campingQnAInfo" varStatus="status">
+												<div class="p-b-30 p-t-30" id="${campingQnAInfo.cqcode}">
 													<c:choose>
 														<c:when test="${campingQnAInfo.cqstate != 0}">
 															<!-- 캠핑장 문의글 -->
@@ -324,23 +324,59 @@
 														</c:otherwise>
 													</c:choose>
 												</div>
+												<c:if test ="${not status.last}">
+													<hr>
+												</c:if>
 											</c:forEach>
 										</div>
-										
-										<!-- 문의글 작성하기 -->
-										<form action="questionWrite" id="cqform">
-											<input type="hidden" id="cqmid" name="cqmid" value="${sessionScope.loginId}">
-											<input type="hidden" name="cqcacode" value="${campingInfo.cacode}">
-											<div class="row p-b-25">
-												<div class="col-12 p-b-5">
-													<label class="stext-102 cl3" for="review">문의글 작성</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10 autoTextarea" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>
-												</div>
+										<!-- Pagination 시작 -->
+										<div id="pageQnA" class="flex-c-m flex-w w-full p-t-45">
+											<div class="flex-c-m flex-w w-full p-t-45" style="margin-top: auto; margin-right: auto;">
+												<c:choose>
+													<c:when test="${pageDto.page <= 1}">
+														<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span>
+													</c:when>
+													<c:otherwise>
+														<span class="flex-c-m how-pagination1 trans-04 m-all-7" onclick="prevPage('${pageDto.page}', '${campingInfo.cacode}', '${pageDto.maxPage}', '${pageDto.startPage}', '${pageDto.endPage}')" style="cursor: pointer;"><i class="fa-solid fa-angle-left"></i></span>
+													</c:otherwise>
+												</c:choose>
+												<c:forEach begin="${pageDto.startPage }" end="${pageDto.endPage }" var="num" step="1">
+													<c:choose>
+														<c:when test="${pageDto.page == num}">
+															<span><a href="#tabList" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">${num}</a></span>
+														</c:when>
+														<c:otherwise>
+															<span class="flex-c-m how-pagination1 trans-04 m-all-7" onclick="selPage('${num}', '${campingInfo.cacode}', '${pageDto.maxPage}', '${pageDto.startPage}', '${pageDto.endPage}')" style="cursor: pointer;">${num}</span>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+												<c:choose>
+													<c:when test="${pageDto.page > pageDto.endPage || pageDto.page == pageDto.maxPage}">
+														<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-right"></i></span>
+													</c:when>
+													<c:otherwise>
+														<span class="flex-c-m how-pagination1 trans-04 m-all-7" onclick="nextPage('${pageDto.page}', '${campingInfo.cacode}', '${pageDto.maxPage}', '${pageDto.startPage}', '${pageDto.endPage}')" style="cursor: pointer;"><i class="fa-solid fa-angle-right"></i></span>
+													</c:otherwise>
+												</c:choose>
 											</div>
-											<button type="button" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="cqsubmit();">
-												작성
-											</button>
-										</form>
+										</div>
+										<!-- Pagination 종료 -->
+										<c:if test="${sessionScope.loginId != null}">
+											<!-- 문의글 작성하기 -->
+											<form action="questionWrite" id="cqform">
+												<input type="hidden" id="cqmid" name="cqmid" value="${sessionScope.loginId}">
+												<input type="hidden" name="cqcacode" value="${campingInfo.cacode}">
+												<div class="row p-b-25">
+													<div class="col-12 p-b-5">
+														<label class="stext-102 cl3" for="review">문의글 작성</label>
+														<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10 autoTextarea" id="cqcontents" name="cqcontents" style="resize: none;"></textarea>
+													</div>
+												</div>
+												<button type="button" class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="cqsubmit();">
+													작성
+												</button>
+											</form>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -744,6 +780,145 @@
 		*/
 		location.href = "questionDelete?cqcode=" + cqcode + "&cqcacode=" + cacode;
 	}
+
+	function prevPage(pageNum, cacode, maxPage, startPage, endPage){
+		pageNum--;
+		selPage(pageNum, cacode, maxPage, startPage, endPage);
+		/*
+		$.ajax({
+		type: "get",
+		url: "prevPage",
+		data: {"pageNum": pageNum, "cacode": cacode},
+		dataType: "json",
+		async: false,
+		success: function(result){
+		}
+		});
+		*/
+	}
+
+	function selPage(pageNum, cacode, maxPage, startPage, endPage){
+		console.log("pageNum : " + pageNum);
+		console.log("cacode : " + cacode);
+		var loginId = '${sessionScope.loginId}';
+		$.ajax({
+		type: "get",
+		url: "selCampingQnAPage",
+		data: {"pageNum": pageNum, "cacode": cacode},
+		dataType: "json",
+		async: false,
+		success: function(result){
+			console.log(result);
+			var output = "";
+			for(var i = 0; i < result.length; i++){
+				output += '<div class="p-b-30 p-t-30" id="' + result[i].cqcode + '">';
+				if(result[i].cqstate != 0){
+					output += '<div id="' + result[i].cqcode + '_question">';
+					output += '<div class="flex-w flex-sb-m">';
+					output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+					output += result[i].cqmid;
+					output += '</span>';
+					if(result[i].cqmid == loginId){
+						output += '<span id="' + result[i].cqcode + '_qustionBtn">';
+						output += '<button class="btn btn-success m-r-10" onclick="modifyQuestionForm(\'' + result[i].cqcode + '\')">수정</button>';
+						output += '<button type="button" class="btn btn-danger" onclick="deleteQuestion(\'' + result[i].cqcode + '\', \'' + result[i].cqcacode + '\')">삭제</button>';
+						output += '</span>';
+					}
+					output += '</div>';
+					output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cqdate + '</div>';
+					output += '<textarea class="stext-102 cl6 autoTextarea" id="' + result[i].cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">' + result[i].cqcontents + '</textarea>';
+					output += '</div>';
+					output += '<div id="' + result[i].cqcode + '_answer">';
+					if(result[i].cwcode != null){
+						output += '<div class="flex-w flex-t">';
+						output += '<div class="wrap-pic-s size-109 bor0 m-r-18 m-t-6" style="text-align: center;">';
+						output += '<i class="fa-solid fa-turn-up" style="transform: rotate(90deg); font-size: 30px;"></i>';
+						output += '</div>';
+						output += '<div class="size-207">';
+						output += '<div class="flex-w flex-sb-m">';
+						output += '<span class="mtext-107 cl2 p-r-20">';
+						output += 'Camily';
+						output += '</span>';
+						output += '</div>';
+						output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cwdate + '</div>';
+						output += '<textarea class="stext-102 cl6 autoTextarea" id="' + result[i].cwcode + '_answerForm" name="answer" style="width: 100%; resize: none;" readonly="readonly">' + result[i].cwcontents + '</textarea>';
+						output += '</div>';
+						output += '</div>';
+					}
+					output += '</div>';
+				}else{
+					output += '<div id="' + result[i].cqcode + '_question">';
+					output += '<div class="flex-w flex-sb-m">';
+					output += '<span class="mtext-107 cl2 p-r-20" id="questionId">';
+					output += result[i].cqmid;
+					output += '</span>';
+					output += '</div>';
+					output += '<div class="p-b-17" style="font-size: 12px;">' + result[i].cqdate + '</div>';
+					output += '<textarea class="stext-102 cl6 autoTextarea" id="' + result[i].cqcode + '_questionContents" name="questionContents" style="width: 100%; resize: none;" readonly="readonly">[ 삭제된 문의글입니다. ]</textarea>';
+					output += '</div>';
+				}
+				if(i == result.length){
+					output += '<hr>';
+				}
+			}
+			$("#campingQnAList_div").html(output);
+			// output 초기화;
+			output = "";
+			console.log("pageNum : " + pageNum);
+			console.log("cacode : " + cacode);
+			// 페이징 수 : 5
+			var pageNumCount = 5;
+			startPage = parseInt(Math.ceil(pageNum/pageNumCount) - 1) * pageNumCount + 1;
+			endPage = startPage + pageNumCount - 1;
+			if(endPage > maxPage){
+				endPage = maxPage;
+			}
+			console.log("maxPage : " + maxPage);
+			console.log("startPage : " + startPage);
+			console.log("endPage : " + endPage);
+			output += '<div class="flex-c-m flex-w w-full p-t-45" style="margin-top: auto; margin-right: auto;">';
+			if(pageNum <= 1){
+				output += '<span id="" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span>';
+			}else{
+				output += '<span class="flex-c-m how-pagination1 trans-04 m-all-7" onclick="prevPage(\'' + pageNum + '\', \'' + cacode + '\', \'' + maxPage + '\', \'' + startPage + '\', \'' + endPage + '\')" style="cursor: pointer;"><i class="fa-solid fa-angle-left"></i></span>';
+			}
+			var repeat = 0;
+			if(pageNumCount > endPage)
+
+			for(var num = startPage; num <= endPage; num++){
+				if(pageNum == num){
+					output += '<span><a href="#tabList" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">' + num + '</a></span>';
+				}else{
+					output += '<span class="flex-c-m how-pagination1 trans-04 m-all-7" onclick="selPage(\'' + num + '\', \'' + cacode + '\', \'' + maxPage + '\', \'' + startPage + '\', \'' + endPage + '\')" style="cursor: pointer;">' + num + '</span>';
+				}
+			}
+			if(pageNum > endPage || pageNum == maxPage){
+				output += '<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-right"></i></span>';
+			}else{
+				output += '<span class="flex-c-m how-pagination1 trans-04 m-all-7" onclick="nextPage(\'' + pageNum + '\', \'' + cacode + '\', \'' + maxPage + '\', \'' + startPage + '\', \'' + endPage + '\')" style="cursor: pointer;"><i class="fa-solid fa-angle-right"></i></span>';
+			}
+			output += '</div>';
+			$("#pageQnA").html(output);
+		}
+		});
+	}
+
+	function nextPage(pageNum, cacode, maxPage, startPage, endPage){
+		pageNum++;
+		selPage(pageNum, cacode, maxPage, startPage, endPage);
+		/*
+		$.ajax({
+		type: "get",
+		url: "nextPage",
+		data: {"pageNum": pageNum, "cacode": cacode},
+		dataType: "json",
+		async: false,
+		success: function(result){
+		}
+		});
+		*/
+	}
+
 </script>
 <script type="text/javascript">
 	var checkMsg = '${msg}';

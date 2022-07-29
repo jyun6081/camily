@@ -180,12 +180,24 @@
   WHERE GOCODE = #{gocode}
  </update>
  
+ <select id="getGoodsQnATotalCount" resultType="int">
+ 	SELECT COUNT(*) FROM GOODSQUESTION
+ </select>
+ 
  <select id="goodsQuestionList" resultType="com.camily.dto.GoodsQnADto">
-	SELECT GQ.*, GW.*
+	<!-- SELECT GQ.*, GW.*
 	FROM GOODSQUESTION GQ  
 	LEFT OUTER JOIN GOODSANSWER GW ON
 	GQ.GQCODE = GW.GWGQCODE AND GQ.GQGCODE = #{gcode}
-	ORDER BY GQ.GQDATE DESC
+	ORDER BY GQ.GQDATE DESC -->
+	SELECT *
+	FROM (	SELECT ROWNUM RN, QNA.* 
+		       	FROM (	SELECT GQ.*, GW.*
+							FROM GOODSQUESTION GQ  
+							LEFT OUTER JOIN GOODSANSWER GW ON GQ.GQCODE = GW.GWGQCODE 
+							WHERE GQ.GQGCODE = #{gcode}
+							ORDER BY GQ.GQDATE DESC) QNA )
+	WHERE RN BETWEEN #{startRow} AND #{endRow}
  </select>
  
  <select id="getMaxGqcode" resultType="string">
