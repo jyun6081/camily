@@ -172,7 +172,8 @@
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2">
-									${totalPrice}원
+									<%-- ${totalPrice}원 --%>
+									${divisionsum}원
 									<input type="hidden" name="totalprice" id="totalprice" value="${totalPrice}">
 								</span>
 							</div>

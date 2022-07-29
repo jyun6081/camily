@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Admin | Camily</title>
+<title>AdminCamily</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -77,7 +77,7 @@
                                             <th class="align-middle text-center font-weight-bold">주문상품코드</th>
                                             <th class="align-middle text-center font-weight-bold">주문코드</th>
                                             <th class="align-middle text-center font-weight-bold">주문자아이디</th>
-                                            <th class="align-middle text-center font-weight-bold">주문자일자</th>
+                                            <th class="align-middle text-center font-weight-bold">주문일자</th>
                                             <th class="align-middle text-center font-weight-bold">정보</th>
                                             <th class="align-middle text-center font-weight-bold">주문자주소</th>
                                             <th class="align-middle text-center font-weight-bold">이름</th>
@@ -100,7 +100,7 @@
                                             <th class="align-middle text-center font-weight-bold">${SendProduckt.gomaddr }</th>
                                             <th class="align-middle text-center font-weight-bold">${SendProduckt.goname }</th>
                                             <th class="align-middle text-center font-weight-bold">${SendProduckt.goamount }개</th>
-                                            <th class="align-middle text-center font-weight-bold">${SendProduckt.goprice }원</th>  
+                                            <th class="align-middle text-center font-weight-bold">${SendProduckt.goformatter2 }원</th>  
                                             <th class="align-middle text-center font-weight-bold">                          
                                                 <button class="btn btn-danger p-2" onclick="send(this,'${SendProduckt.gocode }')">배송중</button>
                                                 <button class="btn btn-primary p-2" onclick="sendtake(this,'${SendProduckt.gocode }')">배송완료</button>                                                                                                        

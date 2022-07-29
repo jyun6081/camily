@@ -23,5 +23,9 @@ public class CampingDto {
 	private MultipartFile cafile;
 	
 	private String RESERVECOUNT;
-	
+
+	private String cformatter; // 캠핑장 콤마표시
+   
+	// java에서만 사용 
+	private String formatprice;
 }

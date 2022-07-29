@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+.<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -68,6 +68,8 @@
 	position: relative;
 	font-family: "Oswald", sans-serif;
 }
+
+
 </style>
 
 </head>
@@ -92,35 +94,58 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
-                                        <tr >
-                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">상품정보</th>
-                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">구매상품명</th>
-                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">상품가격</th>
-                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">상품수량</th>
-                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">총금액</th>
-                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;">주문주소
+                                        <tr>
+                                            <th scope="col" style="border-top : none;">상품정보</th>
+                                            <th scope="col" style="border-top : none;">구매상품명</th>
+                                            <th scope="col" style="border-top : none;">상품가격</th>
+                                            <th scope="col" style="border-top : none;">상품수량</th>
+                                            <th scope="col" style="border-top : none;">총금액</th>
+                                            <th scope="col" style="border-top : none;">주문주소
                                             <button type="button" class="cl0 size-60 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" onclick="addCheck('${information.dicode}')">주소변경</button>
                                             </th>
-                                            <th class="align-middle text-center font-weight-bold" style="border-top : none;"></th> 
+                                            <th scope="col" style="border-top : none;"></th> 
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th class="align-middle text-center font-weight-bold"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${information.diimage }" alt="IMG" style="width: 60px;"></th>
-                                            <td class="align-middle text-center font-weight-bold" style = "word-break: break-all">${information.diname }</td>
-                                            <td class="align-middle text-center font-weight-bold">${information.diprice }원</td>
-                                            <td class="align-middle text-center font-weight-bold">${information.diamount }개</td>
-                                            <td class="align-middle text-center font-weight-bold">${information.ditotalprice }원</td>
-                                            <td id="${information.dicode}1" class="align-middle text-center font-weight-bold">${information.diaddr }</td>
-                                           	<td class="align-middle text-center font-weight-bold"><a href="deletepoket?dicode=${information.dicode }" class="btn btn-dark">삭제</a></td>
+                                            <th scope="row">
+                                             <a href="campingDetailPage?gcode=${information.dicode}">  
+                                              <img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${information.diimage }" alt="IMG" style="width: 60px;">
+                                             </a>
+                                            </th>
+                                             <c:choose>
+                                              <c:when test="${information.gstate == 0}">
+                                                 <td>
+                                                   <a href="campingDetailPage?gcode=${information.dicode}">                                                
+                                                      ${information.diname }
+                                                   </a>
+                                                   <br>[판매중지 상품입니다.]
+                                                 </td>
+                                              </c:when>
+                                               <c:otherwise>
+                                                <td>
+                                                <a href="campingDetailPage?gcode=${information.dicode}">
+                                                ${information.diname }
+                                                </a>
+                                                </td>                                              
+                                               </c:otherwise>
+                                             </c:choose>
+                                            <td>${information.diprice }원</td>
+                                            <td>${information.diamount }개</td>
+                                            <td>${information.formatter }원</td>
+                                            <td id="${information.dicode}1">${information.diaddr }</td>
+                                           	<td><a href="deletepoket?dicode=${information.dicode }" class="btn btn-dark">삭제하기</a></td>
                                            	<th>
-										 	<input type="hidden" value="${sessionScope.loginId }"     name="dimid">
-									 		<input type="hidden" value="${information.diaddr }" id="${information.dicode}2" name="diaddr">
-									 		<input type="hidden" value="${information.dicode }"       name="dicode">
-									 		<input type="hidden" value="${information.diamount }"     name="diamount">
-									 		<input type="hidden" value="${information.ditotalprice }" name="ditotalprice" id="ditotal">
-									 		<input type="hidden" value="${information.diname }"       name="diname" id="diname">
-									 		<input type="hidden" value="${information.diimage }"      name="diimage">
+                                            <c:if test="${information.gstate == 1}">                                       
+										 	   <input type="hidden" value="${sessionScope.loginId }"     name="dimid">
+									 		   <input type="hidden" value="${information.diaddr }" id="${information.dicode}2" name="diaddr">
+									 		   <input type="hidden" value="${information.dicode }"       name="dicode">
+									 		   <input type="hidden" value="${information.diamount }"     name="diamount">
+									 		   <input type="hidden" value="${information.ditotalprice }" name="ditotalprice" id="ditotal">
+									 		   <input type="hidden" value="${information.diname }"       name="diname" id="diname">
+									 		   <input type="hidden" value="${information.diimage }"      name="diimage">
+									 		   <input type="hidden" value="${sumTotal }" id="sumTotal">
+									 	     </c:if>
 											</th>
 									     </tr>  
 									                                                                
@@ -132,22 +157,17 @@
                     </div>
 
                     </c:forEach>			        
-		            <br>
-		            <br>
-		            <br>
-		            <br>
-		            <c:if test="${fn:length(detailinformation) == 0}">
-									<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
-								</c:if>       
-   
-					<div class="flex-c-m flex-w w-full p-t-45" >
-						<button class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04" type="button" 
-						onclick="requestPay()">주문하기</button>
-					</div>	
-
-	                    
-	
-		
+		                 
+    <!-- Load more --> 
+	<div class="flex-c-m flex-w w-full p-t-45" >
+		<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" type="button" 
+		onclick="requestPay()">주문하기</button> 
+	</div>	
+                                    			       		          
+	                 <c:if test="${fn:length(detailinformation) == 0}">
+						<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
+					</c:if>     
+	<!-- Load more -->
 
 	</form>
 	

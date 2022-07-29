@@ -12,6 +12,18 @@ public class CampingDetailInformationDto {
    private String diaddr; 
    private String diprice;
    private int ditotalprice;
+   
+   private String formatter;
+   
+   private String gstate; // 상품 활성화 비활성화 확인 
+   
+   
+public String getFormatter() {
+	return formatter;
+}
+public void setFormatter(String formatter) {
+	this.formatter = formatter;
+}
 public String getDimid() {
 	return dimid;
 }
