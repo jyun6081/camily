@@ -477,7 +477,7 @@ function requestPay() {
             //$("#goobsform").submit();
         } else {
         	alert("결제실패입니다.");
-        	//$("#goobsform").submit();
+        	$("#goobsform").submit();
         }
     });	
 }
