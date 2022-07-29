@@ -13,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.camily.dao.AdminDao;
+import com.camily.dao.CampingReviewDao;
 import com.camily.dao.CampingShopDao;
+import com.camily.dao.GoodsReviewDao;
 import com.camily.dto.BannerDto;
 import com.camily.dto.CampingDetailInformationDto;
 import com.camily.dto.CampingDto;
@@ -32,6 +34,9 @@ public class CampingShopService {
 	
 	@Autowired
 	private CampingShopDao cdao;
+	
+	@Autowired
+	private GoodsReviewDao grdao;
 	
 	@Autowired
 	private AdminDao adao;
@@ -67,6 +72,14 @@ public class CampingShopService {
 		// SELECT 캠핑 용품 
 		ArrayList<GoodsDto> campingShop = cdao.getCampingList2();
 					
+		if(campingShop != null ) {
+			for(int i= 0; i<campingShop.size(); i++) {
+				String avg_star = grdao.SelectAvgStar(campingShop.get(i).getGcode());
+				campingShop.get(i).setGstaravg(avg_star);
+				System.out.println(campingShop.get(i).getGstaravg());
+			}
+		}
+		
 		mav.addObject("campingShop", campingShop);
 		mav.setViewName("campingshop/CampingShopPage");	
 		return mav;

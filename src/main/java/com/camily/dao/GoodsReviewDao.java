@@ -21,4 +21,6 @@ public interface GoodsReviewDao {
 	int updateGoodsReview(GoodsReviewDto goreview);
 
 	int updateHits(int gorvcode);
+
+	String SelectAvgStar(String gcode);
 }

@@ -72,6 +72,10 @@
 	font-family: "Oswald", sans-serif;
 }
 
+.grid{
+			display: grid;
+			grid-template-columns: 1fr 80px
+		}
 </style>
 
 </head>
@@ -102,6 +106,14 @@
 				<div class="bg-light rounded h-100 p-4">
 					<div class="table-responsive">
 						<table class="table">
+							<colgroup>
+								<col style="width: 10%">
+								<col style="width: 25$">
+								<col style="width: 15%">
+								<col style="width: 25%">
+								<col style="width: 15%">
+								<col style="width: 10%">
+							</colgroup>
 							<thead>
 								<tr>
 									<th scope="col" style="border-top : none;">예약번호</th>

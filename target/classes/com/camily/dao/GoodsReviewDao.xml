@@ -64,4 +64,10 @@
 		UPDATE GOODSREVIEW SET GORVHITS = GORVHITS+1 WHERE GORVCODE = #{gorvcode}
 	</update>
 	
+	<select id="SelectAvgStar" resultType="String">
+		SELECT AVG(GORVSTARATING) AS GSTARAVG
+		FROM GOODSREVIEW GR, GOODS GS
+		WHERE GS.GCODE = #{gcode}
+		AND GR.GORVGCODE = GS.GCODE
+	</select>
 </mapper>

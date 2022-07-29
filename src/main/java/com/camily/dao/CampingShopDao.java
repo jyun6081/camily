@@ -124,6 +124,7 @@ public interface CampingShopDao {
 	
     // 문의글 삭제(state 0)
 	int modifyGoodsQuestionState(String gqcode);
+	
    
 
     
