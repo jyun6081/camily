@@ -770,4 +770,38 @@ public class AdminService {
 		}
 		return result;
 	}
+
+	public ModelAndView addCampingRoom(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
+		System.out.println("CampingService.addCampingRoom() 호출");
+		ModelAndView mav = new ModelAndView();
+		//파일 업로드
+		MultipartFile crfile = campingRoom.getCrfile();
+		String crimage = "";
+		if( !crfile.isEmpty() ) {
+			System.out.println("첨부파일 있음");
+			UUID uuid = UUID.randomUUID();
+			//1. 파일명 생성
+			crimage = uuid.toString()+"_"+crfile.getOriginalFilename();
+			//프로필 이미지 파일 저장
+			crfile.transferTo(  new File(savePath, crimage)   );
+		} 
+		campingRoom.setCrimage(crimage);
+		
+		//객실 번호 생성
+		int maxCrNum = addao.selectMaxCrNum(campingRoom) + 1;
+		String crNum = maxCrNum + "번";
+		campingRoom.setCrnum(crNum);
+		System.out.println(campingRoom);
+		
+		int insertResult = addao.addCampingRoom(campingRoom);
+		if (insertResult > 0 ) {
+			ra.addFlashAttribute("msg", "객실이 등록되었습니다.");
+			mav.setViewName("redirect:/adminCampingInfo?cacode="+campingRoom.getCrcacode());
+		} else {
+		   ra.addFlashAttribute("msg", "객실 등록에 실패하였습니다.");
+		   mav.setViewName("redirect:/adminCampingInfo?cacode="+campingRoom.getCrcacode());
+		}
+		return mav;
+	}
+
 }
