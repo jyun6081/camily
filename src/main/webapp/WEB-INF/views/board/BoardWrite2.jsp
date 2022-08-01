@@ -205,7 +205,7 @@
 								<h5>캠핑용품 리뷰 작성</h5><h6>캠핑용품 후기작성 페이지입니다.</h6>
 						</div> 
 					<div style="width: 100%; margin: auto;">
-						<form method="post" action="cgWrite2" id="myform">
+						<form method="post" action="cgWrite2">
 
 							<input type="text" name="gorvtitle" style="width: 40%; border-bottom: 1px solid; border-color: #ddd;"
 								placeholder="제목" /> <br>
@@ -216,6 +216,7 @@
 								<a class="btn btn-success"
 									href="CampingPurchaseListPage" style="float: right;">목록</a>
 								
+								<div id="myform">
 									<span class="text-bold">별점을 선택해주세요</span> <br>
 								<fieldset>
 									<input type="radio" name="gorvstarating" value="5" id="rate1"><label
@@ -229,7 +230,7 @@
 									<input type="radio" name="gorvstarating" value="1" id="rate5"><label
 										for="rate5">★</label>
 								</fieldset>
-
+								</div>
 						</form>
 					</div>
 

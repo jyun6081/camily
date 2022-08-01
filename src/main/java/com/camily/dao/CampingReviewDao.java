@@ -24,4 +24,6 @@ public interface CampingReviewDao {
 
 	void deleteCampingReview(int cgrvcode);
 
+	String SelectAvgStar(String cacode);
+
 }

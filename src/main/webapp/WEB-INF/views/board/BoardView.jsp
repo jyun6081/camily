@@ -132,12 +132,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">
-					<div class="p-r-45 p-r-0-lg">
-
+					<div class="p-r-45 p-r-0-lg" >
+						<div style="text-align: center;">
 						<h4 class="ltext-109 cl2 p-b-28">${boardView.botitle }</h4>
 
 						<div class="p-t-32">
-							<span class="flex-w flex-m stext-111 cl2 p-b-19"> <span>
+							<span class="flex-w flex-m stext-111 cl2 p-b-19"  style="justify-content: center;"> <span>
 									<span> <i class="fa-regular fa-user"></i>
 										${boardView.bomid }
 								</span> <span class="cl12 m-l-4 m-r-6">|</span>
@@ -154,7 +154,7 @@
 							</div>
 					  
 						</div>
-
+						</div>
 						<!--  -->
 						<div class="p-t-40">
 

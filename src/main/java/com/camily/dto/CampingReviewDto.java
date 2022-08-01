@@ -15,6 +15,6 @@ public class CampingReviewDto {
     String cgrvrecode;
     String caimage;
     String cgrvhits;
-    int cgstarating;
+    int cgrvstarating;
     
 }
