@@ -96,11 +96,13 @@
 
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
-						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
+						<h4 class="mtext-105 cl2 js-name-detail p-b-14" style="display: inline-block;">
 							${campingInfo.caname}
 						</h4>
 
-
+						<button type="button" onclick="kakaoshare(${campingInfo.cacode}, ${campingInfo.caname}, ${campingInfo.caimage}, ${campingInfo.calinecontents})" style="float: right;">
+								       <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 75%;">
+						</button>
 						<!-- <span class="mtext-106 cl2">
 							가격 : 
 						</span> -->
@@ -496,6 +498,56 @@
 			})
 		});
 	</script>
+	<!--===============================================================================================-->
+	<!-- 카카오톡 공유하기 api -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script type="text/javascript">
+	try {
+	 	function kakaoshare(cacode, caname, caimage, calinecontents){
+			 console.log("cacode :" + cacode);
+			 console.log("caname :" + caname);
+			 console.log("calinecontents : " + calinecontents)
+			 Kakao.init('ff44da0c10c3fe434ba307170a916ce5')
+			    Kakao.Link.sendDefault({
+			      objectType: 'feed',
+			      content: {
+			        title: caname,
+			        description: calinecontents,
+			        imageUrl:
+			        	caimage,
+			        link: {
+			          mobileWebUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
+			          webUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
+			        },
+			      },
+			      social: {
+			        likeCount: 286,
+			        commentCount: 45,
+			        sharedCount: 845,
+			      },
+			      buttons: [
+			        {
+			          title: '웹으로 보기',
+			          link: {
+			            mobileWebUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
+			            webUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
+			          },
+			        },
+			        {
+			          title: '앱으로 보기',
+			          link: {
+			            mobileWebUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
+			            webUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
+			          },
+			        },
+			      ],
+			    })
+			  }
+			; window.kakaoDemoCallback && window.kakaoDemoCallback() }
+		catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+	</script>
+	
+	
 	<!--===============================================================================================-->
 	<script>
 		window.onload = function(){

@@ -90,7 +90,7 @@
                                             <img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${ShopList.gimage }" height="50px" style="text-align: center;">                                           
                                             </th>
                                             <th class="align-middle text-center font-weight-bold">${ShopList.gname }</th>
-                                            <th class="align-middle text-center font-weight-bold">${ShopList.gprice }</th>
+                                            <th class="align-middle text-center font-weight-bold">${ShopList.gprice }원</th>
                                             <th class="align-middle text-center font-weight-bold">${ShopList.gcategory }</th>                                            
                                             <th class="align-middle text-center font-weight-bold">
                                             <c:choose>                                           

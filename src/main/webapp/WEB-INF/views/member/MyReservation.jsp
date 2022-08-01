@@ -171,7 +171,8 @@
 
 						<div class="size-209 p-t-1">
 							<span class="mtext-110 cl2">
-								${myReservationInfo.totalprice}원
+						    	<%-- ${myReservationInfo.totalprice}원  --%>
+								${myReservationInfo.myformatter}원
 							</span>
 						</div>
 					</div>
