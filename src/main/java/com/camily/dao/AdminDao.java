@@ -17,6 +17,7 @@ import com.camily.dto.CampingRoomDto;
 import com.camily.dto.GoodsQnADto;
 import com.camily.dto.GoodsReviewDto;
 import com.camily.dto.MemberDto;
+import com.camily.dto.ReservationDto;
 
 public interface AdminDao {
 
@@ -126,6 +127,12 @@ public interface AdminDao {
 	int selectMaxCrNum(CampingRoomDto campingRoom);
     
 	int addCampingRoom(CampingRoomDto campingRoom);
+
+	ArrayList<ReservationDto> getReservationList(@Param("startRow") int startRow, @Param("endRow") int endRow);
+
+	int getReservationListTotalCount();
+
+	ReservationDto getReservationInfo(@Param("recode") String recode);
 
 	
 

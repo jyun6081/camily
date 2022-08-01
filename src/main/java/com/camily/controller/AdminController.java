@@ -3,6 +3,7 @@ package com.camily.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -289,4 +290,19 @@ public class AdminController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "adminReservationPage")
+	public ModelAndView adminReservationPage(@Param("page") String page) {
+		System.out.println("관리자 예약 관리 페이지 이동");
+		ModelAndView mav = advc.adminReservationPage(page);
+		return mav;
+	}
+	
+	@RequestMapping(value = "adminReservationInfo")
+	public @ResponseBody String adminReservationInfo(@Param("recode") String recode) {
+		System.out.println("관리자 예약정보 상세보기 ajax");
+		String reservationInfo_json = advc.adminReservationInfo(recode);
+		return reservationInfo_json;
+	}
+	
 }
