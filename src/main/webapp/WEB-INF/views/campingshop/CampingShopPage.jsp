@@ -124,8 +124,8 @@
 							<i class="zmdi zmdi-search"></i>
 						</button>
 
-						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" id="search" placeholder="Search">
-						<button class="btn btn-secondary p-2" onclick="searchShop()">검색하기</button>
+						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" id="search" placeholder="Search" onkeydown="searchShopEvent(event)">
+						<button id="searchShop" class="btn btn-success p-2" onclick="searchShop()">검색하기</button>
 					</div>	
 				</div>	
 	
@@ -358,6 +358,11 @@
 			
 	 });
 
+ }
+ function searchShopEvent(event){
+	if(event.key === "Enter"){
+		$("#searchShop").click();
+	}
  }
 </script>
 

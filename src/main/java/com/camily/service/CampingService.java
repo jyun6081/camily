@@ -231,7 +231,7 @@ public class CampingService {
 		return mav;
 	}
 	
-	// 캠핑장 에약 기능
+	// 캠핑장 예약 기능
 	public ModelAndView campingReservation(String recode, String recacode, String remid, String recrname, String recrnum, String startday, String endday, int repeople, String remname, String remtel, String rememail, String rerequest) {
 		System.out.println("CampingService.campingReservation() 호출");
 		ModelAndView mav = new ModelAndView();
