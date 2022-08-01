@@ -80,19 +80,21 @@
 							</ul>
 						</li>
 						<li>
-						<a href="#">캠핑용품관리</a>
+						<a href="#">캠핑용품</a>
 						    <ul class="sub-menu" style="z-index: 1100">
-								<li><a href="adminCampingShop">캠핑용품관리</a></li>
-								<li><a href="AdminProductInsert">캠핑용품등록</a></li>
-								<li><a href="AdminCampingSendProduckt">캠핑용품배송관리</a></li>
-								<li><a href="AdminCampingCancel">캠핑용품취소관리</a></li>
-								<li><a href="AdminCampingCancelList">캠핑용품취소목록</a></li>
+								<li><a href="adminCampingShop">캠핑용품 관리</a></li>
+								<li><a href="AdminProductInsert">캠핑용품 등록</a></li>
+								<li><a href="AdminCampingSendProduckt">캠핑용품 배송 관리</a></li>
+								<li><a href="AdminCampingCancel">캠핑용품 취소 관리</a></li>
+								<li><a href="AdminCampingCancelList">캠핑용품 취소 목록</a></li>
+								<li><a href="adminGoodsQuestionPage">캠핑용품 문의글 확인</a></li>
 							</ul>
 						</li>						
-						<li><a href="#">캠핑장 관리</a>
+						<li><a href="#">캠핑장</a>
 						     <ul class="sub-menu" style="z-index: 1100">
 								<li><a href="adminCamping">캠핑장 목록</a></li>
 								<li><a href="adminCampingInsertPage">캠핑장 등록</a></li>
+								<li><a href="adminCampingQuestionPage">캠핑장 문의글 확인</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -154,18 +156,22 @@
 		<ul class="main-menu-m">
 			<li><a href="adminMemberList">회원관리</a></li>
 			<li><a href="#">게시판 관리</a></li>
-			<li><a href="#">캠핑용 품관리</a>
+			<li><a href="#">캠핑용품</a>
 				<ul class="sub-menu-m">
 					<li><a href="adminCampingShop">캠핑용품 관리</a></li>
 					<li><a href="AdminProductInsert">캠핑용품 등록</a></li>
-					<li><a href="AdminCampingSendProduckt">캠핑용품 배송관리</a></li>
+					<li><a href="AdminCampingSendProduckt">캠핑용품 배송 관리</a></li>
+					<li><a href="AdminCampingCancel">캠핑용품 취소 관리</a></li>
+					<li><a href="AdminCampingCancelList">캠핑용품 취소 목록</a></li>
+					<li><a href="adminGoodsQuestionPage">캠핑용품 문의글 확인</a></li>
 				</ul> <span class="arrow-main-menu-m"> <i class="fa fa-angle-right" aria-hidden="true"></i>
 				</span>
 			</li>
-			<li><a href="#">캠핑장 관리</a>
+			<li><a href="#">캠핑장</a>
 				<ul class="sub-menu-m">
 					<li><a href="adminCamping">캠핑장 목록</a></li>
-								<li><a href="adminCampingInsertPage">캠핑장 등록</a></li>
+					<li><a href="adminCampingInsertPage">캠핑장 등록</a></li>
+					<li><a href="adminCampingQuestionPage">캠핑장 문의글 확인</a></li>
 				</ul> <span class="arrow-main-menu-m"> <i class="fa fa-angle-right" aria-hidden="true"></i>
 				</span>
 			</li>

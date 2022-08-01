@@ -35,6 +35,7 @@ public class CampingService {
 	@Autowired
 	private HttpSession session;
 	
+	// 캠핑장 데이터 입력 기능
 	public void campingListInput(ArrayList<CampingDto> campingList) {
 		System.out.println("CampingService.campingListInput() 호출");
 		for(int i = 0; i<campingList.size(); i++) {
@@ -63,6 +64,7 @@ public class CampingService {
 		
 	}
 
+	// 캠핑장 목록 기능
 	public ModelAndView campingList(String page, String type, String searchKeyword) {
 		System.out.println("CampingService.campingList() 호출");
 		int selPage = 1;
@@ -115,23 +117,62 @@ public class CampingService {
 		return mav;
 	}
 
+	// 캠핑장 상세보기 기능
 	public ModelAndView campingView(String cacode) {
 		System.out.println("CampingService.campingView() 호출");
+		
+		/* --- */
+		int selPage = 1;
+		/*
+		if(page != null) {
+			selPage = Integer.parseInt(page);
+		}
+		*/
+		int campingQnATotalCount = cdao.getCampingQnATotalCount();
+		System.out.println(campingQnATotalCount);
+		int pageCount = 5;
+		int pageNumCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > campingQnATotalCount) {
+			endRow = campingQnATotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		ArrayList<CampingQnADto> campingQnAList = cdao.campingQuestionList(startRow, endRow, cacode);
+		int maxPage = (int)( Math.ceil(  (double)campingQnATotalCount/pageCount  ) );
+		
+		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
+		
+		int endPage = startPage + pageNumCount - 1;
+		
+		if( endPage > maxPage ) {
+			endPage = maxPage;
+		}
+		PageDto pageDto = new PageDto();
+		pageDto.setPage(selPage);
+		pageDto.setMaxPage(maxPage);
+		pageDto.setStartPage(startPage);
+		pageDto.setEndPage(endPage);
+		/* --- */
+		
 		ModelAndView mav = new ModelAndView();
 		CampingDto campingInfo = cdao.campingView(cacode);
 		System.out.println(campingInfo);
 		ArrayList<CampingRoomDto> campingRoomTypeList = cdao.campingRoomTypeList(cacode);
 		ArrayList<CampingRoomDto> campingRoomList = cdao.campingRoomList(cacode);
-		ArrayList<CampingQnADto> campingQnAList = cdao.campingQuestionList(cacode);
 		System.out.println(campingRoomList);
 		mav.addObject("campingInfo", campingInfo);
 		mav.addObject("campingRoomList", campingRoomList);
 		mav.addObject("campingRoomTypeList", campingRoomTypeList);
 		mav.addObject("campingQnAList", campingQnAList);
+		mav.addObject("pageDto", pageDto);
 		mav.setViewName("camping/CampingView");
 		return mav;
 	}
 
+	// 캠핑장 가능한 객실 목록 기능
 	public String checkRoomType(String cacode, String startday, String endday) {
 		System.out.println("CampingService.checkRoomType() 호출");
 		Gson gson = new Gson();
@@ -149,6 +190,7 @@ public class CampingService {
 		return roomType_json;
 	}
 	
+	// 캠핑장 에약 페이지 이동
 	public ModelAndView campingReservationPage(String cacode, String startday, String endday, String roomSel, String numSel, int people) {
 		System.out.println("CampingService.campingReservationPage() 호출");
 		ModelAndView mav = new ModelAndView();
@@ -171,6 +213,7 @@ public class CampingService {
 		return mav;
 	}
 	
+	// 캠핑장 에약 기능
 	public ModelAndView campingReservation(String recode, String recacode, String remid, String recrname, String recrnum, String startday, String endday, int repeople, String remname, String remtel, String rememail, String rerequest) {
 		System.out.println("CampingService.campingReservation() 호출");
 		ModelAndView mav = new ModelAndView();
@@ -214,6 +257,7 @@ public class CampingService {
 		return myInfo_json;
 	}
 
+	// 내 캠핑장 예약내역 목록
 	public ModelAndView myReservationList() {
 		System.out.println("CampingService.myReservationList() 호출");
 		ModelAndView mav = new ModelAndView();
@@ -256,6 +300,7 @@ public class CampingService {
 		return totalPrice;
 	}
 
+	// 내 캠핑장 예약 상세보기
 	public ModelAndView myReservation(String recode) {
 		System.out.println("CampingService.myReservation() 호출");
 		ModelAndView mav = new ModelAndView();
@@ -281,6 +326,7 @@ public class CampingService {
 		return mav;
 	}
 
+	// 캠핑장 예약자 정보 및 요청사항 수정
 	public String changeReserveMsg(String recode, String remname, String remtel, String rememail, String rerequest) {
 		System.out.println("CampingService.changeReserveMsg() 호출");
 		int updateResult = cdao.changeReserveMsg(recode, remname, remtel, rememail, rerequest);
@@ -293,6 +339,7 @@ public class CampingService {
 		return result;
 	}
 
+	// 캠핑장 예약번호 생성 기능
 	public String getRecode() {
 		String maxRecode = cdao.getmaxrecode();
 		String reCode = "";
@@ -313,6 +360,7 @@ public class CampingService {
 		return reCode;
 	}
 
+	// 캠핑장 예약 취소 기능
 	public ModelAndView cancelReservation(String recode) {
 		System.out.println("CampingService.cancelReservation() 호출");
 		ModelAndView mav = new ModelAndView();
@@ -323,6 +371,7 @@ public class CampingService {
 		return mav;
 	}
 
+	// 캠핑장 예약 예상금액 계산
 	public String checkTotalPrice(String crprice, String startday, String endday) {
 		System.out.println("CampingService.checkTotalPrice() 호출");
 		startday = startday.substring(6,10) + "-" + startday.substring(0,2) + "-" + startday.substring(3,5);
@@ -333,6 +382,7 @@ public class CampingService {
 		return result;
 	}
 
+	// 캠핑장 문의글 작성
 	public ModelAndView questionWrite(String cqmid, String cqcacode, String cqcontents, RedirectAttributes ra) {
 		System.out.println("CampingService.questionWrite() 호출");
 		ModelAndView mav = new ModelAndView();
@@ -382,6 +432,7 @@ public class CampingService {
 		return mav;
 	}
 
+	// 캠핑장 문의글 수정
 	public String questionModify(String cqcode, String cqcontents) {
 		System.out.println("CampingService.questionModify() 호출");
 		String result_json = "";
@@ -401,6 +452,7 @@ public class CampingService {
 		return result_json;
 	}
 
+	// 캠핑장 문의글 삭제
 	public ModelAndView questionDelete(String cqcode, String cqcacode, RedirectAttributes ra) {
 		System.out.println("CampingService.questionDelete() 호출");
 		ModelAndView mav = new ModelAndView();
@@ -412,6 +464,30 @@ public class CampingService {
 		}
 		mav.setViewName("redirect:/campingView?cacode="+cqcacode);
 		return mav;
+	}
+
+	public String selCampingQnAPage(String pageNum, String cacode) {
+		int selPage = 1;
+
+		if(pageNum != null) {
+			selPage = Integer.parseInt(pageNum);
+		}
+
+		int campingQnATotalCount = cdao.getCampingQnATotalCount();
+		System.out.println(campingQnATotalCount);
+		int pageCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > campingQnATotalCount) {
+			endRow = campingQnATotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		ArrayList<CampingQnADto> campingQnAList = cdao.campingQuestionList(startRow, endRow, cacode);
+		Gson gson = new Gson();
+		String campingQnAList_ajax = gson.toJson(campingQnAList);
+		return campingQnAList_ajax;
 	}
 
 	

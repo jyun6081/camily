@@ -249,5 +249,12 @@ public class CampingShopController {
 		String modifyStateResult = csvc.modifyGoodsQuestionState(gqcode);
 		return modifyStateResult;
 	}
+	
+	@RequestMapping(value = "/selGoodsQnAPage")
+	public @ResponseBody String selGoodsQnAPage(String pageNum, String gcode) {
+		System.out.println("캠핑용품 문의글 페이지 선택 ajax");
+		String goodsQnAList_ajax = csvc.selGoodsQnAPage(pageNum, gcode);
+		return goodsQnAList_ajax;
+	}
 
 }

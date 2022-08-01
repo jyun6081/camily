@@ -115,7 +115,9 @@
     <update id="bannerModify">
     UPDATE BANNER
 	<set>
-		BNIMAGE = #{bnimage},
+		<if test="bnimage != null">
+			BNIMAGE = #{bnimage},
+		</if>
 		BNTITLE = #{bntitle},
 		BNTITLEEFFECT = #{bntitleeffect},
 		BNCONTENTS = #{bncontents},
@@ -207,4 +209,18 @@
 		LEFT OUTER JOIN GOODSANSWER GW ON GQ.GQCODE = GW.GWGQCODE
 		WHERE GQ.GQCODE = #{gwgqcode}    
     </select>
+    
+    <select id="selectMaxCrNum" resultType="int">
+        SELECT NVL(MAX(TO_NUMBER(REPLACE(CRNUM, '번', ''))), 0) AS CRNUM
+		FROM CAMPINGROOM
+		WHERE CRCACODE = #{crcacode}
+		AND CRNAME = #{crname}
+    </select>
+    
+    <insert id="addCampingRoom">
+    INSERT INTO CAMPINGROOM (CRCACODE, CRNAME, CRSTNPEOPLE, CRMAXPEOPLE, CRIMAGE, CRPRICE, CRSTATE, CRNUM) 
+    VALUES (#{crcacode}, #{crname}, #{crstnpeople}, #{crmaxpeople}, #{crimage}, #{crprice}, 1, #{crnum})
+    
+    
+    </insert>
 </mapper>

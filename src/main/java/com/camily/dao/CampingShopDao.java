@@ -108,7 +108,7 @@ public interface CampingShopDao {
 	int cancelreasonput(@Param("gocode") String gocode, @Param("gocancel") String gocancel);
     
 	// 캠핑용품 문의글 가져오기
-	ArrayList<GoodsQnADto> goodsQuestionList(String gcode);
+	ArrayList<GoodsQnADto> goodsQuestionList(@Param("startRow") int startRow, @Param("endRow") int endRow, @Param("gcode") String gcode);
 	
     // 문의글 코드 최댓값 조회
 	String getMaxGqcode();
@@ -124,7 +124,9 @@ public interface CampingShopDao {
 	
     // 문의글 삭제(state 0)
 	int modifyGoodsQuestionState(String gqcode);
-	
+
+	// 문의글 갯수
+	int getGoodsQnATotalCount();
    
 
     
