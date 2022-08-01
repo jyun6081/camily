@@ -45,38 +45,38 @@
 	<!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
-<style type="text/css">
-.section-reply-title {
-	/* margin-bottom: 30px; */
-	/* padding-top: 40px; */
-    text-align: center;
-}
+	<style type="text/css">
+		.section-reply-title {
+			/* margin-bottom: 30px; */
+			/* padding-top: 40px; */
+			text-align: center;
+		}
 
-.section-reply-title h5 {
-	color: #000000;
-	font-weight: 600;
-	line-height: 21px;
-	text-transform: uppercase;
-	padding-left: 20px;
-	position: relative;
-	font-family: "Oswald", sans-serif;
-}
+		.section-reply-title h5 {
+			color: #000000;
+			font-weight: 600;
+			line-height: 21px;
+			text-transform: uppercase;
+			padding-left: 20px;
+			position: relative;
+			font-family: "Oswald", sans-serif;
+		}
 
-.section-reply-title h6 {
-	color: #848484;
-	font-weight: 600;
-	line-height: 21px;
-	text-transform: uppercase;
-	padding-left: 20px;
-	position: relative;
-	font-family: "Oswald", sans-serif;
-}
-
-.grid{
+		.section-reply-title h6 {
+			color: #848484;
+			font-weight: 600;
+			line-height: 21px;
+			text-transform: uppercase;
+			padding-left: 20px;
+			position: relative;
+			font-family: "Oswald", sans-serif;
+		}
+		
+		.grid{
 			display: grid;
 			grid-template-columns: 1fr 80px
 		}
-</style>
+	</style>
 
 </head>
 
@@ -85,22 +85,18 @@
 	<!-- TopBar-->
 	<%@ include file="/WEB-INF/views/includes/TopBar.jsp"%>
 	<!-- End TopBar-->
-	
+
 	<!-- memberModal -->
 	<%@ include file="/WEB-INF/views/member/memberModal.jsp"%>
 	<!-- EndmemberModal -->
-	
+
 	<c:set var="today" value="<%=new Date() %>"></c:set>
 	<!-- End of Topbar -->
-	
 	<form class="bg0 p-t-35 p-b-85">
 		<div class="section-reply-title">
 			<h5>캠핑예약내역⛺</h5>
 			<h6>캠핑예약 내역을 확인하세요!</h6>
 		</div>
-		<c:if test="${fn:length(myReservationList) == 0}">
-			<p style="text-align: center;">예매내역이 존재하지 않습니다!!!</p>
-		</c:if>
 		<c:forEach items="${myReservationList}" var="myReservationInfo">
 			<div class="col-9" style="padding-top: 30px; margin: auto; font-family: Poppins-Bold;">
 				<div class="bg-light rounded h-100 p-4">
@@ -134,9 +130,11 @@
 									<td>${myReservationInfo.caname}</td>
 									<td>${myReservationInfo.recrname} ${myReservationInfo.recrnum}</td>
 									<td>${myReservationInfo.startday} ~ ${myReservationInfo.endday}</td>
-									<td>${myReservationInfo.totalprice}원</td>
+									<td>${myReservationInfo.myformatter}원
+										<!-- ${myReservationInfo.totalprice}원 -->
+									</td>
 									<td><a href="cpWrite?recacode=${myReservationInfo.recacode }&recode=${myReservationInfo.recode}"
-											class="flex-c-m stext-101 cl0 size-80 bg1 bor1 hov-btn1 p-lr-15 trans-04">후기작성</a>
+											class="flex-c-m stext-101 cl0 size-80 bg1 bor1 hov-btn1 trans-04">후기작성</a>
 									</td>
 								</tr>
 								<c:if test="${fn:length(myReservationList) == 0}">
@@ -150,7 +148,7 @@
 				</div>
 			</div>
 		</c:forEach>
-	</form>
+		
 		<%-- <div class="container">
 			<div class="m-lr-auto m-b-50">
 				<div class="m-l-25 m-r--38 m-lr-0-xl">
@@ -164,7 +162,7 @@
 									<th class="column-4">에약일자</th>
 									<th class="column-5">결제금액</th>
 								</tr>
-								<c:if test="${fn:length(myReservationList)} == 0">
+								<c:if test="${fn:length(myReservationList) == 0}">
 									<tr class="table_row">
 										<th colspan="5" style="text-align: center;"> 예약내역이 존재하지 않습니다.</th>
 									</tr>
@@ -192,7 +190,7 @@
 				</div>
 			</div>
 		</div> --%>
-	
+	</form>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
@@ -212,7 +210,7 @@
 		}
 	</script>
 
-		<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/popper.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<!--===============================================================================================-->

@@ -81,6 +81,7 @@
 	WHERE GOSTATE BETWEEN 2 AND 7
 	OR GOSTATE = 9
 	AND RN BETWEEN #{startRow} AND #{endRow}
+<!-- ORDER BY GODATE DESC -->
  </select>
  
  <!-- 구매목록 삭제하기 dao 호출 (UPDATE) -->
@@ -130,15 +131,19 @@
   
  <!-- 값이 있으면 해당하는 상품이 있으니까 수량만 늘려줌 (UPDATE) ZZ -->
  <update id="update">
-  UPDATE DETAILINFORMATION SET DIAMOUNT = #{diamount} + #{old}
+  UPDATE DETAILINFORMATION 
+  SET DIAMOUNT = DIAMOUNT + #{diamount},
+  DITOTALPRICE = DITOTALPRICE + #{ditotalprice2}
   WHERE DIMID = #{loginId} 
+  AND DICODE = #{dicode}
  </update>
   
  <!-- 장바구니 목록 페이지 출력 (SELECT) -->
  <select id="detailinformation" resultType="com.camily.dto.CampingDetailInformationDto">
-  SELECT*
-  FROM DETAILINFORMATION
-  WHERE DIMID = #{loginId} 
+   SELECT DI.*, G.GSTATE
+   FROM DETAILINFORMATION DI
+   INNER JOIN GOODS G ON G.GCODE = DI.DICODE
+   WHERE DIMID = #{loginId}
  </select>
   
  <!-- 장바구니 들어 있는 모든 값 (INSERT) -->

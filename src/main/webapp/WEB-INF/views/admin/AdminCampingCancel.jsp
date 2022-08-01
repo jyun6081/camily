@@ -101,7 +101,7 @@
                                             <th class="align-middle text-center font-weight-bold">${CampingCancel.gomaddr }</th>
                                             <th class="align-middle text-center font-weight-bold">${CampingCancel.goname }</th>
                                             <th class="align-middle text-center font-weight-bold">${CampingCancel.goamount }개</th>
-                                            <th class="align-middle text-center font-weight-bold">${CampingCancel.goprice }원</th> 
+                                            <th class="align-middle text-center font-weight-bold">${CampingCancel.goformatter2 }원</th> 
                                             <th class="align-middle text-center font-weight-bold">${CampingCancel.gocancel }</th> 
                                             <th class="align-middle text-center font-weight-bold">       
                                                 <button class="btn btn-danger p-2" onclick="cancelOk(this,'${CampingCancel.gocode }')">취소승인</button>

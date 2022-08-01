@@ -131,8 +131,8 @@
 							<i class="zmdi zmdi-search"></i>
 						</button>
 
-						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" id="search" placeholder="Search">
-						<button class="btn btn-secondary p-2" onclick="searchShop()">검색하기</button>
+						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" id="search" placeholder="Search" onkeydown="searchShopEvent(event)">
+						<button id="searchShop" class="btn btn-success p-2" onclick="searchShop()">검색하기</button>
 					</div>	
 				</div>	
 	
@@ -163,14 +163,14 @@
 								</c:if>
 								
 								<span class="stext-105 cl3">
-									${camping.gprice }						
+									${camping.gprice }원
 								</span>
 							</div>
 
 							<div class="block2-txt-child2 flex-r p-t-3">
 	                            <c:choose>
 							       <c:when test="${sessionScope.loginId != null}">	
-								      <button id="toggle" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" onclick="cartInsert(this,'${camping.gcode}')">
+								      <button id="toggle_${camping.gcode}" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" onclick="cartInsert(this,'${camping.gcode}')">
 										<i class="zmdi zmdi-favorite-outline"></i>
 								      </button>   	<!--<i class="fa-thin fa-heart-circle-check"></i>  -->
 								   </c:when>
@@ -318,7 +318,7 @@
 			dataType : "json",
 			success : function(cartresult){
 				console.log("cartresult :"+ cartresult)
-                $("#toggle").remove();
+                $("#toggle_"+gcode).remove();
 			}
 			
 	 });
@@ -357,7 +357,7 @@
 					output += '</div>';
 					output += '<div class="block2-txt-child2 flex-r p-t-3">';
 					if('${sessionScope.loginId}' != null){
-						output += '<button id="toggle" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" onclick="cartInsert(this,\'' + result[z].gcode + '\')">';
+						output += '<button id="toggle_' + result[z].gcode + '" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" onclick="cartInsert(this,\'' + result[z].gcode + '\')">';
 						output += '<i class="zmdi zmdi-favorite-outline"></i>';
 						output += '</button>';
 					}
@@ -372,6 +372,11 @@
 			
 	 });
 
+ }
+ function searchShopEvent(event){
+	if(event.key === "Enter"){
+		$("#searchShop").click();
+	}
  }
 </script>
 

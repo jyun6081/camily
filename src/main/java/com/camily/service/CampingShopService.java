@@ -1,5 +1,6 @@
 package com.camily.service;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +20,6 @@ import com.camily.dao.GoodsReviewDao;
 import com.camily.dto.BannerDto;
 import com.camily.dto.CampingDetailInformationDto;
 import com.camily.dto.CampingDto;
-import com.camily.dto.CampingQnADto;
 import com.camily.dto.GoodsDto;
 import com.camily.dto.GoodsOrderDto;
 import com.camily.dto.GoodsQnADto;
@@ -154,12 +154,20 @@ public class CampingShopService {
 		System.out.println("CampingShopService.campingpurchase() 호출");
 		
 		ModelAndView mav = new ModelAndView();
-		
+		String divisionsum = "";
 		try {			
 			GoodsDto campingpurchase = cdao.campingpurchase(gcode);
 			campingpurchase.setGamount(gamount); // 상품 갯수 추가
 			int price = Integer.parseInt(campingpurchase.getGprice().replace(",", "")); // 1,890,000
 			int total = price * Integer.parseInt(gamount);
+					
+			// 상품 총가격 콤마표시
+		    DecimalFormat formatter = new DecimalFormat("###,###");
+			System.out.println("total의 금액 표기["+total+"] ==> " +formatter.format(total));	
+			
+			divisionsum = formatter.format(total); // 장바구니 가격모음 , 추가하기
+			campingpurchase.setGformatter(divisionsum);
+			
 			
 			String loginId = (String) session.getAttribute("loginId");
 			System.out.println("loginId :"+ loginId);
@@ -194,9 +202,9 @@ public class CampingShopService {
 			}
 				 */
 			}		
+			mav.addObject("totalPrice", total);
 			mav.addObject("addselect", addselect);
-			mav.addObject("campingpurchase", campingpurchase);
-			mav.addObject("totalPrice", total);			
+			mav.addObject("campingpurchase", campingpurchase);		
 			mav.setViewName("campingshop/CampingPurchase");
 		} catch (Exception e) {
 			  ra.addFlashAttribute("msg", "로그인해주세요!");
@@ -285,11 +293,47 @@ public class CampingShopService {
 		 ArrayList<GoodsOrderDto> PurchaseList = cdao.PurchaseList(loginId,startRow,endRow); // 해당하는 아이디의 구매내역 값 출력	
 		 ModelAndView mav = new ModelAndView();
 		 
-		 System.out.println("PurchaseList :"+ PurchaseList);
+		 String division = ""; // 상품가격
+		 String divisionamount = ""; // 상품수량 
+		 int ditotalprice = 0; // 상품가격 / 상품수량
+		 String divisionsum = ""; // 상품가격 콤마표시
+		 String divisionsum2 = ""; // 상품 총가격 콤마표시
+		  for(int z = 0; z < PurchaseList.size(); z++) {	
+			  // 상품가격
+			  division = "";
+			  division += PurchaseList.get(z).getGoprice();
+			  int division2 = Integer.parseInt(division);
+			  // 상품가격 콤마표시
+			  DecimalFormat formatter = new DecimalFormat("###,###");			  
+			  divisionsum2 = formatter.format(division2); // 장바구니 가격모음 , 추가하기
+			  System.out.println("divisionsum2 :"+ divisionsum2);
+			  PurchaseList.get(z).setGoformatter(divisionsum2);
+			  	  
+			  // 상품수량
+			  divisionamount = "";
+			  divisionamount += PurchaseList.get(z).getGoamount();	
+			  System.out.println("divisionamount :"+ divisionamount);
+			  
+			  // 상품가격 / 상품수량
+			  int price = Integer.parseInt(division.replace(",", "")); // 1,890,000			 			  
+			  ditotalprice = price / Integer.parseInt(divisionamount);			  
+			  System.out.println("ditotalprice :"+ ditotalprice);
+			  
+			  // 상품가격 콤마표시
+			  DecimalFormat formatter2 = new DecimalFormat("###,###");
+			  System.out.println("ditotalprice의 금액 표기["+ditotalprice+"] ==> " +formatter2.format(ditotalprice));
+			  
+			  divisionsum = formatter2.format(ditotalprice); // 장바구니 가격모음 , 추가하기
+			  PurchaseList.get(z).setDivisionsum(divisionsum);
+			  
+		  }
+		  System.out.println("divisionsum :"+ divisionsum);	  
+		  
+		 mav.addObject("divisionsum", divisionsum);
 		 mav.addObject("PurchaseList", PurchaseList);
 		 mav.addObject("pageDto", pageDto);
 		 mav.setViewName("campingshop/CampingPurchaseListPage"); // 페이지 이동
-		 
+		 		 
 		return mav;
 	}
 	
@@ -372,9 +416,9 @@ public class CampingShopService {
 				// 장바구니 추가하기 전 장바구니 안에 같은 물건이 있는지 없는지 아이디로 확인		
 				CampingDetailInformationDto selectdto = cdao.selectdto(dicode,loginId); // 값이 똑같은게 있냐 없냐
 				if(selectdto == null) {
-				// 값이 없으면 장바구니 추가 (INSERT)
-				int insertinformation = cdao.insertinformation(loginId,dicode,diname,diimage,diamount,diaddr,diprice,ditotalprice);
-				System.out.println("insertinformation :"+ insertinformation);
+				  // 값이 없으면 장바구니 추가 (INSERT)
+				  int insertinformation = cdao.insertinformation(loginId,dicode,diname,diimage,diamount,diaddr,diprice,ditotalprice);
+				  System.out.println("insertinformation :"+ insertinformation);
 				 if(insertinformation == 1) {
 					ra.addFlashAttribute("msg", "장바구니에 추가하셨습니다.");
 					mav.setViewName("redirect:/campingDetailPage?gcode="+dicode);
@@ -382,13 +426,18 @@ public class CampingShopService {
 					ra.addFlashAttribute("msg", "장바구니 추가에 실패하였습니다.");
 					mav.setViewName("redirect:/campingDetailPage?gcode="+dicode);
 				}			
-			}else {
-				String old = selectdto.getDiamount();
+			}else {				
+				int price2 = Integer.parseInt(diprice.replace(",", "")); // 1,890,000
+			    int ditotalprice2 = price2 * Integer.parseInt(diamount);
+				System.out.println("ditotalprice2 :"+ ditotalprice2);
+			    
 				// 값이 있으면 해당하는 상품이 있으니까 수량만 늘려줌 (UPDATE)
-				int update = cdao.update(diamount,old,loginId);
+				int update = cdao.update(diamount,loginId,ditotalprice2,dicode);
 				System.out.println("update :"+ update);
 				ra.addFlashAttribute("msg", "장바구니에 담겨 있어서 수량만 추가하였습니다.");
 				mav.setViewName("redirect:/campingDetailPage?gcode="+dicode);
+						
+				
 			}				
 			   } 
 			 catch (Exception e) {
@@ -406,8 +455,25 @@ public class CampingShopService {
 		String loginId = (String) session.getAttribute("loginId");
 		
 		ArrayList<CampingDetailInformationDto> detailinformation = cdao.detailinformation(loginId);
-				
+		String totalPrice ="";
+		int sumTotal = 0;
 		if(detailinformation != null) {
+			for(int z = 0; z < detailinformation.size(); z++) {
+				totalPrice = "";
+				totalPrice += detailinformation.get(z).getDiprice();
+				int price = Integer.parseInt(totalPrice.replace("," ,"")); // 1,890,000
+				int total = price * Integer.parseInt(detailinformation.get(z).getDiamount());
+				
+				DecimalFormat formatter = new DecimalFormat("###,###");
+				System.out.println("total의 금액 표기["+total+"] ==> " +formatter.format(total));
+				
+				String sum = formatter.format(total); // 장바구니 가격모음 , 추가하기
+				detailinformation.get(z).setFormatter(sum);					
+				if (Integer.parseInt(detailinformation.get(z).getGstate()) != 0) {
+					sumTotal += total;
+				};
+			}
+			mav.addObject("sumTotal", sumTotal);
 			mav.addObject("detailinformation",detailinformation);
 			mav.setViewName("campingshop/CampingDetailInformation");
 		}else {
