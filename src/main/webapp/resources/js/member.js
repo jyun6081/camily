@@ -78,7 +78,7 @@ $("#inputBirth").attr("max", today);
 	        $("#modifyFormOpen_Btn").removeAttr("hidden");
 	        $("#modifyMemberInfo_Btn").attr("hidden","hidden");
 	        $("#memberDelete_Btn").removeAttr("hidden");
-	        $(".form-control").val("");
+	        $(".validate").val("");
 		    
 		    /* 아이디 찾기 모달 초기화 */
 		    $(".findId").val("");

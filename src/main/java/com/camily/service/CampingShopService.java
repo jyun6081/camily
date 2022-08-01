@@ -500,7 +500,7 @@ public class CampingShopService {
 		
 		return mav;
 	}
-
+    // 문의글 작성
 	public ModelAndView goodsQuestionWrite(String gqmid, String gqgcode, String gqcontents, RedirectAttributes ra) {
 		System.out.println("CampingShopService.goodsQuestionWrite() 호출");
 		ModelAndView mav = new ModelAndView();
@@ -542,7 +542,7 @@ public class CampingShopService {
 		mav.setViewName("redirect:/campingDetailPage?gcode="+gqgcode);
 		return mav;
 	}
-
+    //문의글 수정
 	public String goodsQuestionModify(String gqcode, String gqcontents) {
 		System.out.println("CampingShopService.goodsQuestionModify() 호출");
 		
@@ -564,7 +564,7 @@ public class CampingShopService {
 		
 		return result_json;
 	}
-
+    // 문의글 삭제(state 0)
 	public String modifyGoodsQuestionState(String gqcode) {
 		System.out.println("CampingShopService.modifyGoodsQuestionState() 호출");
 		
