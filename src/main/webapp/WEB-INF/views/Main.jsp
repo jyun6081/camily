@@ -136,9 +136,12 @@
 						<!-- Block1 -->
 						<div class="block1 wrap-pic-w">
 							<img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${homeList[0].gimage }">
+							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
+								<span class="mtext-106 cl2 txt-center"">NEW</span>
+							</div>
 						     <a href="campingDetailPage?gcode=${homeList[0].gcode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
-									<div class="block1-link stext-101 cl0 trans-09">Shop Now</div>
+									<div class="block1-link stext-101 cl0 trans-09">${homeList[0].gname }</div>
 								</div>
 							 </a>
 						</div>
@@ -148,9 +151,12 @@
 						<!-- Block1 -->
 						<div class="block1 wrap-pic-w">
 							<img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${homeList[1].gimage }">
+						     <div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
+								<span class="mtext-106 cl2 txt-center">NEW</span>
+							</div>
 						     <a href="campingDetailPage?gcode=${homeList[1].gcode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
-									<div class="block1-link stext-101 cl0 trans-09">Shop Now</div>
+									<div class="block1-link stext-101 cl0 trans-09">${homeList[1].gname }</div>
 								</div>
 							 </a>
 						</div>
@@ -160,9 +166,12 @@
 						<!-- Block1 -->
 						<div class="block1 wrap-pic-w">
 							<img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${homeList[2].gimage }">
+						    <div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
+								<span class="mtext-106 cl2 txt-center">NEW</span>
+							</div>
 						     <a href="campingDetailPage?gcode=${homeList[2].gcode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
-									<div class="block1-link stext-101 cl0 trans-09">Shop Now</div>
+									<div class="block1-link stext-101 cl0 trans-09">${homeList[2].gname }</div>
 								</div>
 							 </a>
 						</div>
@@ -190,8 +199,8 @@
 						 
 						 <c:if test="${homeList2[2].cacode != null}">						
 							<img src="${homeList2[0].caimage }">
-							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
-								<span class="ltext-107 cl2 txt-center">1</span>
+							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px; ">
+								<span class="mtext-106 cl2 txt-center">1</span>
 							</div>
 						     <a href="campingView?cacode=${homeList2[0].cacode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
@@ -213,7 +222,7 @@
 						 <c:if test="${homeList2[2].cacode != null}">
 							<img src="${homeList2[1].caimage }">
 							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
-								<span class="ltext-107 cl2 txt-center">2</span>
+								<span class="mtext-106 cl2 txt-center">2</span>
 							</div>
 						     <a href="campingView?cacode=${homeList2[1].cacode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">
@@ -235,7 +244,7 @@
 						  <c:if test="${homeList2[2].cacode != null}">
 							<img src="${homeList2[2].caimage }">
 							<div class="flex-col-c-m bg9 how-pos5" style="width: 50px; height: 50px;">
-								<span class="ltext-107 cl2 txt-center">3</span>
+								<span class="mtext-106 cl2 txt-center">3</span>
 							</div>
 						     <a href="campingView?cacode=${homeList2[2].cacode }"class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 								<div class="block1-txt-child2 p-b-4 trans-05">

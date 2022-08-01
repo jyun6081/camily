@@ -169,13 +169,13 @@
 						           </c:when>
 	                       
 	                              <c:otherwise>
-                                 	<div class="col-6">
+                                 	<div class="col-5">
 									<button style="border-radius: 10px;" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 								        구매하기
 									</button>
                                     </div>
                                  
-                                    <div class="col-6">
+                                    <div class="col-5">
                                     <button type="button"  style="border-radius: 10px;" class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" 
                                             onclick="shoppingbasket('${campingDetail.gcode }','${campingDetail.gname }','${campingDetail.gimage }',
                                             '${campingDetail.gprice }')">

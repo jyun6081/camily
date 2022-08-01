@@ -19,6 +19,7 @@ public class CampingDto {
 	private int castate;
 	
 	private String crprice;
+	private String castaravg;
 	
 	private MultipartFile cafile;
 	

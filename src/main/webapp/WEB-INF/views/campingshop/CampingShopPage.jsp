@@ -42,6 +42,13 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<style type="text/css">
+		.grid{
+			display: grid;
+			grid-template-columns: 1fr 80px
+		}
+	</style>
+
 </head>
 <body class="animsition">
 
@@ -148,7 +155,13 @@
 								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									${camping.gname }
 								</a>
-
+								
+								<c:if test="${camping.gstaravg != null}">
+								<div>
+									<span style="text-align: end;">⭐ <span style="font-weight: bold;">${camping.gstaravg}</span> / 5</span>
+								</div>
+								</c:if>
+								
 								<span class="stext-105 cl3">
 									${camping.gprice }원
 								</span>
@@ -163,6 +176,7 @@
 								   </c:when>
 								</c:choose>
 							</div>
+					
 						</div>
 					</div>
 				  <!-- Block2 종료 -->

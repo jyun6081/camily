@@ -18,6 +18,7 @@ public class GoodsDto {
 	private String gbackimage; // 상품백이미지
 	private String gdetailimage; // 상품상세정보이미지
     private String gdate; // 상품 등록 시간 
+    private String gstaravg;
 	
 	private MultipartFile gimagefile; //프로필 파일
 	private MultipartFile gsideimagefile; //프로필 파일

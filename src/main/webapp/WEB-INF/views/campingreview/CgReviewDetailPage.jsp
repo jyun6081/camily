@@ -61,9 +61,8 @@
 	<section class="bg0 p-t-52 p-b-20">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8 col-lg-9 p-b-80">
+				<div class="col-md-8 col-lg-9 p-b-80">	
 					<div class="p-r-45 p-r-0-lg">
-						
 						<h4 class="ltext-109 cl2 p-b-28">
 								${cgrvDetail.cgrvtitle } 
 							</h4>
@@ -84,6 +83,7 @@
 								<span> <i class="fa-regular fa-eye"></i> 조회수 ${cgrvDetail.cgrvhits }</span>
 							</span>	
 							<hr>
+							<div>
 							<img alt="" src="${cgrvDetail.caimage }" style="height: 50px;">
 							<p class="stext-117">
 								캠핑장 : 🌈${cgrvDetail.caname}🌈
@@ -106,7 +106,7 @@
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
 								</p>
-							
+							</div>
 							<div>					
 							<p class="stext-115 p-b-26" style="color: black;">
 								${cgrvDetail.cgrvcontents }
@@ -122,11 +122,8 @@
 							</c:if>				
 							</div>
 						</div>
-
-						
-
-						
-					</div>
+					
+					</div>		
 				</div>
 			  </div>
 			</div>

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.camily.dao.CampingDao;
+import com.camily.dao.CampingReviewDao;
 import com.camily.dto.CampingDto;
 import com.camily.dto.CampingQnADto;
 import com.camily.dto.CampingRoomDto;
@@ -28,6 +29,9 @@ public class CampingService {
 
 	@Autowired
 	private CampingDao cdao;
+	
+	@Autowired
+	private CampingReviewDao crdao;
 	
 	@Autowired
 	private HttpSession session;
@@ -98,6 +102,14 @@ public class CampingService {
 		    }
 		
 		
+		
+		if(campingList != null ) {
+			for(int i= 0; i<campingList.size(); i++) {
+				String avg_star = crdao.SelectAvgStar(campingList.get(i).getCacode());
+				campingList.get(i).setCastaravg(avg_star);
+				System.out.println(campingList.get(i).getCastaravg());
+			}
+		}
 		
 		int maxPage = (int)( Math.ceil(  (double)campTotalCount/pageCount  ) );
 		

@@ -159,7 +159,7 @@ $(document).ready(function() {
 						</div> 
 					
 					<div style="width: 100%; margin: auto;">
-					<form method="post" action="cpWrite2" id="myform">
+					<form method="post" action="cpWrite2">
 							
 							<input type="text" name="cgrvtitle" style="width: 40%; border-bottom: 1px solid; border-color: #ddd;" placeholder="제목" /> <br>
 							<textarea id="summernote" name="cgrvcontents"></textarea>
@@ -173,6 +173,7 @@ $(document).ready(function() {
 					<!-- <div class="p-r-45 p-r-0-lg"> -->
 						<!-- item blog -->
 						<!-- <div class="p-b-63"> -->
+						<div id="myform">
 							<span class="text-bold">별점을 선택해주세요</span> <br>
 						<fieldset>
 							<input type="radio" name="cgstarating" value="5" id="rate1"><label
@@ -186,6 +187,7 @@ $(document).ready(function() {
 							<input type="radio" name="cgstarating" value="1" id="rate5"><label
 								for="rate5">★</label>
 						</fieldset>
+						</div>
 						<!-- </div> -->
 					<!-- </div> -->
                 </form>
@@ -255,7 +257,7 @@ $(document).ready(function() {
 		function goWrite(form) {
 			var title = form.cgrvtitle.value;
 			var content = form.cgrvcontents.value;
-			
+			var star = form.cgstarating.value;
 
 			if (title.trim() == '') {
 				alert("제목을 입력해주세요");
@@ -266,6 +268,12 @@ $(document).ready(function() {
 				alert("내용을 입력해주세요");
 				return false;
 			}
+			
+			if(star.trim() == '') {
+				alert("별점을 입력해주세요");
+				return false;
+			}
+			
 			form.submit();
 		}
 	</script>
