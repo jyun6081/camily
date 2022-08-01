@@ -74,14 +74,34 @@
  <select id="PurchaseList" resultType="com.camily.dto.GoodsOrderDto">
  	SELECT * 
 	FROM (	SELECT ROWNUM RN, GOODSORDER.*
+	      	FROM (	SELECT * 
+	            	FROM GOODSORDER 
+                    WHERE GOSTATE BETWEEN 2 AND 7
+                    OR GOSTATE = 9
+	            	ORDER BY GODATE DESC) GOODSORDER
+	      	WHERE GOMID = #{loginId})
+	WHERE RN BETWEEN #{startRow} AND #{endRow}
+ 
+
+ 	<!-- SELECT * 
+	FROM (	SELECT ROWNUM RN, GOODSORDER.*
 	      		FROM (	SELECT * 
 	            			FROM GOODSORDER 
 	            			ORDER BY GODATE DESC) GOODSORDER
 	      		WHERE GOMID = #{loginId})
 	WHERE GOSTATE BETWEEN 2 AND 7
 	OR GOSTATE = 9
-	AND RN BETWEEN #{startRow} AND #{endRow}
+	AND RN BETWEEN #{startRow} AND #{endRow} -->
+	
 <!-- ORDER BY GODATE DESC -->
+ </select>
+ 
+ <!-- 구매목록페이지 페이징처리 -->
+ <select id="getCampTotalCount2" resultType="int">
+    SELECT COUNT(*)
+	FROM GOODSORDER 
+    WHERE (GOMID = #{loginId} AND GOSTATE BETWEEN 2 AND 7)
+    OR (GOSTATE = 9 AND GOMID = #{loginId})
  </select>
  
  <!-- 구매목록 삭제하기 dao 호출 (UPDATE) -->

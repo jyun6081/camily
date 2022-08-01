@@ -126,7 +126,7 @@
 						</h4>
 						<button type="button" onclick="kakaoshare(
 									'${campingDetail.gcompanyname}','${campingDetail.gname }','${campingDetail.gprice }','${campingDetail.gimage }',
-									'${campingDetail.gcontents }','${campingDetail.gcategory }')" style="float: right;">
+									'${campingDetail.gcontents }','${campingDetail.gcategory }','${campingDetail.gcode }')" style="float: right;">
 								       <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 75%;">
 						</button>
 						<div class="mtext-106 cl2">
@@ -352,9 +352,8 @@ try {
 	      objectType: 'feed',
 	      content: {
 	        title: gname,
-	        description: gcompanyname+"#"+gprice,
-	        imageUrl:
-	        	gimage,
+	        description: gcompanyname+" "+gprice,
+	        imageUrl:'http://121.65.47.77:7779/controller/resources/campingShopfileUpLoad/'+gimage,
 	        link: {
 	          mobileWebUrl:'http://121.65.47.77:7779/controller/campingDetailPage?gcode='+gcode,
 	          webUrl:'http://121.65.47.77:7779/controller/campingDetailPage?gcode='+gcode,
@@ -599,7 +598,7 @@ function shoppingbasket(dicode,diname,diimage,diprice){
 	}
 
 	function selPage(pageNum, gcode, maxPage, startPage, endPage){
-		console.log("pageNum : " + pageNum);
+		console.log("pageNum : " + pageNum);	
 		console.log("gcode : " + gcode);
 		var loginId = '${sessionScope.loginId}';
 		$.ajax({

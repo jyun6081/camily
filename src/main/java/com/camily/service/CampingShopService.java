@@ -1,9 +1,9 @@
 package com.camily.service;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -18,9 +18,9 @@ import com.camily.dao.CampingShopDao;
 import com.camily.dto.BannerDto;
 import com.camily.dto.CampingDetailInformationDto;
 import com.camily.dto.CampingDto;
-import com.camily.dto.CampingQnADto;
 import com.camily.dto.GoodsDto;
 import com.camily.dto.GoodsOrderDto;
+import com.camily.dto.GoodsQnADto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
 import com.google.gson.Gson;
@@ -100,7 +100,7 @@ public class CampingShopService {
 		*/
 		int campingQnATotalCount = cdao.getGoodsQnATotalCount();
 		System.out.println(campingQnATotalCount);
-		int pageCount = 5;
+		int pageCount = 3;
 		int pageNumCount = 5;
 		int startRow = 1 + (selPage - 1) * pageCount;
 		int endRow = selPage * pageCount;
@@ -245,11 +245,14 @@ public class CampingShopService {
 	public ModelAndView CampingPurchaseListPage(String page) {
 		 System.out.println("CampingShopService.CampingPurchaseListPage() 호출");
 		 
+		 String loginId = (String) session.getAttribute("loginId");
+		 System.out.println("loginId :"+ loginId);
+		 
 		 int selPage = 1;
 			if(page != null) {
 				selPage = Integer.parseInt(page);
 			}
-			int campTotalCount = cdao.getCampTotalCount2();
+			int campTotalCount = cdao.getCampTotalCount2(loginId);
 			
 			int pageCount = 3; // 보여줄 개수
 			int pageNumCount = 3; // 밑에 페이지 개수
@@ -263,8 +266,9 @@ public class CampingShopService {
 			
 			int maxPage = (int)( Math.ceil(  (double)campTotalCount/pageCount  ) );			
 			int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
-			int endPage = startPage + pageNumCount - 1;
-			
+			int endPage = startPage + pageNumCount - 1;			
+			 
+			ArrayList<GoodsOrderDto> PurchaseList = cdao.PurchaseList(loginId,startRow,endRow); // 해당하는 아이디의 구매내역 값 출력	
 			if( endPage > maxPage ) {
 				endPage = maxPage;
 			}
@@ -273,11 +277,7 @@ public class CampingShopService {
 			pageDto.setMaxPage(maxPage);
 			pageDto.setStartPage(startPage);
 			pageDto.setEndPage(endPage);
-		 
-		 String loginId = (String) session.getAttribute("loginId");
-		 System.out.println("loginId :"+ loginId);
-		 
-		 ArrayList<GoodsOrderDto> PurchaseList = cdao.PurchaseList(loginId,startRow,endRow); // 해당하는 아이디의 구매내역 값 출력	
+		 		 
 		 ModelAndView mav = new ModelAndView();
 		 
 		 String division = ""; // 상품가격
@@ -442,7 +442,8 @@ public class CampingShopService {
 		String loginId = (String) session.getAttribute("loginId");
 		
 		ArrayList<CampingDetailInformationDto> detailinformation = cdao.detailinformation(loginId);
-				
+		String totalPrice = "";
+		int sumTotal = 0;
 		if(detailinformation != null) {
 			for(int z = 0; z < detailinformation.size(); z++) {
 				totalPrice = "";
