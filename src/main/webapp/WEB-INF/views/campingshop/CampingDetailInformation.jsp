@@ -91,6 +91,14 @@
                         <div class="bg-light rounded p-4">                       
                             <div class="table-responsive">
                                 <table class="table">
+                                <colgroup>
+									<col style="width: 10%">
+									<col style="width: 15%">
+									<col style="width: 10%">
+									<col style="width: 15%">
+									<col style="width: 10%">
+									<col style="width: 30%">
+								</colgroup>
                                     <thead>
                                         <tr >
                                             <th class="align-middle text-center font-weight-bold" style="border-top : none;">상품정보</th>
