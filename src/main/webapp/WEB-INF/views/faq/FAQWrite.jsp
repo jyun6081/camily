@@ -138,7 +138,7 @@ $(document).ready(function() {
 							<input type="text" name="faqtitle" style="width: 40%;
     border-bottom: 1px solid;
     border-color: #ddd;" placeholder="제목" /> <br>
-							
+							<hr>
 							<textarea id="summernote" name="faqcontents"></textarea>
 							<br>
 							<input id="subBtn" type="button" class="btn btn-info pull-right" value="글 작성"

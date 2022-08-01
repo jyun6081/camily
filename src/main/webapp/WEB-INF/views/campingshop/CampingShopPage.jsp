@@ -177,7 +177,11 @@
 								   </c:when>
 								</c:choose>
 							</div>
-					
+							<c:if test="${camping.gostaravg != null}">
+								<div>
+									<span style="text-align: end;">⭐ <span style="font-weight: bold;">${camping.gostaravg}</span> / 5</span>
+								</div>
+							</c:if>
 						</div>
 					</div>
 				  <!-- Block2 종료 -->
