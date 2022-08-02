@@ -21,7 +21,7 @@
 		VALUES(#{cgrvcode}, #{cgrvmid}, #{cgrvcacode},
 		#{cgrvtitle},
 		#{cgrvcontents}, SYSDATE, 1,
-		#{cgrvrecode}, 0, #{cgstarating})
+		#{cgrvrecode}, 0, #{cgrvstarating})
 	</insert>
 
 	<select id="selectCampingReviewList"
