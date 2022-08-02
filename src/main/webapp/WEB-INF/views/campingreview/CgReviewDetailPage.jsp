@@ -40,7 +40,7 @@
 <script src="https://kit.fontawesome.com/d70fa0d402.js" crossorigin="anonymous"></script>
 <style type="text/css">
 #bobtn {
-	text-align: right;
+	text-align: center;
 }
 .fa-star{
     color:#f9ba48
@@ -63,6 +63,7 @@
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">	
 					<div class="p-r-45 p-r-0-lg">
+					<div style="text-align: center;">
 						<h4 class="ltext-109 cl2 p-b-28">
 								${cgrvDetail.cgrvtitle } 
 							</h4>
@@ -70,7 +71,7 @@
 							
 						
 						<div class="p-t-32">
-							<span class="flex-w flex-m stext-111 cl2 p-b-19">
+							<span class="flex-w flex-m stext-111 cl2 p-b-19" style="justify-content: center;">
 								<span>
 									<span class="cl4"></span><i class="fa-regular fa-user"></i> ${cgrvDetail.cgrvmid }  
 									<span class="cl12 m-l-4 m-r-6">|</span>
@@ -84,29 +85,30 @@
 							</span>	
 							<hr>
 							<div>
-							<img alt="" src="${cgrvDetail.caimage }" style="height: 50px;">
-							<p class="stext-117">
+							<img src="${cgrvDetail.caimage }" style="height: 30%; width: 30%;">
+							<p class="stext-117" style="color: black;">
 								캠핑장 : 🌈${cgrvDetail.caname}🌈
 							</p>
 							
-							<p class="mt-1"> 별점 : 
-								   <c:if test="${cgrvDetail.cgstarating == 1 }">
+							<p class="mt-1" style="color: black;"> 별점 : 
+								   <c:if test="${cgrvDetail.cgrvstarating == 1 }">
 								   <i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${cgrvDetail.cgstarating == 2 }">
+								   <c:if test="${cgrvDetail.cgrvstarating == 2 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${cgrvDetail.cgstarating == 3 }">
+								   <c:if test="${cgrvDetail.cgrvstarating == 3 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${cgrvDetail.cgstarating == 4 }">
+								   <c:if test="${cgrvDetail.cgrvstarating == 4 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${cgrvDetail.cgstarating == 5 }">
+								   <c:if test="${cgrvDetail.cgrvstarating == 5 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
 								</p>
 							</div>
+							
 							<div>					
 							<p class="stext-115 p-b-26" style="color: black;">
 								${cgrvDetail.cgrvcontents }
@@ -122,7 +124,7 @@
 							</c:if>				
 							</div>
 						</div>
-					
+						</div>
 					</div>		
 				</div>
 			  </div>

@@ -174,7 +174,7 @@
 											<button type="button" class="btn btn-info"
 												id="${reply.rpcode }" onclick="replyModifyInfo('${reply.rpcode }')">수정</button>
 											<button type="button" class="btn btn-danger"
-												id="${reply.rpcode }" onclick="replyDelete()">삭제</button>	
+												id="${reply.rpcode }" onclick="replyDelete(delRno)">삭제</button>	
 									</div>
 
 								</c:forEach>
@@ -229,8 +229,8 @@
 						</div>							
 						
 						<div class="md-form mb-3">
-							<label class="small mb-1" for="rpdate">댓글 작성일</label> <input class="form-control"
-								id="rpdate" name="rpdate" type="text" readonly="readonly">
+							<input class="form-control"
+								id="rpdate" name="rpdate" type="hidden" readonly="readonly">
 						</div>
 
 						<div class="md-form mb-3">
@@ -446,7 +446,9 @@
 	<script type="text/javascript">
 	function replyModifyInfo(rpcode){
 			console.log(rpcode);
+			var replyModify_check = confirm("댓글을 수정하시겠습니까?");
 			
+			if (replyModify_check == true) {
 			$.ajax({
 				url : "replyModifyInfo",
 				type : "get",
@@ -469,6 +471,7 @@
 				}
 			});
 			$("#replyInfoModal").modal('show');
+			}
 		}
 		var replyInfoVal = "";
 		
@@ -499,12 +502,6 @@
 					selectReplyList();
 				}
 			});
-		}
-		</script>
-		
-		<script type="text/javascript">
-		function boardReportView(){
-		$("#BoardReportModal").modal('show');
 		}
 		</script>
 		

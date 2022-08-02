@@ -1,4 +1,4 @@
-.<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -93,6 +93,14 @@
                         <div class="bg-light rounded p-4">                       
                             <div class="table-responsive">
                                 <table class="table">
+                                <colgroup>
+									<col style="width: 10%">
+									<col style="width: 15%">
+									<col style="width: 10%">
+									<col style="width: 15%">
+									<col style="width: 10%">
+									<col style="width: 30%">
+								</colgroup>
                                     <thead>
                                         <tr>
                                             <th scope="col" style="border-top : none;">상품정보</th>

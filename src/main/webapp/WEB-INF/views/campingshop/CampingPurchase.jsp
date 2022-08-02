@@ -59,8 +59,8 @@
 				상품구매
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
-                ${campingpurchase.gname }
 			<span class="stext-109 cl4">
+                ${campingpurchase.gname }
 				
 			</span>
 		</div>
