@@ -146,25 +146,25 @@
 
 									<p class="mt-1">
 										별점 :
-										<c:if test="${cgrvList.cgstarating == 1 }">
+										<c:if test="${cgrvList.cgrvstarating == 1 }">
 											<i class="fa-solid fa-star"></i>
 										</c:if>
-										<c:if test="${cgrvList.cgstarating == 2 }">
-											<i class="fa-solid fa-star"></i>
-											<i class="fa-solid fa-star"></i>
-										</c:if>
-										<c:if test="${cgrvList.cgstarating == 3 }">
-											<i class="fa-solid fa-star"></i>
+										<c:if test="${cgrvList.cgrvstarating == 2 }">
 											<i class="fa-solid fa-star"></i>
 											<i class="fa-solid fa-star"></i>
 										</c:if>
-										<c:if test="${cgrvList.cgstarating == 4 }">
-											<i class="fa-solid fa-star"></i>
+										<c:if test="${cgrvList.cgrvstarating == 3 }">
 											<i class="fa-solid fa-star"></i>
 											<i class="fa-solid fa-star"></i>
 											<i class="fa-solid fa-star"></i>
 										</c:if>
-										<c:if test="${cgrvList.cgstarating == 5 }">
+										<c:if test="${cgrvList.cgrvstarating == 4 }">
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+											<i class="fa-solid fa-star"></i>
+										</c:if>
+										<c:if test="${cgrvList.cgrvstarating == 5 }">
 											<i class="fa-solid fa-star"></i>
 											<i class="fa-solid fa-star"></i>
 											<i class="fa-solid fa-star"></i>

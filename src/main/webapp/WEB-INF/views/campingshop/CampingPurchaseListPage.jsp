@@ -71,12 +71,9 @@
 	font-family: "Oswald", sans-serif;
 }
 
-#aaa{
-	font-weight: bold;
-
-
-
-
+.grid{
+	display: grid;
+	grid-template-columns: 1fr 80px
 }
 </style>
 </head>
@@ -101,6 +98,14 @@
                             </div>
                             <div class="table-responsive">
                                 <table class="table">
+                                <colgroup>
+									<col style="width: 10%">
+									<col style="width: 15%">
+									<col style="width: 10%">
+									<col style="width: 15%">
+									<col style="width: 10%">
+									<col style="width: 20%">
+								</colgroup>
                                     <thead>
                                         <tr>
                                             <th class="align-middle text-center font-weight-bold">상품정보</th>
@@ -121,7 +126,7 @@
                                             <td class="align-middle text-center font-weight-bold">${Purchase.goamount }개</td>
                                             <td class="align-middle text-center font-weight-bold">${Purchase.goprice}원</td>
                                             <td class="align-middle text-center font-weight-bold">${Purchase.gomaddr }</td>
-                                            <td id="aaa" class="align-middle text-center font-weight-bold">
+                                            <td class="align-middle text-center font-weight-bold">
                                       <c:if test="${Purchase.gostate == 2 }">
 									  <p>배송준비중</p>								    
 								      <button type="button" class="btn btn-dark" onclick="PurchaseDelete('${Purchase.gocode }')">주문취소</button>
