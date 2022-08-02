@@ -100,7 +100,7 @@
 							${campingInfo.caname}
 						</h4>
 
-						<button type="button" onclick="kakaoshare(${campingInfo.cacode}, ${campingInfo.caname}, ${campingInfo.caimage}, ${campingInfo.calinecontents})" style="float: right;">
+						<button type="button" onclick="kakaoshare('${campingInfo.cacode}', '${campingInfo.caname}', '${campingInfo.caimage}', '${campingInfo.calinecontents}')" style="float: right;">
 								       <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width: 75%;">
 						</button>
 						<!-- <span class="mtext-106 cl2">

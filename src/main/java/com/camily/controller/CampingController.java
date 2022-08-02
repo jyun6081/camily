@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
@@ -157,7 +158,7 @@ public class CampingController {
 	@RequestMapping(value = "campingReservation")
 	public ModelAndView campingReservation(String recode, String recacode, String remid, String recrname,
 			String recrnum, String startday, String endday, int repeople, String remname, String remtel,
-			String rememail, String rerequest) {
+			String rememail, String rerequest, HttpServletRequest request, String totalprice ,RedirectAttributes ra) {
 		System.out.println("캠핑 예약호출");
 		System.out.println("recode : " + recode);
 		System.out.println("recacode : " + recacode);
@@ -170,8 +171,9 @@ public class CampingController {
 		System.out.println("remtel : " + remtel);
 		System.out.println("rememail : " + rememail);
 		System.out.println("rerequest : " + rerequest);
+		System.out.println("totalprice : " + totalprice);
 		ModelAndView mav = csvc.campingReservation(recode, recacode, remid, recrname, recrnum, startday, endday,
-				repeople, remname, remtel, rememail, rerequest);
+				repeople, remname, remtel, rememail, rerequest, totalprice, request, ra);
 		return mav;
 	}
 
@@ -240,10 +242,10 @@ public class CampingController {
 
 	// 예약 취소 기능
 	@RequestMapping(value = "cancelReservation")
-	public ModelAndView cancelReservation(String recode) {
+	public ModelAndView cancelReservation(String recode, RedirectAttributes ra) {
 		System.out.println("캠핑 예약 취소 호출");
 		System.out.println("recode : " + recode);
-		ModelAndView mav = csvc.cancelReservation(recode);
+		ModelAndView mav = csvc.cancelReservation(recode, ra);
 		return mav;
 	}
 	

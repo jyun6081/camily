@@ -134,6 +134,9 @@ public interface AdminDao {
 
 	ReservationDto getReservationInfo(@Param("recode") String recode);
 
+	@Update("UPDATE RESERVATION SET RESTATE = 0 WHERE RECODE = #{recode}")
+	int cancelReservation(String recode);
+
 	
 
 

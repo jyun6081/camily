@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Date" %>
 <!DOCTYPE html>
@@ -97,18 +98,19 @@
 			<h5>캠핑예약내역⛺</h5>
 			<h6>캠핑예약 내역을 확인하세요!</h6>
 		</div>
+		<fmt:formatDate var="now" value="${today}" pattern="yyyy-MM-dd"/>
 		<c:forEach items="${myReservationList}" var="myReservationInfo">
 			<div class="col-9" style="padding-top: 30px; margin: auto; font-family: Poppins-Bold;">
 				<div class="bg-light rounded h-100 p-4">
 					<div class="table-responsive">
 						<table class="table">
 							<colgroup>
-								<col style="width: 10%">
-								<col style="width: 25$">
-								<col style="width: 15%">
+								<col style="width: 11%">
 								<col style="width: 25%">
 								<col style="width: 15%">
-								<col style="width: 10%">
+								<col style="width: 25%">
+								<col style="width: 12%">
+								<col style="width: 12%">
 							</colgroup>
 							<thead>
 								<tr>
@@ -123,9 +125,20 @@
 							<tbody>
 								<tr>
 									<td>
-										<a href="myReservation?recode=${myReservationInfo.recode}">
-											${myReservationInfo.recode}
-										</a>
+										<c:choose>
+											<c:when test="${myReservationInfo.restate == 0}">
+												<a href="myReservation?recode=${myReservationInfo.recode}" style="text-decoration: line-through;">
+													${myReservationInfo.recode}
+												</a>
+												<br>
+												<span>[예약취소]</span>
+											</c:when>
+											<c:otherwise>
+												<a href="myReservation?recode=${myReservationInfo.recode}">
+													${myReservationInfo.recode}
+												</a>												
+											</c:otherwise>
+										</c:choose>
 									</td>
 									<td>${myReservationInfo.caname}</td>
 									<td>${myReservationInfo.recrname} ${myReservationInfo.recrnum}</td>
@@ -179,7 +192,7 @@
 										<td class="column-4" style="padding-bottom: 0px;">
 											${myReservationInfo.startday} ~ ${myReservationInfo.endday}
 										</td>
-										<td class="column-5" style="padding-bottom: 0px;">${myReservationInfo.totalprice}원</td>
+										<td class="column-5" style="padding-bottom: 0px;">${myReservationInfo.reprice}원</td>
 									</tr>
 									<a href="cpWrite?recacode=${myReservationInfo.recacode }&recode=${myReservationInfo.recode}" style="margin-top: 100px"
 									 class="flex-c-m stext-101 cl5 size-80 bg2 bor1 hov-btn1 p-lr-15 trans-04">후기</a>

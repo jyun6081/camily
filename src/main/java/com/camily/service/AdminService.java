@@ -873,4 +873,17 @@ public class AdminService {
 		return reservationInfo_json;
 	}
 
+	public ModelAndView adminCancelReservation(String recode, RedirectAttributes ra) {
+		System.out.println("CampingService.adminCancelReservation() 호출");
+		ModelAndView mav = new ModelAndView();
+		int updateResult = addao.cancelReservation(recode);
+		if(updateResult > 0) {
+			ra.addFlashAttribute("msg", "예약 취소에 성공하였습니다.");
+		}else {
+			ra.addFlashAttribute("msg", "예약 취소에 실패하였습니다.");
+		}
+		mav.setViewName("redirect:/adminReservationPage");
+		return mav;
+	}
+
 }

@@ -16,6 +16,9 @@ public class ReservationDto {
 	private String recrname;
 	private String recrnum;
 	private String reday;
+	private String restate;
+	private String reprice;
+	
 	
 	// java에서만 사용
 	private String caname;

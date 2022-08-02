@@ -42,10 +42,11 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
 </head>
 
 <body class="animsition">
-
+	
 	<!-- TopBar-->
 	<%@ include file="/WEB-INF/views/includes/AdminTopBar.jsp"%>
 	<!-- End TopBar-->
@@ -80,7 +81,7 @@
 									<th class="align-middle text-center font-weight-bold">캠핑장 이름</th>
 									<th class="align-middle text-center font-weight-bold">이용기간</th>
 									<th class="align-middle text-center font-weight-bold">예약상황</th>
-									<th></th>
+									<th class="align-middle text-center font-weight-bold">취소처리</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -91,7 +92,7 @@
 									<th class="align-middle text-center font-weight-bold">캠핑장 이름</th>
 									<th class="align-middle text-center font-weight-bold">이용기간</th>
 									<th class="align-middle text-center font-weight-bold">예약상황</th>
-									<th></th>
+									<th class="align-middle text-center font-weight-bold">취소처리</th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -116,6 +117,9 @@
 										</td>
 										<td class="align-middle text-center font-weight-bold">
 											<c:choose>
+												<c:when test="${reservationInfo.restate == 0}">
+													예약 취소
+												</c:when>
 												<c:when test="${reservationInfo.startday > now}">
 													예약중
 												</c:when>
@@ -123,19 +127,14 @@
 													숙박중
 												</c:when>
 												<c:otherwise>
-												 	숙박완료
+													 숙박완료
 												</c:otherwise>
 											</c:choose>
 										</td>
 										<td class="align-middle text-center">
-											<c:choose>
-												<c:when test="${reservationInfo.startday > now}">
-													<button class="btn btn-danger">취소</button>
-												</c:when>
-												<c:otherwise>
-												 	<button class="btn btn-primary">확인</button>
-												</c:otherwise>
-											</c:choose>
+											<c:if test="${reservationInfo.startday > now && reservationInfo.restate > 0}">
+												<button class="btn btn-danger" onclick="reserveCancel('${reservationInfo.recode}')">취소</button>
+											</c:if>
 										</td>
 									</tr>
 								</c:forEach>
@@ -181,19 +180,90 @@
 	</section>
 
 	<!-- 상세정보 Modal -->
-	<div class="modal fade show" id="reserveInfo" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: block;" aria-modal="true" role="dialog">
-		<div class="modal-dialog modal-dialog-centered">
+	<div class="modal fade" id="reserveInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 1200;">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="recode"></h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<h5 class="modal-title" id="reserveCode">Modal title</h5>
+					<button class="close text-right font-weight-bold mt-2 mr-2" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">x&nbsp;</span>
+					</button>
 				</div>
 				<div class="modal-body">
-					<p>This is a vertically centered modal.</p>
+					<div class="row">
+						<div class="col-lg-4">
+							<img id="reserveImg" src="" alt="" style="width: 100%;">
+						</div>
+						<div class="col-lg-8">
+							<h5 class="p-b-10" id="reserveName"></h5>
+							<div id="reserveDate">
+								<div class="p-b-5">
+									<span>입실 : </span>
+									<span id="reserveStartday"></span>
+								</div>
+								<div class="p-b-5">
+									<span>퇴실 : </span>
+									<span id="reserveEndday"></span>
+								</div>
+							</div>
+							<div class="p-b-5">
+								<span>결제금액 : </span>
+								<span id="reservePrice"></span>
+							</div>
+							<div class="p-b-5">
+								<span>예약인원 : </span>
+								<span id="reservePeople"></span>
+							</div>
+							<hr>
+							<div id="reserveMember">
+								<div class="p-b-5">
+									<span>예약자 ID : </span>
+									<span id="reserveMid"></span>
+								</div>
+								<div class="p-b-5">
+									<span>예약자 이름 : </span>
+									<span id="reserveMname"></span>
+								</div>
+								<div class="p-b-5">
+									<span>예약자 전화번호 : </span>
+									<span id="reserveMtel"></span>
+								</div>
+								<div class="p-b-5">
+									<span>예약자 이메일 : </span>
+									<span id="reserveMemail"></span>
+								</div>
+								<hr>
+								<div>요청사항</div>
+								<textarea class="stext-102 cl6 autoTextarea" id="reserveRequest" readonly="readonly" style="width: 100%; resize: none;"></textarea>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 취소 확인 Modal -->
+	<div class="modal fade" id="cancelReservation" tabindex="-1" aria-hidden="true" style="z-index: 1200;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="cancelTitle"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<span id="cancelComfirm"></span>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+					<form action="adminCancelReservation" method="post">
+						<input type="hidden" name="recode" id="cancelRecode" value="">
+						<button type="submit" class="btn btn-primary" >예</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -342,8 +412,49 @@
 			async: "false",
 			success(result){
 				console.log(result);
+				$("#reserveInfo").modal("show");
+				$("#reserveCode").text(result.recode);
+				$("#reserveImg").attr("src", result.crimage);
+				$("#reserveName").text("[" + result.caname.replace(' ', '') + "] " + result.recrname + " - " + result.recrnum);
+				$("#reserveStartday").text(result.startday);
+				$("#reserveEndday").text(result.endday);
+				$("#reservePrice").text(parseInt(result.reprice).toLocaleString() + "원");
+				$("#reservePeople").text(result.repeople + "명");
+				$("#reserveMid").text(result.remid);
+				$("#reserveMname").text(result.remname);
+				$("#reserveMtel").text(result.remtel);
+				console.log(result.remtel.substring(0,3) + "-" + result.remtel.substring(3,7) + "-" + result.remtel.substring(7,11));
+				$("#reserveMemail").text(result.rememail);
+				$("#reserveRequest").text(result.rerequest);
+				if(result.rerequest == null){
+					$("#reserveRequest").text("없음");
+				}
+				//textareaAutoSize();
 			}
 		})
+	}
+
+	function reserveCancel(recode){
+		$("#cancelReservation").modal("show");
+		$("#cancelTitle").text(recode);
+		$("#cancelComfirm").text("[" + recode + "] 를 취소하시겠습니까?")
+		$("#cancelRecode").val(recode);
+	}
+
+
+
+	function textareaAutoSize(){
+		let textarea =  $(".autoTextarea");
+		 console.log(textarea);
+		for(var i = 0; i < textarea.length; i++){
+			if (textarea) {
+				console.log("textarea["+i+"] : " + textarea[i])
+				textarea[i].style.height = 'auto';
+				let height = textarea[i].scrollHeight; // 높이
+				console.log(height);
+				textarea[i].style.height = ( height + 8 ) + `px`;
+			}
+		}
 	}
 </script>
 </html>

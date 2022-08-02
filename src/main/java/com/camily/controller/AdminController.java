@@ -305,4 +305,12 @@ public class AdminController {
 		return reservationInfo_json;
 	}
 	
+	@RequestMapping(value = "adminCancelReservation")
+	public ModelAndView adminCancelReservation(@Param("recode") String recode, RedirectAttributes ra) {
+		System.out.println("관리자 예약 취소");
+		ModelAndView mav = advc.adminCancelReservation(recode, ra);
+		return mav;
+	}
+	
+	
 }

@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -244,38 +245,52 @@ public class CampingService {
 	}
 	
 	// 캠핑장 예약 기능
-	public ModelAndView campingReservation(String recode, String recacode, String remid, String recrname, String recrnum, String startday, String endday, int repeople, String remname, String remtel, String rememail, String rerequest) {
+	public ModelAndView campingReservation(String recode, String recacode, String remid, String recrname, String recrnum, String startday, String endday, int repeople, String remname, String remtel, String rememail, String rerequest, String totalprice, HttpServletRequest request, RedirectAttributes ra) {
 		System.out.println("CampingService.campingReservation() 호출");
 		ModelAndView mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("loginId");
 		System.out.println("loginId : " + loginId);
-		ReservationDto reservationInfo = new ReservationDto();
-		
-		for (LocalDate date = LocalDate.of(Integer.parseInt(startday.substring(0,4)), Integer.parseInt(startday.substring(5,7)), Integer.parseInt(startday.substring(8,10))); date.isBefore(LocalDate.of(Integer.parseInt(endday.substring(0,4)), Integer.parseInt(endday.substring(5,7)), Integer.parseInt(endday.substring(8,10)))); date = date.plusDays(1)) {
-			reservationInfo.setRecode(recode);
-			reservationInfo.setRecacode(recacode);
-			reservationInfo.setRemid(loginId);
-			reservationInfo.setRepeople(repeople);
-			reservationInfo.setRecrname(recrname);
-			reservationInfo.setRecrnum(recrnum);
-			reservationInfo.setRemid(remid);
-			reservationInfo.setRemname(remname);
-			reservationInfo.setRemtel(remtel);
-			reservationInfo.setRememail(rememail);
-			if(rerequest.length() > 0) {
-				reservationInfo.setRerequest(rerequest);
-			}else {				
-				rerequest = "";
-				reservationInfo.setRerequest(rerequest);
-			}
-			System.out.println(date.toString());
+		if(loginId == null) {
+			/*
+			String referer = request.getHeader("Referer");
+			System.out.println(referer);
+			referer = referer.split("controller")[1];
+			System.out.println(referer);
+			mav.setViewName("redirect:" + referer);
+			*/
+			ra.addFlashAttribute("msg", "로그인 후 이용 바랍니다.");
+			mav.setViewName("redirect:/");
+			return mav;
+		}else {
+			ReservationDto reservationInfo = new ReservationDto();
 			
-			reservationInfo.setReday(date.toString());
-			System.out.println(reservationInfo);
-			cdao.campingReservation(reservationInfo);
+			for (LocalDate date = LocalDate.of(Integer.parseInt(startday.substring(0,4)), Integer.parseInt(startday.substring(5,7)), Integer.parseInt(startday.substring(8,10))); date.isBefore(LocalDate.of(Integer.parseInt(endday.substring(0,4)), Integer.parseInt(endday.substring(5,7)), Integer.parseInt(endday.substring(8,10)))); date = date.plusDays(1)) {
+				reservationInfo.setRecode(recode);
+				reservationInfo.setRecacode(recacode);
+				reservationInfo.setRemid(loginId);
+				reservationInfo.setRepeople(repeople);
+				reservationInfo.setRecrname(recrname);
+				reservationInfo.setRecrnum(recrnum);
+				reservationInfo.setRemid(remid);
+				reservationInfo.setRemname(remname);
+				reservationInfo.setRemtel(remtel);
+				reservationInfo.setRememail(rememail);
+				reservationInfo.setReprice(totalprice);
+				if(rerequest.length() > 0) {
+					reservationInfo.setRerequest(rerequest);
+				}else {				
+					rerequest = "";
+					reservationInfo.setRerequest(rerequest);
+				}
+				System.out.println(date.toString());
+				
+				reservationInfo.setReday(date.toString());
+				System.out.println(reservationInfo);
+				cdao.campingReservation(reservationInfo);
+			}
+			mav.setViewName("redirect:/");
+			return mav;
 		}
-		mav.setViewName("redirect:/");
-		return mav;
 	}
 
 	// 내정보 불러오기 >> 회원가입쪽과 비교해서 같은 함수 존재시 제거?
@@ -298,26 +313,26 @@ public class CampingService {
 			ArrayList<ReservationDto> myReservationList = cdao.getMyReservationList(loginId);
 								
 			for (int i = 0; i < myReservationList.size(); i++) {
+				
 				String startday = cdao.getStartday(myReservationList.get(i).getRecode());
 				LocalDate endday_date = cdao.getEndday(myReservationList.get(i).getRecode());
 				endday_date = endday_date.plusDays(1);
 				String endday = endday_date.toString();
 				myReservationList.get(i).setStartday(startday);
 				myReservationList.get(i).setEndday(endday);
-				int totalPrice = totalPrice(startday, endday, myReservationList.get(i).getCrprice());
+				int totalPrice = Integer.parseInt(myReservationList.get(i).getReprice()); //totalPrice(startday, endday, myReservationList.get(i).getCrprice());
 				myReservationList.get(i).setTotalprice(totalPrice);
 				
 			    int ditotalprice = 0;
 			    String divisionsum = "";		  
 	    	  
 			    	  // 상품가격 / 상품수량		 			  
-			    	  ditotalprice = myReservationList.get(i).getTotalprice();	 	  
+			    	  ditotalprice = Integer.parseInt(myReservationList.get(i).getReprice());//myReservationList.get(i).getTotalprice();	 	  
 			    	  
 			    	  // 상품가격 콤마표시
 			    	  DecimalFormat formatter = new DecimalFormat("###,###");			
 			    	  divisionsum = formatter.format(ditotalprice); // 장바구니 가격모음 , 추가하기
 			    	  myReservationList.get(i).setMyformatter(divisionsum);
-			    
 			}
 			System.out.println(myReservationList);
 			mav.addObject("myReservationList", myReservationList);
@@ -354,7 +369,7 @@ public class CampingService {
 			mav.setViewName("redirect:/");
 		}else {
 			ReservationDto myReservationInfo = cdao.getMyReservationInfo(loginId, recode);
-		
+			
 			String startday = cdao.getStartday(recode);
 			LocalDate endday_date = cdao.getEndday(recode);
 			endday_date = endday_date.plusDays(1);
@@ -362,7 +377,7 @@ public class CampingService {
 			myReservationInfo.setStartday(startday);
 			myReservationInfo.setEndday(endday);
 			
-			int totalPrice = totalPrice(startday, endday, myReservationInfo.getCrprice());			
+			int totalPrice = Integer.parseInt(myReservationInfo.getReprice());//totalPrice(startday, endday, myReservationInfo.getCrprice());			
 		    String divisionsum = "";		  
     	  
 		    	  // 상품가격 콤마표시
@@ -415,13 +430,16 @@ public class CampingService {
 	}
 
 	// 캠핑장 예약 취소 기능
-	public ModelAndView cancelReservation(String recode) {
+	public ModelAndView cancelReservation(String recode, RedirectAttributes ra) {
 		System.out.println("CampingService.cancelReservation() 호출");
 		ModelAndView mav = new ModelAndView();
-		int deleteResult = cdao.cancelReservation(recode);
-		if(deleteResult > 0) {
-			mav.setViewName("redirect:/myReservationList");			
+		int updateResult = cdao.cancelReservation(recode);
+		if(updateResult > 0) {
+			ra.addFlashAttribute("msg", "예약이 취소되었습니다.");
+		}else {
+			ra.addFlashAttribute("msg", "예약 취소에 실패하였습니다.");
 		}
+		mav.setViewName("redirect:/myReservationList");			
 		return mav;
 	}
 
