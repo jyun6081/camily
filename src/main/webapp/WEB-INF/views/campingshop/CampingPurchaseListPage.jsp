@@ -103,14 +103,14 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">상품정보</th>
-                                            <th scope="col">구매상품명</th>
-                                            <th scope="col">상품가격</th>
-                                            <th scope="col">상품수량</th>
-                                            <th scope="col">총금액</th>
-                                            <th scope="col">주문주소</th>
-                                            <th scope="col">상품상태</th>
-                                            <th scope="col"></th>                                         									 								
+                                            <th class="align-middle text-center font-weight-bold">상품정보</th>
+                                            <th class="align-middle text-center font-weight-bold">구매상품명</th>
+                                            <th class="align-middle text-center font-weight-bold">상품가격</th>
+                                            <th class="align-middle text-center font-weight-bold">상품수량</th>
+                                            <th class="align-middle text-center font-weight-bold">총금액</th>
+                                            <th class="align-middle text-center font-weight-bold">주문주소</th>
+                                            <th class="align-middle text-center font-weight-bold">상품상태</th>
+                                            <th class="align-middle text-center font-weight-bold"></th>                                         									 								
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -160,7 +160,7 @@
 									</td>
 									<td>				 
 								     <button type="button"
-									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">구매목록삭제</button></td>
+									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">내역삭제</button></td>
                                         </tr>                                                                       
                                     </tbody>
                                 </table>

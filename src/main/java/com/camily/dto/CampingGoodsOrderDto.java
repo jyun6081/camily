@@ -1,15 +1,9 @@
 package com.camily.dto;
 
+import lombok.Data;
+
+@Data
 public class CampingGoodsOrderDto {
 
-	private String gocode;
-
-	public String getGocode() {
-		return gocode;
-	}
-
-	public void setGocode(String gocode) {
-		this.gocode = gocode;
-	}
-	
+	private String gocode;	
 }
