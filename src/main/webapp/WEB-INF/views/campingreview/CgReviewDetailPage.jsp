@@ -90,19 +90,19 @@
 							</p>
 							
 							<p class="mt-1"> 별점 : 
-								   <c:if test="${cgrvDetail.cgrvstarating == 1 }">
+								   <c:if test="${cgrvDetail.cgstarating == 1 }">
 								   <i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${cgrvDetail.cgrvstarating == 2 }">
+								   <c:if test="${cgrvDetail.cgstarating == 2 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${cgrvDetail.cgrvstarating == 3 }">
+								   <c:if test="${cgrvDetail.cgstarating == 3 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${cgrvDetail.cgrvstarating == 4 }">
+								   <c:if test="${cgrvDetail.cgstarating == 4 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
-								   <c:if test="${cgrvDetail.cgrvstarating == 5 }">
+								   <c:if test="${cgrvDetail.cgstarating == 5 }">
 								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
 								   </c:if>
 								</p>
