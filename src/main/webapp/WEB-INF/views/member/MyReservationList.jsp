@@ -45,38 +45,38 @@
 	<!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
-	<style type="text/css">
-		.section-reply-title {
-			/* margin-bottom: 30px; */
-			/* padding-top: 40px; */
-			text-align: center;
-		}
+<style type="text/css">
+.section-reply-title {
+	/* margin-bottom: 30px; */
+	/* padding-top: 40px; */
+    text-align: center;
+}
 
-		.section-reply-title h5 {
-			color: #000000;
-			font-weight: 600;
-			line-height: 21px;
-			text-transform: uppercase;
-			padding-left: 20px;
-			position: relative;
-			font-family: "Oswald", sans-serif;
-		}
+.section-reply-title h5 {
+	color: #000000;
+	font-weight: 600;
+	line-height: 21px;
+	text-transform: uppercase;
+	padding-left: 20px;
+	position: relative;
+	font-family: "Oswald", sans-serif;
+}
 
-		.section-reply-title h6 {
-			color: #848484;
-			font-weight: 600;
-			line-height: 21px;
-			text-transform: uppercase;
-			padding-left: 20px;
-			position: relative;
-			font-family: "Oswald", sans-serif;
-		}
-		
-		.grid{
+.section-reply-title h6 {
+	color: #848484;
+	font-weight: 600;
+	line-height: 21px;
+	text-transform: uppercase;
+	padding-left: 20px;
+	position: relative;
+	font-family: "Oswald", sans-serif;
+}
+
+.grid{
 			display: grid;
 			grid-template-columns: 1fr 80px
 		}
-	</style>
+</style>
 
 </head>
 
