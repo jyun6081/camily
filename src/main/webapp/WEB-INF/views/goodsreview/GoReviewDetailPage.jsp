@@ -39,7 +39,7 @@
 <script src="https://kit.fontawesome.com/d70fa0d402.js" crossorigin="anonymous"></script>
 <style type="text/css">
 #bobtn {
-	text-align: right;
+	text-align: center;
 }
 .fa-star{
     color:#f9ba48
@@ -62,14 +62,14 @@
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-45 p-r-0-lg">
-
+						<div style="text-align: center;">
 						<h4 class="ltext-109 cl2 p-b-28"> ${gorvDetail.gorvtitle }
 						</h4>
 
 
 
 						<div class="p-t-32">
-							<span class="flex-w flex-m stext-111 cl2 p-b-19"> <span>
+							<span class="flex-w flex-m stext-111 cl2 p-b-19" style="justify-content: center;"> <span>
 									<span class="cl4"></span><i class="fa-regular fa-user"></i>
 									${gorvDetail.gorvmid } <span class="cl12 m-l-4 m-r-6">|</span>
 							</span> <span> <i class="fa-regular fa-calendar"></i>
@@ -79,10 +79,10 @@
 							</span>
 							<hr>
 							<div>
-							<img alt="" src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${gorvDetail.goimage }" style="height: 50px;">
-							<p class="stext-117">제품명 : 🌈${gorvDetail.goname }🌈</p>
+							<img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${gorvDetail.goimage }" style="height: 30%; width: 30%;">
+							<p class="stext-117" style="color: black;">제품명 : 🌈${gorvDetail.goname }🌈</p>
 							
-							<p class="mt-1"> 별점 : 
+							<p class="mt-1" style="color: black;"> 별점 : 
 								   <c:if test="${gorvDetail.gorvstarating == 1 }">
 								   <i class="fa-solid fa-star"></i>
 								   </c:if>
@@ -119,7 +119,7 @@
 
 
 						
-						
+						</div>
 					</div>
 				</div>
 			</div>

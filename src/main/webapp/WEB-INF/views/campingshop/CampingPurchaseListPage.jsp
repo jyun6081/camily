@@ -75,6 +75,12 @@
 	display: grid;
 	grid-template-columns: 1fr 80px
 }
+
+.aclass{
+ position: relative;
+ animation-fill-mode: both;
+
+}
 </style>
 </head>
 <body class="animsition">
@@ -121,10 +127,14 @@
                                     <tbody>
                                         <tr>
                                             <th class="align-middle text-center font-weight-bold"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }" alt="IMG" style="width: 60px;"></th>
-                                            <td class="align-middle text-center font-weight-bold">${Purchase.goname }</td>
-                                            <td class="align-middle text-center font-weight-bold">${Purchase.goprice }원</td>
+                                             <td>
+                                             <a href="campingDetailPage?gcode=${Purchase.gogcode}" class="aclass">
+                                            ${Purchase.goname }
+                                             </a>
+                                             </td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.divisionsum }원</td>
                                             <td class="align-middle text-center font-weight-bold">${Purchase.goamount }개</td>
-                                            <td class="align-middle text-center font-weight-bold">${Purchase.goprice}원</td>
+                                            <td class="align-middle text-center font-weight-bold">${Purchase.goformatter}원</td>
                                             <td class="align-middle text-center font-weight-bold">${Purchase.gomaddr }</td>
                                             <td class="align-middle text-center font-weight-bold">
                                       <c:if test="${Purchase.gostate == 2 }">
@@ -163,9 +173,12 @@
 									</c:if>
 									
 									</td>
-									<td>				 
+									<td>
+									<c:if test="${Purchase.gostate == 7 || Purchase.gostate == 5 }">							 
 								     <button type="button"
-									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">내역삭제</button></td>
+									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">내역삭제</button>
+									 </c:if>
+									 </td>
                                         </tr>                                                                       
                                     </tbody>
                                 </table>

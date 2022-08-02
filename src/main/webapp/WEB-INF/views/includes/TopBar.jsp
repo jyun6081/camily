@@ -74,7 +74,7 @@
 						<li><a href="#">후기</a>
 							<ul class="sub-menu" style="z-index: 1100">
 								<li><a href="cgreviewpage">캠핑장 후기</a></li>
-								<li><a href="goreviewpage">캠핑상품 후기</a></li>
+								<li><a href="goreviewpage">캠핑용품 후기</a></li>
 							</ul>
 						</li>
 						<li><a href="boardList">자유게시판</a></li>
