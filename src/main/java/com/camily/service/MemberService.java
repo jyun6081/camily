@@ -230,10 +230,10 @@ public class MemberService {
 		
 		ModelAndView mav = new ModelAndView();
 		int updateResult = mdao.findPwModifyPw(mid,newPw,ra);
-		if(updateResult > 0) {
-			System.out.println("실행");
-			mav.setViewName("redirect:/");
-		} 
+		
+		ra.addFlashAttribute("msg", "비밀번호가 변경되었습니다.");
+		mav.setViewName("redirect:/"); 
+			
 		return mav;
 	}
 	// 카카오 아이디 체크
