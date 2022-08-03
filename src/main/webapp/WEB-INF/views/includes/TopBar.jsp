@@ -333,7 +333,7 @@ console.log(uid);
 		if (message.length > 0) {
 			alert(message);
 			if(message == "로그인 후 사용가능합니다."){
-				memberLogin()
+				memberLogin();
 			}
 		}
 	}

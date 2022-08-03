@@ -63,12 +63,14 @@
 						</div>
 						<div class="row">
 							<div class="col-xl-5 m-lr-auto m-b-50">
-								<c:when test="${fn:substring(myReservationInfo.crimage,0,4) == 'http'}">
-									<img src="${myReservationInfo.crimage}" alt="캠핑장 이미지" width="100%">
-								</c:when>
-								<c:otherwise>
-									<img src="${pageContext.request.contextPath}/resources/caimageUpload/${myReservationInfo.crimage}" alt="캠핑장 이미지" width="100%">
-								</c:otherwise>
+								<c:choose>
+									<c:when test="${fn:substring(myReservationInfo.crimage,0,4) == 'http'}">
+										<img src="${myReservationInfo.crimage}" alt="캠핑장 이미지" width="100%">
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath}/resources/caimageUpload/${myReservationInfo.crimage}" alt="캠핑장 이미지" width="100%">
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div class="col-xl-7 m-lr-auto m-b-50">
 								<div style="font-size: 25px; font-weight: bold;">${myReservationInfo.recrname}</div>
@@ -81,7 +83,7 @@
 						<hr>
 						<div class="mtext-110 cl2 p-b-30">
 							<span style="font-weight: bold;">예약자 정보</span>
-							<c:if test="${myReservationInfo.restate != 0}">
+							<c:if test="${myReservationInfo.restate != 0 && myReservationInfo.startday > now}">
 								<button class="btn btn-danger" type="button" onclick="myInfo('${myReservationInfo.recode}')" style="float: right; font-size: 15px;" value="1" id="changeInfo">수정하기</button>
 							</c:if>
 						</div>
@@ -184,6 +186,7 @@
 							</span>
 						</div>
 					</div>
+					<fmt:formatDate var="now" value="${today}" pattern="yyyy-MM-dd"/>
 					<c:choose>
 						<c:when test="${myReservationInfo.restate == 0}">
 							<span class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
@@ -191,12 +194,21 @@
 							</span>
 						</c:when>
 						<c:otherwise>
-							<form action="cancelReservation" method="post" class="bg0 p-t-75 p-b-85">
-								<input type="hidden" name="recode" value="${myReservationInfo.recode}">
-								<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-									예약 취소하기
-								</button>
-							</form>
+							<c:choose>
+								<c:when test="${myReservationInfo.startday > now}">
+									<form action="cancelReservation" method="post" class="bg0 p-t-75 p-b-85">
+										<input type="hidden" name="recode" value="${myReservationInfo.recode}">
+										<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+											예약 취소하기
+										</button>
+									</form>
+								</c:when>
+								<c:otherwise>
+									<span class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+										숙박 완료
+									</span>
+								</c:otherwise>
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -208,7 +220,7 @@
 
 
 	<!-- Footer -->
-	<%@ include file="/WEB-INF/views/includes/TopBar.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
 
 	<!-- Back to top -->
 	<div class="btn-back-to-top" id="myBtn">

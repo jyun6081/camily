@@ -112,7 +112,7 @@
 						</p>
 
 						<!--  -->
-						<form action="campingReservationPage" method="post">
+						<form action="campingReservationPage" method="post" id="campingReservationForm">
 							<input type="hidden" name="cacode" value="${campingInfo.cacode}">
 							<div class="p-t-33">
 								<!-- 예약 날짜 선택 -->
@@ -182,7 +182,7 @@
 								<!-- 예약하기 버튼 -->
 								<div class="flex-w flex-r-m p-b-10" style="justify-content: center;">
 									<div class="size-204 flex-w flex-m respon6-next" style="justify-content: center;">
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 hov-btn1 p-lr-15 trans-04" style="border-radius: 10px;">예약하기</button>
+										<button type="button" class="flex-c-m stext-101 cl0 size-101 bg1 hov-btn1 p-lr-15 trans-04" style="border-radius: 10px;" onclick="campingReservation()">예약하기</button>
 									</div>
 								</div>
 							</div>
@@ -978,6 +978,16 @@
 		*/
 	}
 
+	function campingReservation(){
+		var loginId = "${sessionScope.loginId}"
+		console.log(loginId.length);
+		if(loginId.length > 0){
+			$("#campingReservationForm").submit();
+		}else{
+			alert("로그인 후 이용 바랍니다.");
+			memberLogin();
+		}
+	}
 </script>
 <script type="text/javascript">
 	var checkMsg = '${msg}';
