@@ -78,7 +78,7 @@ $("#inputBirth").attr("max", today);
 	        $("#modifyFormOpen_Btn").removeAttr("hidden");
 	        $("#modifyMemberInfo_Btn").attr("hidden","hidden");
 	        $("#memberDelete_Btn").removeAttr("hidden");
-	        $(".form-control").val("");
+	        $(".validate").val("");
 		    
 		    /* 아이디 찾기 모달 초기화 */
 		    $(".findId").val("");
@@ -86,7 +86,6 @@ $("#inputBirth").attr("max", today);
 		    $("#findId_EmCheckMsg").text("");
 		    $("#findIdSuccessText").prop("type", "hidden");
 		    /* 비밀번호 찾기 모달 초기화 */
-		    $("#findPwForm2")[0].reset();
 		    $(".findPw").val("");
 		    $("#findPw_PwCheckMsg").text("");
 		    $("#findPw_EmCheckMsg").text("");
@@ -566,7 +565,6 @@ var findPw_pwCheck = true;
     	    if( findPw_newPw == findPw_newPwCheck && findPw_pwCheck == true){
     	    	console.log("비밀번호 일치")
     	    	location.href="findPwModifyPw?mid="+ findPw_Id + "&newPw=" + findPw_newPw
-    	        alert("비밀번호가 변경되었습니다.")
     	    } else {
     	    	console.log("비밀번호 불일치")
     	    	alert("비밀번호를 확인해주세요!")

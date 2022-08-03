@@ -23,8 +23,6 @@ public class AdminController {
 	@Autowired
 	AdminService advc;
 
-	
-
 	// 관리자 회원관리
 	@RequestMapping(value = "/adminMemberList")
 	public ModelAndView adminMemberList(String page) {
@@ -32,7 +30,6 @@ public class AdminController {
 		ModelAndView mav = advc.adminMemberList(page);
 		return mav;
 	}
-
 	// 관리자 회원상태 변경
 	@RequestMapping(value = "/adminModifyMemberState")
 	public @ResponseBody String adminModifyMemberState(String mid, String mstate) {
@@ -40,7 +37,6 @@ public class AdminController {
 		String updateResult = advc.adminModifyMemberState(mid, mstate);
 		return updateResult;
 	}
-
 	// 관리자 회원정보 조회
 	@RequestMapping(value = "/adminGetMemberInfo")
 	public @ResponseBody String adminGetMemberInfo(String mid) {
@@ -48,7 +44,6 @@ public class AdminController {
 		String memberInfo = advc.adminGetMemberInfo(mid);
 		return memberInfo;
 	}
-	
 	// 관리자 캠핑장 목록 페이지
 	@RequestMapping(value = "/adminCamping")
 	public ModelAndView adminCamping(String page) {
@@ -57,7 +52,6 @@ public class AdminController {
 
 		return mav;
 	}
-
 	// 관리자 캠핑장 상태 변경
 	@RequestMapping(value = "/modifyCampingState")
 	public @ResponseBody String modifyCampingState(String cacode, String castate) {
@@ -67,7 +61,6 @@ public class AdminController {
 
 		return updateResult;
 	}
-
 	// 관리자 캠핑장 상세보기
 	@RequestMapping(value = "/adminCampingInfo")
 	public ModelAndView adminCampingInfo(String cacode) {
@@ -76,7 +69,6 @@ public class AdminController {
 		ModelAndView mav = advc.getCampingInfo(cacode);
 		return mav;
 	}
-
 	// 관리자 캠핑장 정보수정
 	@RequestMapping(value = "/modifyCampingInfo")
 	public ModelAndView modifyCampingInfo(CampingDto camping, RedirectAttributes ra)
@@ -86,7 +78,6 @@ public class AdminController {
 		ModelAndView mav = advc.modifyCampingInfo(camping, ra);
 		return mav;
 	}
-
 	// 관리자 캠핑장 등록 페이지 이동
 	@RequestMapping(value = "/adminCampingInsertPage")
 	public String adminCampingInsertPage() {
@@ -94,7 +85,7 @@ public class AdminController {
 
 		return "admin/AdminCampingInsert";
 	}
-
+    // 관리자 캠핑장 등록
 	@RequestMapping(value = "/adminCampingRegister")
 	public ModelAndView adminCampingRegister(CampingDto camping, RedirectAttributes ra)
 			throws IllegalStateException, IOException {
@@ -103,7 +94,6 @@ public class AdminController {
 		ModelAndView mav = advc.registerCamping(camping, ra);
 		return mav;
 	}
-	
 	// 관리자 캠핑장 객실 조회
 	@RequestMapping(value="/adminCheckRoomType")
 	public @ResponseBody String adminCheckRoomType(String cacode) {
@@ -127,9 +117,6 @@ public class AdminController {
 		ModelAndView mav = advc.modifyCpRoomInfo(campingRoom,ra);
 		return mav;
 	}
-	
-	
-	
 
 	@RequestMapping(value = "bannerAdd")
 	public ModelAndView bannerAdd(BannerDto bannerInfo, RedirectAttributes ra) {
@@ -280,7 +267,7 @@ public class AdminController {
 		String result = advc.deleteGoodsQustion(gqcode);
 		return result;
 	}
-	
+	// 관리자 객실 추가
 	@RequestMapping(value = "/adminAddCpRoom")
 	public ModelAndView adminAddCpRoom(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
 		System.out.println("관리자 객실 추가 요청");
