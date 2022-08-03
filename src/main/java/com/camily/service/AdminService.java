@@ -49,7 +49,7 @@ public class AdminService {
 	
 	private String savePath = "C:\\Users\\user\\Desktop\\git\\camily\\src\\main\\webapp\\resources\\caimageUpload";
 	private String bannerSavePath = "C:\\Users\\user\\Desktop\\git\\camily\\src\\main\\webapp\\resources\\bannerUpload";
-	
+	// 관리자 회원 목록
 	public ModelAndView adminMemberList(String page) {
 		System.out.println("AdminService.adminMemberList() 호출");
 		int selPage = 1;
@@ -93,7 +93,7 @@ public class AdminService {
 		  return mav;
 		 
 	}
-
+	// 관리자 회원상태 변경
 	public String adminModifyMemberState(String mid, String mstate) {
 		System.out.println("AdminService.adminModifyMemberState() 호출");
 		System.out.println("mid : " + mid);
@@ -103,7 +103,7 @@ public class AdminService {
 		System.out.println("updateResult : " + updateResult);
 		return updateResult+"";
 	}
-
+    // 관리자 회원정보 조회
 	public String adminGetMemberInfo(String mid) {
 		System.out.println("AdminService.adminGetMemberInfo() 호출");
 		MemberDto memInfo = addao.selectMemberInfo(mid);
@@ -164,7 +164,7 @@ public class AdminService {
 		int updateResult = addao.updateCampingState(cacode,castate);
 		return updateResult+"";
 	}
-    // 관리자 캠핑장 상세보기0
+    // 관리자 캠핑장 상세보기
 	public ModelAndView getCampingInfo(String cacode) {
 		System.out.println("AdminService.getCampingInfo() 호출");
 	    System.out.println("상세보기 캠핑장 코드 : " + cacode);
@@ -202,7 +202,7 @@ public class AdminService {
 		mav.setViewName("redirect:/adminCamping");
 		return mav;
 	}
-
+    // 관리자 캠핑장 등록
 	public ModelAndView registerCamping(CampingDto camping, RedirectAttributes ra) throws IllegalStateException, IOException {
 		System.out.println("AdminService.registerCamping() 호출");
 		ModelAndView mav = new ModelAndView();
@@ -291,11 +291,6 @@ public class AdminService {
 		mav.setViewName("redirect:/adminCamping");
 		return mav;
 	}
-
-	
-	
-	
-	
 
 	public ModelAndView homeComponent() {
 		System.out.println("AdminService.homeComponent() 호출");
@@ -772,7 +767,7 @@ public class AdminService {
 		}
 		return result;
 	}
-
+    // 관리자 객실 추가
 	public ModelAndView addCampingRoom(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
 		System.out.println("CampingService.addCampingRoom() 호출");
 		ModelAndView mav = new ModelAndView();

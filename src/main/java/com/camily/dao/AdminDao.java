@@ -20,15 +20,14 @@ import com.camily.dto.MemberDto;
 import com.camily.dto.ReservationDto;
 
 public interface AdminDao {
-
+    // 회원상태 변경
 	int updateMemberState(@Param("mid") String mid, @Param("mstate") String mstate);
-
+    // 회원정보 조회
 	MemberDto selectMemberInfo(String mid);
-
+    // 회원 수 조회(페이징 처리)
 	int getMemberTotalCount();
-    
+    // 회원 페이징 처리
 	ArrayList<MemberDto> getMemberList(@Param("startRow") int startRow, @Param("endRow") int endRow);
-	
 	// 캠핑장 목록
 	ArrayList<CampingDto> getCampingList(@Param("startRow")int startRow, @Param("endRow")int endRow);
     // 캠핑장 목록 페이징 처리

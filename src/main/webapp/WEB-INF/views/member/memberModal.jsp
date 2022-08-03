@@ -202,29 +202,29 @@
 
 						<div class="md-form mb-3">
 							<label class="small mb-1">전화번호</label> <input type="text"
-								id="infoMtel" class="form-control validate" name="mtel"
+								id="infoMtel" class="form-control" name="mtel"
 								readonly="readonly">
 						</div>
 						<div class="md-form mb-3">
 							<label class="small mb-1">이메일</label> <input type="text"
-								id="infoMemail" class="form-control validate" placeholder="이메일"
+								id="infoMemail" class="form-control" placeholder="이메일"
 								name="memail" readonly="readonly">
 						</div>
 						<div class="md-form mb-3">
 							<label class="small mb-1">생년월일</label> <input type="text"
-								id="infoMbirth" class="form-control validate" name="mbirth"
+								id="infoMbirth" class="form-control" name="mbirth"
 								readonly="readonly">
 						</div>
 						<div class="md-form mb-3" id="memberInfoAddr_Div">
 							<label class="small mb-1">주소</label> <input type="text"
-								id="infoMaddr" class="form-control validate" name="maddr"
+								id="infoMaddr" class="form-control" name="maddr"
 								readonly="readonly">
 						</div>
 
 						<div class="row modifyAddrForm" style="display: none">
 							<div class="col-sm-6 md-form mb-3">
 								<input type="text" id="sample6_postcode2"
-									class="form-control validate postcode" placeholder="우편번호"
+									class="form-control postcode" placeholder="우편번호"
 									name="mpostcode">
 							</div>
 							<div class="col-sm-6 md-form mb-3">
@@ -234,19 +234,19 @@
 						</div>
 						<div class="md-form mb-3 modifyAddrForm" style="display: none">
 							<input type="text" id="sample6_address2"
-								class="form-control validate address" placeholder="주소"
+								class="form-control address" placeholder="주소"
 								name="maddress">
 						</div>
 
 						<div class="row modifyAddrForm" style="display: none">
 							<div class="col-sm-6 md-form mb-3">
 								<input type="text" id="sample6_detailAddress2"
-									class="form-control validate detailAddr" placeholder="상세주소"
+									class="form-control detailAddr" placeholder="상세주소"
 									name="mdetailAddr">
 							</div>
 							<div class="col-sm-6 md-form mb-3">
 								<input type="text" id="sample6_extraAddress2"
-									class="form-control validate extraAddr" placeholder="참고항목"
+									class="form-control extraAddr" placeholder="참고항목"
 									name="mextraAddr">
 							</div>
 						</div>
@@ -350,7 +350,7 @@
 	</div>
 
 	<!-- 비밀번호 찾기 모달 -->
-	<form id="findPwForm2">
+	<!-- <form id="findPwForm2"> -->
 		<div class="modal fade" id="findPwModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true"
 			style="z-index: 5000">
@@ -404,9 +404,9 @@
 						</div>
 
 						<div class="md-form mb-3">
-							<input type="hidden" class="form-control findPw_newPw findPw"
+							<input type="hidden" class="form-control validate findPw_newPw findPw"
 								id="findPw_newPw" placeholder="새 비밀번호"> <input
-								type="hidden" class="form-control findPw_newPw findPw"
+								type="hidden" class="form-control validate findPw_newPw findPw"
 								id="findPw_newPwCheck" placeholder="새 비밀번호 확인"> <span
 								id="findPw_PwCheckMsg" style="font-size: 13px"></span>
 						</div>
@@ -419,7 +419,7 @@
 				</div>
 			</div>
 		</div>
-	</form>
+	<!-- </form> -->
 
 
 </body>

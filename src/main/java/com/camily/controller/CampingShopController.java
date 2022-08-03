@@ -233,7 +233,8 @@ public class CampingShopController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/goodsQuestionModify")
+	// 문의글 수정
+	@RequestMapping(value="/goodsQuestionModify")
 	public @ResponseBody String goodsQuestionModify(String gqcode, String gqcontents) {
 		System.out.println("캠핑용품 문의글 수정");
 
@@ -242,7 +243,8 @@ public class CampingShopController {
 		return result_json;
 	}
 
-	@RequestMapping(value = "/deleteGoodsQuestion")
+	// 문의글 삭제(state 0)
+	@RequestMapping(value="/deleteGoodsQuestion")
 	public @ResponseBody String deleteGoodsQuestion(String gqcode) {
 		System.out.println("캠핑용품 문의글 삭제");
 
