@@ -285,7 +285,6 @@ public class AdminController {
 	@RequestMapping(value = "/adminAddCpRoom")
 	public ModelAndView adminAddCpRoom(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
 		System.out.println("관리자 객실 추가 요청");
-		
 		ModelAndView mav = advc.addCampingRoom(campingRoom,ra);
 		
 		return mav;
@@ -312,5 +311,11 @@ public class AdminController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "getRoomImage")
+	public @ResponseBody String getRoomImage(String cacode, String roomSel) {
+		System.out.println("캠핑장 객실 이미지 불러오기");
+		String img_json = advc.getRoomImage(cacode, roomSel);
+		return img_json;
+	}
 	
 }

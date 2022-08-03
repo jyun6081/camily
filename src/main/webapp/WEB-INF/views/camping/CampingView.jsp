@@ -222,7 +222,14 @@
 										<c:forEach items="${campingRoomTypeList}" var="campingRoomType">
 											<div class="flex-w flex-t p-b-68">
 												<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6" style="width: 200px; height: 200px;">
-													<img src="${campingRoomType.crimage}" alt="객실사진">
+													<c:choose>
+														<c:when test="${fn:substring(campingRoomType.crimage,0,4) == 'http'}">
+															<img src="${campingRoomType.crimage}" alt="객실사진">
+														</c:when>
+														<c:otherwise>
+															<img src="${pageContext.request.contextPath}/resources/caimageUpload/${campingRoomType.crimage}" alt="객실사진">
+														</c:otherwise>
+													</c:choose>
 												</div>
 
 												<div class="size-207" style="width: calc(100% - 218px);">

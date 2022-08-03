@@ -137,6 +137,9 @@ public interface AdminDao {
 	@Update("UPDATE RESERVATION SET RESTATE = 0 WHERE RECODE = #{recode}")
 	int cancelReservation(String recode);
 
+	@Select("SELECT DISTINCT CRIMAGE FROM CAMPINGROOM WHERE CRCACODE = #{cacode} AND CRNAME = #{roomSel}")
+	CampingRoomDto getCampingRoomImg(@Param("cacode") String cacode, @Param("roomSel") String roomSel);
+
 	
 
 

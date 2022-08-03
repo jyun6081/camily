@@ -50,6 +50,9 @@
 			display: grid;
 			grid-template-columns: 1fr 80px
 		}
+		input:checked + label {
+            background-color: #ff880088;
+        }
 	</style>
 </head>
 
@@ -104,13 +107,37 @@
 				<!-- Search product -->
 				<div class="dis-none panel-search w-full p-t-10 p-b-15">
 					<form action="campingList" method="get">
-							<div class="bor8 dis-flex p-l-15">
-								<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04" id="searchCamp">
-									<i class="zmdi zmdi-search"></i>
-								</button>
-								<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="searchKeyword"
-									placeholder="Search" onkeydown="searchCamp(event)">
-							</div>
+						<button type="submit" class="p-2 flex-c-m stext-101 cl0 bg1 hov-btn1 p-lr-15 trans-04" style="border-radius: 3px; float: right;">검색</button>
+						<div style="display: flex;">
+							<input type="checkbox" name="info" id="elect" value="elect" style="display: none;">
+							<label for="elect" class="btn btn-light p-2 mr-3" style="font-weight: bold;">전기</label>
+							<input type="checkbox" name="info" id="wifi" value="wifi" style="display: none;">
+							<label for="wifi" class="btn btn-light p-2 mr-3" style="font-weight: bold;">무선인터넷</label>
+							<input type="checkbox" name="info" id="firewood" value="firewood" style="display: none;">
+							<label for="firewood" class="btn btn-light p-2 mr-3" style="font-weight: bold;">장작판매</label>
+							<input type="checkbox" name="info" id="hotwater" value="hotwater" style="display: none;">
+							<label for="hotwater" class="btn btn-light p-2 mr-3" style="font-weight: bold;">온수</label>
+							<input type="checkbox" name="info" id="playground" value="playground" style="display: none;">
+							<label for="playground" class="btn btn-light p-2 mr-3" style="font-weight: bold;">놀이터</label>
+							<input type="checkbox" name="info" id="waterpool" value="waterpool" style="display: none;">
+							<label for="waterpool" class="btn btn-light p-2 mr-3" style="font-weight: bold;">물놀이장</label>
+							<input type="checkbox" name="info" id="boardwalk" value="boardwalk" style="display: none;">
+							<label for="boardwalk" class="btn btn-light p-2 mr-3" style="font-weight: bold;">산책로</label>
+							<input type="checkbox" name="info" id="trampoline" value="trampoline" style="display: none;">
+							<label for="trampoline" class="btn btn-light p-2 mr-3" style="font-weight: bold;">트렘폴린</label>
+							<input type="checkbox" name="info" id="playfield" value="playfield" style="display: none;">
+							<label for="playfield" class="btn btn-light p-2 mr-3" style="font-weight: bold;">운동장</label>
+							<input type="checkbox" name="info" id="exercise" value="exercise" style="display: none;">
+							<label for="exercise" class="btn btn-light p-2 mr-3" style="font-weight: bold;">운동시설</label>
+							<input type="checkbox" name="info" id="mart" value="mart" style="display: none;">
+							<label for="mart" class="btn btn-light p-2 mr-3" style="font-weight: bold;">마트</label>
+						</div>
+						<div class="bor8 dis-flex p-l-15">
+							<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04" id="searchCamp">
+								<i class="zmdi zmdi-search"></i>
+							</button>
+							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="searchKeyword" placeholder="Search" onkeydown="searchCamp(event)">
+						</div>
 					</form>
 				</div>
 				

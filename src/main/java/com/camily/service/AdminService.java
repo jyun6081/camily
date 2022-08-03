@@ -776,18 +776,23 @@ public class AdminService {
 	public ModelAndView addCampingRoom(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
 		System.out.println("CampingService.addCampingRoom() 호출");
 		ModelAndView mav = new ModelAndView();
-		//파일 업로드
-		MultipartFile crfile = campingRoom.getCrfile();
-		String crimage = "";
-		if( !crfile.isEmpty() ) {
-			System.out.println("첨부파일 있음");
-			UUID uuid = UUID.randomUUID();
-			//1. 파일명 생성
-			crimage = uuid.toString()+"_"+crfile.getOriginalFilename();
-			//프로필 이미지 파일 저장
-			crfile.transferTo(  new File(savePath, crimage)   );
-		} 
-		campingRoom.setCrimage(crimage);
+		if(campingRoom.getCrimage() == null) {
+			CampingRoomDto crimage = addao.getCampingRoomImg(campingRoom.getCrcacode(), campingRoom.getCrname());
+			campingRoom.setCrimage(crimage.getCrimage());
+		}else {
+			//파일 업로드
+			MultipartFile crfile = campingRoom.getCrfile();
+			String crimage = "";
+			if( !crfile.isEmpty() ) {
+				System.out.println("첨부파일 있음");
+				UUID uuid = UUID.randomUUID();
+				//1. 파일명 생성
+				crimage = uuid.toString()+"_"+crfile.getOriginalFilename();
+				//프로필 이미지 파일 저장
+				crfile.transferTo(  new File(savePath, crimage)   );
+			} 
+			campingRoom.setCrimage(crimage);
+		}
 		
 		//객실 번호 생성
 		int maxCrNum = addao.selectMaxCrNum(campingRoom) + 1;
@@ -884,6 +889,14 @@ public class AdminService {
 		}
 		mav.setViewName("redirect:/adminReservationPage");
 		return mav;
+	}
+
+	public String getRoomImage(String cacode, String roomSel) {
+		System.out.println("CampingService.getRoomImage() 호출");
+		CampingRoomDto campingRoomImg = addao.getCampingRoomImg(cacode, roomSel);
+		Gson gson = new Gson();
+		String campingroomList_json = gson.toJson(campingRoomImg);
+		return campingroomList_json;
 	}
 
 }

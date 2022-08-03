@@ -30,6 +30,9 @@
 			    <if test="searchKeyword.length > 0">
 					AND CANAME LIKE '%'||#{searchKeyword}||'%'
 				</if>
+				<foreach item="info" collection="infoList">
+					AND CAINFO LIKE '%'||#{info}||'%'
+				</foreach>
 			</where>
 	</select>
 	
@@ -49,6 +52,9 @@
 			       		<if test="searchKeyword.length > 0">
 							AND CANAME LIKE '%'||#{searchKeyword}||'%'
 						</if>
+						<foreach item="info" collection="infoList">
+							AND CAINFO LIKE '%'||#{info}||'%'
+						</foreach>
 					</where>
 		      		ORDER BY CAMPING.CACODE) CAMPING)
 		WHERE RN BETWEEN #{startRow} AND #{endRow}

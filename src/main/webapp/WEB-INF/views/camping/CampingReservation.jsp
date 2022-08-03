@@ -62,7 +62,14 @@
 							<div class="mtext-109 cl2 p-b-30 p-t-30" style="font-weight: bold;">${caname}</div>
 							<div class="row">
 								<div class="col-xl-5 m-lr-auto m-b-50">
-									<img src="${RoomInfo.crimage}" alt="캠핑장 이미지" width="100%">
+									<c:choose>
+										<c:when test="${fn:substring(RoomInfo.crimage,0,4) == 'http'}">
+											<img src="${RoomInfo.crimage}" alt="캠핑장 이미지" width="100%">
+										</c:when>
+										<c:otherwise>
+											<img src="${pageContext.request.contextPath}/resources/caimageUpload/${RoomInfo.crimage}" alt="캠핑장 이미지" width="100%">
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<div class="col-xl-7 m-lr-auto m-b-50">
 									<div style="font-size: 25px; font-weight: bold;">${RoomInfo.crname}</div>

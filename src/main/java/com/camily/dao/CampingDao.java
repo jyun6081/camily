@@ -24,12 +24,12 @@ public interface CampingDao {
 	String getMaxCacode();
 
 //	@Select("SELECT * FROM (SELECT ROWNUM RN, CAMPING.* FROM CAMPING ORDER BY CACODE) WHERE RN BETWEEN #{startRow} AND #{endRow}")
-	ArrayList<CampingDto> getCampingList(@Param("startRow") int startRow, @Param("endRow") int endRow, @Param("type") String type, @Param("searchKeyword") String searchKeyword);
+	ArrayList<CampingDto> getCampingList(@Param("startRow") int startRow, @Param("endRow") int endRow, @Param("type") String type, @Param("searchKeyword") String searchKeyword, @Param("infoList") String[] infoList);
 
 	@Select("SELECT * FROM CAMPING WHERE CACODE = #{cacode}")
 	CampingDto campingView(String cacode);
 
-	int getCampTotalCount(@Param("type") String type, @Param("searchKeyword") String searchKeyword);
+	int getCampTotalCount(@Param("type") String type, @Param("searchKeyword") String searchKeyword, @Param("infoList") String[] infoList);
 
 	@Select("SELECT * FROM CAMPINGROOM WHERE CRCACODE = #{cacode} ORDER BY LPAD(CRNUM, 2, '0')")
 	ArrayList<CampingRoomDto> campingRoomList(String cacode);

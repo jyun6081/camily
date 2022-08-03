@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -67,13 +68,50 @@ public class CampingService {
 	}
 
 	// 캠핑장 목록 기능
-	public ModelAndView campingList(String page, String type, String searchKeyword) {
+	public ModelAndView campingList(String page, String type, String searchKeyword, String info) {
 		System.out.println("CampingService.campingList() 호출");
 		int selPage = 1;
 		if(page != null) {
 			selPage = Integer.parseInt(page);
 		}
-		int campTotalCount = cdao.getCampTotalCount(type, searchKeyword);
+		String[] infoList = info.split(",");
+		for(int i = 0; i < infoList.length; i++) {
+			if(infoList[i].equals("elect")) {
+				infoList[i] = "전기";
+			}
+			if(infoList[i].equals("wifi")) {
+				infoList[i] = "무선인터넷";
+			}
+			if(infoList[i].equals("firewood")) {
+				infoList[i] = "장작판매";
+			}
+			if(infoList[i].equals("hotwater")) {
+				infoList[i] = "온수";
+			}
+			if(infoList[i].equals("playground")) {
+				infoList[i] = "놀이터";
+			}
+			if(infoList[i].equals("waterpool")) {
+				infoList[i] = "물놀이장";
+			}
+			if(infoList[i].equals("boardwalk")) {
+				infoList[i] = "산책로";
+			}
+			if(infoList[i].equals("trampoline")) {
+				infoList[i] = "트렘폴린";
+			}
+			if(infoList[i].equals("playfield")) {
+				infoList[i] = "운동장";
+			}
+			if(infoList[i].equals("exercise")) {
+				infoList[i] = "운동시설";
+			}
+			if(infoList[i].equals("mart")) {
+				infoList[i] = "마트";
+			}
+		}		
+		System.out.println(Arrays.toString(infoList));
+		int campTotalCount = cdao.getCampTotalCount(type, searchKeyword, infoList);
 		System.out.println(campTotalCount);
 		int pageCount = 20;
 		int pageNumCount = 5;
@@ -85,7 +123,7 @@ public class CampingService {
 		System.out.println("startRow : " + startRow);
 		System.out.println("endRow : " + endRow);
 		
-		ArrayList<CampingDto> campingList = cdao.getCampingList(startRow, endRow, type, searchKeyword);
+		ArrayList<CampingDto> campingList = cdao.getCampingList(startRow, endRow, type, searchKeyword, infoList);
 		 
 		    String ditotalprice = "";
 		    String divisionsum = "";		  

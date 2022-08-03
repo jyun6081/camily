@@ -61,7 +61,12 @@
 						</div>
 						<div class="row">
 							<div class="col-xl-5 m-lr-auto m-b-50">
-								<img src="${myReservationInfo.crimage}" alt="캠핑장 이미지" width="100%">
+								<c:when test="${fn:substring(myReservationInfo.crimage,0,4) == 'http'}">
+									<img src="${myReservationInfo.crimage}" alt="캠핑장 이미지" width="100%">
+								</c:when>
+								<c:otherwise>
+									<img src="${pageContext.request.contextPath}/resources/caimageUpload/${myReservationInfo.crimage}" alt="캠핑장 이미지" width="100%">
+								</c:otherwise>
 							</div>
 							<div class="col-xl-7 m-lr-auto m-b-50">
 								<div style="font-size: 25px; font-weight: bold;">${myReservationInfo.recrname}</div>

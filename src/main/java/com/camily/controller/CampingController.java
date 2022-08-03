@@ -42,11 +42,12 @@ public class CampingController {
 
 	// 캠핑장 목록 페이지 이동
 	@RequestMapping(value = "campingList")
-	public ModelAndView campingList(@Param("page") String page, @RequestParam(value = "type", defaultValue = "") String type, @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword) {
+	public ModelAndView campingList(@Param("page") String page, @RequestParam(value = "type", defaultValue = "") String type, @RequestParam(value = "searchKeyword", defaultValue = "") String searchKeyword,  @RequestParam(value = "info", defaultValue = "") String info) {
 		System.out.println("캠핑장 목록 페이지 이동");
 		System.out.println("type : " + type);
 		System.out.println("searchKeyword : " + searchKeyword);
-		ModelAndView mav = csvc.campingList(page, type, searchKeyword);
+		System.out.println("info : " + info);
+		ModelAndView mav = csvc.campingList(page, type, searchKeyword, info);
 		return mav;
 	}
 
