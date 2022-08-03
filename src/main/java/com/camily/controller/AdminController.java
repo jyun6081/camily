@@ -3,6 +3,7 @@ package com.camily.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -271,9 +272,37 @@ public class AdminController {
 	@RequestMapping(value = "/adminAddCpRoom")
 	public ModelAndView adminAddCpRoom(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
 		System.out.println("관리자 객실 추가 요청");
-		
 		ModelAndView mav = advc.addCampingRoom(campingRoom,ra);
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "adminReservationPage")
+	public ModelAndView adminReservationPage(@Param("page") String page) {
+		System.out.println("관리자 예약 관리 페이지 이동");
+		ModelAndView mav = advc.adminReservationPage(page);
+		return mav;
+	}
+	
+	@RequestMapping(value = "adminReservationInfo")
+	public @ResponseBody String adminReservationInfo(@Param("recode") String recode) {
+		System.out.println("관리자 예약정보 상세보기 ajax");
+		String reservationInfo_json = advc.adminReservationInfo(recode);
+		return reservationInfo_json;
+	}
+	
+	@RequestMapping(value = "adminCancelReservation")
+	public ModelAndView adminCancelReservation(@Param("recode") String recode, RedirectAttributes ra) {
+		System.out.println("관리자 예약 취소");
+		ModelAndView mav = advc.adminCancelReservation(recode, ra);
+		return mav;
+	}
+	
+	@RequestMapping(value = "getRoomImage")
+	public @ResponseBody String getRoomImage(String cacode, String roomSel) {
+		System.out.println("캠핑장 객실 이미지 불러오기");
+		String img_json = advc.getRoomImage(cacode, roomSel);
+		return img_json;
+	}
+	
 }

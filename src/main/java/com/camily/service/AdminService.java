@@ -2,6 +2,7 @@ package com.camily.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -31,6 +32,7 @@ import com.camily.dto.GoodsQnADto;
 import com.camily.dto.GoodsReviewDto;
 import com.camily.dto.MemberDto;
 import com.camily.dto.PageDto;
+import com.camily.dto.ReservationDto;
 import com.google.gson.Gson;
 
 @Service
@@ -769,18 +771,23 @@ public class AdminService {
 	public ModelAndView addCampingRoom(CampingRoomDto campingRoom, RedirectAttributes ra) throws IllegalStateException, IOException {
 		System.out.println("CampingService.addCampingRoom() 호출");
 		ModelAndView mav = new ModelAndView();
-		//파일 업로드
-		MultipartFile crfile = campingRoom.getCrfile();
-		String crimage = "";
-		if( !crfile.isEmpty() ) {
-			System.out.println("첨부파일 있음");
-			UUID uuid = UUID.randomUUID();
-			//1. 파일명 생성
-			crimage = uuid.toString()+"_"+crfile.getOriginalFilename();
-			//프로필 이미지 파일 저장
-			crfile.transferTo(  new File(savePath, crimage)   );
-		} 
-		campingRoom.setCrimage(crimage);
+		if(campingRoom.getCrimage() == null) {
+			CampingRoomDto crimage = addao.getCampingRoomImg(campingRoom.getCrcacode(), campingRoom.getCrname());
+			campingRoom.setCrimage(crimage.getCrimage());
+		}else {
+			//파일 업로드
+			MultipartFile crfile = campingRoom.getCrfile();
+			String crimage = "";
+			if( !crfile.isEmpty() ) {
+				System.out.println("첨부파일 있음");
+				UUID uuid = UUID.randomUUID();
+				//1. 파일명 생성
+				crimage = uuid.toString()+"_"+crfile.getOriginalFilename();
+				//프로필 이미지 파일 저장
+				crfile.transferTo(  new File(savePath, crimage)   );
+			} 
+			campingRoom.setCrimage(crimage);
+		}
 		
 		//객실 번호 생성
 		int maxCrNum = addao.selectMaxCrNum(campingRoom) + 1;
@@ -797,6 +804,94 @@ public class AdminService {
 		   mav.setViewName("redirect:/adminCampingInfo?cacode="+campingRoom.getCrcacode());
 		}
 		return mav;
+	}
+
+	public ModelAndView adminReservationPage(String page) {
+		System.out.println("CampingService.adminReservationPage() 호출");
+		ModelAndView mav = new ModelAndView();
+		
+		/* --- */
+		int selPage = 1;
+		if(page != null) {
+			selPage = Integer.parseInt(page);
+		}
+		int campingQnATotalCount = addao.getReservationListTotalCount();
+		System.out.println(campingQnATotalCount);
+		int pageCount = 10;
+		int pageNumCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > campingQnATotalCount) {
+			endRow = campingQnATotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+
+		ArrayList<ReservationDto> reservationList = addao.getReservationList(startRow, endRow);
+		int maxPage = (int)( Math.ceil(  (double)campingQnATotalCount/pageCount  ) );
+		
+		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
+		
+		int endPage = startPage + pageNumCount - 1;
+		
+		if( endPage > maxPage ) {
+			endPage = maxPage;
+		}
+		PageDto pageDto = new PageDto();
+		pageDto.setPage(selPage);
+		pageDto.setMaxPage(maxPage);
+		pageDto.setStartPage(startPage);
+		pageDto.setEndPage(endPage);
+		/* --- */
+		
+		
+		mav.addObject("pageDto", pageDto);
+		mav.addObject("reservationList", reservationList);
+		mav.setViewName("admin/AdminReservation");
+		return mav;
+	}
+
+	public String adminReservationInfo(String recode) {
+		System.out.println("CampingService.adminReservationInfo() 호출");
+		ReservationDto reservationInfo = addao.getReservationInfo(recode);
+		
+		int totalPrice = 0;
+		for (LocalDate date = LocalDate.of(Integer.parseInt(reservationInfo.getStartday().substring(0,4)), Integer.parseInt(reservationInfo.getStartday().substring(5,7)), Integer.parseInt(reservationInfo.getStartday().substring(8,10))); date.isBefore(LocalDate.of(Integer.parseInt(reservationInfo.getEndday().substring(0,4)), Integer.parseInt(reservationInfo.getEndday().substring(5,7)), Integer.parseInt(reservationInfo.getEndday().substring(8,10)))); date = date.plusDays(1)) {
+			DayOfWeek dayOfWeek = date.getDayOfWeek();
+			int dayOfWeekNumber = dayOfWeek.getValue();
+			System.out.println(date);
+			System.out.println(dayOfWeekNumber);
+			if(dayOfWeekNumber == 5 || dayOfWeekNumber == 6) {
+				totalPrice += Integer.parseInt(reservationInfo.getCrprice())  * 1.2;
+			}else {
+				totalPrice += Integer.parseInt(reservationInfo.getCrprice());				
+			}
+		}
+		reservationInfo.setTotalprice(totalPrice);
+		Gson gson = new Gson();
+		String reservationInfo_json = gson.toJson(reservationInfo);
+		return reservationInfo_json;
+	}
+
+	public ModelAndView adminCancelReservation(String recode, RedirectAttributes ra) {
+		System.out.println("CampingService.adminCancelReservation() 호출");
+		ModelAndView mav = new ModelAndView();
+		int updateResult = addao.cancelReservation(recode);
+		if(updateResult > 0) {
+			ra.addFlashAttribute("msg", "예약 취소에 성공하였습니다.");
+		}else {
+			ra.addFlashAttribute("msg", "예약 취소에 실패하였습니다.");
+		}
+		mav.setViewName("redirect:/adminReservationPage");
+		return mav;
+	}
+
+	public String getRoomImage(String cacode, String roomSel) {
+		System.out.println("CampingService.getRoomImage() 호출");
+		CampingRoomDto campingRoomImg = addao.getCampingRoomImg(cacode, roomSel);
+		Gson gson = new Gson();
+		String campingroomList_json = gson.toJson(campingRoomImg);
+		return campingroomList_json;
 	}
 
 }

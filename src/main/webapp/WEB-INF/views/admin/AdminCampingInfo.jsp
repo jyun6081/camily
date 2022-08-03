@@ -179,7 +179,7 @@
 									<button class="btn-sm btn-info" type="button"
 										onclick="modifyCpRoomForm();">객실수정</button>
 									<button class="btn-sm btn-success" type="button"
-										onclick="addCpRoomForm();">객실추가</button>
+										onclick="addCpRoomForm('${campingInfo.cacode}');">객실추가</button>
 								</div>
 							</div>
 						</div>
@@ -314,8 +314,8 @@
 						</div>
 
 						<div class="md-form mb-3">
-							<img id="cpRoomAdd_crimage" height="100px" class="mb-3"> <input
-								type="file" onchange="addCpRoomImage(this);" name="crfile">
+							<img id="cpRoomAdd_crimage" height="100px" class="mb-3"> 
+							<input type="file" onchange="addCpRoomImage(this);" name="crfile" id="roomImg">
 						</div>
 
 					</div>
@@ -487,7 +487,7 @@ $('.modal').on('hidden.bs.modal', function (e) {
      	    document.getElementById('cpRoomAdd_crimage').src = "";
      	  }
      	}
-     </script>
+</script>
 <script type="text/javascript">
 $(document).ready(function(){
 	var catype = '${campingInfo.catype}';
@@ -725,15 +725,30 @@ function modifyCpRoomForm(){
 	}
 }
 
-function addCpRoomForm(){
+function addCpRoomForm(cacode){
 	var roomSel = $("#roomSel").val();
 	console.log("roomSel : " + roomSel);
 	if(roomSel == "add" || roomSel == "캠핑장 종류 선택"){
 		$("#cpRoomAdd_crname").val("");
 		$("#cpRoomAdd_crname").removeAttr("readonly");
+		$("#cpRoomAdd_crimage").attr("src", "");
+		$("#roomImg").removeAttr("disabled");
 	}else{
 		$("#cpRoomAdd_crname").val(roomSel);
 		$("#cpRoomAdd_crname").attr("readonly","readonly");
+
+		$.ajax({
+		type: "get",
+		url: "getRoomImage",
+		data: {"cacode": cacode, "roomSel": roomSel},
+		dataType: "json",
+		async: false,
+		success: function(result){
+			console.log(result);
+			$("#cpRoomAdd_crimage").attr("src", result.crimage);
+			$("#roomImg").attr("disabled","disabled");
+		}
+		});
 	}
 	$("#addCpRoomModal").modal("show");
 }
