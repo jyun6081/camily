@@ -130,7 +130,7 @@
 									
 
 									<p class="stext-117" style="color: black;">
-										🌈${gorvList.goname}🌈</p>
+										<a href="campingDetailPage?gcode=${gorvList.gorvgcode }">🌈${gorvList.goname}🌈</a></p>
 
 									<p class="mt-1">
 										별점 :

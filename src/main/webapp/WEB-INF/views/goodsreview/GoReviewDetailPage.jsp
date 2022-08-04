@@ -80,7 +80,7 @@
 							<hr>
 							<div>
 							<img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${gorvDetail.goimage }" style="height: 30%; width: 30%;">
-							<p class="stext-117" style="color: black;">제품명 : 🌈${gorvDetail.goname }🌈</p>
+							<p class="stext-117" style="color: black;">제품명 : <a href="campingDetailPage?gcode=${gorvDetail.gorvgcode }">🌈${gorvDetail.goname }🌈</a></p>
 							
 							<p class="mt-1" style="color: black;"> 별점 : 
 								   <c:if test="${gorvDetail.gorvstarating == 1 }">
@@ -125,7 +125,9 @@
 			</div>
 		</div>
 	</section>
-
+	<br>
+	<br>
+	<br>
 
 
 	<!-- Footer -->
