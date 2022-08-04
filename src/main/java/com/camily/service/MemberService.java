@@ -76,7 +76,7 @@ public class MemberService {
 		/* 이메일 보내기 */
 		String setFrom = "campingcamily@gmail.com";
 		String toMail = email;
-		String title = "(CAMILY)회원가입 인증 이메일 입니다.";
+		String title = "(CAMILY)인증 이메일 입니다.";
 		String content = "CAMILY 홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
 				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
 

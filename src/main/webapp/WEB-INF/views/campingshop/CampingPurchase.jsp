@@ -215,7 +215,9 @@
 									<button type="button"
 									 onclick="requestPay('${campingpurchase.gcode}','${campingpurchase.gname }',${totalPrice},
 									'${addselect.memail }','${addselect.mname }','${addselect.mtel }','${addselect.maddr }')"
-									class="cl0 size-100 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">결제하기</button>
+									class="cl0 size-100 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+									<i class="fa-solid fa-credit-card"></i>
+									</button>
 									<input type="hidden" name="loginId" value="${sessionScope.loginId }">
 									<input type="hidden" name="addr" id="newdd" value="${addselect.maddr }">
 									<input type="hidden" name="gogcode" value="${campingpurchase.gcode }">
