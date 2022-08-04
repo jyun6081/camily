@@ -2,13 +2,15 @@ package com.camily.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.camily.dto.BoardDto;
 import com.camily.dto.FAQDto;
 import com.camily.dto.ReplyDto;
 
 public interface BoardDao {
 
-	ArrayList<BoardDto> selectBoardList();
+	ArrayList<BoardDto> selectBoardList(@Param("startRow") int startRow, @Param("endRow") int endRow);
 
 	BoardDto selectBoardView(int bocode);
 
@@ -41,5 +43,7 @@ public interface BoardDao {
 	int updateHits(int bocode);
 
 	int updateFAQHits(int faqcode);
+
+	int getBoardListTotalCount();
 
 }

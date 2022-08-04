@@ -76,11 +76,11 @@
 	grid-template-columns: 1fr 80px
 }
 
-.aclass{
+/* .aclass{
  position: relative;
  animation-fill-mode: both;
 
-}
+} */
 </style>
 </head>
 <body class="animsition">
@@ -100,7 +100,7 @@
                         <div class="bg-light rounded h-100 p-4">
                             <div class="d-flex justify-content-between">
 	                            <div class="mb-4">주문번호 : ${Purchase.gocode}</div>
-	                            <div class="mb-4" style="text-align: end;">주문일자 : ${Purchase.godate}</div>
+	                            <div class="mb-4">주문일자 : ${Purchase.godate}</div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table">
@@ -127,7 +127,7 @@
                                     <tbody>
                                         <tr>
                                             <th class="align-middle text-center font-weight-bold"><img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${Purchase.goimage }" alt="IMG" style="width: 60px;"></th>
-                                             <td>
+                                             <td class="align-middle text-center font-weight-bold">
                                              <a href="campingDetailPage?gcode=${Purchase.gogcode}" class="aclass">
                                             ${Purchase.goname }
                                              </a>
@@ -175,8 +175,13 @@
 									</td>
 									<td>
 									<c:if test="${Purchase.gostate == 7 || Purchase.gostate == 5 }">							 
-								     <button type="button"
-									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">내역삭제</button>
+								     <button class="close text-right font-weight-bold mt-2 mr-2"
+									type="button">
+									<span aria-hidden="true" onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')">x&nbsp;</span>
+									</button>
+								     
+								     <%-- <button type="button"
+									 onclick="deleteph(this,'${Purchase.gocode}','${Purchase.gostate }')" class="btn btn-dark">내역삭제</button> --%>
 									 </c:if>
 									 </td>
                                         </tr>                                                                       
@@ -219,35 +224,35 @@
 	<!-- Load more 시작 -->
 	<div class="flex-c-m flex-w w-full p-t-45">
 				<!-- Pagination 시작 -->
-				<div class="flex-c-m flex-w w-full p-t-45" style="margin-top: auto; margin-right: auto;">
-					<c:choose>
-						<c:when test="${pageDto.page <= 1}">
-							<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span>
-						</c:when>
-						<c:otherwise>
-							<span><a href="CampingPurchaseListPage?page=${pageDto.page - 1}"><span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span></a></span>
-						</c:otherwise>
-					</c:choose>
-					<c:forEach begin="${pageDto.startPage }" end="${pageDto.endPage }" var="num" step="1">
-						<c:choose>
-							<c:when test="${pageDto.page == num}">
-								<span><a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">${num}</a></span>
-							</c:when>
-							<c:otherwise>
-								<span><a href="CampingPurchaseListPage?page=${num}" class="flex-c-m how-pagination1 trans-04 m-all-7">${num}</a></span>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<c:choose>
-						<c:when test="${pageDto.page > pageDto.endPage || pageDto.page == pageDto.maxPage}">
-							<span><a class="flex-c-m how-pagination1 trans-04 m-all-7" style="cursor: pointer;" href="CampingPurchaseListPage?page=${pageDto.page + 1}"><i class="fa-solid fa-angle-right"></i></a></span>
-						</c:when>
-						<c:otherwise>
-							<span><a class="flex-c-m how-pagination1 trans-04 m-all-7" style="cursor: pointer;" href="CampingPurchaseListPage?page=${pageDto.page + 1}"><i class="fa-solid fa-angle-right"></i></a></span>
-						</c:otherwise>
-					</c:choose>
-				</div>
-				<!-- Pagination 종료 -->
+								<div class="flex-c-m flex-w w-full p-t-45" style="margin-top: auto; margin-right: auto;">
+									<c:choose>
+										<c:when test="${pageDto.page <= 1}">
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span>
+										</c:when>
+										<c:otherwise>
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="CampingPurchaseListPage?page=${pageDto.page - 1}"><i class="fa-solid fa-angle-left" style="color: white;"></i></a></span>
+										</c:otherwise>
+									</c:choose>
+									<c:forEach begin="${pageDto.startPage }" end="${pageDto.endPage }" var="num" step="1">
+										<c:choose>
+											<c:when test="${pageDto.page == num}">
+												<span><a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">${num}</a></span>
+											</c:when>
+											<c:otherwise>
+												<span><a href="CampingPurchaseListPage?page=${num}" class="flex-c-m how-pagination1 trans-04 m-all-7">${num}</a></span>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${pageDto.page > pageDto.endPage || pageDto.page == pageDto.maxPage}">
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-right"></i></span>
+										</c:when>
+										<c:otherwise>
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="CampingPurchaseListPage?page=${pageDto.page + 1}"><i class="fa-solid fa-angle-right" style="color: white;"></i></a></span>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							<!-- Pagination 종료 -->
 	          </div>	
 	          <!-- Load more 종료 -->
 			

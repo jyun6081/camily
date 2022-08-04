@@ -141,8 +141,14 @@
                                             <td>${information.diprice }원</td>
                                             <td>${information.diamount }개</td>
                                             <td>${information.formatter }원</td>
-                                            <td id="${information.dicode}1">${information.diaddr }</td>
-                                           	<td><a href="deletepoket?dicode=${information.dicode }" class="btn btn-dark">삭제하기</a></td>
+                                            <td id="${information.dicode}1">${information.diaddr }</td>                                        	
+                                           	<td>
+                                           	<a class="close text-right font-weight-bold mt-2 mr-2"
+											 href="deletepoket?dicode=${information.dicode }">
+											<span aria-hidden="true">x&nbsp;</span>
+											</a>                                  	
+                                           	<%-- <a href="deletepoket?dicode=${information.dicode }" class="btn btn-dark">삭제하기</a> --%>                                          	
+                                           	</td>
                                            	<th>
                                             <c:if test="${information.gstate == 1}">                                       
 										 	   <input type="hidden" value="${sessionScope.loginId }"     name="dimid">
@@ -165,18 +171,36 @@
                     </div>
 
                     </c:forEach>			        
-		                 
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+	<br>
+	<br>
+	<br>			
+	 <c:if test="${fn:length(detailinformation) == 0}">
+						<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
+	 
+	
+	  </c:if> 	                 
     <!-- Load more --> 
+    <c:if test="${fn:length(detailinformation) == 1}">
 	<div class="flex-c-m flex-w w-full p-t-45" >
 		<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn1 p-lr-15 trans-04" type="button" 
 		onclick="requestPay()">주문하기</button> 
 	</div>	
-                                    			       		          
-	                 <c:if test="${fn:length(detailinformation) == 0}">
-						<p style="text-align: center;">장바구니 내역이 존재하지않습니다!</p>
-					</c:if>     
+    </c:if>                    			       		          
+	                   
 	<!-- Load more -->
-
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	</form>
 	
     <!-- 주소확인 모달 시작 -->

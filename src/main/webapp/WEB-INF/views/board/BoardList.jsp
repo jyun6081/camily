@@ -114,7 +114,7 @@
 							<tbody>
 								<c:forEach items="${boardList}" var="boardList">
 									<tr>
-										<td>${boardList.bocode }</td>
+										<td>${boardList.bonum }</td>
 										<td><a href="boardView?bocode=${boardList.bocode }">${boardList.botitle }</a></td>
 										<td><i class="fa-regular fa-user"></i> ${boardList.bomid }</td>
 										<td><i class="fa-regular fa-calendar"></i>
@@ -136,13 +136,36 @@
 						<c:if test="${sessionScope.loginId != null }">
 							<button type="button" class="btn btn-outline-secondary m-2" onclick="location.href='/controller/write'" style="float: right;">글작성</button>
 						</c:if>
-						<!-- Pagination -->
-						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-							<a href="#"
-								class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-								1 </a> <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-								2 </a>
-						</div>
+						<!-- Pagination 시작 -->
+								<div class="flex-c-m flex-w w-full p-t-45" style="margin-top: auto; margin-right: auto;">
+									<c:choose>
+										<c:when test="${pageDto.page <= 1}">
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span>
+										</c:when>
+										<c:otherwise>
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="boardList?page=${pageDto.page - 1}"><i class="fa-solid fa-angle-left" style="color: white;"></i></a></span>
+										</c:otherwise>
+									</c:choose>
+									<c:forEach begin="${pageDto.startPage }" end="${pageDto.endPage }" var="num" step="1">
+										<c:choose>
+											<c:when test="${pageDto.page == num}">
+												<span><a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">${num}</a></span>
+											</c:when>
+											<c:otherwise>
+												<span><a href="boardList?page=${num}" class="flex-c-m how-pagination1 trans-04 m-all-7">${num}</a></span>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${pageDto.page > pageDto.endPage || pageDto.page == pageDto.maxPage}">
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-right"></i></span>
+										</c:when>
+										<c:otherwise>
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="boardList?page=${pageDto.page + 1}"><i class="fa-solid fa-angle-right" style="color: white;"></i></a></span>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							<!-- Pagination 종료 -->
 
 					</div>
 				</div>
