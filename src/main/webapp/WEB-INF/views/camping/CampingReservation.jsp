@@ -74,10 +74,9 @@
 									</c:choose>
 								</div>
 								<div class="col-xl-7 m-lr-auto m-b-50">
-									<div style="font-size: 25px; font-weight: bold;">${RoomInfo.crname}</div>
-									<div style="font-size: 20px;">${RoomInfo.crnum}</div>
-									<div style="font-size: 20px;"><span>${startday}</span> ~ <span>${endday}</span></div>
-									<div style="font-size: 20px;">${people}명</div>
+									<div style="font-size: 25px; font-weight: bold;">${RoomInfo.crname} - ${RoomInfo.crnum}</div>
+									<div style="font-size: 20px;">예약일자 : <span>${startday}</span> ~ <span>${endday}</span></div>
+									<div style="font-size: 20px;">예약인원 :  ${people}명</div>
 									
 									<input type="hidden" name="recode" id="recode">
 									<input type="hidden" name="recacode" value="${cacode}">
