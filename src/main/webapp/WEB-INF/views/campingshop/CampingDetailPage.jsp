@@ -353,10 +353,10 @@ try {
 	      content: {
 	        title: gname,
 	        description: gcompanyname+" "+gprice,
-	        imageUrl:'http://121.65.47.77:7779/controller/resources/campingShopfileUpLoad/'+gimage,
+	        imageUrl:'http://121.65.47.77:7772/controller/resources/campingShopfileUpLoad/'+gimage,
 	        link: {
-	          mobileWebUrl:'http://121.65.47.77:7779/controller/campingDetailPage?gcode='+gcode,
-	          webUrl:'http://121.65.47.77:7779/controller/campingDetailPage?gcode='+gcode,
+	          mobileWebUrl:'http://121.65.47.77:7772/controller/campingDetailPage?gcode='+gcode,
+	          webUrl:'http://121.65.47.77:7772/controller/campingDetailPage?gcode='+gcode,
 	        },
 	      },
 	      social: {
@@ -368,15 +368,15 @@ try {
 	        {
 	          title: '웹으로 보기',
 	          link: {
-	            mobileWebUrl:'http://121.65.47.77:7779/controller/campingDetailPage?gcode='+gcode,
-	            webUrl:'http://121.65.47.77:7779/controller/campingDetailPage?gcode='+gcode,
+	            mobileWebUrl:'http://121.65.47.77:7772/controller/campingDetailPage?gcode='+gcode,
+	            webUrl:'http://121.65.47.77:7772/controller/campingDetailPage?gcode='+gcode,
 	          },
 	        },
 	        {
 	          title: '앱으로 보기',
 	          link: {
-	            mobileWebUrl:'http://121.65.47.77:7779/controller/campingDetailPage?gcode='+gcode,
-	            webUrl:'http://121.65.47.77:7779/controller/campingDetailPage?gcode='+gcode,
+	            mobileWebUrl:'http://121.65.47.77:7772/controller/campingDetailPage?gcode='+gcode,
+	            webUrl:'http://121.65.47.77:7772/controller/campingDetailPage?gcode='+gcode,
 	          },
 	        },
 	      ],

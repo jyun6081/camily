@@ -523,8 +523,8 @@
 			        imageUrl:
 			        	caimage,
 			        link: {
-			          mobileWebUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
-			          webUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
+			          mobileWebUrl:'http://121.65.47.77:7772/controller/campingView?cacode='+cacode,
+			          webUrl:'http://121.65.47.77:7772/controller/campingView?cacode='+cacode,
 			        },
 			      },
 			      social: {
@@ -536,15 +536,15 @@
 			        {
 			          title: '웹으로 보기',
 			          link: {
-			            mobileWebUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
-			            webUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
+			            mobileWebUrl:'http://121.65.47.77:7772/controller/campingView?cacode='+cacode,
+			            webUrl:'http://121.65.47.77:7772/controller/campingView?cacode='+cacode,
 			          },
 			        },
 			        {
 			          title: '앱으로 보기',
 			          link: {
-			            mobileWebUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
-			            webUrl:'http://121.65.47.77:7779/controller/campingView?cacode='+cacode,
+			            mobileWebUrl:'http://121.65.47.77:7772/controller/campingView?cacode='+cacode,
+			            webUrl:'http://121.65.47.77:7772/controller/campingView?cacode='+cacode,
 			          },
 			        },
 			      ],
