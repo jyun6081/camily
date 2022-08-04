@@ -313,7 +313,8 @@
 					</form>
 				</c:if>
 			</div>
-
+		</div>
+	</div>
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>
 	<!-- End of Footer -->
