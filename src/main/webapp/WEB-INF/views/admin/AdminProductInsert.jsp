@@ -72,7 +72,6 @@
                                 <table class="table table-bordered" id="dataTable">
                                   <thead>
                                         <tr>
-                                            <th class="align-middle text-center font-weight-bold">상품코드</th>
                                             <th class="align-middle text-center font-weight-bold">상품이미지</th>
                                             <th class="align-middle text-center font-weight-bold">상품사이드이미지</th>
                                             <th class="align-middle text-center font-weight-bold">상품백이미지</th>
@@ -81,11 +80,7 @@
                                    </thead>                                 
 
                                   <tbody>                      
-                                        <tr>
-                                            <th class="align-middle text-center font-weight-bold">
-                                            <input class="form-control" type="text" name="gcode">
-                                            </th>
-                                            
+                                        <tr>                                           
                                             <th class="align-middle text-center font-weight-bold">
                                             <input class="form-control" type="file" name="gimagefile">
                                             </th>
