@@ -7,13 +7,14 @@
 
 	<select id="selectBoardList"
 		resultType="com.camily.dto.BoardDto">
-		SELECT BOCODE, BOMID, BOTITLE, BOCONTENTS,
-		TO_CHAR(BODATE,
-		'YYYY-MM-DD')AS BODATE, BOSTATE, BOHITS
-		FROM BOARDS
-		WHERE BOSTATE
-		= 1
-		ORDER BY BOCODE
+		SELECT RN AS BONUM, BOCODE, BOMID, BOTITLE, BOCONTENTS,TO_CHAR(BODATE, 'YYYY-MM-DD')AS BODATE, BOSTATE, BOHITS
+		FROM (  SELECT ROWNUM RN, BO.*
+        FROM (  SELECT BOARDS.* 
+                FROM BOARDS 
+                WHERE BOSTATE = 1
+                ORDER BY BOCODE DESC) BO
+        ORDER BY RN ASC)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 
 	<select id="selectBoardView"
@@ -123,5 +124,8 @@
 		UPDATE FAQ SET FAQHITS = FAQHITS+1 WHERE FAQCODE =
 		#{faqcode}
 	</update>
-
+	
+	<select id="getBoardListTotalCount" resultType="int">
+		SELECT COUNT(*) FROM BOARDS
+	</select>	
 </mapper>

@@ -11,4 +11,6 @@ public class BoardDto {
 	private String bodate;		// 게시판 작성일
 	private int bostate;		// 게시판 상태 
 	private int bohits;
+	private int bonum;
+	private int borpcount;
 }

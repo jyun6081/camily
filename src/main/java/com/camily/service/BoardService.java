@@ -13,7 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.camily.dao.BoardDao;
 import com.camily.dao.ReplyDao;
 import com.camily.dto.BoardDto;
+import com.camily.dto.CampingReviewDto;
 import com.camily.dto.FAQDto;
+import com.camily.dto.PageDto;
 import com.camily.dto.ReplyDto;
 import com.google.gson.Gson;
 
@@ -30,12 +32,52 @@ public class BoardService {
 	private HttpSession session;
 
 	// 게시판 리스트 기능
-	public ModelAndView boardList() {
+	public ModelAndView boardList(String page) {
 		System.out.println("BoardService.boardList() 호출");
 		ModelAndView mav = new ModelAndView();
-		ArrayList<BoardDto> boardList = badao.selectBoardList();
-
+		
+		int selPage = 1;
+		
+		if(page != null) {
+			selPage = Integer.parseInt(page);
+		}
+        
+		int boardListTotalCount = badao.getBoardListTotalCount();
+		
+		int pageCount = 10;
+		int pageNumCount = 5;
+		int startRow = 1 + (selPage - 1) * pageCount;
+		int endRow = selPage * pageCount;
+		if (endRow > boardListTotalCount) {
+			endRow = boardListTotalCount;
+		}
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		
+		ArrayList<BoardDto> boardList = badao.selectBoardList(startRow, endRow);
+		
+		for(int i = 0 ; i < boardList.size(); i++) {
+			int rpcount = rdao.replyCount(boardList.get(i).getBocode());
+			boardList.get(i).setBorpcount(rpcount);
+		}
+		
+		int maxPage = (int)( Math.ceil(  (double)boardListTotalCount/pageCount  ) );
+		
+		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;
+		
+		int endPage = startPage + pageNumCount - 1;
+		
+		if( endPage > maxPage ) {
+			endPage = maxPage;
+		}
+		PageDto pageDto = new PageDto();
+		pageDto.setPage(selPage);
+		pageDto.setMaxPage(maxPage);
+		pageDto.setStartPage(startPage);
+		pageDto.setEndPage(endPage);
+		
 		mav.addObject("boardList", boardList);
+		mav.addObject("pageDto", pageDto);
 		mav.setViewName("board/BoardList");
 		return mav;
 	}

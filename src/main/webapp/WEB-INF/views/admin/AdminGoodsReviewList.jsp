@@ -124,7 +124,7 @@
 											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span>
 										</c:when>
 										<c:otherwise>
-											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="adminboardList?page=${pageDto.page - 1}"><i class="fa-solid fa-angle-left"></i></a></span>
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="adminboardList?page=${pageDto.page - 1}"><i class="fa-solid fa-angle-left" style="color: white;"></i></a></span>
 										</c:otherwise>
 									</c:choose>
 									<c:forEach begin="${pageDto.startPage }" end="${pageDto.endPage }" var="num" step="1">
@@ -142,7 +142,7 @@
 											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-right"></i></span>
 										</c:when>
 										<c:otherwise>
-											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="adminboardList?page=${pageDto.page + 1}"><i class="fa-solid fa-angle-right"></i></a></span>
+											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><a href="adminboardList?page=${pageDto.page + 1}"><i class="fa-solid fa-angle-right" style="color: white;"></i></a></span>
 										</c:otherwise>
 									</c:choose>
 								</div>
