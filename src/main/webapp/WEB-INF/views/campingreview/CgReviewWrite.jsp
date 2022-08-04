@@ -176,15 +176,15 @@ $(document).ready(function() {
 						<div id="myform">
 							<span class="text-bold">별점을 선택해주세요</span> <br>
 						<fieldset>
-							<input type="radio" name="cgstarating" value="5" id="rate1"><label
+							<input type="radio" name="cgrvstarating" value="5" id="rate1"><label
 								for="rate1">★</label>
-							<input type="radio" name="cgstarating" value="4" id="rate2"><label
+							<input type="radio" name="cgrvstarating" value="4" id="rate2"><label
 								for="rate2">★</label>
-							<input type="radio" name="cgstarating" value="3" id="rate3"><label
+							<input type="radio" name="cgrvstarating" value="3" id="rate3"><label
 								for="rate3">★</label>
-							<input type="radio" name="cgstarating" value="2" id="rate4"><label
+							<input type="radio" name="cgrvstarating" value="2" id="rate4"><label
 								for="rate4">★</label>
-							<input type="radio" name="cgstarating" value="1" id="rate5"><label
+							<input type="radio" name="cgrvstarating" value="1" id="rate5"><label
 								for="rate5">★</label>
 						</fieldset>
 						</div>
@@ -257,7 +257,7 @@ $(document).ready(function() {
 		function goWrite(form) {
 			var title = form.cgrvtitle.value;
 			var content = form.cgrvcontents.value;
-			var star = form.cgstarating.value;
+			var star = form.cgrvstarating.value;
 
 			if (title.trim() == '') {
 				alert("제목을 입력해주세요");
