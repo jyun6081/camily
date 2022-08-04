@@ -195,8 +195,11 @@
 				</div>
 			</div>
 		</div>
-						<!-- <div class="wrap-table-shopping-cart"> -->
-							<table class="table-shopping-cart">
+		
+						<div class="col-9" style="padding-top: 30px; margin: auto; font-family: Poppins-Bold;">
+                         <div class="bg-light rounded p-4">                       
+                          <div class="table-responsive">
+							<table class="table">
 								<thead>
 								<tr class="table_head">
 									<th class="column-1">구매자아이디</th>
@@ -227,18 +230,12 @@
 									<input type="hidden" name="gimage" value="${campingpurchase.gimage }">
 									</td>
 								</tr>
-								</tbody>
-								
+								</tbody>								
 							</table>
-						<!-- </div> -->
-						
-	<!-- Load more -->
-	<div class="flex-c-m flex-w w-full p-t-45">
-		<a href="#"
-			class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-			위로가기(◦'⌣'◦)</a>
-	</div>	
-	</form>
+                           </div>
+                          </div>                       
+                         </div>
+	                 </form>
 
     <!-- 주소확인 모달 시작 -->
     <div class="modal fade" id="addCheck" tabindex="-1" role="dialog"
