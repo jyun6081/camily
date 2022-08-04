@@ -107,7 +107,6 @@
 				<!-- Search product -->
 				<div class="dis-none panel-search w-full p-t-10 p-b-15">
 					<form action="campingList" method="get">
-						<button type="submit" class="p-2 flex-c-m stext-101 cl0 bg1 hov-btn1 p-lr-15 trans-04" style="border-radius: 3px; float: right;">검색</button>
 						<div style="display: flex;">
 							<input type="checkbox" name="info" id="elect" value="elect" style="display: none;">
 							<label for="elect" class="btn btn-light p-2 mr-3" style="font-weight: bold;">전기</label>
@@ -137,6 +136,7 @@
 								<i class="zmdi zmdi-search"></i>
 							</button>
 							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="searchKeyword" placeholder="Search" onkeydown="searchCamp(event)">
+							<button type="submit" class="p-2 flex-c-m stext-101 cl0 bg1 hov-btn1 p-lr-15 trans-04" style="border-radius: 3px; width: 100px">검색하기</button>
 						</div>
 					</form>
 				</div>

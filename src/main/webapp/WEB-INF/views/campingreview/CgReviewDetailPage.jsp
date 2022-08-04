@@ -87,7 +87,7 @@
 							<div>
 							<img src="${cgrvDetail.caimage }" style="height: 30%; width: 30%;">
 							<p class="stext-117" style="color: black;">
-								캠핑장 : 🌈${cgrvDetail.caname}🌈
+								캠핑장 : <a href="campingView?cacode=${cgrvDetail.cgrvcacode }">🌈${cgrvDetail.caname}🌈</a>
 							</p>
 							
 							<p class="mt-1" style="color: black;"> 별점 : 
@@ -110,7 +110,7 @@
 							</div>
 							
 							<div>					
-							<p class="stext-115 p-b-26" style="color: black;">
+							<p class="stext-115 p-b-26 p-t-26" style="color: black;">
 								${cgrvDetail.cgrvcontents }
 							
 							</p>
@@ -130,7 +130,9 @@
 			  </div>
 			</div>
 	</section>	
-	
+	<br>
+	<br>
+	<br>
 		
 
 	<!-- Footer -->

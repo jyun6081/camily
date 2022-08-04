@@ -82,14 +82,15 @@
 							<div class="p-t-40">
 							
 							<div id="bobtn">
-							<c:if test="${sessionScope.loginId  == 'admin'}">
-								<a class="btn btn-outline-success"
-									href="FAQModify?faqcode=${FAQView.faqcode }">수정</a> <a
-									class="btn btn-outline-success"
-									href="FAQDelete?faqcode=${FAQView.faqcode }">삭제</a>
-							</c:if>
 							<a class="btn btn-success"
 									href="FAQList">목록</a>
+							<c:if test="${sessionScope.loginId  == 'admin'}">
+								<a class="btn btn-success"
+									href="FAQModify?faqcode=${FAQView.faqcode }">수정</a> <a
+									class="btn btn-danger"
+									href="FAQDelete?faqcode=${FAQView.faqcode }">삭제</a>
+							</c:if>
+							
 							</div>
 							
 						</div>
@@ -101,8 +102,9 @@
 			</div>
 		</div>
 	</section>
-
-
+	<br>
+	<br>
+	<br>
 
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/includes/Footer.jsp"%>

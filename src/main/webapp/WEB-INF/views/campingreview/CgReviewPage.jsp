@@ -142,7 +142,7 @@
 									
 
 									<p class="stext-117" style="color: black;">
-										🌈${cgrvList.caname}🌈</p>
+										<a href="campingView?cacode=${cgrvList.cgrvcacode }">🌈${cgrvList.caname}🌈</a></p>
 
 									<p class="mt-1">
 										별점 :
