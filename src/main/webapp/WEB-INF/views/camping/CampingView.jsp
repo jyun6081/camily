@@ -979,7 +979,7 @@
 	}
 
 	function campingReservation(){
-		var loginId = "${sessionScope.loginId}"
+		var loginId = "${sessionScope.loginId}";
 		console.log(loginId.length);
 		if(loginId.length > 0){
 			$("#campingReservationForm").submit();
