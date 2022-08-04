@@ -45,4 +45,11 @@
 		SET RPCONTENTS = #{rpcontents}
 		WHERE RPCODE = #{rpcode}
 	</update>
+	
+	<select id="replyCount" resultType="int">
+		SELECT COUNT(*)
+		FROM REPLYS
+		WHERE RPBOCODE = #{bocode}
+		AND RPSTATE = 1
+	</select>
 </mapper>

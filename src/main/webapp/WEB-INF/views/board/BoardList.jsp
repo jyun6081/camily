@@ -115,7 +115,8 @@
 								<c:forEach items="${boardList}" var="boardList">
 									<tr>
 										<td>${boardList.bonum }</td>
-										<td><a href="boardView?bocode=${boardList.bocode }">${boardList.botitle }</a></td>
+										<td><a href="boardView?bocode=${boardList.bocode }">${boardList.botitle }</a> 💬
+										[ ${boardList.borpcount } ]</td>
 										<td><i class="fa-regular fa-user"></i> ${boardList.bomid }</td>
 										<td><i class="fa-regular fa-calendar"></i>
 											${boardList.bodate }</td>
@@ -137,7 +138,7 @@
 							<button type="button" class="btn btn-outline-secondary m-2" onclick="location.href='/controller/write'" style="float: right;">글작성</button>
 						</c:if>
 						<!-- Pagination 시작 -->
-								<div class="flex-c-m flex-w w-full p-t-45" style="margin-top: auto; margin-right: auto;">
+								<div class="flex-c-m flex-w" style="margin-top: auto; margin-right: auto;">
 									<c:choose>
 										<c:when test="${pageDto.page <= 1}">
 											<span class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1"><i class="fa-solid fa-angle-left"></i></span>

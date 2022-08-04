@@ -13,7 +13,7 @@
                 FROM BOARDS 
                 WHERE BOSTATE = 1
                 ORDER BY BOCODE DESC) BO
-        ORDER BY RN DESC)
+        ORDER BY RN ASC)
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 

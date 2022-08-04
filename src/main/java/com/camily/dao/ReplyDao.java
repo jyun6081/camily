@@ -18,6 +18,8 @@ public interface ReplyDao {
 
 	int updateReply(ReplyDto reply);
 
+	int replyCount(int bocode);
+
 
 	
 

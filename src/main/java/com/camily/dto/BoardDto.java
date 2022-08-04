@@ -12,4 +12,5 @@ public class BoardDto {
 	private int bostate;		// 게시판 상태 
 	private int bohits;
 	private int bonum;
+	private int borpcount;
 }

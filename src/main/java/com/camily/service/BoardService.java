@@ -55,6 +55,12 @@ public class BoardService {
 		System.out.println("endRow : " + endRow);
 		
 		ArrayList<BoardDto> boardList = badao.selectBoardList(startRow, endRow);
+		
+		for(int i = 0 ; i < boardList.size(); i++) {
+			int rpcount = rdao.replyCount(boardList.get(i).getBocode());
+			boardList.get(i).setBorpcount(rpcount);
+		}
+		
 		int maxPage = (int)( Math.ceil(  (double)boardListTotalCount/pageCount  ) );
 		
 		int startPage = (int)(( Math.ceil((double)selPage/pageNumCount)) - 1) * pageNumCount + 1;

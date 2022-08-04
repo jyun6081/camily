@@ -90,110 +90,6 @@
 	<!-- memberModal -->
 	<%@ include file="/WEB-INF/views/member/memberModal.jsp"%>
 	<!-- EndmemberModal -->
-
-	
-
-	<!-- Content page -->
-	<%-- <section class="bg0 p-t-62 p-b-60" >
-		<div class="container">
-			<div class="row" >
-				<div class="col-md-8 col-lg-9 p-b-80">
-					<div class="p-r-45 p-r-0-lg">
-						<!-- item blog -->
-						<div class="section-reply-title">
-								<h5>캠핑용품 REVIEW </h5><h6>캠핑용품을 사용해보시고 후기를 남겨보세요.</h6>
-						</div>
-						<c:forEach items="${goodsReviewList }" var="gorvList"> 
-						<div class="p-b-63">
-							<span class="ltext-108 cl2 hov-cl1 trans-04">NO.${goods.gorvcode }</span>
-							<a href="goreviewdetailpage?gorvcode=${gorvList.gorvcode }" class="hov-img0 how-pos5-parent rounded">
-								<img src="${pageContext.request.contextPath}/resources/campingShopfileUpLoad/${gorvList.goimage }" alt="IMG">	
-								
-							</a>
-	
-							<div class="p-t-32">
-								<!-- <h4 class="p-b-15">
-								
-									<a href="goreviewdetailpage" class="ltext-108 cl2 hov-cl1 trans-04">
-										 
-									
-									</a>
-								</h4> -->
-
-								<p class="stext-117" style="color: black; font-weight: bolder;">
-									제목 : ${gorvList.gorvtitle }
-								</p>
-								
-								<p class="stext-117" style="color: black; font-weight: bolder;">
-									제품명 : 🌈${gorvList.goname }🌈 									
-								</p>
-								
-								<p class="mt-1"> 별점 : 
-								   <c:if test="${gorvList.gorvstarating == 1 }">
-								   <i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${gorvList.gorvstarating == 2 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${gorvList.gorvstarating == 3 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${gorvList.gorvstarating == 4 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								   <c:if test="${gorvList.gorvstarating == 5 }">
-								   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-								   </c:if>
-								</p>
-								
-								
-								
-								
-								
-
-								<div class="flex-w flex-sb-m p-t-18">
-									<span class="flex-w flex-m stext-111 cl2 p-r-30 m-tb-10">
-										<span>
-											<span class="cl4"></span><i class="fa-regular fa-user"></i> ${gorvList.gorvmid } 
-											<span class="cl12 m-l-4 m-r-6">|</span>
-										</span>
-										<span>
-											<span class="cl4"></span><i class="fa-regular fa-calendar"></i> ${gorvList.gorvdate }
-											<span class="cl12 m-l-4 m-r-6">|</span>
-										</span>
-										<span>
-											<i class="fa-regular fa-eye"></i> 조회수 ${gorvList.gorvhits }
-										</span>
-									</span>
-									<a href="goreviewdetailpage?gorvcode=${gorvList.gorvcode }" class="stext-101 cl2 hov-cl1 trans-04 m-tb-10">
-										상세보기
-
-										<i class="fa fa-long-arrow-right m-l-9"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-						</c:forEach> 		
-						
-						<!-- Pagination -->
-						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-								1
-							</a>
-
-							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-								2
-							</a>
-
-						
-			
-						</div>
-					</div>	
-				</div>
-	
-			</div>
-		</div>
-	</section> --%>	
 	
 	<section class="bg0 p-t-62 p-b-60">
 
@@ -281,19 +177,7 @@
 							</div>
 						</div>
 					</c:forEach>
-					<!-- Pagination -->
-						<div class="flex-l-m flex-w w-full p-t-10 m-lr--7">
-							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
-								1
-							</a>
-
-							<a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7">
-								2
-							</a>
-
-						
-			
-						</div>
+					
 				</div>
 			</div>
 		</div>
