@@ -147,7 +147,7 @@
                                   		<c:forEach items="${memberList }" var="member" >
 	                                        <tr class="font-weight-bold">
 	                                        	<td class="align-middle">
-	                                        		${member.mid }
+	                                        		${member.mid } <c:if test="${member.mkakaokey != null }"> <span style="color: #ecb601;">(카카오 회원)</span> </c:if>
 	                                        	</td>
 	                                            <td class="align-middle font-weight-bold" >
 	                                            	${member.mname }
