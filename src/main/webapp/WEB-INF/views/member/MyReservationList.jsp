@@ -147,7 +147,6 @@
 										<!-- ${myReservationInfo.totalprice}원 -->
 									</td>
 									<td>
-										<fmt:formatDate var="now" value="${today}" pattern="yyyy-MM-dd"/>
 										<c:if test="${myReservationInfo.endday < now}">
 											<a href="cpWrite?recacode=${myReservationInfo.recacode }&recode=${myReservationInfo.recode}" class="flex-c-m stext-101 cl0 size-80 bg1 bor1 hov-btn1 trans-04">후기작성</a>
 										</c:if>

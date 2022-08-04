@@ -288,6 +288,7 @@ public class CampingService {
 		ModelAndView mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("loginId");
 		System.out.println("loginId : " + loginId);
+		System.out.println("totalprice : " + totalprice);
 		if(loginId == null) {
 			/*
 			String referer = request.getHeader("Referer");
@@ -349,7 +350,7 @@ public class CampingService {
 			mav.setViewName("redirect:/");
 		}else {
 			ArrayList<ReservationDto> myReservationList = cdao.getMyReservationList(loginId);
-								
+			System.out.println("myReservationList.size() : " + myReservationList.size());
 			for (int i = 0; i < myReservationList.size(); i++) {
 				
 				String startday = cdao.getStartday(myReservationList.get(i).getRecode());

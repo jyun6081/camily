@@ -49,7 +49,7 @@ public interface CampingDao {
 	@Select("SELECT * FROM MEMBERS WHERE MID = #{loginId}")
 	MemberDto getMyInfo(String loginId);
 
-	@Insert("INSERT INTO RESERVATION(RECODE, RECACODE, REMID, REMNAME, REMTEL, REMEMAIL, REREQUEST, RECRNAME, RECRNUM, REPEOPLE, REDAY, RESTATE) VALUES(#{recode}, #{recacode}, #{remid}, #{remname}, #{remtel}, #{rememail}, #{rerequest}, #{recrname}, #{recrnum}, #{repeople}, #{reday}, 1)")
+	@Insert("INSERT INTO RESERVATION(RECODE, RECACODE, REMID, REMNAME, REMTEL, REMEMAIL, REREQUEST, RECRNAME, RECRNUM, REPEOPLE, REDAY, REPRICE, RESTATE) VALUES(#{recode}, #{recacode}, #{remid}, #{remname}, #{remtel}, #{rememail}, #{rerequest}, #{recrname}, #{recrnum}, #{repeople}, #{reday}, #{reprice}, 1)")
 	void campingReservation(ReservationDto reservationInfo);
 
 	ArrayList<ReservationDto> getMyReservationList(String loginId);
