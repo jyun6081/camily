@@ -349,7 +349,6 @@ public class CampingService {
 			mav.setViewName("redirect:/");
 		}else {
 			ArrayList<ReservationDto> myReservationList = cdao.getMyReservationList(loginId);
-								
 			for (int i = 0; i < myReservationList.size(); i++) {
 				
 				String startday = cdao.getStartday(myReservationList.get(i).getRecode());

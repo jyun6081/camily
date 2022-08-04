@@ -340,13 +340,6 @@
 <script type="text/javascript">
 try {
  function kakaoshare(gcompanyname,gname,gprice,gimage,gcontents,gcategory,gcode){
-	 console.log("gcompanyname :"+ gcompanyname);	
-	 console.log("gname :"+ gname);	
-	 console.log("gprice :"+ gprice);	
-	 console.log("gimage :"+ gimage);	
-	 console.log("gcontents :"+ gcontents);	
-	 console.log("gcategory :"+ gcategory);	
-	 console.log("gcode :"+ gcode);
 	 Kakao.init('ff44da0c10c3fe434ba307170a916ce5')
 	    Kakao.Link.sendDefault({
 	      objectType: 'feed',
