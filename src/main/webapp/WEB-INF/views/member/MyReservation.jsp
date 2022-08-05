@@ -73,11 +73,10 @@
 								</c:choose>
 							</div>
 							<div class="col-xl-7 m-lr-auto m-b-50">
-								<div style="font-size: 25px; font-weight: bold;">${myReservationInfo.recrname}</div>
-								<div style="font-size: 20px;">${myReservationInfo.recrnum}</div>
-								<div style="font-size: 20px;"><span>${myReservationInfo.startday}</span> ~
+								<div style="font-size: 25px; font-weight: bold;">${myReservationInfo.recrname} - ${myReservationInfo.recrnum}</div>
+								<div style="font-size: 20px;">예약일자 : <span>${myReservationInfo.startday}</span> ~
 									<span>${myReservationInfo.endday}</span></div>
-								<div style="font-size: 20px;">${myReservationInfo.repeople}명</div>
+								<div style="font-size: 20px;">예약인원 :  ${myReservationInfo.repeople}명</div>
 							</div>
 						</div>
 						<hr>
