@@ -202,7 +202,7 @@
 
 						<div class="md-form mb-3">
 							<label class="small mb-1">전화번호</label> <input type="text"
-								id="infoMtel" class="form-control" name="mtel"
+								id="infoMtel" class="form-control validate" name="mtel"
 								readonly="readonly">
 						</div>
 						<div class="md-form mb-3">
@@ -224,7 +224,7 @@
 						<div class="row modifyAddrForm" style="display: none">
 							<div class="col-sm-6 md-form mb-3">
 								<input type="text" id="sample6_postcode2"
-									class="form-control postcode" placeholder="우편번호"
+									class="form-control postcode validate" placeholder="우편번호"
 									name="mpostcode">
 							</div>
 							<div class="col-sm-6 md-form mb-3">
@@ -234,19 +234,19 @@
 						</div>
 						<div class="md-form mb-3 modifyAddrForm" style="display: none">
 							<input type="text" id="sample6_address2"
-								class="form-control address" placeholder="주소"
+								class="form-control address validate" placeholder="주소"
 								name="maddress">
 						</div>
 
 						<div class="row modifyAddrForm" style="display: none">
 							<div class="col-sm-6 md-form mb-3">
 								<input type="text" id="sample6_detailAddress2"
-									class="form-control detailAddr" placeholder="상세주소"
+									class="form-control detailAddr validate" placeholder="상세주소"
 									name="mdetailAddr">
 							</div>
 							<div class="col-sm-6 md-form mb-3">
 								<input type="text" id="sample6_extraAddress2"
-									class="form-control extraAddr" placeholder="참고항목"
+									class="form-control extraAddr validate" placeholder="참고항목"
 									name="mextraAddr">
 							</div>
 						</div>

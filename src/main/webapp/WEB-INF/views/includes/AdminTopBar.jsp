@@ -95,6 +95,7 @@
 								<li><a href="adminCamping">캠핑장 목록</a></li>
 								<li><a href="adminCampingInsertPage">캠핑장 등록</a></li>
 								<li><a href="adminCampingQuestionPage">캠핑장 문의글 확인</a></li>
+								<li><a href="adminReservationPage">캠핑장 예약 확인</a></li>
 							</ul>
 						</li>
 					</ul>

@@ -185,6 +185,7 @@
 							</span>
 						</div>
 					</div>
+					<c:set var="today" value="<%=new java.util.Date()%>" />
 					<fmt:formatDate var="now" value="${today}" pattern="yyyy-MM-dd"/>
 					<c:choose>
 						<c:when test="${myReservationInfo.restate == 0}">
@@ -196,10 +197,10 @@
 							<c:choose>
 								<c:when test="${myReservationInfo.startday > now}">
 									<form action="cancelReservation" method="post" class="bg0 p-t-75 p-b-85">
-										<input type="hidden" name="recode" value="${myReservationInfo.recode}">
+										<input type="hidden" name="recode" value="${myReservationInfo.recode}">									
 										<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 											예약 취소하기
-										</button>
+										</button>										
 									</form>
 								</c:when>
 								<c:otherwise>
