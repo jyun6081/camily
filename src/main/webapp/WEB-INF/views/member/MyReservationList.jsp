@@ -74,9 +74,9 @@
 }
 
 .grid{
-			display: grid;
-			grid-template-columns: 1fr 80px
-		}
+	display: grid;
+	grid-template-columns: 1fr 80px
+}
 </style>
 
 </head>
