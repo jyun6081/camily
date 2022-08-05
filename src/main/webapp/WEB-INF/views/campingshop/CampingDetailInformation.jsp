@@ -494,10 +494,10 @@ function requestPay() {
     }, function (rsp) { // callback
         if (rsp.success) {
             alert("결제성공입니다.");
-            //$("#goobsform").submit();
+            $("#goobsform").submit();
         } else {
         	alert("결제실패입니다.");
-        	$("#goobsform").submit();
+        	//$("#goobsform").submit();
         }
     });	
 }

@@ -353,11 +353,6 @@ try {
 	          webUrl:'http://121.65.47.77:7772/controller/campingDetailPage?gcode='+gcode,
 	        },
 	      },
-	      social: {
-	        likeCount: 286,
-	        commentCount: 45,
-	        sharedCount: 845,
-	      },
 	      buttons: [
 	        {
 	          title: '웹으로 보기',
